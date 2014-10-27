@@ -1,0 +1,14 @@
+/*
+Theme Name: TMBR Framework
+
+Author: TMBR - A Creative Agency
+Author URI: http://www.wearetmbr.com
+Description: <strong>DESCRIPTION</strong>: We've carefully constructed the most clean and minimalist theme available anywhere for designers/developers to use as a base/foundation to build websites for clients or to build completely custom themes from scratch to release faster. Clean, semi-minified, unformatted and valid code, SEO-friendly, no programmer comments, standardized and as white label as possible and most importantly, CSS reset for cross-browser-compatability and no intrusive visual CSS styles added whatsoever. A perfect skeleton theme that blows any others like it (the subsequent underscores.me for example) completely out of the water, as they're simply too overcomplicated for what people really want in this kind of theme. Now comes with jQuery enqueued and ready to go. 
+
+Tags: 
+Text Domain: 
+
+*/
+
+@import "assets/css/main.css";
+@import "assets/css/responsive.css";

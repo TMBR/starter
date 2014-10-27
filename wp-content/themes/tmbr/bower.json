@@ -1,0 +1,31 @@
+{
+  "name": "TMBR Starter Theme",
+  "version": "0.1",
+  "homepage": "https://github.com/TMBR/site-templates",
+  "authors": [
+    "Dev Team <devs@wearetmbr.com>"
+  ],
+  "description": "Starter theme for WordPress sites",
+  "keywords": [
+    "bootstrap",
+    "owl",
+    "slider",
+    "tmbr"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "assets/vendor",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.2.0",
+    "owlcarousel": "~1.3.2"
+  },
+  "devDependencies": {
+  }
+}

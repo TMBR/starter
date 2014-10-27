@@ -1,0 +1,12 @@
+LEFT TO DO - TMBR THEME
+
+- add query posts (copy from Brain Farm)
+- add font awesome style sheet to CSS (@import) and example of how to use
+- add google fonts to CSS
+- add owl carousel example
+- add meta dump to loop, for example of info that can be output
+- set up main.js to work with WP's jquery
+- add standard media-queries to responsive.js
+- meta viewport
+- move page.php to page templates file
+- loop-nav cleanup
