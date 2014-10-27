@@ -1,3 +1,4 @@
-/node_modules
-/assets/components
-
+assets/components
+assets/scripts/*.js
+assets/scripts/*.map
+node_modules
