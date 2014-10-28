@@ -4,7 +4,6 @@
   "author": "Andrew Martin",
   "description": "A basic gulp setup",
   "devDependencies": {
-    "coffee-script": "~1.7.1",
     "coffeeify": "~0.6.0",
     "event-stream": "~3.1.5",
     "gulp": "~3.8.0",
