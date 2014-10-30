@@ -1,6 +1,6 @@
 watch = require('gulp-watch')
 _ = require('./node_modules/underscore')
-clean = require('gulp-clean')
+rimraf = require('rimraf')
 CONF = require('./gulp/config')
 gulp = require('./gulp')(CONF.tasks)
 es = require('event-stream')
@@ -46,12 +46,8 @@ gulp.task 'copy', ->
   )
 
 gulp.task 'clean', ->
-  gulp.src([
-    'public/**/*'
-    'assets/scripts/**/*.js'
-  ],
-    read: false
-  ).pipe clean()
+  rimraf.sync('public/*')
+  rimraf.sync('assets/scripts/**/*.js')
 
 gulp.task 'compile', [
   'coffee'

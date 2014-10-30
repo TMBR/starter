@@ -37,8 +37,9 @@
     "vinyl-source-stream": "~0.1.1"
   },
   "dependencies": {
-    "underscore": "~1.6.0",
     "browser-sync": "~0.7.4",
-    "coffee-script": "~1.7.1"
+    "coffee-script": "~1.7.1",
+    "rimraf": "^2.2.8",
+    "underscore": "~1.6.0"
   }
 }
