@@ -18,13 +18,13 @@ gulp.task 'watch', ->
   gulp.watch [
     'assets/stylesheets/**/*.scss'
   ], [
-    'sass'
+    'build'
   ]
 
   gulp.watch [
     '**/*.coffee'
   ], [
-    'coffee'
+    'build'
   ]
 
   gulp.watch [
