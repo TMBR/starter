@@ -13511,7 +13511,7 @@ function makeArray( obj ) {
 });
 
 /*!
- * hoverIntent v1.8.0 // 2014.06.29 // jQuery v1.9.1+
+ * hoverIntent v1.8.1 // 2014.08.11 // jQuery v1.9.1+
  * http://cherne.net/brian/resources/jquery.hoverIntent.html
  *
  * You may use hoverIntent under the terms of the MIT license. Basically that
@@ -13913,7 +13913,7 @@ function makeArray( obj ) {
 })(jQuery);
 
 /*!
-* jQuery Cycle2; version: 2.1.5 build: 20140415
+* jQuery Cycle2; version: 2.1.6 build: 20141007
 * http://jquery.malsup.com/cycle2/
 * Copyright (c) 2014 M. Alsup; Dual licensed: MIT/GPL
 */
@@ -13922,7 +13922,7 @@ function makeArray( obj ) {
 ;(function($) {
 "use strict";
 
-var version = '2.1.5';
+var version = '2.1.6';
 
 $.fn.cycle = function( options ) {
     // fix mistakes with the ready state
@@ -14828,7 +14828,7 @@ $.extend( c2.API, {
         var opts = this.opts();
         if ( opts.busy && ! opts.manualTrump )
             return;
-        
+
         var count = opts.reverse ? -1 : 1;
         if ( opts.allowWrap === false && ( opts.currSlide + count ) >= opts.slideCount )
             return;
@@ -14868,7 +14868,9 @@ $.extend( c2.API, {
             opts.slides.removeClass( opts.slideActiveClass );
         }
         opts.slides.each(function() {
-            $(this).removeData();
+            var slide = $(this);
+            slide.removeData();
+            slide.removeClass( opts.slideClass );
             clean( this, 'parsedAttrs', false );
         });
     },

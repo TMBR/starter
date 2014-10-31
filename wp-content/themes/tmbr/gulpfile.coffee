@@ -1,6 +1,7 @@
 watch = require('gulp-watch')
 _ = require('./node_modules/underscore')
-rimraf = require('rimraf')
+del = require('del')
+runSequence = require('run-sequence') # forthcoming in native gulp 4
 CONF = require('./gulp/config')
 gulp = require('./gulp')(CONF.tasks)
 es = require('event-stream')
@@ -45,9 +46,11 @@ gulp.task 'copy', ->
     .pipe(gulp.dest('public/fonts'))
   )
 
-gulp.task 'clean', ->
-  rimraf.sync('public/*')
-  rimraf.sync('assets/scripts/**/*.js')
+gulp.task 'clean', (cb) ->
+  del([
+    'public/**'
+    'assets/scripts/**/*.js'
+  ], cb)
 
 gulp.task 'compile', [
   'coffee'
@@ -59,13 +62,9 @@ gulp.task 'compress', [
   'uglify_vendor'
   'cssmin'
 ]
-gulp.task 'build', [
-  'clean'
-  'compile'
-  'compress'
-  'copy'
-  'rev'
-]
+gulp.task 'build', ->
+  runSequence('clean', 'compile', 'compress', 'copy', 'rev')
+
 gulp.task 'default', [
   'build'
   'watch'
