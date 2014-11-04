@@ -17,8 +17,8 @@
 <script src="<?php echo _s_revved_asset('js/vendor.min.js'); ?>"></script>
 <script src="<?php echo _s_revved_asset('js/application.min.js'); ?>"></script>
 <?php } else { ?>
-<script src="<?php echo _s_revved_asset('js/vendor.js'); ?>"></script>
-<script src="<?php echo _s_revved_asset('js/application.js'); ?>"></script>
+<script src="<?php echo _s_asset('js/vendor.js'); ?>"></script>
+<script src="<?php echo _s_asset('js/application.js'); ?>"></script>
 <?php } ?>
 
 <?php wp_footer(); ?>

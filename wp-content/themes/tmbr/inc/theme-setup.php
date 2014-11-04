@@ -45,6 +45,9 @@ function is_production() {
 	}
 }
 
+function _s_asset($target) {
+	return get_stylesheet_directory_uri() . '/public/' . $target;
+}
 
 // asset revving for serving up hashed files
 // use `gulp build` to generate new releases and builds
