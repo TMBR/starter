@@ -1,4 +1,39 @@
-## Gulp Starter Kit
+## Get Up and Running with gulp
+
+1 - Install Home Brew
+2 - bew install node
+3 - npm install -g gulp
+4 - npm install -g bower
+
+CD to your theme directory - 
+1 - npm install
+2 - bower install
+
+## Fire up gulp
+1 - gulp
+* To kill gulp watch press Ctrl C
+
+## Site specific tasks
+1 - Copy code code from repo to clean .git install
+Method 1 - copy paste
+Method 2 - 
+
+## How to config bootstrap for a specific site
+
+
+## How to add a plugin for a specific site
+1
+
+## Each time you pull from repo - 
+1 - bower install / check for new dependencys
+2 - NPM install / check for new gulp packages
+
+
+
+
+
+
+
 
 ## This project uses gulp
 
