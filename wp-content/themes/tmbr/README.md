@@ -1,16 +1,16 @@
 ## Get Up and Running with gulp
 
-1 - Install Home Brew
-2 - bew install node
-3 - npm install -g gulp
-4 - npm install -g bower
+1. Install Home Brew
+2. brew install node
+3. npm install -g gulp
+4. npm install -g bower
 
 CD to your theme directory - 
-1 - npm install
-2 - bower install
+1. npm install
+2. bower install
 
 ## Fire up gulp
-1 - gulp
+1. gulp
 * To kill gulp watch press Ctrl C
 
 ## Site specific tasks
