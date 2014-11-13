@@ -1,6 +1,6 @@
 ## Get Up and Running with gulp
 
-1. Install Home Brew
+1. brew install wget - http://brew.sh/
 2. brew install node
 3. npm install -g gulp
 4. npm install -g bower
