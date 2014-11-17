@@ -11,14 +11,11 @@ Run the following commands from anywhere:
 
 ## Using Gulp in Development
 
-CD to your theme directory -
+`cd` to your theme directory
 
 1. `npm install`
 2. `bower install`
-
-## Fire up gulp
-
-1. `gulp`
+3. `gulp`
 
 **To kill gulp watch press Ctrl C**
 
@@ -48,30 +45,50 @@ CD to your theme directory -
 
 ---
 
-## How to add a javascript dependency for a specific site
+## How To Add a Vendor/Library Dependency
 
-1. `bower search % Packackge name %`
-2. `bower install % Package Handle % -d`  ( this will install and add to dependecy list )
-3. CSS/SCSS : Go to `assets/components/ %package name % /` - .css / .scss paths and add to - `assets/stylesheets/application.scss`
-4. JS : Go to `assets/components/%package name %/`  - .js path and add to - `gulp/config.js`
-5. Restart GULP : in terminal -  `CTRL C` - then `gulp`
+Ensure you're in the theme folder for the project you want
+
+### Find the Package you want
+
+One of two ways:
+
+1. `bower search {{package_name}}`
+
+OR
+
+2. Visit Bower's site, and search there: <http://bower.io/search/>
+
+
+### Install the Package Into Your Project
+
+The `-d` flag will install _and add_ to dependecy list in the bower.json file.
+
+1. `bower install -d {{package_handle}}`
+
+### Utilize it in Your Project
+
+
+1. CSS/SCSS : Go to `assets/components/{{package_handle}}/` - .css / .scss paths and add to - **`assets/stylesheets/application.scss`**
+1. JS : Go to `assets/components/{{package_handle}}/`  - .js path and add to - `gulp/config.js` in the vendor array towards the bottom.
+1. Restart Gulp: in terminal -  `ctrl+c` - then `gulp`
+
+
+## Keep Your Project Up-To-Date
+
+Check for New Dependencies/Libraries
+
+		bower install
+
+Install/Update any new Gulp Modules
+
+		npm install
 
 ---
 
 
 # TO-DO(cument)
 
-## How to config bootstrap for a specific site
-
-Use
-
-
-
-
-
-## Each time you pull from repo -
-1 - bower install / check for new dependencys
-2 - NPM install / check for new gulp packages
 
 
 
@@ -80,7 +97,6 @@ Use
 
 
 
-## This project uses gulp
 
 We are using [gulp](http://www.gulpjs.com), the amazing Javascript Task Runner, for a simple compilation of SASS and CoffeeScript files. Installation is simple.
 
