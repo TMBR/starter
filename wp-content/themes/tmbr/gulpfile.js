@@ -16,15 +16,14 @@
 
   es = require('event-stream');
 
-  browserSync = require('browser-sync');
-
-  gulp.task('browser-sync', function() {
-    return browserSync({
-      server: {
-        baseDir: './'
-      }
-    });
-  });
+  // browserSync = require('browser-sync');
+  // gulp.task('browser-sync', function() {
+  //   return browserSync({
+  //     server: {
+  //       baseDir: './'
+  //     }
+  //   });
+  // });
 
   gulp.task('watch', function() {
     gulp.watch(['assets/stylesheets/**/*.scss'], ['sass']);
