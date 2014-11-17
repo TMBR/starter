@@ -3,17 +3,11 @@
   var CONF, browserSync, del, es, gulp, runSequence, watch, _;
 
   watch = require('gulp-watch');
-
   _ = require('./node_modules/underscore');
-
   del = require('del');
-
   runSequence = require('run-sequence');
-
   CONF = require('./gulp/config');
-
   gulp = require('./gulp')(CONF.tasks);
-
   es = require('event-stream');
 
   // browserSync = require('browser-sync');
