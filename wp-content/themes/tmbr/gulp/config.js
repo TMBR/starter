@@ -40,8 +40,8 @@
         'assets/components/twbs-bootstrap-sass/vendor/assets/javascripts/bootstrap/transition.js'
       ],
       concat_app: [
-        'assets/scripts/_frontpage.js'
-        'assets/scripts/index.js'
+        'assets/scripts/_frontpage.js',
+        'assets/scripts/index.js',
         'assets/scripts/_slider.js'
       ]
     }
