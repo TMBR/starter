@@ -46,6 +46,18 @@ CD to your theme directory -
 		bower install
 		npm install
 
+---
+
+## How to add a javascript dependency for a specific site
+
+1 - bower search % Packackge name %
+2 - bower install % Package Handle % -d  ( this will install and add to dependecy list )
+3 - CSS/SCSS : Go to assets/components/ %package name % / - .css / .scss paths and add to - assets/stylesheets/application.scss
+4 - JS : Go to assets/components/%package name %/  - .js path and add to - gulp/config.js
+5 - Restart GULP : in terminal -  CTRL C - then gulp
+
+---
+
 
 # TO-DO(cument)
 
@@ -53,9 +65,9 @@ CD to your theme directory -
 
 Use
 
-## How to add a plugin for a specific site
 
-1
+
+
 
 ## Each time you pull from repo -
 1 - bower install / check for new dependencys
