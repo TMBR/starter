@@ -7,7 +7,7 @@
   shell = require('gulp-shell');
 
   module.exports = function() {
-    return gulp.task('deploy', shell.task(['sh ../../../deploy.sh']));
+    return gulp.task('deploy', shell.task(['git push origin']));
   };
 
 }).call(this);
