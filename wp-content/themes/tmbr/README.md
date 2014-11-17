@@ -62,9 +62,9 @@ OR
 
 ### Install the Package Into Your Project
 
-The `-D` flag will install _and add_ to dependecy list in the bower.json file.
+The `-S` flag will install _and add_ to dependecy list in the bower.json file.
 
-1. `bower install -D {{package_handle}}`
+1. `bower install -S {{package_handle}}`
 
 ### Utilize it in Your Project
 
