@@ -29,22 +29,22 @@ CD to your theme directory -
 1. Create a repository on GitHub (if it's not already created)
 2. Follow the steps below
 
-	cd ~/web/
-	mkdir example.dev
-	cd example.dev
-	git clone git@github.com:TMBR/starter.git html
-	cd html
-	rm -rf .git
-	cd wp-content/themes
-	mv tmbr example #change theme dir name to client-specific theme directory
-	cd ../..
-	git init
-	git remote add origin git@github.com:TMBR/example.git
-	git add --all .
-	git commit -m "initial add of new repository based off starter theme"
-	cd wp-content/themes/example
-	bower install
-	npm install
+		cd ~/web/
+		mkdir example.dev
+		cd example.dev
+		git clone git@github.com:TMBR/starter.git html
+		cd html
+		rm -rf .git
+		cd wp-content/themes
+		mv tmbr example #change theme dir name to client-specific theme directory
+		cd ../..
+		git init
+		git remote add origin git@github.com:TMBR/example.git
+		git add --all .
+		git commit -m "initial add of new repository based off starter theme"
+		cd wp-content/themes/example
+		bower install
+		npm install
 
 
 # TO-DO(cument)
