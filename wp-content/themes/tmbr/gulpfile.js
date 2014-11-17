@@ -28,7 +28,7 @@
 
   gulp.task('watch', function() {
     gulp.watch(['assets/stylesheets/**/*.scss'], ['sass']);
-    gulp.watch(['**/*.coffee'], ['coffee']);
+    gulp.watch(['assets/scripts/**/*.js'], ['concat_app']);
     return gulp.watch(['!assets/images/sprite/**/*', 'assets/images/**/*'], ['copy']);
   });
 
@@ -37,10 +37,10 @@
   });
 
   gulp.task('clean', function(cb) {
-    return del(['public/**', 'assets/scripts/**/*.js'], cb);
+    return del(['public/**'], cb);
   });
 
-  gulp.task('compile', ['coffee', 'sass', 'concat_vendor']);
+  gulp.task('compile', ['sass', 'concat_app', 'concat_vendor']);
 
   gulp.task('compress', ['uglify_app', 'uglify_vendor', 'cssmin']);
 
