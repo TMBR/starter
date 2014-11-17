@@ -1,11 +1,12 @@
 {
-  "name": "believe-labs-slate",
-  "version": "0.0.1",
-  "homepage": "http://believelabs.com",
+  "name": "tmbr-common",
+  "version": "0.1",
+  "homepage": "http://wearetmbr.com",
   "authors": [
-    "Andrew Martin <andrew@believelabs.com>"
+    "Andrew Martin <andrew@believelabs.com>",
+    "Matt Richmond <mrichmond@wearetmbr.com>"
   ],
-  "description": "BL Grunt Bower Deps",
+  "description": "TMBR Common Libraries",
   "license": "MIT",
   "private": true,
   "ignore": [
