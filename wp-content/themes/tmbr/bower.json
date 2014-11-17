@@ -1,31 +1,40 @@
 {
-  "name": "TMBR Starter Theme",
-  "version": "0.1",
-  "homepage": "https://github.com/TMBR/site-templates",
+  "name": "believe-labs-slate",
+  "version": "0.0.1",
+  "homepage": "http://believelabs.com",
   "authors": [
-    "Dev Team <devs@wearetmbr.com>"
+    "Andrew Martin <andrew@believelabs.com>"
   ],
-  "description": "Starter theme for WordPress sites",
-  "keywords": [
-    "bootstrap",
-    "owl",
-    "slider",
-    "tmbr"
-  ],
+  "description": "BL Grunt Bower Deps",
   "license": "MIT",
   "private": true,
   "ignore": [
     "**/.*",
     "node_modules",
     "bower_components",
-    "assets/vendor",
     "test",
     "tests"
   ],
   "dependencies": {
-    "bootstrap": "~3.2.0",
-    "owlcarousel": "~1.3.2"
+    "font-awesome": "~4.0.3",
+    "twbs-bootstrap-sass": "~3.1.1",
+    "jquery": "~2.1.0",
+    "jquery.easing": "~1.3.0",
+    "modernizr": "~2.8.1",
+    "jquery-migrate": "~1.2.1",
+    "jquery-hoverIntent": "*",
+    "jquery-dotimeout": "*",
+    "jquery-cycle2": "~2.1.5",
+    "fancybox": "~2.1.5",
+    "imagesloaded": "~3.1.5",
+    "jquery.cookie": "~1.4.1",
+    "jquery.validation": "~1.12.0",
+    "owl.carousel": "*"
   },
   "devDependencies": {
+    "velocity": "~0.11.7"
+  },
+  "resolutions": {
+    "jquery": "~2.1.0"
   }
 }
