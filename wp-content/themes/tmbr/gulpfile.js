@@ -25,7 +25,10 @@
   });
 
   gulp.task('copy', function() {
-    return es.merge(gulp.src(['assets/images/**/*']).pipe(gulp.dest('public/images')), gulp.src(["assets/fonts/**"]).pipe(gulp.dest('public/fonts')));
+    return es.merge(
+      gulp.src(['assets/images/**/*']).pipe(gulp.dest('public/images')),
+      gulp.src(['assets/fonts/**']).pipe(gulp.dest('public/fonts'))
+    );
   });
 
   gulp.task('clean', function(cb) {
