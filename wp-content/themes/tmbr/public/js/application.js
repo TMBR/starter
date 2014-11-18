@@ -1,8 +1,6 @@
 console.log( 'this happens only happens on the front page' );
-(function($){
-  console.log( 'I am in the slider' );
-})(jQuery);
 (function() {
+
   console.log( 'first JS in the index.js' );
 
   $(function() {
@@ -10,3 +8,7 @@ console.log( 'this happens only happens on the front page' );
   });
 
 }).call(this);
+
+(function($){
+  console.log( 'I am in the slider' );
+})(jQuery);
