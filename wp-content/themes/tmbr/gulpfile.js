@@ -21,7 +21,7 @@
   gulp.task('watch', function() {
     gulp.watch(['assets/stylesheets/**/*.scss'], ['sass']);
     gulp.watch(['assets/scripts/**/*.js'], ['concat_app']);
-    return gulp.watch(['!assets/images/sprite/**/*', 'assets/images/**/*'], ['copy']);
+    return gulp.watch(['assets/images/**/*', '!assets/images/sprite/**/*'], ['copy']);
   });
 
   gulp.task('copy', function() {
