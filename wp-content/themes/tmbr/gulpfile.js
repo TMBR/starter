@@ -35,12 +35,22 @@
     return del(['public/**'], cb);
   });
 
-  gulp.task('compile', ['sass', 'concat_app', 'concat_vendor']);
 
-  gulp.task('compress', ['uglify_app', 'uglify_vendor', 'cssmin']);
+
+  gulp.task('compile', function(){
+    return runSequence( 'sass', 'concat_app', 'concat_vendor' );
+  });
+
+  gulp.task('compress', function(){
+    return runSequence( 'uglify_app', 'uglify_vendor', 'cssmin' );
+  });
 
   gulp.task('build', function() {
-    return runSequence('clean', 'compile', 'compress', 'copy', 'rev');
+    return runSequence(
+      'clean',
+      ['copy', 'compile', 'compress'],
+      'rev'
+    );
   });
 
   gulp.task('default', ['build', 'watch']);
