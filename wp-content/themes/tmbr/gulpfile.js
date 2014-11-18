@@ -3,7 +3,6 @@
 
   CONF = require('./gulp/config');
   watch = require('gulp-watch');
-  _ = require('./node_modules/underscore');
   del = require('del');
   runSequence = require('run-sequence');
   gulp = require('./gulp')(CONF.tasks);

@@ -35,7 +35,6 @@
     "rimraf": "^2.2.8",
     "run-sequence": "^1.0.1",
     "stream-combiner": "0.0.4",
-    "underscore": "~1.6.0",
     "vinyl-source-stream": "~0.1.1"
   }
 }
