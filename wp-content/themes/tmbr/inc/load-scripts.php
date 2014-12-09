@@ -1,4 +1,23 @@
 <?php
+wp_deregister_script('jquery');
+wp_enqueue_script(
+	'jquery',
+	is_production()
+		? _s_revved_asset('js/vendor.min.js')
+		: _s_asset('js/vendor.js'),
+	array(),
+	'', // @TODO pull revved number from asset
+	true
+);
+wp_enqueue_script(
+	'application',
+	is_production()
+		? _s_revved_asset('js/application.min.js')
+		: _s_asset('js/application.js'),
+	array('jquery'),
+	'', // @TODO pull revved number from asset
+	true
+);
 
 // TYPEKIT SCRIPT
 function typekit_call() {

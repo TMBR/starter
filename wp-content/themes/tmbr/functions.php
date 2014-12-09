@@ -1,4 +1,7 @@
 <?php
+
+require_once('inc/helpers.php'); // always include this first, so other files can rely on it
+
 /*
 // WEATHER STUFF
 require_once('inc/weather/init.php');
