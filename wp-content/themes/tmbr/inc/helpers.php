@@ -2,7 +2,7 @@
 
 // is production switch for serving up compiled stylesheets
 function is_production() {
-	if(defined('ENVIRONMENT') && EVIRONMENT == 'production' || true) {
+	if(defined('ENVIRONMENT') && EVIRONMENT == 'production') {
 		return true;
 	} else {
 		return false;
