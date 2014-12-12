@@ -6,13 +6,6 @@
 
 	<title><?php wp_title(' | ', true, 'right'); ?></title>
 	<?php wp_head(); ?>
-
-    <?php if(is_production()) { ?>
-    <link rel="stylesheet" href="<?php echo _s_revved_asset('css/application.min.css'); ?>" />
-    <?php } else { ?>
-    <link rel="stylesheet" href="<?php echo _s_asset('css/application.css'); ?>" />
-    <?php } ?>
-
 </head>
 
 <body <?php body_class(); ?>>
