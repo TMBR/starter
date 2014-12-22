@@ -10,6 +10,8 @@
   var sass = require("gulp-sass");
   var runSequence = require('run-sequence');
   var rev = require('gulp-rev');
+  var rename = require('gulp-rename');
+
 
 
   var paths = {
@@ -33,22 +35,22 @@
     // Minify and copy all JavaScript (except vendor scripts)
     // with sourcemaps all the way down
     return gulp.src(paths.scripts)
-      .pipe(sourcemaps.init())
-        .pipe(uglify())
-        .pipe(concat('application.min.js'))
-      .pipe(sourcemaps.write())
+      .pipe(concat('application.js'))
+      .pipe(gulp.dest('public/js'))
+      .pipe(uglify())
+      .pipe(rename('application.min.js'))
       .pipe(gulp.dest('public/js'));
   });
 
   gulp.task('styles', function(){
     return gulp.src(paths.styles)
-      .pipe(sourcemaps.init())
-        .pipe(sass({
-          sourceComments: "map",
-          errLogToConsole: true,
-          sourceMap: "sass"
-        }))
-      .pipe(sourcemaps.write())
+      .pipe(sass({
+        sourceComments: "map",
+        errLogToConsole: true,
+        sourceMap: "sass"
+      }))
+      .pipe(gulp.dest('public/css'))
+      .pipe(rename('application.min.css'))
       .pipe(uglifycss({
         // max-line-len: 80
       }))
