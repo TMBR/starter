@@ -9,6 +9,7 @@
   var del = require('del');
   var sass = require("gulp-sass");
   var runSequence = require('run-sequence');
+  var rev = require('gulp-rev');
 
 
   var paths = {
@@ -80,11 +81,31 @@
     });
   });
 
+  gulp.task('version', function(){
+    return gulp.src(
+      [
+        'public/css/application.css',
+        'public/js/application.js',
+        'public/js/vendor.js',
+        'public/css/application.min.css',
+        'public/js/application.min.js',
+        'public/js/vendor.min.js'
+      ],
+      {
+        base: 'public'
+      })
+      .pipe(gulp.dest('public'))
+      .pipe(rev())
+      .pipe(gulp.dest('public'))
+      .pipe(rev.manifest())
+      .pipe(gulp.dest('public'));
+  });
+
   gulp.task('default', function(){
     runSequence(
       'clean',
       ['scripts', 'styles', 'images', 'fonts'],
-      'startwatch'
+      ['version', 'startwatch']
     );
   })
 
