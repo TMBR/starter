@@ -56,6 +56,7 @@
 
   gulp.task('images', function(){
     return gulp.src(paths.images)
+      .pipe(imagemin())
       .pipe(gulp.dest('public/images'));
   });
 
