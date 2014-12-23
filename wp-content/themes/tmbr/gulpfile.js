@@ -1,6 +1,7 @@
 (function() {
 
   var gulp = require('gulp');
+  var gutil = require('gulp-util');
   var concat = require('gulp-concat');
   var uglify = require('gulp-uglify');
   var uglifycss = require('gulp-uglifycss');
@@ -42,7 +43,8 @@
       .pipe(gulp.dest('public/js'))
       .pipe(uglify())
       .pipe(rename('vendor.min.js'))
-      .pipe(gulp.dest('public/js'));
+      .pipe(gulp.dest('public/js'))
+      .on('error', gutil.log);
   });
 
   gulp.task('scripts:app', function(){
@@ -51,7 +53,8 @@
       .pipe(gulp.dest('public/js'))
       .pipe(uglify())
       .pipe(rename('application.min.js'))
-      .pipe(gulp.dest('public/js'));
+      .pipe(gulp.dest('public/js'))
+      .on('error', gutil.log);
   });
   gulp.task('styles', function(){
     return gulp.src(paths.styles)
@@ -63,18 +66,21 @@
       .pipe(gulp.dest('public/css'))
       .pipe(rename('application.min.css'))
       .pipe(uglifycss())
-      .pipe(gulp.dest('public/css'));
+      .pipe(gulp.dest('public/css'))
+      .on('error', gutil.log);
   });
 
   gulp.task('images', function(){
     return gulp.src(paths.images)
       .pipe(imagemin())
-      .pipe(gulp.dest('public/images'));
+      .pipe(gulp.dest('public/images'))
+      .on('error', gutil.log);
   });
 
   gulp.task('fonts', function(){
     return gulp.src(paths.fonts)
-      .pipe(gulp.dest('public/fonts'));
+      .pipe(gulp.dest('public/fonts'))
+      .on('error', gutil.log);
   });
 
   gulp.task('startwatch', function(){
@@ -107,7 +113,8 @@
       .pipe(rev())
       .pipe(gulp.dest('public'))
       .pipe(rev.manifest())
-      .pipe(gulp.dest('public'));
+      .pipe(gulp.dest('public'))
+      .on('error', gutil.log);
   });
 
   gulp.task('default', function(){
