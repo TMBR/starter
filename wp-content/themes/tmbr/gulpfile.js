@@ -15,9 +15,12 @@
 
 
   var paths = {
-    scripts: [ // specify your scripts in dependency order
+    vendorScripts: [
+      // specify your scripts in dependency order
       'assets/components/modernizr/modernizr.js',
-
+      'assets/components/jquery/dist/jquery.js'
+    ],
+    appScripts: [
       'assets/scripts/index.js',
       'assets/scripts/_frontpage.js',
       'assets/scripts/_slider.js'
@@ -33,17 +36,23 @@
   });
 
 
-  gulp.task('scripts', function(){
-    // Minify and copy all JavaScript (except vendor scripts)
-    // with sourcemaps all the way down
-    return gulp.src(paths.scripts)
+  gulp.task('scripts:vendor', function(){
+    return gulp.src(paths.vendorScripts)
+      .pipe(concat('vendor.js'))
+      .pipe(gulp.dest('public/js'))
+      .pipe(uglify())
+      .pipe(rename('vendor.min.js'))
+      .pipe(gulp.dest('public/js'));
+  });
+
+  gulp.task('scripts:app', function(){
+    return gulp.src(paths.appScripts)
       .pipe(concat('application.js'))
       .pipe(gulp.dest('public/js'))
       .pipe(uglify())
       .pipe(rename('application.min.js'))
       .pipe(gulp.dest('public/js'));
   });
-
   gulp.task('styles', function(){
     return gulp.src(paths.styles)
       .pipe(sass({
@@ -70,7 +79,8 @@
 
   gulp.task('startwatch', function(){
     watchers = [
-      gulp.watch(paths.scripts, ['scripts']),
+      gulp.watch(paths.vendorScripts, ['scripts:vendor']),
+      gulp.watch(paths.appScripts, ['scripts:app']),
       gulp.watch(paths.styles, ['styles']),
       gulp.watch(paths.images, ['images']),
       gulp.watch(paths.fonts, ['fonts'])
@@ -103,7 +113,7 @@
   gulp.task('default', function(){
     runSequence(
       'clean',
-      ['scripts', 'styles', 'images', 'fonts'],
+      ['scripts:vendor', 'scripts:app', 'styles', 'images', 'fonts'],
       ['version', 'startwatch']
     );
   });
@@ -111,7 +121,7 @@
   gulp.task('build', function(){
     runSequence(
       'clean',
-      ['scripts', 'styles', 'images', 'fonts'],
+      ['scripts:vendor', 'scripts:app', 'styles', 'images', 'fonts'],
       'version'
     );
   });
