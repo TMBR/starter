@@ -1,9 +1,9 @@
-(function() {
+(function($) {
 
-  console.log( 'first JS in the index.js' );
+  console.log( 'first JS in the index.js homey' );
 
   $(function() {
-    return window.app = 3;
+    return window.app = 733;
   });
 
-}).call(this);
+})(jQuery);

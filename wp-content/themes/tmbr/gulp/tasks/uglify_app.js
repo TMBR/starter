@@ -11,6 +11,7 @@
 
   module.exports = function() {
     return gulp.task("uglify_app", function() {
+      console.log('doing uglify');
       return gulp.src("public/js/application.js").pipe(uglify()).pipe(rename("application.min.js")).pipe(gulp.dest("public/js"));
     });
   };
