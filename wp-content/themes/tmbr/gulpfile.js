@@ -16,11 +16,13 @@
 
   var paths = {
     scripts: [ // specify your scripts in dependency order
+      'assets/components/modernizr/modernizr.js',
+
       'assets/scripts/index.js',
       'assets/scripts/_frontpage.js',
       'assets/scripts/_slider.js'
     ],
-    styles: ['assets/stylesheets/application.scss'],
+    styles: ['assets/stylesheets/application.scss'], // do your @imports from this file, not the gulpfile
     images: ['assets/images/**'],
     fonts: ['assets/fonts/**']
   };
