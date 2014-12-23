@@ -84,9 +84,6 @@
   gulp.task('version', function(){
     return gulp.src(
       [
-        'public/css/application.css',
-        'public/js/application.js',
-        'public/js/vendor.js',
         'public/css/application.min.css',
         'public/js/application.min.js',
         'public/js/vendor.min.js'
