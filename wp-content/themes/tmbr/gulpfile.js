@@ -51,9 +51,7 @@
       }))
       .pipe(gulp.dest('public/css'))
       .pipe(rename('application.min.css'))
-      .pipe(uglifycss({
-        // max-line-len: 80
-      }))
+      .pipe(uglifycss())
       .pipe(gulp.dest('public/css'));
   });
 
