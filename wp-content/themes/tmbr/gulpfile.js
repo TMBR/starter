@@ -104,7 +104,7 @@
       ['scripts', 'styles', 'images', 'fonts'],
       ['version', 'startwatch']
     );
-  })
+  });
 
 
 
