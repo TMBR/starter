@@ -17,7 +17,7 @@
 
   var paths = {
     vendorScripts: [
-      // specify your scripts in dependency order
+      // specify your vendor scripts in dependency order
       'assets/components/modernizr/modernizr.js',
       'assets/components/jquery/dist/jquery.js'
     ],
@@ -98,7 +98,7 @@
     watchers.forEach(function(watcher, index){
       watcher.on('change', function(event){
         var relPath = event.path.replace(__dirname + '/', '');
-        gutil.log('File ' + gutil.colors.cyan(relPath) + ' was ' + gutil.colors.magenta(event.type) + '.  Running respective task...');
+        gutil.log('File \'' + gutil.colors.cyan(relPath) + '\' was ' + gutil.colors.magenta(event.type) + '.  Running respective task...');
       });
     });
   });
