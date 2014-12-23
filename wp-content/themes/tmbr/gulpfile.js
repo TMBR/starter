@@ -97,7 +97,8 @@
 
     watchers.forEach(function(watcher, index){
       watcher.on('change', function(event){
-        console.log('File ' + event.path + ' was ' + event.type + ', running tasks...');
+        var relPath = event.path.replace(__dirname + '/', '');
+        gutil.log('File ' + gutil.colors.cyan(relPath) + ' was ' + gutil.colors.magenta(event.type) + '.  Running respective task...');
       });
     });
   });
