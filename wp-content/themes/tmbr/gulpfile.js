@@ -18,8 +18,8 @@
   var paths = {
     vendorScripts: [
       // specify your vendor scripts in dependency order
-      'assets/components/modernizr/modernizr.js',
-      'assets/components/jquery/dist/jquery.js'
+      'assets/vendor/modernizr/modernizr.js',
+      'assets/vendor/jquery/dist/jquery.js'
     ],
     appScripts: [
       // You can keep your JS tidy in its own file for a specific feature.
@@ -29,7 +29,10 @@
       'assets/scripts/_frontpage.js',
       'assets/scripts/_slider.js'
     ],
-    styles: ['assets/stylesheets/application.scss'], // do your @imports from this file, not the gulpfile
+    styles: [
+      // do your @imports from this file, not the gulpfile
+      'assets/stylesheets/application.scss'
+    ],
     images: ['assets/images/**'],
     fonts: ['assets/fonts/**']
   };
