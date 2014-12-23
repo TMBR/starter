@@ -108,7 +108,13 @@
     );
   });
 
-
+  gulp.task('build', function(){
+    runSequence(
+      'clean',
+      ['scripts', 'styles', 'images', 'fonts'],
+      'version'
+    );
+  });
 
 
 
