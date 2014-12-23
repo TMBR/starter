@@ -22,6 +22,9 @@
       'assets/components/jquery/dist/jquery.js'
     ],
     appScripts: [
+      // You can keep your JS tidy in its own file for a specific feature.
+      // Nothing's important about the naming scheme, just as long as the file
+      // is included in this array, it'll come together.
       'assets/scripts/index.js',
       'assets/scripts/_frontpage.js',
       'assets/scripts/_slider.js'
