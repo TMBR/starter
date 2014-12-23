@@ -1,14 +1,14 @@
-console.log( 'this happens only happens on the front page' );
-(function() {
+(function($) {
 
-  console.log( 'first JS in the index.js' );
+  console.log( 'first JS in the index.js homey' );
 
   $(function() {
-    return window.app = 3;
+    return window.app = 733;
   });
 
-}).call(this);
+})(jQuery);
 
+console.log( 'this happens only happens on the front page' );
 (function($){
-  console.log( 'I am in the slider' );
+  console.log( 'I am in the slider dude!' );
 })(jQuery);
