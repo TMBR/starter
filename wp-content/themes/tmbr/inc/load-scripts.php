@@ -46,7 +46,7 @@ add_action( 'wp_head', 'typekit_call' );
 function cond_IE() { ?>
 
     <!--[if gte IE 6]>
-	<link rel="stylesheet" type="text/css" href="<?php bloginfo( 'template_url' ); ?>/wp-content/themes/tmbr/css/ie.css" />
+	<link rel="stylesheet" type="text/css" href="<?php echo get_template_directory_uri(); ?>/css/ie.css" />
 	<![endif]-->
 
 <?php }
