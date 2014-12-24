@@ -10,5 +10,5 @@
 
 console.log( 'this happens only happens on the front page' );
 (function($){
-  console.log( 'I am in the slider dude!' );
+  console.log( 'I am in the slider dude' );
 })(jQuery);
