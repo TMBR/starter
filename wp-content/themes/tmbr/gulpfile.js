@@ -33,6 +33,7 @@
       // do your @imports from this file, not the gulpfile
       'assets/stylesheets/application.scss'
     ],
+    stylesWatchDir: 'assets/stylesheets/**/*.scss',
     images: ['assets/images/**'],
     fonts: ['assets/fonts/**']
   };
@@ -93,7 +94,7 @@
     watchers = [
       gulp.watch(paths.vendorScripts, ['scripts:vendor']),
       gulp.watch(paths.appScripts, ['scripts:app']),
-      gulp.watch('assets/stylesheets/**/*.scss', ['styles']),
+      gulp.watch(paths.stylesWatchDir, ['styles']),
       gulp.watch(paths.images, ['images']),
       gulp.watch(paths.fonts, ['fonts'])
     ];
