@@ -8,6 +8,7 @@
     "gulp": "^3.8.9",
     "gulp-concat": "~2.2.0",
     "gulp-imagemin": "^2.0.0",
+    "gulp-livereload": "^3.0.2",
     "gulp-rename": "^1.2.0",
     "gulp-rev": "~0.3.2",
     "gulp-sass": "~1.2",

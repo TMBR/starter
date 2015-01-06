@@ -14,6 +14,7 @@
   var rename = require('gulp-rename');
 
 
+  var livereload = require('gulp-livereload');
 
   var paths = {
     vendorScripts: [
@@ -74,6 +75,7 @@
       .pipe(rename('application.min.css'))
       .pipe(uglifycss())
       .pipe(gulp.dest('public/css'))
+      .pipe(livereload())
       .on('error', gutil.log);
   });
 
@@ -125,11 +127,16 @@
       .on('error', gutil.log);
   });
 
+  gulp.task('refresh', function() {
+    livereload.listen();
+  });
+
   gulp.task('default', function(){
     runSequence(
-      'clean',
+      ['clean'],
       ['scripts:vendor', 'scripts:app', 'styles', 'images', 'fonts'],
-      ['version', 'startwatch']
+      ['version', 'startwatch'],
+      'refresh'
     );
   });
 
