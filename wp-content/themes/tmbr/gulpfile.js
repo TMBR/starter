@@ -93,7 +93,7 @@
     watchers = [
       gulp.watch(paths.vendorScripts, ['scripts:vendor']),
       gulp.watch(paths.appScripts, ['scripts:app']),
-      gulp.watch(paths.styles, ['styles']),
+      gulp.watch('assets/stylesheets/**/*.scss', ['styles']),
       gulp.watch(paths.images, ['images']),
       gulp.watch(paths.fonts, ['fonts'])
     ];
