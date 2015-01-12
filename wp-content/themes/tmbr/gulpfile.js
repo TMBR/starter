@@ -67,9 +67,7 @@
   gulp.task('styles', function(){
     return gulp.src(paths.styles)
       .pipe(sass({
-        sourceComments: "map",
-        errLogToConsole: true,
-        sourceMap: "sass"
+        precision: 10
       }))
       .pipe(gulp.dest('public/css'))
       .pipe(rename('application.min.css'))
