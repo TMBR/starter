@@ -2,11 +2,11 @@
 
 // is production switch for serving up compiled stylesheets
 function is_production() {
-	if( defined('ENVIRONMENT') && ENVIRONMENT == 'production' ) {
-		return true;
-	} else {
-		return false;
-	}
+	return ( function_exists('is_wpe') && is_wpe() );
+}
+
+function is_staging() {
+	return ( function_exists('is_wpe_snapshot') && is_wpe_snapshot() );
 }
 
 function _s_asset($target) {
