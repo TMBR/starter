@@ -8,8 +8,6 @@ function my_custom_dashboard_widgets() {
 
 global $wp_meta_boxes;
 
-
-
 wp_add_dashboard_widget('custom_help_widget', 'TMBR Starter Theme', 'custom_dashboard_help');
 
 }

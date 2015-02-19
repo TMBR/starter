@@ -1,8 +1,4 @@
-.mattTest {
-	font-size: 30px;
-}
 @import "bootstrap_overrides";
-
 
 // Fonts
 
@@ -26,10 +22,10 @@
 // Components
 @import "../vendor/twbs-bootstrap-sass/vendor/assets/stylesheets/bootstrap/_component-animations.scss";
 // @import "../vendor/twbs-bootstrap-sass/vendor/assets/stylesheets/bootstrap/_glyphicons.scss";
-// @import "../vendor/twbs-bootstrap-sass/vendor/assets/stylesheets/bootstrap/_dropdowns.scss";
+@import "../vendor/twbs-bootstrap-sass/vendor/assets/stylesheets/bootstrap/_dropdowns.scss";
 @import "../vendor/twbs-bootstrap-sass/vendor/assets/stylesheets/bootstrap/_button-groups.scss";
 @import "../vendor/twbs-bootstrap-sass/vendor/assets/stylesheets/bootstrap/_input-groups.scss";
-// @import "../vendor/twbs-bootstrap-sass/vendor/assets/stylesheets/bootstrap/_navs.scss";
+@import "../vendor/twbs-bootstrap-sass/vendor/assets/stylesheets/bootstrap/_navs.scss";
 @import "../vendor/twbs-bootstrap-sass/vendor/assets/stylesheets/bootstrap/_navbar.scss";
 @import "../vendor/twbs-bootstrap-sass/vendor/assets/stylesheets/bootstrap/_breadcrumbs.scss";
 @import "../vendor/twbs-bootstrap-sass/vendor/assets/stylesheets/bootstrap/_pagination.scss";
@@ -37,20 +33,20 @@
 @import "../vendor/twbs-bootstrap-sass/vendor/assets/stylesheets/bootstrap/_labels.scss";
 @import "../vendor/twbs-bootstrap-sass/vendor/assets/stylesheets/bootstrap/_badges.scss";
 // @import "../vendor/twbs-bootstrap-sass/vendor/assets/stylesheets/bootstrap/_jumbotron.scss";
-@import "../vendor/twbs-bootstrap-sass/vendor/assets/stylesheets/bootstrap/_thumbnails.scss";
+// @import "../vendor/twbs-bootstrap-sass/vendor/assets/stylesheets/bootstrap/_thumbnails.scss";
 @import "../vendor/twbs-bootstrap-sass/vendor/assets/stylesheets/bootstrap/_alerts.scss";
 // @import "../vendor/twbs-bootstrap-sass/vendor/assets/stylesheets/bootstrap/_progress-bars.scss";
 // @import "../vendor/twbs-bootstrap-sass/vendor/assets/stylesheets/bootstrap/_media.scss";
 @import "../vendor/twbs-bootstrap-sass/vendor/assets/stylesheets/bootstrap/_list-group.scss";
 // @import "../vendor/twbs-bootstrap-sass/vendor/assets/stylesheets/bootstrap/_panels.scss";
-@import "../vendor/twbs-bootstrap-sass/vendor/assets/stylesheets/bootstrap/_wells.scss";
+// @import "../vendor/twbs-bootstrap-sass/vendor/assets/stylesheets/bootstrap/_wells.scss";
 @import "../vendor/twbs-bootstrap-sass/vendor/assets/stylesheets/bootstrap/_close.scss";
 
 // Components w/ JavaScript
 // @import "../vendor/twbs-bootstrap-sass/vendor/assets/stylesheets/bootstrap/_modals.scss";
-@import "../vendor/twbs-bootstrap-sass/vendor/assets/stylesheets/bootstrap/_tooltip.scss";
+// @import "../vendor/twbs-bootstrap-sass/vendor/assets/stylesheets/bootstrap/_tooltip.scss";
 // @import "../vendor/twbs-bootstrap-sass/vendor/assets/stylesheets/bootstrap/_popovers.scss";
-@import "../vendor/twbs-bootstrap-sass/vendor/assets/stylesheets/bootstrap/_carousel.scss";
+// @import "../vendor/twbs-bootstrap-sass/vendor/assets/stylesheets/bootstrap/_carousel.scss";
 
 // Utility classes
 @import "../vendor/twbs-bootstrap-sass/vendor/assets/stylesheets/bootstrap/_utilities.scss";
@@ -64,6 +60,5 @@
 @import "state";
 
 // Vendor
-
 @import "modules";
 @import "layout";

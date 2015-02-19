@@ -51,3 +51,40 @@ function tmbr_get_cropped_image( $imageId, $size ) {
 	$image['alt'] = tmbr_get_alt( $imageId );
 	return $image;
 }
+
+/*
+** ALLOWS YOU TO OUTPUT EXCERPTS WITH LENGTHS OF YOUR CHOOSING
+** Usage: If you want to output an excerpt of 25 words
+**	<?php echo tmbr_excerpt(25); ?>
+*/
+
+function tmbr_excerpt($limit) {
+	 $excerpt = explode(' ', get_the_excerpt(), $limit);
+	 if (count($excerpt)>=$limit) {
+	 array_pop($excerpt);
+	 $excerpt = implode(" ",$excerpt).'...';
+	 } else {
+	 $excerpt = implode(" ",$excerpt);
+	 }
+	 $excerpt = preg_replace('`[[^]]*]`','',$excerpt);
+	 return $excerpt;
+}
+
+/*
+** ALLOWS YOU TO OUTPUT CONTENT WITH LENGTHS OF YOUR CHOOSING
+** Usage: If you want to output an excerpt of 25 words
+**	<?php echo TMBR_content(25); ?>
+*/
+function tmbr_content($limit) {
+	 $content = explode(' ', get_the_content(), $limit);
+	 if (count($content)>=$limit) {
+	 array_pop($content);
+	 $content = implode(" ",$content).'...';
+	 } else {
+	 $content = implode(" ",$content);
+	 }
+	 $content = preg_replace('/[.+]/','', $content);
+	 $content = apply_filters('the_content', $content);
+	 $content = str_replace(']]>', ']]&gt;', $content);
+	 return $content;
+}

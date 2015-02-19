@@ -1,17 +1,14 @@
 <?php
 
-require_once('inc/helpers.php'); // always include this first, so other files can rely on it
+// TMBR Helpers - always include this first, so other files can rely on it
+require_once('inc/helpers.php');
 
-/*
 // WEATHER STUFF
-require_once('inc/weather/init.php');
-require_once('inc/weather-overrides.php');
-*/
+// require_once('inc/weather/init.php');
+// require_once('inc/weather-overrides.php');
 
-/*
 // SOCIAL FEED
-require_once('inc/socialfeed/init.php');
-*/
+// require_once('inc/socialfeed/init.php');
 
 // THEME SETUP
 require_once('inc/theme-setup.php');
@@ -23,22 +20,19 @@ require_once('inc/load-scripts.php');
 // require_once('inc/register-post-type.php');
 
 // REGISTER CUSTOM TAXONOMY
-require_once('inc/register-taxonomy.php');
+// require_once('inc/register-taxonomy.php');
 
 // REGISTER SIDEBARS
-require_once('inc/register-sidebars.php');
+// require_once('inc/register-sidebars.php');
 
 // REGISTER MENUS
-require_once('inc/register-menus.php');
-
-// CUSTOM EXCERPT LENGTHS
-require_once('inc/custom-excerpts.php');
+// require_once('inc/register-menus.php');
 
 // DEFINE CATEGORY OR OTHER TERMS
-@define( 'cat_featured', 17 );
+// @define( 'cat_featured', 17 );
 
 // FAMILY TREE
-require_once('inc/is-tree.php');
+// require_once('inc/is-tree.php');
 
 // Custom Gravity Form Submit filters
 //require_once('inc/gravity_form_filters.php');
