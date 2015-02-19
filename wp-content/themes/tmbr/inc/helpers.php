@@ -23,3 +23,31 @@ function _s_revved_asset($target) {
 	}
 	return $target . ' :: file-not-found-in-public-dir';
 }
+
+// Print Pretty var dump
+function debug($bug) {
+	echo '<pre>';
+		print_r($bug);
+	echo '</pre>';
+}
+
+/*
+** ACF Image Helper
+**
+** @Param $imageId: int - image ID you are using
+** @Param $size: string - image size you want to retrieve
+** @Return Array - image url and alt text for image
+**
+EXAMPLE :
+$imageObj = tmbr_get_cropped_image( get_field( 'image', $trailHead ), 'archive' );
+$imageUrl = $imageObj['url'];
+$imageAlt = $imageObj['alt'];
+*/
+
+function tmbr_get_cropped_image( $imageId, $size ) {
+	$image = array();
+	$imageArr = wp_get_attachment_image_src( $imageId, $size );
+	$image['url'] = $imageArr[0];
+	$image['alt'] = tmbr_get_alt( $imageId );
+	return $image;
+}

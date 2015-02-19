@@ -14,6 +14,7 @@ function tmbr_setup() {
 
 // ADD TMBR LOGO TO LOGIN PAGE
 add_action('login_head', 'tmbr_login_head');
+
 function tmbr_login_head() {
 	echo "
 	<style>
