@@ -20,14 +20,40 @@
     vendorScripts: [
       // specify your vendor scripts in dependency order
       'assets/vendor/modernizr/modernizr.js',
-      'assets/vendor/jquery/dist/jquery.js'
+      'assets/vendor/jquery/dist/jquery.js',
+
+      // Flexslider things for video
+      'assets/vendor/flexslider/jquery.flexslider.js',
+
+      // Misc Vendor Libraries
+      'assets/vendor/jquery.easing/js/jquery.easing.js',
+
+      // Pace Loading animation
+      // 'assets/vendor/pace/pace.js',
+
+      // WOW depends on animate.css - animate asset loading
+      'assets/vendor/wow/dist/wow.js',
+
+      // Video .JS
+      // 'assets/vendor/videojs/dist/video-js/video.js',
+
+      // Isotope Grid
+      // 'assets/vendor/isotope/jquery.isotope.js',
+
+      // Magnificent popups
+      //'assets/vendor/magnific-popup/dist/jquery.magnific-popup.js'
+
+      // Parallax background images
+      // 'assets/vendor/jquery.stellar/jquery.stellar.js',
+
+      // Lazy Load Assets unveil
+      'assets/vendor/jquery-unveil/jquery.unveil.js'
     ],
     appScripts: [
       // You can keep your JS tidy in its own file for a specific feature.
       // Nothing's important about the naming scheme, just as long as the file
       // is included in this array, it'll come together.
       'assets/scripts/index.js',
-      'assets/scripts/_frontpage.js',
       'assets/scripts/_slider.js'
     ],
     styles: [

@@ -1,1 +1,0 @@
-console.log( 'this happens only happens on the front page' );
