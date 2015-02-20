@@ -1,0 +1,1 @@
+!function(e){e(function(){return window.app=733})}(jQuery),$(document).ready(function(){$("#fullscreen_slider").flexslider({animation:"slide",slideshow:!1,slideshowSpeed:4e3,animationSpeed:600,pauseOnHover:!0,controlNav:!0,directionNav:!0,prevText:"Previous",nextText:"Next"})});

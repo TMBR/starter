@@ -2,6 +2,7 @@
 $(document).ready(function() {
   $('#fullscreen_slider').flexslider({
     animation: "slide",
+    slideshow: false, // auto play on load
     slideshowSpeed: 4000,
 	animationSpeed: 600,
 	pauseOnHover: true,
