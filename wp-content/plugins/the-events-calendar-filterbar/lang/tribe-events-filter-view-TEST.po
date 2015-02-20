@@ -1,0 +1,243 @@
+# Tribe Events Faceted Filters by Modern Tribe, Inc.
+# Copyright (C) Modern Tribe, Inc.
+# This file is distributed under the same license as the Tribe Events Faceted Filters package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Tribe Events Faceted Filters\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-06-26 00:31-0800\n"
+"PO-Revision-Date: 2013-06-26 00:32-0800\n"
+"Last-Translator: Modern Tribe, Inc. <pro@tri.be>\n"
+"Language-Team: Modern Tribe, Inc. <pro@tri.be>\n"
+"Language: TEST\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;"
+"_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2\n"
+"X-Poedit-Basepath: ./\n"
+"X-Textdomain-Support: yes\n"
+"X-Generator: Poedit 1.5.4\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#: ../the-events-calendar-filter-view.php:64
+msgid "The Events Calendar"
+msgstr "XXXXX"
+
+#: ../the-events-calendar-filter-view.php:65
+#, php-format
+msgid ""
+"To begin using The Events Calendar: Advanced Filters, please install the "
+"latest version of <a href=\"%s\" class=\"thickbox\" title=\"%s\">The Events "
+"Calendar</a>."
+msgstr "XXX <a href=\"%s\" class=\"thickbox\" title=\"%s\">XXX</a>."
+
+#: ../admin-views/tribe-filter-view-options.php:2
+#: ../lib/tribe-filter-view.class.php:630
+msgid "Filters"
+msgstr "XXXXX"
+
+#: ../admin-views/tribe-filter-view-options.php:3
+msgid ""
+"<p>The settings below allow you to enable or disable front-end event "
+"filters. Uncheck the box to hide the filter. Drag and drop active filters to "
+"re-arrange them.</p><p>Expand an active filter to edit the label and choose "
+"from a subset of input types (dropdown, select / multi-select, range slider, "
+"checkbox and radio).</p>"
+msgstr "XXXXX"
+
+#: ../admin-views/tribe-filter-view-options.php:29
+#: ../admin-views/tribe-filter-view-options.php:126
+msgid "Save"
+msgstr "XXXXX"
+
+#: ../admin-views/tribe-filter-view-options.php:85
+msgid "Available Filters"
+msgstr "XXXXX"
+
+#: ../admin-views/tribe-filter-view-options.php:107
+msgid "Active Filters"
+msgstr "XXXXX"
+
+#: ../lib/tribe-filter-view.class.php:258
+msgid "Event Category"
+msgstr "XXXXX"
+
+#: ../lib/tribe-filter-view.class.php:264
+#: ../lib/tribe-filter-view.class.php:318
+#: ../lib/tribe-filter-view.class.php:363
+#: ../lib/tribe-filter-view.class.php:405
+#: ../lib/tribe-filter-view.class.php:485
+#: ../lib/tribe-filter-view.class.php:522
+#: ../lib/tribe-filter-view.class.php:569
+#, php-format
+msgid "Title: %s"
+msgstr "XXXXX %s"
+
+#: ../lib/tribe-filter-view.class.php:266
+#: ../lib/tribe-filter-view.class.php:320
+#, php-format
+msgid "%sType: %s"
+msgstr "%sXXXXX%s"
+
+#: ../lib/tribe-filter-view.class.php:266
+msgid "Dropdown"
+msgstr "XXXXX"
+
+#: ../lib/tribe-filter-view.class.php:267
+msgid "Multi-Select"
+msgstr "XXXXX"
+
+#: ../lib/tribe-filter-view.class.php:308
+#, php-format
+msgid "Cost (%s)"
+msgstr "XXXXX (%s)"
+
+#: ../lib/tribe-filter-view.class.php:320
+msgid "Range Slider"
+msgstr "XXXXX"
+
+#: ../lib/tribe-filter-view.class.php:321
+msgid "Checkboxes"
+msgstr "XXXXX"
+
+#: ../lib/tribe-filter-view.class.php:357
+msgid "Tags"
+msgstr "XXXXX"
+
+#: ../lib/tribe-filter-view.class.php:399
+msgid "Venues"
+msgstr "XXXXX"
+
+#: ../lib/tribe-filter-view.class.php:479
+msgid "Organizers"
+msgstr "XXXXX"
+
+#: ../lib/tribe-filter-view.class.php:498
+msgid "Sunday"
+msgstr "XXXXX"
+
+#: ../lib/tribe-filter-view.class.php:499
+msgid "Monday"
+msgstr "XXXXX"
+
+#: ../lib/tribe-filter-view.class.php:500
+msgid "Tuesday"
+msgstr "XXXXX"
+
+#: ../lib/tribe-filter-view.class.php:501
+msgid "Wednesday"
+msgstr "XXXXX"
+
+#: ../lib/tribe-filter-view.class.php:502
+msgid "Thursday"
+msgstr "XXXXX"
+
+#: ../lib/tribe-filter-view.class.php:503
+msgid "Friday"
+msgstr "XXXXX"
+
+#: ../lib/tribe-filter-view.class.php:504
+msgid "Saturday"
+msgstr "XXXXX"
+
+#: ../lib/tribe-filter-view.class.php:516
+msgid "Day"
+msgstr "XXXXX"
+
+#: ../lib/tribe-filter-view.class.php:547
+msgid "All Day"
+msgstr "XXXXX"
+
+#: ../lib/tribe-filter-view.class.php:548
+msgid "Morning"
+msgstr "XXXXX"
+
+#: ../lib/tribe-filter-view.class.php:549
+msgid "Afternoon"
+msgstr "XXXXX"
+
+#: ../lib/tribe-filter-view.class.php:550
+msgid "Evening"
+msgstr "XXXXX"
+
+#: ../lib/tribe-filter-view.class.php:551
+msgid "Night"
+msgstr "XXXXX"
+
+#: ../lib/tribe-filter-view.class.php:563
+msgid "Time"
+msgstr "XXXXX"
+
+#: ../lib/tribe-filter.class.php:181
+msgid "Select"
+msgstr "XXXXX"
+
+#: ../vendor/pue-client/admin-views/license-key.view.php:9
+#: ../vendor/pue-client/admin-views/license-key.view.php:13
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:185
+msgid "License Key"
+msgstr "XXXXX"
+
+#: ../vendor/pue-client/admin-views/license-key.view.php:10
+msgid "A valid license key is required for support and updates."
+msgstr "XXXXX"
+
+#: ../vendor/pue-client/admin-views/license-key.view.php:16
+msgid "Replace empty fields"
+msgstr "XXXXX"
+
+#: ../vendor/pue-client/admin-views/license-key.view.php:25
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:186
+msgid "A valid license key is required for support and updates"
+msgstr "XXXXX"
+
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:254
+msgid "License key(s) updated."
+msgstr "XXXXX"
+
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:294
+msgid "Sorry, key validation server is not available."
+msgstr "XXXXX"
+
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:296
+msgid "Sorry, this key is expired."
+msgstr "XXXXX"
+
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:298
+msgid "Sorry, this key is out of installs."
+msgstr "XXXXX"
+
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:300
+msgid "Sorry, this key is not valid."
+msgstr "XXXXX"
+
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:303
+#, php-format
+msgid "Valid Key! Expires on %s"
+msgstr "XXXXX %s"
+
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:307
+#, php-format
+msgid ""
+"Hmmm... something's wrong with this validator. Please contact <a href=\"%s"
+"\">support.</a>"
+msgstr "XXXXX <a href=\"%s\">XXX.</a>"
+
+#: ../views/hooks/filter-view.php:17
+msgid "Show Advanced Filters"
+msgstr "XXXXX"
+
+#: ../views/hooks/filter-view.php:17
+msgid "Hide Advanced Filters"
+msgstr "XXXXX"
+
+#: ../views/hooks/filter-view.php:20
+msgid "Narrow Your Results"
+msgstr "XXXXX"
+
+#: ../views/hooks/filter-view.php:35
+msgid "Reset All Filters"
+msgstr "XXXXX"

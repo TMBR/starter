@@ -1,0 +1,316 @@
+# Tribe Events Faceted Filters by Modern Tribe, Inc.
+# Copyright (C) Modern Tribe, Inc.
+# This file is distributed under the same license as the Tribe Events Faceted Filters package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Tribe Events Faceted Filters\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-09-26 12:52-0800\n"
+"PO-Revision-Date: 2014-11-13 15:09-0800\n"
+"Last-Translator: \n"
+"Language-Team: Modern Tribe, Inc. <pro@tri.be>\n"
+"Language: ru_RU\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;"
+"_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2\n"
+"X-Poedit-Basepath: ./\n"
+"X-Textdomain-Support: yes\n"
+"X-Generator: Poedit 1.6.10\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#: ../admin-views/settings-field-active-filters.php:7
+msgid "Active Filters"
+msgstr "Активные фильтры"
+
+#: ../admin-views/settings-field-available-filters.php:8
+msgid "Available Filters"
+msgstr "Доступные фильтры"
+
+#: ../lib/TribeEventsFilter_Settings.php:34
+#: ../lib/TribeEventsFilter_Settings.php:92
+msgid "Filters"
+msgstr "Фильтры"
+
+#: ../lib/TribeEventsFilter_Settings.php:96
+msgid ""
+"The settings below allow you to enable or disable front-end event filters. "
+"Uncheck the box to hide the filter. Drag and drop active filters to re-"
+"arrange them."
+msgstr ""
+"Нижеприведенные настройки позволяют включить или выключить фильтры "
+"мероприятий на страницах сайта. Снимите флажок, чтобы спрятать фильтр. "
+"Перетяните активные фильтры , чтобы повторно организовать их."
+
+#: ../lib/TribeEventsFilter_Settings.php:97
+msgid ""
+"Expand an active filter to edit the label and choose from a subset of input "
+"types (dropdown, select, range slider, checkbox and radio)."
+msgstr ""
+"Раскройте активный фильтр чтобы редактировать метку названия  и выберите с "
+"подмножества типов входящих (випадающий список, вибор, диапазон, чекбокс и "
+"радио)."
+
+#: ../lib/TribeEventsFilter_Settings.php:109
+msgid "Filters Layout"
+msgstr "Макет фильтров"
+
+#: ../lib/TribeEventsFilter_Settings.php:112
+msgid "Vertical"
+msgstr "Вертикаль"
+
+#: ../lib/TribeEventsFilter_Settings.php:113
+msgid "Horizontal"
+msgstr "Горизонталь"
+
+#: ../lib/TribeEventsFilter_Settings.php:119
+msgid "Filters Default State"
+msgstr "Фильтер по умолчанию"
+
+#: ../lib/TribeEventsFilter_Settings.php:122
+msgid "Closed"
+msgstr "Закрыто"
+
+#: ../lib/TribeEventsFilter_Settings.php:123
+msgid "Open"
+msgstr "Открыто"
+
+#: ../lib/TribeEventsFilter_Settings.php:146
+msgid "Filter Bar"
+msgstr "Фильтры"
+
+#: ../lib/filters/TribeEventsFilter_Category.php:17
+#: ../lib/filters/TribeEventsFilter_Cost.php:54
+#, php-format
+msgid "Type: %s %s"
+msgstr "Тип: %s %s"
+
+#: ../lib/filters/TribeEventsFilter_Category.php:21
+#: ../lib/filters/TribeEventsFilter_Tag.php:35
+msgid "Dropdown"
+msgstr "Випадающий Список"
+
+#: ../lib/filters/TribeEventsFilter_Category.php:26
+#: ../lib/filters/TribeEventsFilter_Cost.php:63
+#: ../lib/filters/TribeEventsFilter_Tag.php:40
+msgid "Checkboxes"
+msgstr "Чекбоксы"
+
+#: ../lib/filters/TribeEventsFilter_Cost.php:58
+msgid "Range Slider"
+msgstr "Слайдер диапазона"
+
+#: ../lib/filters/TribeEventsFilter_Cost.php:68
+#, php-format
+msgid "Events are considered free when cost field is: %s %s"
+msgstr "Мероприятие считается бесплатным, когла поле стоимости: %s %s"
+
+#: ../lib/filters/TribeEventsFilter_Cost.php:72
+msgid "Empty or set to zero"
+msgstr "Оставьте пустым или введите 0"
+
+#: ../lib/filters/TribeEventsFilter_Cost.php:77
+msgid "Only when set to zero"
+msgstr "Только когда набран 0"
+
+#: ../lib/filters/TribeEventsFilter_Cost.php:93
+msgid "Free"
+msgstr "Бесплатно"
+
+#: ../lib/filters/TribeEventsFilter_DayOfWeek.php:12
+msgid "Sunday"
+msgstr "Воскресенье"
+
+#: ../lib/filters/TribeEventsFilter_DayOfWeek.php:13
+msgid "Monday"
+msgstr "Понедельник"
+
+#: ../lib/filters/TribeEventsFilter_DayOfWeek.php:14
+msgid "Tuesday"
+msgstr "Вторник"
+
+#: ../lib/filters/TribeEventsFilter_DayOfWeek.php:15
+msgid "Wednesday"
+msgstr "Среда"
+
+#: ../lib/filters/TribeEventsFilter_DayOfWeek.php:16
+msgid "Thursday"
+msgstr "Четверг"
+
+#: ../lib/filters/TribeEventsFilter_DayOfWeek.php:17
+msgid "Friday"
+msgstr "Пятниця"
+
+#: ../lib/filters/TribeEventsFilter_DayOfWeek.php:18
+msgid "Saturday"
+msgstr "Суббота"
+
+#: ../lib/filters/TribeEventsFilter_Tag.php:31
+#, php-format
+msgid "Type: %s %s %s"
+msgstr "Тип: %s %s %s"
+
+#: ../lib/filters/TribeEventsFilter_Tag.php:45
+msgid "Autocomplete"
+msgstr "Автозаполнение"
+
+#: ../lib/filters/TribeEventsFilter_TimeOfDay.php:12
+msgid "All Day"
+msgstr "На весь день"
+
+#: ../lib/filters/TribeEventsFilter_TimeOfDay.php:13
+msgid "Morning"
+msgstr "Утро"
+
+#: ../lib/filters/TribeEventsFilter_TimeOfDay.php:14
+msgid "Afternoon"
+msgstr "После обеда"
+
+#: ../lib/filters/TribeEventsFilter_TimeOfDay.php:15
+msgid "Evening"
+msgstr "Вечер"
+
+#: ../lib/filters/TribeEventsFilter_TimeOfDay.php:16
+msgid "Night"
+msgstr "Ночь"
+
+#: ../lib/tribe-filter-view.class.php:293
+msgid "Event Category"
+msgstr "Категория Мероприятия"
+
+#: ../lib/tribe-filter-view.class.php:294
+#, php-format
+msgid "Cost (%s)"
+msgstr "Стоимость (%s)"
+
+#: ../lib/tribe-filter-view.class.php:295
+msgid "Tags"
+msgstr "Метки"
+
+#: ../lib/tribe-filter-view.class.php:298
+msgid "Day"
+msgstr "День"
+
+#: ../lib/tribe-filter-view.class.php:299
+msgid "Time"
+msgstr "Время"
+
+#: ../lib/tribe-filter.class.php:178
+msgid "Select"
+msgstr "Выбор"
+
+#: ../lib/tribe-filter.class.php:211
+msgid "No items match"
+msgstr "Нет соответствия"
+
+#: ../lib/tribe-filter.class.php:211
+msgid "Select an Item"
+msgstr "Выберите пункт"
+
+#: ../lib/tribe-filter.class.php:445
+#, php-format
+msgid "Title: %s"
+msgstr "Название: %s"
+
+#: ../the-events-calendar-filter-view.php:59
+msgid "The Events Calendar"
+msgstr "The Events Calendar"
+
+#: ../the-events-calendar-filter-view.php:60
+#, php-format
+msgid ""
+"To begin using The Events Calendar: Advanced Filters, please install the "
+"latest version of <a href=\"%s\" class=\"thickbox\" title=\"%s\">The Events "
+"Calendar</a>."
+msgstr ""
+"Для начала использования The Events Calendar: Дополнительные фильтры, "
+"пожалуйста, установите последнюю версию <a href=\"%s\" class=\"thickbox\" "
+"title=\"%s\"> The Events Calendar </a>."
+
+#: ../views/filter-bar/filter-view-horizontal.php:20
+#: ../views/filter-bar/filter-view-vertical.php:24
+msgid "Narrow Your Results"
+msgstr "Ограничить результаты"
+
+#: ../views/filter-bar/filter-view-horizontal.php:22
+#: ../views/filter-bar/filter-view-horizontal.php:34
+#: ../views/filter-bar/filter-view-vertical.php:20
+msgid "Show Advanced Filters"
+msgstr "Показать расширенные фильтры"
+
+#: ../views/filter-bar/filter-view-horizontal.php:22
+#: ../views/filter-bar/filter-view-horizontal.php:34
+#: ../views/filter-bar/filter-view-vertical.php:20
+#: ../views/filter-bar/filter-view-vertical.php:35
+msgid "Collapse Filters"
+msgstr "Свернуть фильтры"
+
+#: ../views/filter-bar/filter-view-horizontal.php:23
+#: ../views/filter-bar/filter-view-horizontal.php:35
+#: ../views/filter-bar/filter-view-vertical.php:21
+msgid "Show Filters"
+msgstr "Показать фильтры"
+
+#: ../views/filter-bar/filter-view-horizontal.php:24
+#: ../views/filter-bar/filter-view-horizontal.php:36
+#: ../views/filter-bar/filter-view-vertical.php:32
+#: ../views/filter-bar/filter-view-vertical.php:36
+msgid "Reset Filters"
+msgstr "Очистить фильтры"
+
+#: ../views/filter-bar/filter-view-horizontal.php:30
+#: ../views/filter-bar/filter-view-vertical.php:30
+msgid "Submit"
+msgstr "Отправить"
+
+#~ msgid "Venues"
+#~ msgstr "Місця проведення"
+
+#~ msgid "Organizers"
+#~ msgstr "Організатори"
+
+#~ msgid "License Key"
+#~ msgstr "Ліцензійний ключ"
+
+#~ msgid "A valid license key is required for support and updates."
+#~ msgstr "Діючий ліцензійний ключ потрібно для підтримки і оновлень."
+
+#~ msgid "Replace empty fields"
+#~ msgstr "Замініть порожні поля"
+
+#~ msgid "A valid license key is required for support and updates"
+#~ msgstr "Діючий ліцензійний ключ необхідний для підтримки та оновлення"
+
+#~ msgid "License key(s) updated."
+#~ msgstr "Ліцензійний ключ (и) оновлено."
+
+#~ msgid "Sorry, key validation server is not available."
+#~ msgstr "Нема доступу до сервера валідації ключа"
+
+#~ msgid "Sorry, this key is expired."
+#~ msgstr "На жаль, цей термін дії ключа закінчився."
+
+#~ msgid "Sorry, this key is out of installs."
+#~ msgstr "На жаль, цей ключ з установок."
+
+#~ msgid "Sorry, this key is not valid."
+#~ msgstr "На жаль, цей ключ недійсний."
+
+#~ msgid "Valid Key! Expires on %s"
+#~ msgstr "Дійсний ключ! Закінчується %s"
+
+#~ msgid ""
+#~ "Hmmm... something's wrong with this validator. Please contact <a href=\"%s"
+#~ "\">support.</a>"
+#~ msgstr ""
+#~ "Хм ... щось не так з цією перевіркою. Будь ласка, зв'яжіться з <a href="
+#~ "\"%s\">Підтримкой.</a>"
+
+#~ msgid "Hide Advanced Filters"
+#~ msgstr "Приховати додаткові фільтри"
+
+#~ msgid "Reset All Filters"
+#~ msgstr "Скинути всі фільтри"

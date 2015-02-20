@@ -1,0 +1,252 @@
+# Tribe Events Faceted Filters by Modern Tribe, Inc.
+# Copyright (C) Modern Tribe, Inc.
+# This file is distributed under the same license as the Tribe Events Faceted Filters package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Tribe Events Filter Bar 3.5\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-07-17 16:52-0800\n"
+"PO-Revision-Date: 2014-09-11 14:01-0800\n"
+"Last-Translator: \n"
+"Language-Team: Modern Tribe, Inc. <pro@tri.be>\n"
+"Language: fi_FI\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:1,2,4c;_n_noop:1,2;"
+"_nx_noop:1,2,3c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;"
+"esc_html_x:1,2c\n"
+"X-Poedit-Basepath: ./\n"
+"X-Textdomain-Support: yes\n"
+"X-Generator: Poedit 1.6.9\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#: ../admin-views/settings-field-active-filters.php:7
+msgid "Active Filters"
+msgstr "Aktiiviset suodattimet"
+
+#: ../admin-views/settings-field-available-filters.php:8
+msgid "Available Filters"
+msgstr "Käytettävissä olevat suodattimet"
+
+#: ../lib/TribeEventsFilter_Settings.php:34
+#: ../lib/TribeEventsFilter_Settings.php:92
+msgid "Filters"
+msgstr "Suodattimet"
+
+#: ../lib/TribeEventsFilter_Settings.php:96
+msgid ""
+"The settings below allow you to enable or disable front-end event filters. "
+"Uncheck the box to hide the filter. Drag and drop active filters to re-"
+"arrange them."
+msgstr ""
+"Alla olevat asetukset mahdollistavat loppukäyttäjän tapahtumasuodattimien "
+"käyttöönoton ja käytöstä poistamisen. Poista merkintä ruudusta "
+"piilottaaksesi suodattimen. Raahaa ja pudota aktiivisia suodattimia niiden "
+"uudelleenjärjestämiseksi."
+
+#: ../lib/TribeEventsFilter_Settings.php:97
+msgid ""
+"Expand an active filter to edit the label and choose from a subset of input "
+"types (dropdown, select, range slider, checkbox and radio)."
+msgstr ""
+"Laajenna aktiivinen suodatin muokataksesi sen nimilappua ja valitaksesi "
+"syöttötyypin alajoukosta (pudotusvalikko, valinta, alueen liukusäädin, "
+"valintaruudukko ja valintanappi)."
+
+#: ../lib/TribeEventsFilter_Settings.php:109
+msgid "Filters Layout"
+msgstr "Suodattimien ulkoasu"
+
+#: ../lib/TribeEventsFilter_Settings.php:112
+msgid "Vertical"
+msgstr "Pystysuora"
+
+#: ../lib/TribeEventsFilter_Settings.php:113
+msgid "Horizontal"
+msgstr "Vaakasuora"
+
+#: ../lib/TribeEventsFilter_Settings.php:119
+msgid "Filters Default State"
+msgstr "Suodattimien oletustila"
+
+#: ../lib/TribeEventsFilter_Settings.php:122
+msgid "Closed"
+msgstr "Suljettu"
+
+#: ../lib/TribeEventsFilter_Settings.php:123
+msgid "Open"
+msgstr "Avoin"
+
+#: ../lib/TribeEventsFilter_Settings.php:146
+msgid "Filter Bar"
+msgstr "Suodatinvalikko"
+
+#: ../lib/filters/TribeEventsFilter_Category.php:17
+#: ../lib/filters/TribeEventsFilter_Cost.php:54
+#, php-format
+msgid "Type: %s %s"
+msgstr "Tyyppi: %s %s"
+
+#: ../lib/filters/TribeEventsFilter_Category.php:21
+msgid "Dropdown"
+msgstr "Pudotusvalikko"
+
+#: ../lib/filters/TribeEventsFilter_Category.php:26
+#: ../lib/filters/TribeEventsFilter_Cost.php:63
+msgid "Checkboxes"
+msgstr "Valintaruudut"
+
+#: ../lib/filters/TribeEventsFilter_Cost.php:58
+msgid "Range Slider"
+msgstr "Liukusäädin"
+
+#: ../lib/filters/TribeEventsFilter_Cost.php:68
+#, php-format
+msgid "Events are considered free when cost field is: %s %s"
+msgstr ""
+"Tapahtumien katsotaan olevan ilmaisia kun kustannukset ilmoitetaan "
+"seuraavasti: %s %s"
+
+#: ../lib/filters/TribeEventsFilter_Cost.php:72
+msgid "Empty or set to zero"
+msgstr "Tyhjä tai summaksi nolla"
+
+#: ../lib/filters/TribeEventsFilter_Cost.php:77
+msgid "Only when set to zero"
+msgstr "Vain kun summana on nolla"
+
+#: ../lib/filters/TribeEventsFilter_Cost.php:93
+msgid "Free"
+msgstr "Vapaa"
+
+#: ../lib/filters/TribeEventsFilter_DayOfWeek.php:12
+msgid "Sunday"
+msgstr "Sunnuntai"
+
+#: ../lib/filters/TribeEventsFilter_DayOfWeek.php:13
+msgid "Monday"
+msgstr "Maanantai"
+
+#: ../lib/filters/TribeEventsFilter_DayOfWeek.php:14
+msgid "Tuesday"
+msgstr "Tiistai"
+
+#: ../lib/filters/TribeEventsFilter_DayOfWeek.php:15
+msgid "Wednesday"
+msgstr "Keskiviikko"
+
+#: ../lib/filters/TribeEventsFilter_DayOfWeek.php:16
+msgid "Thursday"
+msgstr "Torstai"
+
+#: ../lib/filters/TribeEventsFilter_DayOfWeek.php:17
+msgid "Friday"
+msgstr "Perjantai"
+
+#: ../lib/filters/TribeEventsFilter_DayOfWeek.php:18
+msgid "Saturday"
+msgstr "Lauantai"
+
+#: ../lib/filters/TribeEventsFilter_TimeOfDay.php:12
+msgid "All Day"
+msgstr "Koko päivä"
+
+#: ../lib/filters/TribeEventsFilter_TimeOfDay.php:13
+msgid "Morning"
+msgstr "Aamu"
+
+#: ../lib/filters/TribeEventsFilter_TimeOfDay.php:14
+msgid "Afternoon"
+msgstr "Iltapäivä"
+
+#: ../lib/filters/TribeEventsFilter_TimeOfDay.php:15
+msgid "Evening"
+msgstr "Ilta"
+
+#: ../lib/filters/TribeEventsFilter_TimeOfDay.php:16
+msgid "Night"
+msgstr "Yö"
+
+#: ../lib/tribe-filter-view.class.php:286
+msgid "Event Category"
+msgstr "Tapahtumaluokka"
+
+#: ../lib/tribe-filter-view.class.php:287
+#, php-format
+msgid "Cost (%s)"
+msgstr "Hinta (%s)"
+
+#: ../lib/tribe-filter-view.class.php:288
+msgid "Tags"
+msgstr "Tagit"
+
+#: ../lib/tribe-filter-view.class.php:291
+msgid "Day"
+msgstr "Päivä"
+
+#: ../lib/tribe-filter-view.class.php:292
+msgid "Time"
+msgstr "Aika"
+
+#: ../lib/tribe-filter.class.php:178
+msgid "Select"
+msgstr "Valitse"
+
+#: ../lib/tribe-filter.class.php:396
+#, php-format
+msgid "Title: %s"
+msgstr "Otsikko: %s"
+
+#: ../the-events-calendar-filter-view.php:59
+msgid "The Events Calendar"
+msgstr "The Events Calendar"
+
+#: ../the-events-calendar-filter-view.php:60
+#, php-format
+msgid ""
+"To begin using The Events Calendar: Advanced Filters, please install the "
+"latest version of <a href=\"%s\" class=\"thickbox\" title=\"%s\">The Events "
+"Calendar</a>."
+msgstr ""
+"Aloittaaksesi käyttämään The Events Calendar: Advanced Filters, asenna "
+"viimeisin versio <a href=\"%s\" class=\"thickbox\" title=\"%s\">The Events "
+"Calendar</a>:sta."
+
+#: ../views/filter-bar/filter-view-horizontal.php:20
+#: ../views/filter-bar/filter-view-vertical.php:24
+msgid "Narrow Your Results"
+msgstr "Kavenna tuloksiasi"
+
+#: ../views/filter-bar/filter-view-horizontal.php:22
+#: ../views/filter-bar/filter-view-horizontal.php:34
+#: ../views/filter-bar/filter-view-vertical.php:20
+msgid "Show Advanced Filters"
+msgstr "Näytä edistyneet suodattimet"
+
+#: ../views/filter-bar/filter-view-horizontal.php:22
+#: ../views/filter-bar/filter-view-horizontal.php:34
+#: ../views/filter-bar/filter-view-vertical.php:20
+#: ../views/filter-bar/filter-view-vertical.php:35
+msgid "Collapse Filters"
+msgstr "Pienennä suodattimet"
+
+#: ../views/filter-bar/filter-view-horizontal.php:23
+#: ../views/filter-bar/filter-view-horizontal.php:35
+#: ../views/filter-bar/filter-view-vertical.php:21
+msgid "Show Filters"
+msgstr "Näytä suodattimet"
+
+#: ../views/filter-bar/filter-view-horizontal.php:24
+#: ../views/filter-bar/filter-view-horizontal.php:36
+#: ../views/filter-bar/filter-view-vertical.php:32
+#: ../views/filter-bar/filter-view-vertical.php:36
+msgid "Reset Filters"
+msgstr "Tyhjennä suodattimet"
+
+#: ../views/filter-bar/filter-view-horizontal.php:30
+#: ../views/filter-bar/filter-view-vertical.php:30
+msgid "Submit"
+msgstr "Ota käyttöön"

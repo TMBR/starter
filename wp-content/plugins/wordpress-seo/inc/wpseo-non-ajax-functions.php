@@ -23,7 +23,7 @@ function wpseo_title_test() {
 	// Setting title_test to > 0 forces the plugin to output the title below through a filter in class-frontend.php
 	$expected_title = 'This is a Yoast Test Title';
 
-	WPSEO_Options::clear_cache();
+	WPSEO_Utils::clear_cache();
 
 
 	global $wp_version;
@@ -164,11 +164,11 @@ function wpseo_upgrader_process_complete( $upgrader_object, $context_array, $the
 	if ( ( isset( $context_array['bulk'] ) && $context_array['bulk'] === true ) && ( is_array( $themes ) && count( $themes ) > 0 ) ) {
 
 		if ( in_array( $theme, $themes ) ) {
-//			wpseo_title_test();
+			//wpseo_title_test();
 			wpseo_description_test();
 		}
 	} elseif ( is_string( $themes ) && $themes === $theme ) {
-//		wpseo_title_test();
+		//wpseo_title_test();
 		wpseo_description_test();
 	}
 
@@ -198,86 +198,17 @@ function wpseo_update_theme_complete_actions( $update_actions, $updated_theme ) 
 	if ( is_object( $updated_theme ) ) {
 		/* Bulk update and $updated_theme only contains info on which theme was last in the list
 		   of updated themes, so go & test */
-//		wpseo_title_test();
+		//wpseo_title_test();
 		wpseo_description_test();
 	} elseif ( $updated_theme === $theme ) {
 		/* Single theme update for the active theme */
-//		wpseo_title_test();
+		//wpseo_title_test();
 		wpseo_description_test();
 	}
 
 	return $update_actions;
 }
 
-/**
- * Translates a decimal analysis score into a textual one.
- *
- * @param int  $val       The decimal score to translate.
- * @param bool $css_value Whether to return the i18n translated score or the CSS class value.
- *
- * @return string
- */
-function wpseo_translate_score( $val, $css_value = true ) {
-	if ( $val > 10 ) {
-		$val = round( $val / 10 );
-	}
-	switch ( $val ) {
-		case 0:
-			$score = __( 'N/A', 'wordpress-seo' );
-			$css   = 'na';
-			break;
-		case 4:
-		case 5:
-			$score = __( 'Poor', 'wordpress-seo' );
-			$css   = 'poor';
-			break;
-		case 6:
-		case 7:
-			$score = __( 'OK', 'wordpress-seo' );
-			$css   = 'ok';
-			break;
-		case 8:
-		case 9:
-		case 10:
-			$score = __( 'Good', 'wordpress-seo' );
-			$css   = 'good';
-			break;
-		default:
-			$score = __( 'Bad', 'wordpress-seo' );
-			$css   = 'bad';
-	}
-
-	if ( $css_value ) {
-		return $css;
-	} else {
-		return $score;
-	}
-}
-
-
-/**
- * Check whether file editing is allowed for the .htaccess and robots.txt files
- *
- * @internal current_user_can() checks internally whether a user is on wp-ms and adjusts accordingly.
- *
- * @return bool
- */
-function wpseo_allow_system_file_edit() {
-	$allowed = true;
-
-	if ( current_user_can( 'edit_files' ) === false ) {
-		$allowed = false;
-	}
-
-	/**
-	 * Filter: 'wpseo_allow_system_file_edit' - Allow developers to change whether the editing of
-	 * .htaccess and robots.txt is allowed
-	 *
-	 * @api bool $allowed Whether file editing is allowed
-	 */
-
-	return apply_filters( 'wpseo_allow_system_file_edit', $allowed );
-}
 
 
 /**
@@ -289,12 +220,9 @@ function wpseo_admin_bar_menu() {
 		return;
 	}
 
-	global $wp_admin_bar, $wpseo_front, $post;
+	global $wp_admin_bar, $post;
 
-	$url = '';
-	if ( is_object( $wpseo_front ) ) {
-		$url = $wpseo_front->canonical( false );
-	}
+	$url = WPSEO_Frontend::get_instance()->canonical( false );
 
 	$focuskw = '';
 	$score   = '';
@@ -307,9 +235,9 @@ function wpseo_admin_bar_menu() {
 	) {
 		$focuskw    = WPSEO_Meta::get_value( 'focuskw', $post->ID );
 		$perc_score = WPSEO_Meta::get_value( 'linkdex', $post->ID );
-		$calc_score = wpseo_calc( $perc_score, '/', 10, true );
-		$txtscore   = wpseo_translate_score( $calc_score );
-		$title      = wpseo_translate_score( $calc_score, false );
+		$calc_score = WPSEO_Utils::calc( $perc_score, '/', 10, true );
+		$txtscore   = WPSEO_Utils::translate_score( $calc_score );
+		$title      = WPSEO_Utils::translate_score( $calc_score, false );
 		$score      = '<div title="' . esc_attr( $title ) . '" class="' . esc_attr( 'wpseo-score-icon ' . $txtscore . ' ' . $perc_score ) . '"></div>';
 
 		$seo_url = get_edit_post_link( $post->ID );
@@ -364,42 +292,77 @@ function wpseo_admin_bar_menu() {
 					'parent' => 'wpseo-analysis',
 					'id'     => 'wpseo-inlinks-ose',
 					'title'  => __( 'Check Inlinks (OSE)', 'wordpress-seo' ),
-					'href'   => 'http://www.opensiteexplorer.org/' . str_replace( '/', '%252F', preg_replace( '`^http[s]?://`', '', $url ) ) . '/a!links',
+					'href'   => '//moz.com/researchtools/ose/links?site=' . urlencode( $url ),
 					'meta'   => array( 'target' => '_blank' )
 				) );
 			$wp_admin_bar->add_menu( array(
 					'parent' => 'wpseo-analysis',
 					'id'     => 'wpseo-kwdensity',
 					'title'  => __( 'Check Keyword Density', 'wordpress-seo' ),
-					'href'   => 'http://www.zippy.co.uk/keyworddensity/index.php?url=' . urlencode( $url ) . '&keyword=' . urlencode( $focuskw ),
+					'href'   => '//www.zippy.co.uk/keyworddensity/index.php?url=' . urlencode( $url ) . '&keyword=' . urlencode( $focuskw ),
 					'meta'   => array( 'target' => '_blank' )
 				) );
 			$wp_admin_bar->add_menu( array(
 					'parent' => 'wpseo-analysis',
 					'id'     => 'wpseo-cache',
 					'title'  => __( 'Check Google Cache', 'wordpress-seo' ),
-					'href'   => 'http://webcache.googleusercontent.com/search?strip=1&q=cache:' . urlencode( $url ),
+					'href'   => '//webcache.googleusercontent.com/search?strip=1&q=cache:' . urlencode( $url ),
 					'meta'   => array( 'target' => '_blank' )
 				) );
 			$wp_admin_bar->add_menu( array(
 					'parent' => 'wpseo-analysis',
 					'id'     => 'wpseo-header',
 					'title'  => __( 'Check Headers', 'wordpress-seo' ),
-					'href'   => 'http://quixapp.com/headers/?r=' . urlencode( $url ),
+					'href'   => '//quixapp.com/headers/?r=' . urlencode( $url ),
 					'meta'   => array( 'target' => '_blank' )
 				) );
 			$wp_admin_bar->add_menu( array(
 					'parent' => 'wpseo-analysis',
 					'id'     => 'wpseo-richsnippets',
 					'title'  => __( 'Check Rich Snippets', 'wordpress-seo' ),
-					'href'   => 'http://www.google.com/webmasters/tools/richsnippets?q=' . urlencode( $url ),
+					'href'   => '//www.google.com/webmasters/tools/richsnippets?q=' . urlencode( $url ),
 					'meta'   => array( 'target' => '_blank' )
 				) );
 			$wp_admin_bar->add_menu( array(
 					'parent' => 'wpseo-analysis',
 					'id'     => 'wpseo-facebookdebug',
 					'title'  => __( 'Facebook Debugger', 'wordpress-seo' ),
-					'href'   => 'https://developers.facebook.com/tools/debug/og/object?q=' . urlencode( $url ),
+					'href'   => '//developers.facebook.com/tools/debug/og/object?q=' . urlencode( $url ),
+					'meta'   => array( 'target' => '_blank' )
+				) );
+			$wp_admin_bar->add_menu( array(
+					'parent' => 'wpseo-analysis',
+					'id'     => 'wpseo-pinterestvalidator',
+					'title'  => __( 'Pinterest Rich Pins Validator', 'wordpress-seo' ),
+					'href'   => '//developers.pinterest.com/rich_pins/validator/?link=' . urlencode( $url ),
+					'meta'   => array( 'target' => '_blank' )
+				) );
+			$wp_admin_bar->add_menu( array(
+					'parent' => 'wpseo-analysis',
+					'id'     => 'wpseo-htmlvalidation',
+					'title'  => __( 'HTML Validator', 'wordpress-seo' ),
+					'href'   => '//validator.w3.org/check?uri=' . urlencode( $url ),
+					'meta'   => array( 'target' => '_blank' )
+				) );
+			$wp_admin_bar->add_menu( array(
+					'parent' => 'wpseo-analysis',
+					'id'     => 'wpseo-cssvalidation',
+					'title'  => __( 'CSS Validator', 'wordpress-seo' ),
+					'href'   => '//jigsaw.w3.org/css-validator/validator?uri=' . urlencode( $url ),
+					'meta'   => array( 'target' => '_blank' )
+				) );
+			$wp_admin_bar->add_menu( array(
+					'parent' => 'wpseo-analysis',
+					'id'     => 'wpseo-pagespeed',
+					'title'  => __( 'Google Page Speed Test', 'wordpress-seo' ),
+					'href'   => '//developers.google.com/speed/pagespeed/insights/?url=' . urlencode( $url ),
+					'meta'   => array( 'target' => '_blank' )
+				) );
+			$wp_admin_bar->add_menu( array(
+					'parent' => 'wpseo-analysis',
+					'id'     => 'wpseo-modernie',
+					'title'  => __( 'Modern IE Site Scan', 'wordpress-seo' ),
+					'href'   => '//www.modern.ie/en-us/report#' . urlencode( $url ),
 					'meta'   => array( 'target' => '_blank' )
 				) );
 		}
@@ -464,7 +427,7 @@ function wpseo_admin_bar_menu() {
 		$wp_admin_bar->add_menu( array(
 				'parent' => 'wpseo-settings',
 				'id'     => 'wpseo-import',
-				'title'  => __( 'Import & Export', 'wordpress-seo' ),
+				'title'  => esc_html__( 'Import & Export', 'wordpress-seo' ),
 				'href'   => admin_url( 'admin.php?page=wpseo_import' ),
 			) );
 		$wp_admin_bar->add_menu( array(
@@ -475,7 +438,7 @@ function wpseo_admin_bar_menu() {
 			) );
 
 		// Check where to add the edit files page
-		if ( wpseo_allow_system_file_edit() === true ) {
+		if ( WPSEO_Utils::allow_system_file_edit() === true ) {
 			$wp_admin_bar->add_menu( array(
 					'parent' => 'wpseo-settings',
 					'id'     => 'wpseo-files',
@@ -655,4 +618,38 @@ function wpseo_deactivate_robots_meta_notice() {
 function wpseo_defaults() {
 	_deprecated_function( __FUNCTION__, 'WPSEO 1.5.0', 'WPSEO_Options::initialize()' );
 	WPSEO_Options::initialize();
+}
+
+/**
+ * Translates a decimal analysis score into a textual one.
+ *
+ * @deprecated 1.5.6.1
+ * @deprecated use WPSEO_Utils::translate_score()
+ * @see WPSEO_Utils::translate_score()
+ *
+ * @param int  $val       The decimal score to translate.
+ * @param bool $css_value Whether to return the i18n translated score or the CSS class value.
+ *
+ * @return string
+ */
+function wpseo_translate_score( $val, $css_value = true ) {
+	_deprecated_function( __FUNCTION__, 'WPSEO 1.5.6.1', 'WPSEO_Utils::translate_score()' );
+	return WPSEO_Utils::translate_score();
+}
+
+
+/**
+ * Check whether file editing is allowed for the .htaccess and robots.txt files
+ *
+ * @deprecated 1.5.6.1
+ * @deprecated use WPSEO_Utils::allow_system_file_edit()
+ * @see WPSEO_Utils::allow_system_file_edit()
+ *
+ * @internal current_user_can() checks internally whether a user is on wp-ms and adjusts accordingly.
+ *
+ * @return bool
+ */
+function wpseo_allow_system_file_edit() {
+	_deprecated_function( __FUNCTION__, 'WPSEO 1.5.6.1', 'WPSEO_Utils::allow_system_file_edit()' );
+	return WPSEO_Utils::allow_system_file_edit();
 }

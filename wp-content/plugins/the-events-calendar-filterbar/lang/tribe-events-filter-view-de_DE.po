@@ -1,0 +1,300 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: The Events Calendar: Filter Bar v3.8\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-07-17 16:52-0800\n"
+"PO-Revision-Date: 2014-10-18 03:47:38+0000\n"
+"Last-Translator: \n"
+"Language-Team: Modern Tribe, Inc. <pro@tri.be>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Poedit 1.6.9\n"
+"X-Poedit-Language: \n"
+"X-Poedit-Country: \n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;\n"
+"X-Poedit-Basepath: ./\n"
+"X-Poedit-Bookmarks: \n"
+"X-Poedit-SearchPath-0: ..\n"
+"X-Textdomain-Support: yes"
+
+#: admin-views/settings-field-active-filters.php:7
+#@ tribe-events-filter-view
+msgid "Active Filters"
+msgstr "Aktive Filter"
+
+#: admin-views/settings-field-available-filters.php:8
+#@ tribe-events-filter-view
+msgid "Available Filters"
+msgstr "Verfügbare Filter"
+
+#: lib/TribeEventsFilter_Settings.php:34
+#: lib/TribeEventsFilter_Settings.php:92
+#@ tribe-events-filter-view
+msgid "Filters"
+msgstr "Filter"
+
+#: lib/TribeEventsFilter_Settings.php:96
+#@ tribe-events-filter-view
+msgid "The settings below allow you to enable or disable front-end event filters. Uncheck the box to hide the filter. Drag and drop active filters to re-arrange them."
+msgstr "Die folgenden Einstellungen aktivieren und deaktivieren die Veranstaltungsfilter im Front-End. Box deaktivieren um die Filter zu verbergen. Individuelle Anordnung der aktiven Filter per Drag and Drop."
+
+#: lib/TribeEventsFilter_Settings.php:97
+#@ tribe-events-filter-view
+msgid "Expand an active filter to edit the label and choose from a subset of input types (dropdown, select, range slider, checkbox and radio)."
+msgstr "Wähle einen aktiven Filter um den Titel zu bearbeiten und einen geeigneten Eingabetyp zu wählen (Dropdown, Auswahl, Slider, Checkbox und Optionsfelder)."
+
+#: lib/TribeEventsFilter_Settings.php:109
+#@ tribe-events-filter-view
+msgid "Filters Layout"
+msgstr "Filter Darstellung"
+
+#: lib/TribeEventsFilter_Settings.php:112
+#@ tribe-events-filter-view
+msgid "Vertical"
+msgstr "vertikal"
+
+#: lib/TribeEventsFilter_Settings.php:113
+#@ tribe-events-filter-view
+msgid "Horizontal"
+msgstr "horizontal"
+
+#: lib/TribeEventsFilter_Settings.php:119
+#@ tribe-events-filter-view
+msgid "Filters Default State"
+msgstr "Filter Standardauswahl"
+
+#: lib/TribeEventsFilter_Settings.php:122
+#@ tribe-events-filter-view
+msgid "Closed"
+msgstr "Ende"
+
+#: lib/TribeEventsFilter_Settings.php:123
+#@ tribe-events-filter-view
+msgid "Open"
+msgstr "Beginn"
+
+#: lib/TribeEventsFilter_Settings.php:146
+#@ tribe-events-filter-view
+msgid "Filter Bar"
+msgstr "Filterleiste"
+
+#: lib/filters/TribeEventsFilter_Category.php:17
+#: lib/filters/TribeEventsFilter_Cost.php:54
+#, php-format
+#@ tribe-events-filter-view
+msgid "Type: %s %s"
+msgstr "Auswahl: %s %s"
+
+#: lib/filters/TribeEventsFilter_Category.php:21
+#: lib/filters/TribeEventsFilter_Tag.php:35
+#@ tribe-events-filter-view
+msgid "Dropdown"
+msgstr "Dropdown"
+
+#: lib/filters/TribeEventsFilter_Category.php:26
+#: lib/filters/TribeEventsFilter_Cost.php:63
+#: lib/filters/TribeEventsFilter_Tag.php:40
+#@ tribe-events-filter-view
+msgid "Checkboxes"
+msgstr "Checkboxes"
+
+#: lib/filters/TribeEventsFilter_Cost.php:58
+#@ tribe-events-filter-view
+msgid "Range Slider"
+msgstr "Slider"
+
+#: lib/filters/TribeEventsFilter_Cost.php:68
+#, php-format
+#@ tribe-events-filter-view
+msgid "Events are considered free when cost field is: %s %s"
+msgstr "Veranstaltungen werden als kostenlos angezeigt, wenn das Eintrittsfeld %s %s ist."
+
+#: lib/filters/TribeEventsFilter_Cost.php:72
+#@ tribe-events-filter-view
+msgid "Empty or set to zero"
+msgstr "Leer oder \\\"0\\\" (Null) enthält"
+
+#: lib/filters/TribeEventsFilter_Cost.php:77
+#@ tribe-events-filter-view
+msgid "Only when set to zero"
+msgstr "Nur wenn es \\\"0\\\" (Null) enthält"
+
+#: lib/filters/TribeEventsFilter_Cost.php:93
+#@ tribe-events-filter-view
+msgid "Free"
+msgstr "gratis"
+
+#: lib/filters/TribeEventsFilter_DayOfWeek.php:12
+#@ tribe-events-filter-view
+msgid "Sunday"
+msgstr "Sonntag"
+
+#: lib/filters/TribeEventsFilter_DayOfWeek.php:13
+#@ tribe-events-filter-view
+msgid "Monday"
+msgstr "Montag"
+
+#: lib/filters/TribeEventsFilter_DayOfWeek.php:14
+#@ tribe-events-filter-view
+msgid "Tuesday"
+msgstr "Dienstag"
+
+#: lib/filters/TribeEventsFilter_DayOfWeek.php:15
+#@ tribe-events-filter-view
+msgid "Wednesday"
+msgstr "Mittwoch"
+
+#: lib/filters/TribeEventsFilter_DayOfWeek.php:16
+#@ tribe-events-filter-view
+msgid "Thursday"
+msgstr "Donnerstag"
+
+#: lib/filters/TribeEventsFilter_DayOfWeek.php:17
+#@ tribe-events-filter-view
+msgid "Friday"
+msgstr "Freitag"
+
+#: lib/filters/TribeEventsFilter_DayOfWeek.php:18
+#@ tribe-events-filter-view
+msgid "Saturday"
+msgstr "Samstag"
+
+#: lib/filters/TribeEventsFilter_TimeOfDay.php:12
+#@ tribe-events-filter-view
+msgid "All Day"
+msgstr "Ganztags"
+
+#: lib/filters/TribeEventsFilter_TimeOfDay.php:13
+#@ tribe-events-filter-view
+msgid "Morning"
+msgstr "Morgen"
+
+#: lib/filters/TribeEventsFilter_TimeOfDay.php:14
+#@ tribe-events-filter-view
+msgid "Afternoon"
+msgstr "Nachmittag"
+
+#: lib/filters/TribeEventsFilter_TimeOfDay.php:15
+#@ tribe-events-filter-view
+msgid "Evening"
+msgstr "Abend"
+
+#: lib/filters/TribeEventsFilter_TimeOfDay.php:16
+#@ tribe-events-filter-view
+msgid "Night"
+msgstr "Nacht"
+
+#: lib/tribe-filter-view.class.php:293
+#@ tribe-events-filter-view
+msgid "Event Category"
+msgstr "Veranstaltungskategorie"
+
+#: lib/tribe-filter-view.class.php:294
+#, php-format
+#@ tribe-events-filter-view
+msgid "Cost (%s)"
+msgstr "Preis (%s)"
+
+#: lib/tribe-filter-view.class.php:295
+#@ tribe-events-filter-view
+msgid "Tags"
+msgstr "Tags"
+
+#: lib/tribe-filter-view.class.php:298
+#@ tribe-events-filter-view
+msgid "Day"
+msgstr "Tag"
+
+#: lib/tribe-filter-view.class.php:299
+#@ tribe-events-filter-view
+msgid "Time"
+msgstr "Time"
+
+#: lib/tribe-filter.class.php:178
+#@ tribe-events-filter-view
+msgid "Select"
+msgstr "Auswahl"
+
+#: lib/tribe-filter.class.php:445
+#, php-format
+#@ tribe-events-filter-view
+msgid "Title: %s"
+msgstr "Titel: %s"
+
+#: the-events-calendar-filter-view.php:59
+#@ tribe-events-filter-view
+msgid "The Events Calendar"
+msgstr "The Events Calendar"
+
+#: the-events-calendar-filter-view.php:60
+#, php-format
+#@ tribe-events-eventful-importer
+msgid "To begin using The Events Calendar: Advanced Filters, please install the latest version of <a href=\"%s\" class=\"thickbox\" title=\"%s\">The Events Calendar</a>."
+msgstr "Bitte installiere die aktuelle Version von <a href=\"%s\" class=\"thickbox\" title=\"%s\">The Events Calendar</a>."
+
+#: views/filter-bar/filter-view-horizontal.php:20
+#: views/filter-bar/filter-view-vertical.php:24
+#@ tribe-events-filter-view
+msgid "Narrow Your Results"
+msgstr "Ergebnisse einschränken"
+
+#: views/filter-bar/filter-view-horizontal.php:22
+#: views/filter-bar/filter-view-horizontal.php:34
+#: views/filter-bar/filter-view-vertical.php:20
+#@ tribe-events-filter-view
+msgid "Show Advanced Filters"
+msgstr "Erweiterte Filter anzeigen"
+
+#: views/filter-bar/filter-view-horizontal.php:22
+#: views/filter-bar/filter-view-horizontal.php:34
+#: views/filter-bar/filter-view-vertical.php:20
+#: views/filter-bar/filter-view-vertical.php:35
+#@ tribe-events-filter-view
+msgid "Collapse Filters"
+msgstr "Filter zuklappen"
+
+#: views/filter-bar/filter-view-horizontal.php:23
+#: views/filter-bar/filter-view-horizontal.php:35
+#: views/filter-bar/filter-view-vertical.php:21
+#@ tribe-events-filter-view
+msgid "Show Filters"
+msgstr "Filter anzeigen"
+
+#: views/filter-bar/filter-view-horizontal.php:24
+#: views/filter-bar/filter-view-horizontal.php:36
+#: views/filter-bar/filter-view-vertical.php:32
+#: views/filter-bar/filter-view-vertical.php:36
+#@ tribe-events-filter-view
+msgid "Reset Filters"
+msgstr "Filter zurücksetzen"
+
+#: views/filter-bar/filter-view-horizontal.php:30
+#: views/filter-bar/filter-view-vertical.php:30
+#@ default
+msgid "Submit"
+msgstr "Abschicken"
+
+#: lib/filters/TribeEventsFilter_Tag.php:31
+#, php-format
+#@ tribe-events-filter-view
+msgid "Type: %s %s %s"
+msgstr "Eingeben: %s %s %s"
+
+#: lib/filters/TribeEventsFilter_Tag.php:45
+#@ tribe-events-filter-view
+msgid "Autocomplete"
+msgstr "Autovervollständigen"
+
+#: lib/tribe-filter.class.php:211
+#@ tribe-events-filter-view
+msgid "No items match"
+msgstr "Keine passenden Treffer gefunden"
+
+#: lib/tribe-filter.class.php:211
+#@ tribe-events-filter-view
+msgid "Select an Item"
+msgstr "Wähle ein Objekt"
+

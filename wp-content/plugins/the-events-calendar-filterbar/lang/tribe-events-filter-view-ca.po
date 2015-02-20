@@ -1,0 +1,267 @@
+# Tribe Events Faceted Filters by Modern Tribe, Inc.
+# Copyright (C) Modern Tribe, Inc.
+# This file is distributed under the same license as the Tribe Events Faceted Filters package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Tribe Events Filter Bar 3.5\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-09-26 12:52-0800\n"
+"PO-Revision-Date: 2014-10-13 12:09-0800\n"
+"Last-Translator: \n"
+"Language-Team: Modern Tribe, Inc. <pro@tri.be>\n"
+"Language: ca\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:1,2,4c;_n_noop:1,2;"
+"_nx_noop:1,2,3c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;"
+"esc_html_x:1,2c\n"
+"X-Poedit-Basepath: ./\n"
+"X-Textdomain-Support: yes\n"
+"X-Generator: Poedit 1.6.9\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#: ../admin-views/settings-field-active-filters.php:7
+msgid "Active Filters"
+msgstr "Mostra els filtres"
+
+#: ../admin-views/settings-field-available-filters.php:8
+msgid "Available Filters"
+msgstr "Filtres disponibles"
+
+#: ../lib/TribeEventsFilter_Settings.php:34
+#: ../lib/TribeEventsFilter_Settings.php:92
+msgid "Filters"
+msgstr "Filtres"
+
+#: ../lib/TribeEventsFilter_Settings.php:96
+msgid ""
+"The settings below allow you to enable or disable front-end event filters. "
+"Uncheck the box to hide the filter. Drag and drop active filters to re-"
+"arrange them."
+msgstr ""
+"La següent configuració us permet activar o desactivar els filtres "
+"d'activitats del front-end. Desmarca la casella per ocultar el filtre. "
+"Arrosega i deixa anar els filtres actius per reordenar-los."
+
+#: ../lib/TribeEventsFilter_Settings.php:97
+msgid ""
+"Expand an active filter to edit the label and choose from a subset of input "
+"types (dropdown, select, range slider, checkbox and radio)."
+msgstr ""
+"Expandeix el filtre actiu per editar l'etiqueta i escull de la selecció de "
+"camps d'entrada (desplegable, llista, selector, checkbox o botó de radio)"
+
+#: ../lib/TribeEventsFilter_Settings.php:109
+msgid "Filters Layout"
+msgstr "Disposició del filtre"
+
+#: ../lib/TribeEventsFilter_Settings.php:112
+msgid "Vertical"
+msgstr "Vertical"
+
+#: ../lib/TribeEventsFilter_Settings.php:113
+msgid "Horizontal"
+msgstr "Horizontal"
+
+#: ../lib/TribeEventsFilter_Settings.php:119
+msgid "Filters Default State"
+msgstr "Estat per defecte del filtre"
+
+#: ../lib/TribeEventsFilter_Settings.php:122
+msgid "Closed"
+msgstr "Tancat"
+
+#: ../lib/TribeEventsFilter_Settings.php:123
+msgid "Open"
+msgstr "Obre"
+
+#: ../lib/TribeEventsFilter_Settings.php:146
+msgid "Filter Bar"
+msgstr "Barra de filtres"
+
+#: ../lib/filters/TribeEventsFilter_Category.php:17
+#: ../lib/filters/TribeEventsFilter_Cost.php:54
+#, php-format
+msgid "Type: %s %s"
+msgstr "Tipus: %s %s"
+
+#: ../lib/filters/TribeEventsFilter_Category.php:21
+#: ../lib/filters/TribeEventsFilter_Tag.php:35
+msgid "Dropdown"
+msgstr "Desplegable"
+
+#: ../lib/filters/TribeEventsFilter_Category.php:26
+#: ../lib/filters/TribeEventsFilter_Cost.php:63
+#: ../lib/filters/TribeEventsFilter_Tag.php:40
+msgid "Checkboxes"
+msgstr "Caselles de verificació"
+
+#: ../lib/filters/TribeEventsFilter_Cost.php:58
+msgid "Range Slider"
+msgstr "Selector d'intèrvals"
+
+#: ../lib/filters/TribeEventsFilter_Cost.php:68
+#, php-format
+msgid "Events are considered free when cost field is: %s %s"
+msgstr "Les activitats es consideren gratuïtes quan el camp del preu és: %s %s"
+
+#: ../lib/filters/TribeEventsFilter_Cost.php:72
+msgid "Empty or set to zero"
+msgstr "Buida o posa a cero"
+
+#: ../lib/filters/TribeEventsFilter_Cost.php:77
+msgid "Only when set to zero"
+msgstr "Només quan el valor és cero"
+
+#: ../lib/filters/TribeEventsFilter_Cost.php:93
+msgid "Free"
+msgstr "Gratuït"
+
+#: ../lib/filters/TribeEventsFilter_DayOfWeek.php:12
+msgid "Sunday"
+msgstr "Diumenge"
+
+#: ../lib/filters/TribeEventsFilter_DayOfWeek.php:13
+msgid "Monday"
+msgstr "Dilluns"
+
+#: ../lib/filters/TribeEventsFilter_DayOfWeek.php:14
+msgid "Tuesday"
+msgstr "Dimarts"
+
+#: ../lib/filters/TribeEventsFilter_DayOfWeek.php:15
+msgid "Wednesday"
+msgstr "Dimecres"
+
+#: ../lib/filters/TribeEventsFilter_DayOfWeek.php:16
+msgid "Thursday"
+msgstr "Dijous"
+
+#: ../lib/filters/TribeEventsFilter_DayOfWeek.php:17
+msgid "Friday"
+msgstr "Divendres"
+
+#: ../lib/filters/TribeEventsFilter_DayOfWeek.php:18
+msgid "Saturday"
+msgstr "Dissabte"
+
+#: ../lib/filters/TribeEventsFilter_Tag.php:31
+#, php-format
+msgid "Type: %s %s %s"
+msgstr "Tipus: %s %s %s"
+
+#: ../lib/filters/TribeEventsFilter_Tag.php:45
+msgid "Autocomplete"
+msgstr "Autocompletar"
+
+#: ../lib/filters/TribeEventsFilter_TimeOfDay.php:12
+msgid "All Day"
+msgstr "Tot el dia"
+
+#: ../lib/filters/TribeEventsFilter_TimeOfDay.php:13
+msgid "Morning"
+msgstr "Matí"
+
+#: ../lib/filters/TribeEventsFilter_TimeOfDay.php:14
+msgid "Afternoon"
+msgstr "Tarda"
+
+#: ../lib/filters/TribeEventsFilter_TimeOfDay.php:15
+msgid "Evening"
+msgstr "Vespre"
+
+#: ../lib/filters/TribeEventsFilter_TimeOfDay.php:16
+msgid "Night"
+msgstr "Nit"
+
+#: ../lib/tribe-filter-view.class.php:293
+msgid "Event Category"
+msgstr "Categoria de l'esdeveniment"
+
+#: ../lib/tribe-filter-view.class.php:294
+#, php-format
+msgid "Cost (%s)"
+msgstr "Preu (%s)"
+
+#: ../lib/tribe-filter-view.class.php:295
+msgid "Tags"
+msgstr "Etiquetes"
+
+#: ../lib/tribe-filter-view.class.php:298
+msgid "Day"
+msgstr "Dia"
+
+#: ../lib/tribe-filter-view.class.php:299
+msgid "Time"
+msgstr "Hora"
+
+#: ../lib/tribe-filter.class.php:178
+msgid "Select"
+msgstr "Selecciona"
+
+#: ../lib/tribe-filter.class.php:211
+msgid "No items match"
+msgstr "No s'ha trobat cap registre coincident"
+
+#: ../lib/tribe-filter.class.php:211
+msgid "Select an Item"
+msgstr "Selecciona un element"
+
+#: ../lib/tribe-filter.class.php:445
+#, php-format
+msgid "Title: %s"
+msgstr "Títol: %s"
+
+#: ../the-events-calendar-filter-view.php:59
+msgid "The Events Calendar"
+msgstr "Calendari d'activitats"
+
+#: ../the-events-calendar-filter-view.php:60
+#, php-format
+msgid ""
+"To begin using The Events Calendar: Advanced Filters, please install the "
+"latest version of <a href=\"%s\" class=\"thickbox\" title=\"%s\">The Events "
+"Calendar</a>."
+msgstr ""
+"Per començar a usar els filtres avançats del calendari, instal·leu la "
+"darrera versió de <a href=\"%s\" class=\"thickbox\" title=\"%s\">The Events "
+"Calendar</a>."
+
+#: ../views/filter-bar/filter-view-horizontal.php:20
+#: ../views/filter-bar/filter-view-vertical.php:24
+msgid "Narrow Your Results"
+msgstr "Refina els resultats"
+
+#: ../views/filter-bar/filter-view-horizontal.php:22
+#: ../views/filter-bar/filter-view-horizontal.php:34
+#: ../views/filter-bar/filter-view-vertical.php:20
+msgid "Show Advanced Filters"
+msgstr "Mostra filtres avançats"
+
+#: ../views/filter-bar/filter-view-horizontal.php:22
+#: ../views/filter-bar/filter-view-horizontal.php:34
+#: ../views/filter-bar/filter-view-vertical.php:20
+#: ../views/filter-bar/filter-view-vertical.php:35
+msgid "Collapse Filters"
+msgstr "Col·lapsa els filtres"
+
+#: ../views/filter-bar/filter-view-horizontal.php:23
+#: ../views/filter-bar/filter-view-horizontal.php:35
+#: ../views/filter-bar/filter-view-vertical.php:21
+msgid "Show Filters"
+msgstr "Mostra filtres"
+
+#: ../views/filter-bar/filter-view-horizontal.php:24
+#: ../views/filter-bar/filter-view-horizontal.php:36
+#: ../views/filter-bar/filter-view-vertical.php:32
+#: ../views/filter-bar/filter-view-vertical.php:36
+msgid "Reset Filters"
+msgstr "Reseteja els filtres"
+
+#: ../views/filter-bar/filter-view-horizontal.php:30
+#: ../views/filter-bar/filter-view-vertical.php:30
+msgid "Submit"
+msgstr "Envia"

@@ -60,7 +60,7 @@
 //Video JS - #### have to rename file to sass - and copy font to public folder
 // @import '../vendor/video-js/dist/video-js';
 
-// Flex Slider #### have to rename file to sass
+// Flex Slider #### have to rename file to sass - move fonts to public
 @import '../vendor/flexslider/flexslider';
 
 // magnific-popup #### have to rename file to sass
@@ -81,4 +81,5 @@
 // Themestyle
 @import "header";
 @import "main";
+@import "modules";
 @import "footer";

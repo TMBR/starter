@@ -1,0 +1,813 @@
+/**
+* The Events Calendar: Advanced Filter Views Stylesheet
+*
+* @package TribeEventsFilterView
+* @since  1.0
+* @author Modern Tribe Inc.
+*
+*/
+
+/* ==========================================================================
+   Layout / Style Resets
+   ========================================================================== */
+
+/* Basic Reset for Filter Items */
+#tribe_events_filters_wrapper,
+#tribe_events_filters_wrapper h3,
+#tribe_events_filters_wrapper ul,
+#tribe_events_filters_wrapper input,
+#tribe_events_filters_wrapper select,
+#tribe_events_filters_wrapper label {
+	margin:0;
+	padding:0;
+	font-size:12px;
+}
+
+#tribe_events_filters_wrapper ul,
+#tribe_events_filters_wrapper ul li {
+	list-style: none;
+	list-style-type: none;
+}
+
+#tribe_events_filters_wrapper ul li {
+	margin: 0;
+	padding: 0;
+}
+
+/* Events Page Title Resets
+   ========================================================================== */
+
+.tribe-events-filter-view .tribe-events-page-title {
+	padding: 0;
+	margin-top: 18px;
+	clear: none;
+}
+
+.tribe-events-filter-view.tribe-bar-is-disabled .tribe-events-page-title {
+	margin-top: 0;
+}
+
+.tribe-events-filter-view  .tribe-events-list h2.tribe-events-page-title{
+	width: 100%;
+	float: none;
+}
+
+/* Layout Resets
+   ========================================================================== */
+
+/* Events content when filters are closed */   
+.tribe-filters-closed #tribe-events-content {
+	width:100%;
+	float: none;
+	clear: both;
+}
+
+/* Events content with closed filters and disabled bar */
+.tribe-filters-closed.tribe-bar-is-disabled #tribe-events-content {
+	clear: none;
+}
+
+/* Events navigation with closed filters */
+.tribe-filters-closed #tribe-events-header .tribe-events-sub-nav {
+	clear: both;
+}
+
+/* Toggle/Reset buttons */
+#tribe_events_filter_control {
+	margin: 0 0 15px 0;
+	padding: 0;
+	z-index: 1;
+	position: relative;
+}
+.tribe-events-filters-mobile-controls {
+	display: none;
+}
+/* Hide/Show button */
+#tribe_events_filters_toggle {
+	font-weight: bold;
+	text-decoration:none;
+	display:inline-block;
+	margin:0;
+}
+.tribe-filters-closed .tribe_events_filters_close_filters {
+	display: none !important;
+}
+.tribe-filters-open .tribe_events_filters_show_filters {
+	display: none !important;
+}	
+
+/* Filter Bar Hidden State */
+.tribe-filters-closed #tribe_events_filters_wrapper #tribe_events_filter_control {
+	border:0;
+}
+
+/* Closed Filters
+   ========================================================================== */
+
+/* Hide Filters */
+.tribe-events-filter-view.tribe-filters-closed #tribe_events_filters_form,
+.tribe-events-filter-view.tribe-filters-closed #tribe_events_filters_wrapper .tribe-events-filters-label,
+.tribe-events-filter-view.tribe-filters-closed #tribe_events_filters_reset {
+	display:none;
+}
+
+/* Expand Toggle Button */
+.tribe-events-filter-view.tribe-filters-closed #tribe_events_filters_wrapper #tribe_events_filters_toggle {
+	padding-left:0;
+	width: 100%;
+	display: block;
+}
+
+.tribe_events_filter_item.closed {
+	padding-bottom:0;
+}
+
+.tribe_events_filter_item.closed div {
+	display:none;
+}
+
+
+/* ==========================================================================
+   Shared Filters Styles
+   ========================================================================== */
+
+/* Filter Item Wrapper */
+ #tribe_events_filters_wrapper label.tribe-events-filters-label {
+ 	font-weight: bold;
+	padding: 15px;
+	margin: 0;
+	line-height: 1;
+	font-size: 15px;
+	border-bottom: 1px solid #e2e2e2;
+	cursor:auto;
+}
+
+/* Filter Items
+   ========================================================================== */
+
+/* Single Filter Item */
+.tribe_events_filter_item {
+	margin-bottom:0;
+	padding-bottom:0;
+	border-bottom:1px solid #ccc;
+	position: relative;
+}
+
+.tribe_events_filter_item.tribe_last_child,
+.tribe_events_filter_item.closed.tribe_last_child {
+	border-bottom:none;
+	padding-bottom: .25em;
+}
+
+/* Filter Group Heading */
+#tribe_events_filters_wrapper .tribe-events-filters-group-heading {
+	font-weight:bold;
+	line-height: 1;
+	margin: 10px 0;
+	padding: 5px 0;
+	position:relative;
+	cursor:pointer;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+/* Filter Toggles */
+#tribe_events_filters_wrapper h3 span {
+	position:relative;
+	width:12px;
+	display:inline-block;
+	margin-right:2px;
+	right: 0;
+	top: 16px;
+	position: absolute;
+}
+
+/* Filter Toggles Triangle */
+#tribe_events_filters_wrapper h3 span:after {
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+	margin-left: -6px;
+	border-left: 3px inset transparent;
+	border-right: 3px inset transparent;
+	border-bottom: 0 inset transparent;
+	border-top: 5px solid;
+}
+
+.tribe-events-filter-group {
+	max-height: 275px;
+	position: relative;
+	z-index: 2;
+}
+
+#tribe_events_filters_wrapper .tribe-events-filter-group label {
+	padding: 15px;
+	border-bottom: 1px solid #f4f4f4;
+	display: block;
+}
+
+.tribe-events-filter-group ul {
+	max-height: 250px;
+	overflow-y: auto;
+}
+
+#tribe_events_filters_wrapper .tribe_events_filter_item.closed h3 span:after {
+	border-top: 3px inset transparent;
+	border-bottom: 3px inset transparent;
+	border-right: 0 inset transparent;
+	border-left: 5px solid;
+}
+
+/* Events Filters Form Elements
+   ========================================================================== */
+#tribe_events_filters_wrapper label {
+	display: block;
+	cursor:pointer;
+	line-height: 16px;
+	white-space: nowrap;
+}
+
+#tribe_events_filters_wrapper .tribe-events-filters-content > label {
+	white-space: normal;
+}
+
+#tribe_events_filters_wrapper label input[type=checkbox],
+#tribe_events_filters_wrapper label input[type=radio]
+{
+	display:inline-block;
+	width:10%;
+	vertical-align: middle;
+	margin-right: 5px;
+}
+
+#tribe_events_filters_wrapper label span {
+	display:inline-block;
+	width:86%;
+	vertical-align: middle;
+	white-space: nowrap;
+	overflow:hidden;
+	-o-text-overflow:ellipsis;
+	text-overflow:ellipsis
+}
+
+/* Filter Selects */
+#tribe_events_filters_wrapper select {
+	width:100%;
+	padding:2%;
+	background-color: #fff;
+	background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(1%, #eeeeee), color-stop(15%, #ffffff));
+	background-image: -webkit-linear-gradient(top, #eeeeee 1%, #ffffff 15%);
+	background-image: -moz-linear-gradient(top, #eeeeee 1%, #ffffff 15%);
+	background-image: -o-linear-gradient(top, #eeeeee 1%, #ffffff 15%);
+	background-image: -ms-linear-gradient(top, #eeeeee 1%, #ffffff 15%);
+	background-image: linear-gradient(top, #eeeeee 1%, #ffffff 15%);
+	border: 1px solid #aaa;
+	overflow: hidden;
+	height: auto !important;
+	height: 1%;
+	position: relative;
+}
+
+#tribe_events_filters_wrapper select:focus {
+	outline: none;
+}
+
+.tribe-events-filter-group.tribe-events-filter-range, 
+.tribe-events-filter-group.tribe-events-filter-select,
+.tribe-events-filter-group.tribe-events-filter-multiselect,
+.tribe-events-filter-group.tribe-events-filter-autocomplete {
+	padding: 15px;
+	background: #F9FAFA;
+}
+
+.tribe-events-filter-group.tribe-events-filter-autocomplete {
+	z-index:3;
+}
+
+/* Filter Autocomplete / Chosen */
+
+#tribe_events_filters_wrapper .chosen-container-multi {
+	padding:2%;
+	background-color: #fff;
+	background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(1%, #eeeeee), color-stop(15%, #ffffff));
+	background-image: -webkit-linear-gradient(top, #eeeeee 1%, #ffffff 15%);
+	background-image: -moz-linear-gradient(top, #eeeeee 1%, #ffffff 15%);
+	background-image: -o-linear-gradient(top, #eeeeee 1%, #ffffff 15%);
+	background-image: -ms-linear-gradient(top, #eeeeee 1%, #ffffff 15%);
+	background-image: linear-gradient(top, #eeeeee 1%, #ffffff 15%);
+	border: 1px solid #aaa;
+	height: auto !important;
+	font-size:13px;
+	line-height:1;
+}
+
+#tribe_events_filters_wrapper .tribe-events-filter-autocomplete .chosen-container-multi .chosen-choices {
+	border:0;
+	background-image:none;
+}
+
+.tribe-events-filter-autocomplete .chosen-container-multi .chosen-choices li,
+.tribe-events-filter-autocomplete .chosen-container-multi ul li
+ {
+	padding:3px 20px 3px 5px !important;
+	margin:3px 0 3px 5px !important;
+}
+
+.tribe-events-filters-horizontal .tribe-events-filter-group ul.chosen-results li:hover,
+.tribe-events-filters-horizontal .tribe-events-filter-group ul.chosen-results li.highlighted,
+.tribe-events-filters-horizontal .tribe-events-filter-group li:hover {
+	background-color: #3875d7;
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3875d7', endColorstr='#2a62bc', GradientType=0 );
+	background-image: -webkit-gradient(linear, 0 0, 0 100%, color-stop(20%, #3875d7), color-stop(90%, #2a62bc));
+	background-image: -webkit-linear-gradient(top, #3875d7 20%, #2a62bc 90%);
+	background-image: -moz-linear-gradient(top, #3875d7 20%, #2a62bc 90%);
+	background-image: -o-linear-gradient(top, #3875d7 20%, #2a62bc 90%);
+	background-image: linear-gradient(#3875d7 20%, #2a62bc 90%);
+}
+
+#tribe_events_filters_wrapper .chosen-container-multi.chosen-container-active ul.chosen-choices {
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	box-shadow: none;
+}
+
+#tribe_events_filters_wrapper .chosen-container-multi .chosen-results {
+	margin: 0 4px 4px 0;
+	padding: 0 0 0 4px;
+}
+
+#tribe_events_filters_wrapper .chosen-container-multi .chosen-results li {
+	line-height: 15px;
+	padding: 5px 6px;
+}
+
+#tribe_events_filters_wrapper .chosen-container.chosen-with-drop .chosen-drop {
+	left:-1px;
+}
+
+#tribe_events_filters_wrapper .chosen-drop {
+	-moz-box-sizing: content-box;
+	-ms-box-sizing: content-box;
+	-webkit-box-sizing: content-box;
+	-khtml-box-sizing: content-box;
+	box-sizing: content-box;
+}
+
+/* Filter Sliders */
+#tribe_events_filters_wrapper .tribe_events_slider_val {
+	font-weight:bold;
+	font-size: 12px;
+}
+
+#tribe_events_filters_wrapper .ui-slider {
+	margin: .25em 0;
+}
+
+#tribe_events_filters_wrapper .ui-slider-horizontal .ui-slider-handle:first-of-type {
+	margin-left: -1px;
+}
+#tribe_events_filters_wrapper .ui-slider-horizontal .ui-slider-handle:last-of-type {
+	margin-left: -16px;
+}
+
+/* Filter Submit */
+#tribe_events_filters_wrapper input[type=submit] {
+	background: #666;
+	border-radius: 3px;
+	border:none;
+	margin: 15px;
+	color: #fff !important;
+	display: block;
+	font-size: 11px;
+	height:30px;
+	padding:0 10px;
+	font-weight: bold;
+	text-transform: uppercase;
+	cursor:pointer;
+	-webkit-transition: 0.1s ease-in-out;
+	-moz-transition: 0.1s ease-in-out;
+	-o-transition: 0.1s ease-in-out;
+	transition: 0.1s ease-in-out;
+	box-shadow: none;
+}
+
+#tribe_events_filters_wrapper input[type=submit]:hover {
+	background: #999;
+}
+
+/* ==========================================================================
+   Vertical Filters Styles
+   ========================================================================== */
+
+/* Filters Wrapper */
+.tribe-events-filters-content {
+	background: #f5f5f5;
+	border-left: 1px solid #F5F5F5;
+	border-right: 1px solid #F5F5F5;
+}
+
+#tribe_events_filters_wrapper .tribe-events-filters-group-heading {
+	background: #eaeaea;
+	margin: 0;
+	padding: 15px;
+	border-bottom: 1px solid #dadada;
+	position: relative;
+}
+
+#tribe_events_filters_wrapper .tribe-events-filters-group-heading:hover {
+	background: #f6f6f6;
+}
+.tribe-filters-closed .tribe-events-filters-content {
+	padding: 0;
+	background:transparent;
+	border-left:0;
+	border-right:0;
+}
+#tribe_events_filters_reset {
+	padding: 0 15px;
+	margin: 15px 0;
+	display: inline-block;
+}
+
+/* Sidebar Width in Relation To Main Event List */
+#tribe_events_filters_wrapper.tribe-events-filters-vertical {
+	position:relative;
+	width:25%;
+	float:left;
+	padding:0 0 15px 0;
+	margin-bottom:60px;
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+}
+
+.tribe-filters-closed #tribe_events_filters_wrapper {
+	float: none;
+	width: 100%;
+}
+.tribe-events-filter-group {
+	margin: 0;
+	border-bottom: 1px solid #e2e2e2;
+}
+.tribe-events-filter-group label {
+	border-color: #EBEBEB;
+}
+.tribe-events-filter-group li {
+	background: #F9FAFA;
+}
+.tribe-events-filter-group li:hover {
+	background: #fff;
+}
+.tribe-filters-open .tribe-events-filters-vertical + #tribe-events-content,
+.tribe-filters-open .tribe-events-filters-vertical + .tribe-bar-disabled + #tribe-events-content  {
+	 width: 75%;
+	 padding-left: 30px !important;
+	 float: right;
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;	 
+}
+
+.tribe-events-filter-view.tribe-filters-closed .tribe-events-filters-vertical + #tribe-events-content, 
+.tribe-events-filter-view.tribe-filters-open .tribe-events-filters-horizontal + #tribe-events-content {
+	width: 100%;
+}
+.tribe-filters-open .tribe-events-filters-vertical + .tribe-bar-disabled + #tribe-events-content #tribe-events-header {
+	margin-top: 30px;
+}
+
+.tribe-filters-closed #tribe_events_filters_wrapper.tribe-events-filters-vertical {
+	padding:0;
+	margin:0;
+	border:0;
+}   
+
+/* ==========================================================================
+   Horizontal Filters Styles
+   ========================================================================== */
+/* These styles only apply to larger screens */
+@media only screen and (min-width: 767px) {
+	.tribe-filters-closed #tribe_events_filters_wrapper.tribe-events-filters-horizontal {
+		padding: 5px;
+		text-align: center;
+	}
+
+	#tribe_events_filters_wrapper.tribe-events-filters-horizontal,
+	.tribe-filters-closed #tribe_events_filters_wrapper.tribe-events-filters-horizontal  {
+		position: static;
+		width: auto;
+		padding: 13px 5px 13px 5px;
+		margin: -1.5em 0 2.5em 0;
+		background: #f5f5f5;
+	}
+	.tribe-bar-is-disabled #tribe_events_filters_wrapper.tribe-events-filters-horizontal,
+	.tribe-filters-closed.tribe-bar-is-disabled  #tribe_events_filters_wrapper.tribe-events-filters-horizontal {
+		margin-top: 0;
+	}
+
+	#tribe_events_filters_wrapper.tribe-events-filters-horizontal .tribe-events-filters-label {
+		font-size: 11px;
+		margin-bottom: 0;
+		margin-left: 14px;
+		float: left;
+		line-height: 1;
+		text-transform: uppercase;
+		font-weight: bold;
+		padding: 0;
+		border: none;
+	}   
+
+	#tribe_events_filters_wrapper.tribe-events-filters-horizontal .tribe-events-filters-group-heading {
+		padding: 0 0 0 15px;
+		border: none;
+		background: none;
+		height:22px;
+	}
+
+	#tribe_events_filters_wrapper.tribe-events-filters-horizontal .tribe-events-filters-group-heading:hover {
+		background: none;
+	} 
+	#tribe_events_filters_wrapper.tribe-events-filters-horizontal h3 span {
+		top: 4px;
+		right: auto;
+		left: 12px;
+		position: absolute;
+	}
+	.tribe-events-filters-horizontal #tribe_events_filter_control {
+		float: right;
+		width: auto;
+		margin: 0 13px 0 0;
+		font-size: 11px;
+		line-height: 1.5;
+	}
+
+	.tribe-events-filters-horizontal #tribe_events_filter_control a {
+		font-weight: bold;
+		text-decoration: none;
+		margin: 0;
+		padding: 0;
+	}
+
+	.tribe-events-filters-horizontal #tribe_events_filter_control a + a {
+		margin-left: 10px;
+	}
+
+
+	.tribe-filters-closed .tribe-events-filters-horizontal #tribe_events_filter_control {
+		width: 100%;
+		float: none;
+	}
+
+	.tribe-events-filters-horizontal .tribe_events_filter_item {
+		display: inline-block;
+		border: none;
+		position: relative;
+		margin-bottom: 0;
+		margin-right: 10px;
+		padding-bottom: 0;
+	}
+
+	.tribe-events-filters-horizontal #tribe_events_filters_form {
+		display: block;
+		clear: both;
+		padding-top: 3px;
+	}
+
+	.tribe-events-filters-horizontal .tribe-events-filter-group:before {
+
+	}
+	.tribe-events-filters-horizontal .tribe-events-filter-group:before,
+	.tribe-events-filters-horizontal .tribe-events-filter-group:after {
+	    border: 7px outset transparent;
+	    content: "";
+	    display: block;
+	    height: 0;
+	    left: 20px;
+	    position: absolute;
+	    width: 0;
+	}
+
+	.tribe-events-filters-horizontal .tribe-events-filter-group:before {
+	    border-bottom: 7px solid #e0e0e0;
+	    top: -16px;
+	}
+
+	.tribe-events-filters-horizontal .tribe-events-filter-group:after {
+	    border-bottom: 7px solid #fff;
+	    top: -14px;
+	}
+	.tribe-events-filters-horizontal .tribe-events-filter-group {
+		position: absolute;
+		top: auto;
+		max-width: 210px;
+		min-width: 165px;
+		background: #fff;
+		border: 1px solid #e0e0e0;
+		z-index: 1000;
+		box-shadow: 0 0 5px #e0e0e0;
+		box-sizing: border-box;
+		-moz-box-sizing: border-box;
+		-webkit-box-sizing: border-box;
+	}
+
+
+	.tribe-events-filters-horizontal .tribe_events_filter_item.tribe_last_child, .tribe-events-filters-horizontal .tribe_events_filter_item.closed.tribe_last_child {
+		padding-bottom: 0;
+	}
+
+	.tribe-events-filters-horizontal .tribe-events-filter-group li:hover {
+		background: #f4f4f4;
+	}
+	#tribe_events_filters_wrapper.tribe-events-filters-horizontal  input[type=submit] {
+		margin-bottom: 0;
+		margin-left: 12px;
+		display: inline-block;
+	}
+
+	#tribe_events_filters_wrapper.tribe-events-filters-horizontal .tribe_events_slider_val {
+		position: relative;
+		display: block;
+		margin-bottom: 8px;
+		top: 0;
+	}
+}
+/* = Events Filter Styles
+=============================================*/
+
+.tribe_events_filter_item {
+	margin: 0;
+	padding: 0;
+	border-bottom: 0;
+}
+
+#tribe_events_filters_wrapper .tribe_events_filter_item.closed h3 span:after {
+	border-top-color: transparent;
+}
+
+
+
+/* mobile styles */
+@media only screen and (max-width: 767px) {
+	/*prevent body from scrolling when modal is open */
+	.tribe-filters-open, .tribe-filters-open body {
+		overflow: hidden;
+	}
+	.tribe-events-filter-view.tribe-filters-closed #tribe-events-content, 
+	.tribe-events-filter-view.tribe-filters-open #tribe-events-content {
+		width: 100%;
+		float: none;
+		padding-left: 0 !important;
+	}
+	#tribe_events_filters_wrapper.tribe-events-filters-vertical {
+		float: none;
+		width: 100%;
+	}
+	/* position the filters modal-like */
+	.tribe-filters-open #tribe_events_filters_wrapper,
+	.tribe-filters-open #tribe_events_filters_wrapper.tribe-events-filters-horizontal,
+	.tribe-filters-open #tribe_events_filters_wrapper.tribe-events-filters-vertical {
+		background: #ffffff;
+		position: absolute;
+		z-index: 1000;
+		left: 0;
+		right: 0;
+		top: 0;
+		bottom: 0;
+		width: 100%;
+		margin: 0;
+		padding: 0;
+		box-sizing: border-box;
+		-moz-box-sixing: border-box;
+		-webkit-box-sizing: border-box;
+	}
+	.tribe-ajax-success.tribe-filters-open #tribe_events_filters_wrapper {
+		display: none;
+	}
+	.tribe-events-filters-vertical .tribe-events-filters-content {
+		padding: 0;
+	}
+
+	#tribe_events_filters_wrapper.tribe-events-filters-horizontal, 
+	.tribe-filters-closed #tribe_events_filters_wrapper.tribe-events-filters-horizontal,
+	.tribe-filters-closed #tribe_events_filters_wrapper.tribe-events-filters-vertical  {
+		border: none;
+		padding: 0;
+		width: 100%;
+		margin-top: -1.5em;
+		margin-bottom: 0;
+	}
+
+	.tribe-filters-closed.tribe-bar-is-disabled #tribe_events_filters_wrapper.tribe-events-filters-horizontal, 
+	.tribe-filters-closed.tribe-bar-is-disabled  #tribe_events_filters_wrapper.tribe-events-filters-vertical	{
+		margin: 5px 0;
+	}
+	#tribe_events_filters_wrapper .closed .tribe-events-filters-group-heading:hover {
+		background: #EEE;
+	}
+	#tribe_events_filter_control {
+		margin: 0;
+	}
+	.tribe-filters-open #tribe_events_filter_control {
+		display: none;
+	}
+	.tribe-filters-open #tribe_events_filter_control.tribe-events-filters-mobile-controls {
+		display: block;
+		margin: 10px;
+	}
+
+	#tribe_events_filters_reset {
+		display: none;
+	}
+	.tribe-filters-open #tribe_events_filter_control.tribe-events-filters-mobile-controls #tribe_events_filters_reset {
+		display: block;
+	}
+
+	#tribe_events_filter_control a {
+		text-align: center;
+		display: block;
+		padding: 0;
+		font-weight: bold;
+		font-size: 13px;
+		text-decoration: none;
+		height: 40px;
+		line-height: 40px;
+		width: auto;
+		background: #F5F5F5;
+		float: none;
+		border: 1px solid #E2E2E2;
+	}
+
+	#tribe_events_filter_control a + a {
+		margin: 10px 0;
+	}
+	#tribe_events_filter_control #tribe_events_filters_reset {
+		background: #fff;
+	}
+	#tribe_events_filter_control #tribe_events_filters_toggle {
+		background: #666;
+		color: #fff;
+	}
+	/* show the loading indicator over the filters */
+	.tribe-filters-open .tribe-events-ajax-loading { 
+		z-index: 1010;
+		position: fixed;
+		top: 50%;
+	}
+
+	#tribe_events_filters_wrapper h5 {
+		margin: 0;
+	}
+	.tribe-events-filters-vertical #tribe_events_filters_form {
+		position: relative;
+	}
+
+	.tribe-filters-open  .tribe-events-filter-group {
+		-webkit-overflow-scrolling: touch;
+	}
+	
+	#tribe_events_filters_wrapper.tribe-events-filters-horizontal .tribe-events-filters-label,
+	#tribe_events_filters_wrapper.tribe-events-filters-vertical .tribe-events-filters-label
+	 {
+		padding: 15px;
+		border-bottom: 1px solid #f4f4f4;
+		display: block;
+	}
+
+	#tribe_events_filters_wrapper.tribe-events-filters-horizontal .tribe-events-filters-label,
+	.tribe-events-filters-horizontal #tribe_events_filter_control {
+		float: none;
+	}
+
+	#tribe_events_filters_wrapper.tribe-events-filters-vertical .tribe-events-filter-group li:hover	{
+		background: #F9FAFA;
+	}
+
+	.tribe-filters-open .tribe-events-filters-horizontal #tribe_events_filter_control {
+		margin-top: 10px;
+		margin-right: 0;
+	}
+
+	#tribe_events_filters_wrapper.tribe-events-filters-horizontal .tribe_events_slider_val {
+		font-weight:bold;
+		position: absolute;
+		top: -25px;
+		right: 0;
+		font-size: 12px;
+	}
+	.tribe-events-filter-group.tribe-events-filter-range {
+		overflow: visible;
+	}
+	.tribe-bar-disabled {
+		width: 100%;
+		float: none;
+	}
+	.tribe-bar-disabled #tribe-events-bar {
+		margin-bottom: 0;
+	}		
+}

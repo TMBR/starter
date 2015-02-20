@@ -22,6 +22,20 @@
       'assets/vendor/modernizr/modernizr.js',
       'assets/vendor/jquery/dist/jquery.js',
 
+      // Bootstrap JS files
+      // 'assets/vendor/twbs-bootstrap-sass/vendor/assets/javascripts/bootstrap/affix.js',
+      'assets/vendor/twbs-bootstrap-sass/vendor/assets/javascripts/bootstrap/alert.js',
+      'assets/vendor/twbs-bootstrap-sass/vendor/assets/javascripts/bootstrap/button.js',
+      // 'assets/vendor/twbs-bootstrap-sass/vendor/assets/javascripts/bootstrap/carousel.js',
+      'assets/vendor/twbs-bootstrap-sass/vendor/assets/javascripts/bootstrap/collapse.js',
+      'assets/vendor/twbs-bootstrap-sass/vendor/assets/javascripts/bootstrap/dropdown.js',
+      'assets/vendor/twbs-bootstrap-sass/vendor/assets/javascripts/bootstrap/tab.js',
+      'assets/vendor/twbs-bootstrap-sass/vendor/assets/javascripts/bootstrap/transition.js',
+      // 'assets/vendor/twbs-bootstrap-sass/vendor/assets/javascripts/bootstrap/scrollspy.js',
+      // 'assets/vendor/twbs-bootstrap-sass/vendor/assets/javascripts/bootstrap/modal.js',
+      // 'assets/vendor/twbs-bootstrap-sass/vendor/assets/javascripts/bootstrap/tooltip.js',
+      // 'assets/vendor/twbs-bootstrap-sass/vendor/assets/javascripts/bootstrap/popover.js',
+
       // Flexslider things for video
       'assets/vendor/flexslider/jquery.flexslider.js',
 

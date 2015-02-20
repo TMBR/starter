@@ -1,0 +1,306 @@
+# Tribe Events Faceted Filters by Modern Tribe, Inc.
+# Copyright (C) Modern Tribe, Inc.
+# This file is distributed under the same license as the Tribe Events Faceted Filters package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Tribe Events Filter Bar 3.5\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-05-26 09:22-0800\n"
+"PO-Revision-Date: 2014-07-03 13:04-0800\n"
+"Last-Translator: \n"
+"Language-Team: Modern Tribe, Inc. <pro@tri.be>\n"
+"Language: pt_PT\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:1,2,4c;_n_noop:1,2;"
+"_nx_noop:1,2,3c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;"
+"esc_html_x:1,2c\n"
+"X-Poedit-Basepath: ./\n"
+"X-Textdomain-Support: yes\n"
+"X-Generator: Poedit 1.6.5\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#: ../admin-views/settings-field-active-filters.php:7
+msgid "Active Filters"
+msgstr "Filtros Ativos"
+
+#: ../admin-views/settings-field-available-filters.php:8
+msgid "Available Filters"
+msgstr "Filtros disponíveis"
+
+#: ../lib/TribeEventsFilter_Settings.php:33
+#: ../lib/TribeEventsFilter_Settings.php:91
+msgid "Filters"
+msgstr "Filtros"
+
+#: ../lib/TribeEventsFilter_Settings.php:95
+msgid ""
+"The settings below allow you to enable or disable front-end event filters. "
+"Uncheck the box to hide the filter. Drag and drop active filters to re-"
+"arrange them."
+msgstr ""
+"As definições abaixo permitem ativar ou desativar filtros de eventos na área "
+"pública do site. Desmarque a caixa para esconder o filtro. Arraste e largue "
+"os filtros ativos para os reordenar."
+
+#: ../lib/TribeEventsFilter_Settings.php:96
+msgid ""
+"Expand an active filter to edit the label and choose from a subset of input "
+"types (dropdown, select, range slider, checkbox and radio)."
+msgstr ""
+"Clique para expandir um filtro ativo e editar o nome ou escolher a partir de "
+"um conjunto de campos (caixas de seleção, caixas de verificação, botões "
+"'radio' e barras deslizantes)"
+
+#: ../lib/TribeEventsFilter_Settings.php:108
+msgid "Filters Layout"
+msgstr "Disposição dos filtros"
+
+#: ../lib/TribeEventsFilter_Settings.php:111
+msgid "Vertical"
+msgstr "Vertical"
+
+#: ../lib/TribeEventsFilter_Settings.php:112
+msgid "Horizontal"
+msgstr "Horizontal"
+
+#: ../lib/TribeEventsFilter_Settings.php:118
+msgid "Filters Default State"
+msgstr "Estado pré-definido dos filtros"
+
+#: ../lib/TribeEventsFilter_Settings.php:121
+msgid "Closed"
+msgstr "Fechado"
+
+#: ../lib/TribeEventsFilter_Settings.php:122
+msgid "Open"
+msgstr "Aberto"
+
+#: ../lib/filters/TribeEventsFilter_Category.php:17
+#: ../lib/filters/TribeEventsFilter_Cost.php:54
+#, php-format
+msgid "Type: %s %s"
+msgstr "Tipo: %s %s"
+
+#: ../lib/filters/TribeEventsFilter_Category.php:21
+msgid "Dropdown"
+msgstr "Caixa de seleção"
+
+#: ../lib/filters/TribeEventsFilter_Category.php:26
+#: ../lib/filters/TribeEventsFilter_Cost.php:63
+msgid "Checkboxes"
+msgstr "Caixas de verificação"
+
+#: ../lib/filters/TribeEventsFilter_Cost.php:58
+msgid "Range Slider"
+msgstr "Barra deslizante"
+
+#: ../lib/filters/TribeEventsFilter_Cost.php:68
+#, php-format
+msgid "Events are considered free when cost field is: %s %s"
+msgstr "Os eventos são definidos como grátis quando o campo do preço é: %s %s"
+
+#: ../lib/filters/TribeEventsFilter_Cost.php:72
+msgid "Empty or set to zero"
+msgstr "Vazio ou definido a zero"
+
+#: ../lib/filters/TribeEventsFilter_Cost.php:77
+msgid "Only when set to zero"
+msgstr "Apenas quando definido a zero"
+
+#: ../lib/filters/TribeEventsFilter_Cost.php:93
+msgid "Free"
+msgstr "Grátis"
+
+#: ../lib/filters/TribeEventsFilter_DayOfWeek.php:12
+msgid "Sunday"
+msgstr "domingo"
+
+#: ../lib/filters/TribeEventsFilter_DayOfWeek.php:13
+msgid "Monday"
+msgstr "segunda-feira"
+
+#: ../lib/filters/TribeEventsFilter_DayOfWeek.php:14
+msgid "Tuesday"
+msgstr "terça-feira"
+
+#: ../lib/filters/TribeEventsFilter_DayOfWeek.php:15
+msgid "Wednesday"
+msgstr "quarta-feira"
+
+#: ../lib/filters/TribeEventsFilter_DayOfWeek.php:16
+msgid "Thursday"
+msgstr "quinta-feira"
+
+#: ../lib/filters/TribeEventsFilter_DayOfWeek.php:17
+msgid "Friday"
+msgstr "sexta-feira"
+
+#: ../lib/filters/TribeEventsFilter_DayOfWeek.php:18
+msgid "Saturday"
+msgstr "sábado"
+
+#: ../lib/filters/TribeEventsFilter_TimeOfDay.php:12
+msgid "All Day"
+msgstr "Todo o dia"
+
+#: ../lib/filters/TribeEventsFilter_TimeOfDay.php:13
+msgid "Morning"
+msgstr "Manhã"
+
+#: ../lib/filters/TribeEventsFilter_TimeOfDay.php:14
+msgid "Afternoon"
+msgstr "Tarde"
+
+#: ../lib/filters/TribeEventsFilter_TimeOfDay.php:15
+msgid "Evening"
+msgstr "Anoitecer"
+
+#: ../lib/filters/TribeEventsFilter_TimeOfDay.php:16
+msgid "Night"
+msgstr "Noite"
+
+#: ../lib/tribe-filter-view.class.php:276
+msgid "Event Category"
+msgstr "Categoria de Evento"
+
+#: ../lib/tribe-filter-view.class.php:277
+#, php-format
+msgid "Cost (%s)"
+msgstr "Preço (%s)"
+
+#: ../lib/tribe-filter-view.class.php:278
+msgid "Tags"
+msgstr "Etiquetas"
+
+#: ../lib/tribe-filter-view.class.php:279
+msgid "Venues"
+msgstr "Locais"
+
+#: ../lib/tribe-filter-view.class.php:280
+msgid "Organizers"
+msgstr "Organizadores"
+
+#: ../lib/tribe-filter-view.class.php:281
+msgid "Day"
+msgstr "Dia"
+
+#: ../lib/tribe-filter-view.class.php:282
+msgid "Time"
+msgstr "Hora"
+
+#: ../lib/tribe-filter.class.php:186
+msgid "Select"
+msgstr "Selecione"
+
+#: ../lib/tribe-filter.class.php:406
+#, php-format
+msgid "Title: %s"
+msgstr "Título: %s"
+
+#: ../the-events-calendar-filter-view.php:65
+msgid "The Events Calendar"
+msgstr "Agenda de Eventos"
+
+#: ../the-events-calendar-filter-view.php:66
+#, php-format
+msgid ""
+"To begin using The Events Calendar: Advanced Filters, please install the "
+"latest version of <a href=\"%s\" class=\"thickbox\" title=\"%s\">The Events "
+"Calendar</a>."
+msgstr ""
+"Para começar a utilizar a Agenda de Eventos: Filtros Avançados, por favor "
+"instale a última versão da <a href=\"%s\" class=\"thickbox\" title=\"%s"
+"\">Agenda de Eventos</a>."
+
+#: ../vendor/pue-client/admin-views/license-key.view.php:9
+#: ../vendor/pue-client/admin-views/license-key.view.php:13
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:291
+msgid "License Key"
+msgstr "Chave"
+
+#: ../vendor/pue-client/admin-views/license-key.view.php:10
+msgid "A valid license key is required for support and updates."
+msgstr "É necessária uma chave válida para suporte e atualizações."
+
+#: ../vendor/pue-client/admin-views/license-key.view.php:16
+msgid "Replace empty fields"
+msgstr "Substitua os campos vazios"
+
+#: ../vendor/pue-client/admin-views/license-key.view.php:25
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:292
+msgid "A valid license key is required for support and updates"
+msgstr "A valid license key is required for support and updates"
+
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:360
+msgid "License key(s) updated."
+msgstr "Chave atualizada"
+
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:400
+msgid "Sorry, key validation server is not available."
+msgstr "Desculpe, o servidor de validação de chaves não está disponível."
+
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:402
+msgid "Sorry, this key is expired."
+msgstr "Desculpe, esta chave expirou."
+
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:404
+msgid "Sorry, this key is out of installs."
+msgstr "Desculpe, esta chave ultrapassou o limite de utilizações."
+
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:406
+msgid "Sorry, this key is not valid."
+msgstr "Desculpe, esta chave não é válida."
+
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:409
+#, php-format
+msgid "Valid Key! Expires on %s"
+msgstr "Chave válida! Expira em %s"
+
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:413
+#, php-format
+msgid ""
+"Hmmm... something's wrong with this validator. Please contact <a href=\"%s"
+"\">support.</a>"
+msgstr ""
+"Hmmm... aconteceu algo de errado com este validador. Por favor contate o <a "
+"href=\"%s\">suporte.</a>"
+
+#: ../views/filter-bar/filter-view-horizontal.php:20
+#: ../views/filter-bar/filter-view-vertical.php:24
+msgid "Narrow Your Results"
+msgstr "Refine a sua pesquisa"
+
+#: ../views/filter-bar/filter-view-horizontal.php:22
+#: ../views/filter-bar/filter-view-horizontal.php:34
+#: ../views/filter-bar/filter-view-vertical.php:20
+msgid "Show Advanced Filters"
+msgstr "Mostrar filtros avançados"
+
+#: ../views/filter-bar/filter-view-horizontal.php:22
+#: ../views/filter-bar/filter-view-horizontal.php:34
+#: ../views/filter-bar/filter-view-vertical.php:20
+#: ../views/filter-bar/filter-view-vertical.php:35
+msgid "Collapse Filters"
+msgstr "Fechar filtros"
+
+#: ../views/filter-bar/filter-view-horizontal.php:23
+#: ../views/filter-bar/filter-view-horizontal.php:35
+#: ../views/filter-bar/filter-view-vertical.php:21
+msgid "Show Filters"
+msgstr "Mostrar filtros"
+
+#: ../views/filter-bar/filter-view-horizontal.php:24
+#: ../views/filter-bar/filter-view-horizontal.php:36
+#: ../views/filter-bar/filter-view-vertical.php:32
+#: ../views/filter-bar/filter-view-vertical.php:36
+msgid "Reset Filters"
+msgstr "Limpar filtros"
+
+#: ../views/filter-bar/filter-view-horizontal.php:30
+#: ../views/filter-bar/filter-view-vertical.php:30
+msgid "Submit"
+msgstr "Submeter"

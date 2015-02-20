@@ -12,6 +12,12 @@ function tmbr_setup() {
 
 }
 
+/************************ ADD IMAGE SIZE ****************************/
+if ( function_exists( 'add_image_size' ) ) {
+	add_image_size( 'full_screen', 1680, 945, true ); //(cropped)
+	add_image_size( 'mobile_full_screen', 1170, 658, true ); //(cropped)
+}
+
 // ADD TMBR LOGO TO LOGIN PAGE
 add_action('login_head', 'tmbr_login_head');
 
@@ -19,7 +25,7 @@ function tmbr_login_head() {
 	echo "
 	<style>
 		body.login #login h1 a {
-			background: url('".get_bloginfo('template_url')."/assets/img/tmbr-logo.png') no-repeat scroll center top transparent;
+			background: url('".get_bloginfo('template_url')."/assets/images/tmbr_icon_large.png') no-repeat scroll center top transparent;
 			height: 160px;
 			width: 140px;
 			margin: 0 auto;
@@ -36,3 +42,30 @@ function add_ie_html5_shim () {
 	echo '<![endif]-->';
 }
 add_action('wp_head', 'add_ie_html5_shim');
+
+
+// ACF PRO Options pages
+if( function_exists('acf_add_options_page') ) {
+
+	acf_add_options_page(array(
+		'page_title' 	=> 'Theme General Settings',
+		'menu_title'	=> 'Theme Settings',
+		'menu_slug' 	=> 'theme-general-settings',
+		'capability'	=> 'edit_posts',
+		'redirect'		=> false
+	));
+
+	/*
+	acf_add_options_sub_page(array(
+		'page_title' 	=> 'Theme Header Settings',
+		'menu_title'	=> 'Header',
+		'parent_slug'	=> 'theme-general-settings',
+	));
+
+	acf_add_options_sub_page(array(
+		'page_title' 	=> 'Theme Footer Settings',
+		'menu_title'	=> 'Footer',
+		'parent_slug'	=> 'theme-general-settings',
+	));
+	*/
+}

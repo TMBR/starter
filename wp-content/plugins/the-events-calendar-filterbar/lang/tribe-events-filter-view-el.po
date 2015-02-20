@@ -1,0 +1,311 @@
+# Tribe Events Faceted Filters by Modern Tribe, Inc.
+# Copyright (C) Modern Tribe, Inc.
+# This file is distributed under the same license as the Tribe Events Faceted Filters package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Tribe Events Filter Bar 3.8\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-09-26 12:52-0800\n"
+"PO-Revision-Date: 2014-10-17 12:17-0800\n"
+"Last-Translator: \n"
+"Language-Team: Yannis Troullinos <troull88@yahoo.gr>\n"
+"Language: el\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:1,2,4c;_n_noop:1,2;"
+"_nx_noop:1,2,3c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;"
+"esc_html_x:1,2c\n"
+"X-Poedit-Basepath: ./\n"
+"X-Textdomain-Support: yes\n"
+"X-Generator: Poedit 1.6.10\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#: ../admin-views/settings-field-active-filters.php:7
+msgid "Active Filters"
+msgstr "Ενεργά Φίλτρα"
+
+#: ../admin-views/settings-field-available-filters.php:8
+msgid "Available Filters"
+msgstr "Διαθέσιμα Φίλτρα"
+
+#: ../lib/TribeEventsFilter_Settings.php:34
+#: ../lib/TribeEventsFilter_Settings.php:92
+msgid "Filters"
+msgstr "Φίλτρα"
+
+#: ../lib/TribeEventsFilter_Settings.php:96
+msgid ""
+"The settings below allow you to enable or disable front-end event filters. "
+"Uncheck the box to hide the filter. Drag and drop active filters to re-"
+"arrange them."
+msgstr ""
+"Οι παρακάτω ρυθμίσεις επιτρέπουν την ενεργοποίηση ή απενεργοποίηση των "
+"φίλτρων εκδηλώσεων στο front-end. Αποεπιλέξτε το κουτί για να κρύψετε το "
+"φίλτρο. Σύρτε και αφήστε τα διαθέσιμα φίλτρα για την επανατοποθετησή τους."
+
+#: ../lib/TribeEventsFilter_Settings.php:97
+msgid ""
+"Expand an active filter to edit the label and choose from a subset of input "
+"types (dropdown, select, range slider, checkbox and radio)."
+msgstr ""
+"Αναπτύξτε ένα ενεργό φίλτρο για να επεξεργαστείτε την ετικέτα και να "
+"επιλέξετε από ένα υποσύνολο των τύπων εισόδου (αναπτυσσόμενο, επιλογής, "
+"ολισθητή εύρους, κουτιών επιλογών και τύπου ραδιοφώνου)."
+
+#: ../lib/TribeEventsFilter_Settings.php:109
+msgid "Filters Layout"
+msgstr "Διάταξη Φίλτρων"
+
+#: ../lib/TribeEventsFilter_Settings.php:112
+msgid "Vertical"
+msgstr "Κάθετα"
+
+#: ../lib/TribeEventsFilter_Settings.php:113
+msgid "Horizontal"
+msgstr "Οριζόντια"
+
+#: ../lib/TribeEventsFilter_Settings.php:119
+msgid "Filters Default State"
+msgstr "Προεπιλεγμένη Κατάσταση Φίλτρων"
+
+#: ../lib/TribeEventsFilter_Settings.php:122
+msgid "Closed"
+msgstr "Κλειστά"
+
+#: ../lib/TribeEventsFilter_Settings.php:123
+msgid "Open"
+msgstr "Ανοικτά"
+
+#: ../lib/TribeEventsFilter_Settings.php:146
+msgid "Filter Bar"
+msgstr "Filter Bar"
+
+#: ../lib/filters/TribeEventsFilter_Category.php:17
+#: ../lib/filters/TribeEventsFilter_Cost.php:54
+#, php-format
+msgid "Type: %s %s"
+msgstr "Τύπος: %s %s"
+
+#: ../lib/filters/TribeEventsFilter_Category.php:21
+#: ../lib/filters/TribeEventsFilter_Tag.php:35
+msgid "Dropdown"
+msgstr "Αναπτυσσόμενο"
+
+#: ../lib/filters/TribeEventsFilter_Category.php:26
+#: ../lib/filters/TribeEventsFilter_Cost.php:63
+#: ../lib/filters/TribeEventsFilter_Tag.php:40
+msgid "Checkboxes"
+msgstr "Κουτιά Επιλογών"
+
+#: ../lib/filters/TribeEventsFilter_Cost.php:58
+msgid "Range Slider"
+msgstr "Ολισθητής Εύρους"
+
+#: ../lib/filters/TribeEventsFilter_Cost.php:68
+#, php-format
+msgid "Events are considered free when cost field is: %s %s"
+msgstr "Οι εκδηλώσεις θεωρούνται δωρεάν όταν το πεδίο τιμής είναι: %s %s"
+
+#: ../lib/filters/TribeEventsFilter_Cost.php:72
+msgid "Empty or set to zero"
+msgstr "Κενό ή τοποθετήστε στο μηδέν"
+
+#: ../lib/filters/TribeEventsFilter_Cost.php:77
+msgid "Only when set to zero"
+msgstr "Μόνο όταν ρυθμιστεί στο μηδέν"
+
+#: ../lib/filters/TribeEventsFilter_Cost.php:93
+msgid "Free"
+msgstr "Δωρεάν"
+
+#: ../lib/filters/TribeEventsFilter_DayOfWeek.php:12
+msgid "Sunday"
+msgstr "Κυριακή"
+
+#: ../lib/filters/TribeEventsFilter_DayOfWeek.php:13
+msgid "Monday"
+msgstr "Δευτέρα"
+
+#: ../lib/filters/TribeEventsFilter_DayOfWeek.php:14
+msgid "Tuesday"
+msgstr "Τρίτη"
+
+#: ../lib/filters/TribeEventsFilter_DayOfWeek.php:15
+msgid "Wednesday"
+msgstr "Τετάρτη"
+
+#: ../lib/filters/TribeEventsFilter_DayOfWeek.php:16
+msgid "Thursday"
+msgstr "Πέμπτη"
+
+#: ../lib/filters/TribeEventsFilter_DayOfWeek.php:17
+msgid "Friday"
+msgstr "Παρασκευή"
+
+#: ../lib/filters/TribeEventsFilter_DayOfWeek.php:18
+msgid "Saturday"
+msgstr "Σάββατο"
+
+#: ../lib/filters/TribeEventsFilter_Tag.php:31
+#, php-format
+msgid "Type: %s %s %s"
+msgstr "Πληκτρολογήστε: %s %s %s"
+
+#: ../lib/filters/TribeEventsFilter_Tag.php:45
+msgid "Autocomplete"
+msgstr "Αυτόματη Συμπλήρωση"
+
+#: ../lib/filters/TribeEventsFilter_TimeOfDay.php:12
+msgid "All Day"
+msgstr "Όλη την Ημέρα"
+
+#: ../lib/filters/TribeEventsFilter_TimeOfDay.php:13
+msgid "Morning"
+msgstr "Πρωί"
+
+#: ../lib/filters/TribeEventsFilter_TimeOfDay.php:14
+msgid "Afternoon"
+msgstr "Απόγευμα"
+
+#: ../lib/filters/TribeEventsFilter_TimeOfDay.php:15
+msgid "Evening"
+msgstr "Βράδυ"
+
+#: ../lib/filters/TribeEventsFilter_TimeOfDay.php:16
+msgid "Night"
+msgstr "Νύχτα"
+
+#: ../lib/tribe-filter-view.class.php:293
+msgid "Event Category"
+msgstr "Κατηγορία Εκδήλωσης"
+
+#: ../lib/tribe-filter-view.class.php:294
+#, php-format
+msgid "Cost (%s)"
+msgstr "Τιμή (%s)"
+
+#: ../lib/tribe-filter-view.class.php:295
+msgid "Tags"
+msgstr "Ετικέτες"
+
+#: ../lib/tribe-filter-view.class.php:298
+msgid "Day"
+msgstr "Ημέρα"
+
+#: ../lib/tribe-filter-view.class.php:299
+msgid "Time"
+msgstr "Ώρα"
+
+#: ../lib/tribe-filter.class.php:178
+msgid "Select"
+msgstr "Επιλογή"
+
+#: ../lib/tribe-filter.class.php:211
+msgid "No items match"
+msgstr "Δεν υπάρχουν αντικείμενα που να ταιριάζουν"
+
+#: ../lib/tribe-filter.class.php:211
+msgid "Select an Item"
+msgstr "Επιλέξτε ένα Αντικείμενο"
+
+#: ../lib/tribe-filter.class.php:445
+#, php-format
+msgid "Title: %s"
+msgstr "Τίτλος: %s"
+
+#: ../the-events-calendar-filter-view.php:59
+msgid "The Events Calendar"
+msgstr "The Events Calendar"
+
+#: ../the-events-calendar-filter-view.php:60
+#, php-format
+msgid ""
+"To begin using The Events Calendar: Advanced Filters, please install the "
+"latest version of <a href=\"%s\" class=\"thickbox\" title=\"%s\">The Events "
+"Calendar</a>."
+msgstr ""
+"Για να ξεκινήσετε την χρήση του The Events Calendar: Advanced Filters, "
+"παρακαλώ εγκαταστήστε την τελευταία έκδοση του <a href=\"%s\" class="
+"\"thickbox\" title=\"%s\">The Events Calendar</a>."
+
+#: ../views/filter-bar/filter-view-horizontal.php:20
+#: ../views/filter-bar/filter-view-vertical.php:24
+msgid "Narrow Your Results"
+msgstr "Περιορίστε τα Αποτελέσματα"
+
+#: ../views/filter-bar/filter-view-horizontal.php:22
+#: ../views/filter-bar/filter-view-horizontal.php:34
+#: ../views/filter-bar/filter-view-vertical.php:20
+msgid "Show Advanced Filters"
+msgstr "Προβολή Σύνθετων Φίλτρων"
+
+#: ../views/filter-bar/filter-view-horizontal.php:22
+#: ../views/filter-bar/filter-view-horizontal.php:34
+#: ../views/filter-bar/filter-view-vertical.php:20
+#: ../views/filter-bar/filter-view-vertical.php:35
+msgid "Collapse Filters"
+msgstr "Συρρίκνωση Φίλτρων"
+
+#: ../views/filter-bar/filter-view-horizontal.php:23
+#: ../views/filter-bar/filter-view-horizontal.php:35
+#: ../views/filter-bar/filter-view-vertical.php:21
+msgid "Show Filters"
+msgstr "Προβολή Φίλτρων"
+
+#: ../views/filter-bar/filter-view-horizontal.php:24
+#: ../views/filter-bar/filter-view-horizontal.php:36
+#: ../views/filter-bar/filter-view-vertical.php:32
+#: ../views/filter-bar/filter-view-vertical.php:36
+msgid "Reset Filters"
+msgstr "Επαναφορά Φίλτρων"
+
+#: ../views/filter-bar/filter-view-horizontal.php:30
+#: ../views/filter-bar/filter-view-vertical.php:30
+msgid "Submit"
+msgstr "Υποβολή"
+
+#~ msgid "Venues"
+#~ msgstr "Χώροι Διεξαγωγής"
+
+#~ msgid "Organizers"
+#~ msgstr "Διοργανωτές"
+
+#~ msgid "License Key"
+#~ msgstr "Κλειδί Άδειας"
+
+#~ msgid "A valid license key is required for support and updates."
+#~ msgstr "Ένα έγκυρο κλειδί άδειας απαιτείται για υποστήριξη και ενημερώσεις."
+
+#~ msgid "Replace empty fields"
+#~ msgstr "Αντικαταστείστε τα κενά πεδία"
+
+#~ msgid "A valid license key is required for support and updates"
+#~ msgstr "Ένα έγκυρο κλειδί άδειας απαιτείται για υποστήριξη και ενημερώσεις."
+
+#~ msgid "License key(s) updated."
+#~ msgstr "Κλειδί(-ά) άδειας ενημερώθηκε(-αν)."
+
+#~ msgid "Sorry, key validation server is not available."
+#~ msgstr "Λυπούμαστε, ο σέρβερ επιβεβαίωσης κλειδιών δεν είναι διαθέσιμος."
+
+#~ msgid "Sorry, this key is expired."
+#~ msgstr "Λυπούμαστε, το κλειδί έχει λήξει."
+
+#~ msgid "Sorry, this key is out of installs."
+#~ msgstr "Λυπούμαστε, το κλειδί είναι εκτός εγκατάστασεων."
+
+#~ msgid "Sorry, this key is not valid."
+#~ msgstr "Λυπούμαστε, το κλειδί δεν είναι έγκυρο."
+
+#~ msgid "Valid Key! Expires on %s"
+#~ msgstr "Έγκυρο κλειδί! Λήγει στις %s"
+
+#~ msgid ""
+#~ "Hmmm... something's wrong with this validator. Please contact <a href=\"%s"
+#~ "\">support.</a>"
+#~ msgstr ""
+#~ "Χμμμ... κάτι πήγε στραβά με την επιβεβαίωση του κλειδιού. Παρακαλώ "
+#~ "επικοινωνήστε με την <a href=\"%s\">υποστήριξη.</a>"

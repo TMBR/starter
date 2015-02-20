@@ -1,0 +1,292 @@
+# Tribe Events Faceted Filters by Modern Tribe, Inc.
+# Copyright (C) Modern Tribe, Inc.
+# This file is distributed under the same license as the Tribe Events Faceted Filters package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Tribe Events Faceted Filters\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-02-04 17:34-0800\n"
+"PO-Revision-Date: 2014-02-15 10:43+0100\n"
+"Last-Translator: Jeroen Cornelissen <jeroen@toedoes.nl>\n"
+"Language-Team: Modern Tribe, Inc. <pro@tri.be>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;"
+"_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2\n"
+"X-Poedit-Basepath: ./\n"
+"X-Textdomain-Support: yes\n"
+"X-Generator: Poedit 1.6.3\n"
+"Language: nl_NL\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#: ../the-events-calendar-filter-view.php:64
+msgid "The Events Calendar"
+msgstr "The Events Calendar"
+
+#: ../the-events-calendar-filter-view.php:65
+#, php-format
+msgid ""
+"To begin using The Events Calendar: Advanced Filters, please install the "
+"latest version of <a href=\"%s\" class=\"thickbox\" title=\"%s\">The Events "
+"Calendar</a>."
+msgstr ""
+"Om te beginnen met The Events Calendar: Advanced Filters moet je eerst de "
+"laatste versie van <a href=\"%s\" class=\"thickbox\" title=\"%s\">The Events "
+"Calendar</a> installeren."
+
+#: ../admin-views/settings-field-active-filters.php:7
+msgid "Active Filters"
+msgstr "Actieve filters"
+
+#: ../admin-views/settings-field-available-filters.php:8
+msgid "Available Filters"
+msgstr "Beschikbare filters"
+
+#: ../lib/tribe-filter-view.class.php:276
+msgid "Event Category"
+msgstr "Event categorie"
+
+#: ../lib/tribe-filter-view.class.php:277
+#, php-format
+msgid "Cost (%s)"
+msgstr "Kosten (%s)"
+
+#: ../lib/tribe-filter-view.class.php:278
+msgid "Tags"
+msgstr "Tags"
+
+#: ../lib/tribe-filter-view.class.php:279
+msgid "Venues"
+msgstr "Locaties"
+
+#: ../lib/tribe-filter-view.class.php:280
+msgid "Organizers"
+msgstr "Organisatoren"
+
+#: ../lib/tribe-filter-view.class.php:281
+msgid "Day"
+msgstr "Dag"
+
+#: ../lib/tribe-filter-view.class.php:282
+msgid "Time"
+msgstr "Tijd"
+
+#: ../lib/tribe-filter.class.php:181
+msgid "Select"
+msgstr "Selecteer"
+
+#: ../lib/tribe-filter.class.php:387
+#, php-format
+msgid "Title: %s"
+msgstr "Titel: %s"
+
+#: ../lib/TribeEventsFilter_Settings.php:33
+#: ../lib/TribeEventsFilter_Settings.php:91
+msgid "Filters"
+msgstr "Filters"
+
+#: ../lib/TribeEventsFilter_Settings.php:95
+msgid ""
+"The settings below allow you to enable or disable front-end event filters. "
+"Uncheck the box to hide the filter. Drag and drop active filters to re-"
+"arrange them."
+msgstr ""
+"De onderstaande instellingen maken het mogelijke om de voorkant evenementen "
+"filters uit te schakelen. Maak vakje leeg om de filter te verbergen. Sleep "
+"actieve filters om ze te sorteren."
+
+#: ../lib/TribeEventsFilter_Settings.php:96
+msgid ""
+"Expand an active filter to edit the label and choose from a subset of input "
+"types (dropdown, select, range slider, checkbox and radio)."
+msgstr ""
+"Vergroot een actief filter om de naam te bewerken en een keuze te maken uit "
+"de subset van types (dropdown, selecteer, marge-slider, checkbox en radio-"
+"button)."
+
+#: ../lib/TribeEventsFilter_Settings.php:108
+msgid "Filters Layout"
+msgstr "Layout van de filters"
+
+#: ../lib/TribeEventsFilter_Settings.php:111
+msgid "Vertical"
+msgstr "Vertikaal"
+
+#: ../lib/TribeEventsFilter_Settings.php:112
+msgid "Horizontal"
+msgstr "Horizontaal"
+
+#: ../lib/TribeEventsFilter_Settings.php:118
+msgid "Filters Default State"
+msgstr "Standaard status van de filters"
+
+#: ../lib/TribeEventsFilter_Settings.php:121
+msgid "Closed"
+msgstr "Gesloten"
+
+#: ../lib/TribeEventsFilter_Settings.php:122
+msgid "Open"
+msgstr "Open"
+
+#: ../lib/filters/TribeEventsFilter_Category.php:17
+#: ../lib/filters/TribeEventsFilter_Cost.php:38
+#, php-format
+msgid "Type: %s %s"
+msgstr "Type: %s %s"
+
+#: ../lib/filters/TribeEventsFilter_Category.php:21
+msgid "Dropdown"
+msgstr "Dropdown"
+
+#: ../lib/filters/TribeEventsFilter_Category.php:26
+#: ../lib/filters/TribeEventsFilter_Cost.php:47
+msgid "Checkboxes"
+msgstr "Checkboxen"
+
+#: ../lib/filters/TribeEventsFilter_Cost.php:42
+msgid "Range Slider"
+msgstr "Marge slider"
+
+#: ../lib/filters/TribeEventsFilter_Cost.php:62
+msgid "Free"
+msgstr "Gratis"
+
+#: ../lib/filters/TribeEventsFilter_DayOfWeek.php:11
+msgid "Sunday"
+msgstr "Zondag"
+
+#: ../lib/filters/TribeEventsFilter_DayOfWeek.php:12
+msgid "Monday"
+msgstr "Maandag"
+
+#: ../lib/filters/TribeEventsFilter_DayOfWeek.php:13
+msgid "Tuesday"
+msgstr "Dinsdag"
+
+#: ../lib/filters/TribeEventsFilter_DayOfWeek.php:14
+msgid "Wednesday"
+msgstr "Woensdag"
+
+#: ../lib/filters/TribeEventsFilter_DayOfWeek.php:15
+msgid "Thursday"
+msgstr "Donderdag"
+
+#: ../lib/filters/TribeEventsFilter_DayOfWeek.php:16
+msgid "Friday"
+msgstr "Vrijdag"
+
+#: ../lib/filters/TribeEventsFilter_DayOfWeek.php:17
+msgid "Saturday"
+msgstr "Zaterdag"
+
+#: ../lib/filters/TribeEventsFilter_TimeOfDay.php:12
+msgid "All Day"
+msgstr "Hele dag"
+
+#: ../lib/filters/TribeEventsFilter_TimeOfDay.php:13
+msgid "Morning"
+msgstr "Ochtend"
+
+#: ../lib/filters/TribeEventsFilter_TimeOfDay.php:14
+msgid "Afternoon"
+msgstr "Middag"
+
+#: ../lib/filters/TribeEventsFilter_TimeOfDay.php:15
+msgid "Evening"
+msgstr "Avond"
+
+#: ../lib/filters/TribeEventsFilter_TimeOfDay.php:16
+msgid "Night"
+msgstr "Nacht"
+
+#: ../vendor/pue-client/admin-views/license-key.view.php:9
+#: ../vendor/pue-client/admin-views/license-key.view.php:13
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:291
+msgid "License Key"
+msgstr "Licentiesleutel"
+
+#: ../vendor/pue-client/admin-views/license-key.view.php:10
+msgid "A valid license key is required for support and updates."
+msgstr "Een geldige licentiesleutel is noodzakelijk voor support en updates"
+
+#: ../vendor/pue-client/admin-views/license-key.view.php:16
+msgid "Replace empty fields"
+msgstr "Vervang lege velden"
+
+#: ../vendor/pue-client/admin-views/license-key.view.php:25
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:292
+msgid "A valid license key is required for support and updates"
+msgstr "Een geldige licentiesleutel is noodzakelijk voor support en updates"
+
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:360
+msgid "License key(s) updated."
+msgstr "Licentiesleutel(s) bijgewerkt."
+
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:400
+msgid "Sorry, key validation server is not available."
+msgstr "Sorry, de licentiesleutel validatieserver is niet beschikbaar."
+
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:402
+msgid "Sorry, this key is expired."
+msgstr "Sorry, deze licentiesleutel is verlopen."
+
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:404
+msgid "Sorry, this key is out of installs."
+msgstr "Sorry, deze licentiesleutel heeft geen vrije installaties meer"
+
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:406
+msgid "Sorry, this key is not valid."
+msgstr "Sorry, deze licentiesleutel is niet geldig."
+
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:409
+#, php-format
+msgid "Valid Key! Expires on %s"
+msgstr "Geldige licentiesleutel! Verloopt op %s"
+
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:413
+#, php-format
+msgid ""
+"Hmmm... something's wrong with this validator. Please contact <a href=\"%s"
+"\">support.</a>"
+msgstr ""
+"Hmmm ... er is iets mis met deze controle. Neem contact op met <a href=\"%s"
+"\">support.</a>"
+
+#: ../views/filter-view-horizontal.php:20 ../views/filter-view-vertical.php:24
+#: ../views/hooks/filter-view.php:20
+msgid "Narrow Your Results"
+msgstr "Beperk de resultaten"
+
+#: ../views/filter-view-horizontal.php:22
+#: ../views/filter-view-horizontal.php:34 ../views/filter-view-vertical.php:20
+#: ../views/hooks/filter-view.php:17
+msgid "Show Advanced Filters"
+msgstr "Toon uitgebreide filters"
+
+#: ../views/filter-view-horizontal.php:22
+#: ../views/filter-view-horizontal.php:34 ../views/filter-view-vertical.php:20
+#: ../views/filter-view-vertical.php:35
+msgid "Collapse Filters"
+msgstr "Klap filters in"
+
+#: ../views/filter-view-horizontal.php:23
+#: ../views/filter-view-horizontal.php:35 ../views/filter-view-vertical.php:21
+msgid "Show Filters"
+msgstr "Toon filters"
+
+#: ../views/filter-view-horizontal.php:24
+#: ../views/filter-view-horizontal.php:36 ../views/filter-view-vertical.php:32
+#: ../views/filter-view-vertical.php:36
+msgid "Reset Filters"
+msgstr "Reset filters"
+
+#: ../views/hooks/filter-view.php:17
+msgid "Hide Advanced Filters"
+msgstr "Verberg uitgebreide filters"
+
+#: ../views/hooks/filter-view.php:35
+msgid "Reset All Filters"
+msgstr "Reset alle filters"

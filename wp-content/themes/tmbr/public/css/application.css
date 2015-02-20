@@ -8267,3 +8267,18 @@ html[xmlns] .flexslider .slides {
 /* http://mynameismatthieu.com/WOW/docs.html */
 .wow {
   visibility: hidden; }
+
+body {
+  padding-top: 50px; }
+
+/* NAVIGATION */
+.navbar {
+  margin-bottom: 0px; }
+
+/* HERO SLIDER */
+#fullscreen_slider {
+  border: none;
+  overflow: hidden;
+  margin: 0px; }
+  #fullscreen_slider .flex-control-nav {
+    bottom: 0; }
