@@ -67,8 +67,8 @@
       // You can keep your JS tidy in its own file for a specific feature.
       // Nothing's important about the naming scheme, just as long as the file
       // is included in this array, it'll come together.
-      'assets/scripts/index.js',
-      'assets/scripts/_slider.js'
+        'assets/scripts/modules/*.js',
+        'assets/scripts/main.js'
     ],
     styles: [
       // do your @imports from this file, not the gulpfile

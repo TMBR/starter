@@ -1,29 +1,38 @@
-<?php get_header(); ?>
+<?php
+/**
+ * The template for displaying all single posts.
+ *
+ */
 
-<div id="page-wrapper">
+get_header(); ?>
+
+<div id="primary" class="content-area">
 	<div class="container">
 		<div class="row">
+			<main id="main" class="site-main" role="main">
+				<div class="col-sm-8">
+					<?php while ( have_posts() ) : the_post(); ?>
 
-			<div class="col-sm-8">
+						<?php get_template_part( 'partials/loops/single-loop' ); ?>
 
-				<?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
+						<?php the_post_navigation(); ?>
 
-				<h1><?php the_title(); ?></h1>
-				<?php the_content(); ?>
+						<?php
+							// If comments are open or we have at least one comment, load up the comment template
+							if ( comments_open() || get_comments_number() ) :
+								comments_template();
+							endif;
+						?>
 
-				<?php edit_post_link(); ?>
-				<?php comments_template(); ?>
+					<?php endwhile; // end of the loop. ?>
 
-				<?php endwhile; endif; ?>
+				</div><!-- /col -->
+			</main>
 
-				<?php get_template_part('partials/post/single-nav'); ?>
-
-			</div><!-- /col -->
-
-		<?php get_sidebar(); ?>
+			<?php get_sidebar(); ?>
 
 		</div><!-- /row -->
 	</div><!-- /container -->
-</div><!-- #page-wrapper -->
+</div><!-- #primary -->
 
 <?php get_footer(); ?>

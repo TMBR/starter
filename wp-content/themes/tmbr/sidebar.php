@@ -1,5 +1,16 @@
+<?php
+/**
+ * The sidebar containing the main widget area.
+ *
+ */
 
-<h4> SIDE BAR </h4>
-<?php if ( is_active_sidebar('page_sidebar') ) : ?>
-<?php dynamic_sidebar('page_sidebar'); ?>
-<?php endif; ?>
+if ( ! is_active_sidebar( 'sidebar-1' ) ) {
+	return;
+}
+?>
+
+<div class="col-sm-4">
+	<div id="secondary" class="widget-area" role="complementary">
+		<?php dynamic_sidebar( 'sidebar-1' ); ?>
+	</div><!-- #secondary -->
+</div>

@@ -1,7 +1,41 @@
+var Slider = (function($) {
+	var slider = {
+		init : function() {
+
+			$(document).ready(function() {
+
+			  $('#fullscreen_slider').flexslider({
+			    animation: "slide",
+			    slideshow: false, // auto play on load
+			    slideshowSpeed: 4000,
+				animationSpeed: 600,
+				pauseOnHover: true,
+				controlNav: true, //Boolean: Create navigation for paging control of each clide? Note: Leave true for manualControls usage
+				directionNav: true, //Boolean: Create navigation for previous/next navigation? (true/false)
+				prevText: "Previous",
+				nextText: "Next"
+			  });
+
+			});
+
+		}
+	}
+	return slider;
+})(jQuery);
+
 // Mobile device detection
 var ismobile = (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent));
 
+
+
 (function($) {
+
+	/* MODULES SET UP
+	-----------------*/
+
+	// Set up Sliders
+	Slider.init();
+
 
 	if(ismobile == true){
 		$('body').addClass('mobile');
@@ -56,18 +90,3 @@ var ismobile = (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i
 
 
 })(jQuery);
-
-
-$(document).ready(function() {
-  $('#fullscreen_slider').flexslider({
-    animation: "slide",
-    slideshow: false, // auto play on load
-    slideshowSpeed: 4000,
-	animationSpeed: 600,
-	pauseOnHover: true,
-	controlNav: true, //Boolean: Create navigation for paging control of each clide? Note: Leave true for manualControls usage
-	directionNav: true, //Boolean: Create navigation for previous/next navigation? (true/false)
-	prevText: "Previous",
-	nextText: "Next"
-  });
-});

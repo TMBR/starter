@@ -3,14 +3,22 @@
 // Theme Setup & Support
 // http://codex.wordpress.org/Function_Reference/add_theme_support
 
-add_action('after_setup_theme', 'tmbr_setup');
-
 function tmbr_setup() {
 
 	add_theme_support('automatic-feed-links');
 	add_theme_support('post-thumbnails');
 
+	/*
+	 * Switch default core markup for search form, comment form, and comments
+	 * to output valid HTML5.
+	 */
+	add_theme_support( 'html5', array(
+		'search-form', 'comment-form', 'comment-list', 'gallery', 'caption',
+	) );
 }
+
+add_action('after_setup_theme', 'tmbr_setup');
+
 
 /************************ ADD IMAGE SIZE ****************************/
 if ( function_exists( 'add_image_size' ) ) {
@@ -69,3 +77,18 @@ if( function_exists('acf_add_options_page') ) {
 	));
 	*/
 }
+
+
+function tmbr_widgets_init() {
+	register_sidebar( array(
+		'name'          => __( 'Sidebar', 'tmbr' ),
+		'id'            => 'sidebar-1',
+		'description'   => '',
+		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
+		'after_widget'  => '</aside>',
+		'before_title'  => '<h4 class="widget-title">',
+		'after_title'   => '</h4>',
+	) );
+}
+add_action( 'widgets_init', 'tmbr_widgets_init' );
+

@@ -8271,6 +8271,24 @@ html[xmlns] .flexslider .slides {
 body {
   padding-top: 50px; }
 
+a:hover, a:focus, a:active {
+  text-decoration: none; }
+
+a:active, a:focus {
+  outline: none; }
+
+.tac {
+  text-align: center; }
+
+.tar {
+  text-align: right; }
+
+.tal {
+  text-align: left; }
+
+.clear {
+  clear: both; }
+
 /* NAVIGATION */
 .navbar {
   margin-bottom: 0px; }

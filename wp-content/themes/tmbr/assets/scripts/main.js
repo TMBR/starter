@@ -1,7 +1,16 @@
 // Mobile device detection
 var ismobile = (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent));
 
+
+
 (function($) {
+
+	/* MODULES SET UP
+	-----------------*/
+
+	// Set up Sliders
+	Slider.init();
+
 
 	if(ismobile == true){
 		$('body').addClass('mobile');

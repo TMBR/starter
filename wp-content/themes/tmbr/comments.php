@@ -1,70 +1,75 @@
 <?php
 /**
+ * The template for displaying comments.
  *
- *  Comments themplate - Adapted Version of Kubrick's
- *
- *  There are 2 distinct sections after the protection area ::
- *  Display Comments is a loop surrounding the wp_list_comments() function
- *  The Form/Login section uses comment_form() to do everything
- *
- *  */
+ * The area of the page that contains both current comments
+ * and the comment form.
+  */
 
-// ##########  Do not delete these lines
-if (isset($_SERVER['SCRIPT_FILENAME']) && 'comments.php' == basename($_SERVER['SCRIPT_FILENAME'])){
-    die ('Please do not load this page directly. Thanks!'); }
-if ( post_password_required() ) { ?>
-    <p class="nocomments"><?php _e('This post is password protected. Enter the password to view comments.', 'kubrick'); ?></p>
-<?php
-    return; }
-// ##########  End do not delete section
-
-// Display Comments Section
-if ( have_comments() ) : ?>
-    <h3 id="comments"><?php comments_number('No Responses', 'One Response', '% Responses');?> <?php printf('to “%s”', the_title('', '', false)); ?></h3>
-        <div class="navigation">
-            <div class="alignleft"><?php previous_comments_link() ?></div>
-            <div class="alignright"><?php next_comments_link() ?></div>
-        </div>
-    <ol class="commentlist">
-     <?php
-     wp_list_comments(array(
-      // see http://codex.wordpress.org/Function_Reference/wp_list_comments
-      // 'login_text'        => 'Login to reply',
-      // 'callback'          => null,
-      // 'end-callback'      => null,
-      // 'type'              => 'all',
-      // 'avatar_size'       => 32,
-      // 'reverse_top_level' => null,
-      // 'reverse_children'  =>
-      ));
-      ?>
-    </ol>
-        <div class="navigation">
-            <div class="alignleft"><?php previous_comments_link() ?></div>
-            <div class="alignright"><?php next_comments_link() ?></div>
-        </div>
-    <?php
-    if ( ! comments_open() ) : // There are comments but comments are now closed
-        echo"<p class='nocomments'>Comments are closed.</p>";
-    endif;
-
-else : // I.E. There are no Comments
-    if ( comments_open() ) : // Comments are open, but there are none yet
-        // echo"<p>Be the first to write a comment.</p>";
-    else : // comments are closed
-        echo"<p class='nocomments'>Comments are closed.</p>";
-    endif;
-endif;
-
-// Display Form/Login info Section
-// the comment_form() function handles this and can be used without any paramaters simply as "comment_form()"
-comment_form(array(
-  // see codex http://codex.wordpress.org/Function_Reference/comment_form for default values
-  // tutorial here http://blogaliving.com/wordpress-adding-comment_form-theme/
-  'comment_field' => '<p><textarea name="comment" id="comment" cols="58" rows="10" tabindex="4" aria-required="true"></textarea></p>',
-  'label_submit' => 'Submit Comment',
-  'comment_notes_after' => ''
-  ));
-
-
+/*
+ * If the current post is protected by a password and
+ * the visitor has not yet entered the password we will
+ * return early without loading the comments.
+ */
+if ( post_password_required() ) {
+  return;
+}
 ?>
+
+<div id="comments" class="comments-area">
+
+  <?php // You can start editing here -- including this comment! ?>
+
+  <?php if ( have_comments() ) : ?>
+    <h2 class="comments-title">
+      <?php
+        printf( _nx( 'One thought on &ldquo;%2$s&rdquo;', '%1$s thoughts on &ldquo;%2$s&rdquo;', get_comments_number(), 'comments title', '_s' ),
+          number_format_i18n( get_comments_number() ), '<span>' . get_the_title() . '</span>' );
+      ?>
+    </h2>
+
+    <?php if ( get_comment_pages_count() > 1 && get_option( 'page_comments' ) ) : // are there comments to navigate through ?>
+    <nav id="comment-nav-above" class="navigation comment-navigation" role="navigation">
+      <h2 class="screen-reader-text"><?php _e( 'Comment navigation', '_s' ); ?></h2>
+      <div class="nav-links">
+
+        <div class="nav-previous"><?php previous_comments_link( __( 'Older Comments', '_s' ) ); ?></div>
+        <div class="nav-next"><?php next_comments_link( __( 'Newer Comments', '_s' ) ); ?></div>
+
+      </div><!-- .nav-links -->
+    </nav><!-- #comment-nav-above -->
+    <?php endif; // check for comment navigation ?>
+
+    <ol class="comment-list">
+      <?php
+        wp_list_comments( array(
+          'style'      => 'ol',
+          'short_ping' => true,
+        ) );
+      ?>
+    </ol><!-- .comment-list -->
+
+    <?php if ( get_comment_pages_count() > 1 && get_option( 'page_comments' ) ) : // are there comments to navigate through ?>
+    <nav id="comment-nav-below" class="navigation comment-navigation" role="navigation">
+      <h2 class="screen-reader-text"><?php _e( 'Comment navigation', '_s' ); ?></h2>
+      <div class="nav-links">
+
+        <div class="nav-previous"><?php previous_comments_link( __( 'Older Comments', '_s' ) ); ?></div>
+        <div class="nav-next"><?php next_comments_link( __( 'Newer Comments', '_s' ) ); ?></div>
+
+      </div><!-- .nav-links -->
+    </nav><!-- #comment-nav-below -->
+    <?php endif; // check for comment navigation ?>
+
+  <?php endif; // have_comments() ?>
+
+  <?php
+    // If comments are closed and there are comments, let's leave a little note, shall we?
+    if ( ! comments_open() && '0' != get_comments_number() && post_type_supports( get_post_type(), 'comments' ) ) :
+  ?>
+    <p class="no-comments"><?php _e( 'Comments are closed.', '_s' ); ?></p>
+  <?php endif; ?>
+
+  <?php comment_form(); ?>
+
+</div><!-- #comments -->

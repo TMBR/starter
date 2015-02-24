@@ -1,22 +1,23 @@
-<div id="footer">
-	<div class="container">
-		<div class="row">
-			<div class="col-sm-12">
-				<div id="copyright">
-				<?php echo sprintf( __( '%1$s %2$s %3$s. All Rights Reserved.'), '&copy;', date('Y'), esc_html(get_bloginfo('name')) ); echo sprintf( __( ' Theme By: %1$s.' ), '<a href="http://wearetmbr.com/">TMBR</a>' ); ?>
-				</div>
-			</div><!-- /col -->
-		</div><!-- /row -->
-	</div><!-- /container -->
-</div><!-- #footer -->
-
- </div> <!-- /end site container -->
-</div> <!-- / end site wrapper -->
-
+<?php
+/**
+ * The template for displaying the footer.
+ *
+ */
+?>
+	<footer id="colophon" class="site-footer" role="contentinfo">
+		<div class="container">
+			<div class="row">
+				<div class="site-info col-xs-12">
+					Site By
+					<span class="sep"> | </span>
+					<a href="http://wearetmbr.com/" rel="designer">TMBR</a>
+				</div><!-- .site-info -->
+			</div>
+		</div>
+	</footer><!-- #colophon -->
 
 
 <?php wp_footer(); ?>
-<?php get_template_part('partials/action-modal'); ?>
 
 </body>
 </html>

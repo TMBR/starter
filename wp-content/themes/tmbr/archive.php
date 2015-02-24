@@ -1,35 +1,56 @@
-<?php get_header(); ?>
+<?php
+/**
+ * The template for displaying archive pages.
+ *
+ * Learn more: http://codex.wordpress.org/Template_Hierarchy
+ *
+ */
 
-<div id="page-wrapper">	
+get_header(); ?>
+
+<div id="primary" class="content-area">
 	<div class="container">
 		<div class="row">
-		
-			<div class="col-sm-8">
-				<h1>
-					<?php if ( is_day() ) { printf( __( 'Daily Archives: %s'), get_the_time(get_option('date_format') ) ); } 
-					elseif ( is_month() ) { printf( __( 'Monthly Archives: %s'), get_the_time('F Y') ); }
-					elseif ( is_year() ) { printf( __( 'Yearly Archives: %s'), get_the_time('Y') ); }
-					elseif ( is_category() ) { _e( 'Category Archives: '); single_cat_title(); }
-					elseif ( is_author() ) { _e( 'Author Archives: '); the_author_link(); }
-					elseif ( is_tag() ) { _e( 'Author Archives: '); single_tag_title(); }
-					else { echo ( 'Archives'); } ?>
-				</h1>
-				
-				<?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
-				
-					<?php get_template_part( 'partials/single-loop'); ?>
-				
-				<?php endwhile; endif; ?>
-				<?php edit_post_link(); ?>
-				<?php get_template_part('partials/loop-nav'); ?>
-			</div><!-- /col -->
+			<main id="main" class="site-main" role="main">
+				<div class="col-sm-8">
+
+					<?php if ( have_posts() ) : ?>
+
+						<header class="page-header">
+							<?php
+								the_archive_title( '<h1 class="page-title">', '</h1>' );
+								the_archive_description( '<div class="taxonomy-description">', '</div>' );
+							?>
+						</header><!-- .page-header -->
+
+						<?php /* Start the Loop */ ?>
+						<?php while ( have_posts() ) : the_post(); ?>
+
+							<?php
+								/* Include the Post-Format-specific template for the content.
+								 * If you want to override this in a child theme, then include a file
+								 * called content-___.php (where ___ is the Post Format name) and that will be used instead.
+								 */
+								get_template_part( 'partials/loops/search-loop' );
+							?>
+
+						<?php endwhile; ?>
+
+						<?php the_posts_navigation(); ?>
+
+					<?php else : ?>
+
+						<?php get_template_part( 'partials/loops/nocontent-loop' ); ?>
+
+					<?php endif; ?>
+
+				</div><!-- /col -->
+			</main>
 
 			<?php get_sidebar(); ?>
-		
+
 		</div><!-- /row -->
 	</div><!-- /container -->
-</div><!-- #page-wrapper -->
+</div><!-- #primary -->
 
 <?php get_footer(); ?>
-
-

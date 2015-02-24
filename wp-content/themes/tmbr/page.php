@@ -1,23 +1,22 @@
 <?php get_header(); ?>
 
-<div id="page-wrapper">	
+<div id="primary" class="content-area">
 	<div class="container">
 		<div class="row">
-		
-			<?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
-			
-			<div class="col-sm-8">		
-				<h1><?php the_title(); ?></h1>
-				<?php the_content(); ?>
-				<?php edit_post_link(); ?>
-			</div><!-- /col -->
-		
-		<?php endwhile; endif; ?>
+			<main id="main" class="site-main" role="main">
+				<div class="col-sm-8">
 
-		<?php get_sidebar(); ?>
-		
+					<?php while ( have_posts() ) : the_post(); ?>
+							<?php get_template_part( 'partials/loops/page-loop' ); ?>
+					<?php endwhile; // end of the loop. ?>
+
+				</div><!-- /col -->
+			</main>
+
+			<?php get_sidebar(); ?>
+
 		</div><!-- /row -->
 	</div><!-- /container -->
-</div><!-- #page-wrapper -->
+</div><!-- #primary -->
 
 <?php get_footer(); ?>
