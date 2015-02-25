@@ -1,6 +1,6 @@
 <?php
 
-// Creates custom post type called "Clients"
+// Creates custom post type
 // http://codex.wordpress.org/Function_Reference/register_post_type
 
 add_action( 'init', 'create_post_type' );
