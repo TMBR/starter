@@ -45,5 +45,3 @@ require_once('inc/load-scripts.php');
 
 // CUSTOM DASHBOARD WIDGET
 // require_once('inc/dashboard-widget.php');
-
-?>

@@ -1,13 +1,21 @@
 body {
   padding-top: 50px;
 }
-a:hover,
-a:focus,
-a:active {
-  text-decoration: none;
+
+a {
+    color: $red-orange;
+
+    @include transition($transition200);
+
+    &:hover,
+	&:focus,
+	&:active {
+	  text-decoration: none;
+	}
 }
-a:active,
-a:focus  {
+
+:active,
+:focus  {
   outline: none;
 }
 

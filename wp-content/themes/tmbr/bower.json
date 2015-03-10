@@ -31,7 +31,7 @@
     "isotope": "*",
     "jquery-unveil": "*",
     "jquery.stellar": "*",
-    "flexslider": "*",
+    "flexslider": "~2.3.0",
     "magnific-popup": "*"
   },
   "resolutions": {

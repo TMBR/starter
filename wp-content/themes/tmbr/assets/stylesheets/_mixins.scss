@@ -1,0 +1,42 @@
+/*
+Background size with broswer prefix for cover image
+@include cover-background('path/to/img.jpg');
+--------------------- */
+@mixin cover-background($img-uri) {
+    background: url($img-uri) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+/*
+Background size with broswer prefix for cover
+@include background-cover('cover');
+--------------------- */
+@mixin background-cover($size) {
+    -webkit-background-size: $size;
+    -moz-background-size: $size;
+    -o-background-size: $size;
+    background-size: $size;
+}
+
+// Options
+//
+// $screen-xs: 480px
+// $screen-sm: 768px
+// $screen-md: 992px
+// $screen-lg: 1200px
+//
+
+@mixin respond-to($breakpoint) {
+  @media all and (max-width: ($breakpoint - 1)) {
+    @content
+  }
+}
+
+@mixin respond-between($min, $max) {
+  @media all and (min-width:$min) and (max-width:$max) {
+    @content
+  }
+}

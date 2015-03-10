@@ -58,27 +58,29 @@
 @import '../vendor/magnific-popup/src/css/main';
 
 //Video JS - #### have to rename file to sass - and copy font to public folder
-// @import '../vendor/video-js/dist/video-js';
+// @import 'vendor/video-js';
 
 // Flex Slider #### have to rename file to sass - move fonts to public
-@import '../vendor/flexslider/flexslider';
+@import 'vendor/flexslider';
 
 // magnific-popup #### have to rename file to sass
 // @import '../vendor/magnific-popup/dist/magnific-popup';
 
-// ISOTOPE
-// @import "vendor/isotope";
-
-// WOW
-@import "vendor/wow";
-
-// App
-@import "mixins";
-
-// Vendor
-@import "layout";
 
 // Themestyle
+@import "variables";
+@import "mixins";
+
+@import "layout";
+
+// ISOTOPE
+// @import "isotope";
+// WOW
+@import "wow";
+// PACE
+@import "pace";
+
+@import "slider";
 @import "header";
 @import "main";
 @import "modules";

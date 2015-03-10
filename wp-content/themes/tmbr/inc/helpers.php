@@ -45,10 +45,8 @@ $imageAlt = $imageObj['alt'];
 */
 
 function tmbr_get_cropped_image( $imageId, $size ) {
-	$image = array();
 	$imageArr = wp_get_attachment_image_src( $imageId, $size );
-	$image['url'] = $imageArr[0];
-	$image['alt'] = tmbr_get_alt( $imageId );
+	$image = $imageArr[0];
 	return $image;
 }
 

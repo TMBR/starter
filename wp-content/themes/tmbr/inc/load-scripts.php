@@ -32,27 +32,14 @@ add_action('wp_enqueue_scripts', function(){
 	);
 });
 
-// TYPEKIT SCRIPT
-function typekit_call() {
-
-	if ( wp_script_is( 'typekit', 'done' ) ) { ?>
-		<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
-		<?php }
-}
-
-add_action( 'wp_head', 'typekit_call' );
-
-
 
 // CONDITIONAL SCRIPTS
 function cond_IE() { ?>
 
-    <!--[if gte IE 6]>
+    <!--[if gte IE 8]>
 	<link rel="stylesheet" type="text/css" href="<?php echo get_template_directory_uri(); ?>/css/ie.css" />
 	<![endif]-->
 
 <?php }
 
 add_action( 'wp_head', 'cond_IE' );
-
-?>

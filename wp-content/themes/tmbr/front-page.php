@@ -2,7 +2,7 @@
 
 <?php
 // Hero Slider
-get_template_part( 'partials/header/fullscreen_slider' ); ?>
+get_template_part( 'partials/global/fullscreen_slider' ); ?>
 
 <div id="primary" class="content-area">
 	<div class="container">
@@ -42,4 +42,4 @@ get_template_part( 'partials/header/fullscreen_slider' ); ?>
 	</div><!-- /container -->
 </div><!-- #primary -->
 
-<?php get_footer(); ?>
+<?php get_footer();
