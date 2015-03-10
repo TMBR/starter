@@ -9,7 +9,8 @@ add_action('wp_enqueue_scripts', function(){
 		'' // @TODO pull revved number
 	);
 
-	$in_footer = $in_header = true;
+	$in_header = false;
+	$in_footer = true;
 	wp_deregister_script('jquery');
 	wp_enqueue_script(
 		'jquery',
