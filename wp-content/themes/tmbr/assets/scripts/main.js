@@ -19,13 +19,6 @@ var ismobile = (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i
 		// new WOW().init();
 	}
 
-	// wait for full site to load before transition fires
-	$(window).on('load', function() {
-	  // Fade in page content and animation
-	  // $("#site-wrapper").animate({"opacity": "1"}, 1000);
-
-	}); // END window .load
-
 	// DOC Ready
 	$(function() {
 
@@ -51,6 +44,12 @@ var ismobile = (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i
 
 	}); // END Doc Ready
 
+	/* load === all images, scripts, etc. complete before function runs */
+	$(window).on('load', function() {
+	  // Fade in page content and animation
+	  // $("#site-wrapper").animate({"opacity": "1"}, 1000);
+
+	}); // END window .load
 
 
 	var throttleTimeOut = 200; //milliseconds before triggering function again
