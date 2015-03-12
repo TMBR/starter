@@ -51,8 +51,15 @@ var ismobile = (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i
 
 	}); // END Doc Ready
 
+	var throttleTimeOut = 200; //milliseconds before triggering function again
+	$(window).on('scroll', _throttle(function(){
+		console.log(2);
+
+	}, throttleTimeOut));
+
 	// Window scroll functions
 	$(window).scroll(function() {
+		console.log(1);
 		// fade navigation bar
 		/*
 		if ( $(window).scrollTop() > 100) {
