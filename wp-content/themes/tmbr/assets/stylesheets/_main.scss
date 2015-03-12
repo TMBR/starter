@@ -19,6 +19,16 @@ a {
   outline: none;
 }
 
+::-moz-selection { 
+	background: $blue;
+	color: $white;
+}
+
+::selection {
+	background: $blue;
+	color: $white;
+}
+
 h6,
 .h6 {
 	font-size: $h6;
