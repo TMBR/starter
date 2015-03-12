@@ -54,9 +54,16 @@ var ismobile = (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i
 
 
 	var throttleTimeOut = 200; //milliseconds before triggering function again
-	// Window scroll functions
+	// Window Scroll functions
 	$(window).on('scroll', _throttle(function(){
 		/* do your normal scroll stuff here, but it'll be
+		 * more-reasonably controlled, so as to not peg
+		 * the host machine's processor */
+	}, throttleTimeOut));
+
+	// Window Resize functions
+	$(window).on('resize', _throttle(function(){
+		/* do your normal resize stuff here, but it'll be
 		 * more-reasonably controlled, so as to not peg
 		 * the host machine's processor */
 	}, throttleTimeOut));
