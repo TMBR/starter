@@ -132,11 +132,21 @@
 
   gulp.task('startwatch', function(){
     watchers = [
-      gulp.watch(paths.vendorScripts, ['scripts:vendor']),
-      gulp.watch(paths.appScripts, ['scripts:app']),
-      gulp.watch(paths.stylesWatchDir, ['styles']),
-      gulp.watch(paths.images, ['images']),
-      gulp.watch(paths.fonts, ['fonts'])
+      gulp.watch(paths.vendorScripts, function(event){
+        runSequence('scripts:vendor', 'version');
+      }),
+      gulp.watch(paths.appScripts, function(event){
+        runSequence('scripts:app', 'version');
+      }),
+      gulp.watch(paths.stylesWatchDir, function(event){
+        runSequence('styles', 'version');
+      }),
+      gulp.watch(paths.images, function(event){
+        runSequence('images', 'version');
+      }),
+      gulp.watch(paths.fonts, function(event){
+        runSequence('fonts', 'version');
+      })
     ];
 
     watchers.forEach(function(watcher, index){
