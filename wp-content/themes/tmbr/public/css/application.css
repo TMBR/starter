@@ -678,7 +678,7 @@ pre {
 .col-xs-offset-0 {
   margin-left: 0%; }
 
-.col-xs-offset-1 {
+.col-xs-offset-1, .col-xxs-offset-1 {
   margin-left: 8.3333333333%; }
 
 .col-xs-offset-2 {
@@ -8341,20 +8341,6 @@ Background size with broswer prefix for cover image
 Background size with broswer prefix for cover
 @include background-cover('cover');
 --------------------- */
-body {
-  padding-top: 50px; }
-
-a {
-  color: #de7946;
-  -webkit-transition: all 200ms ease-in-out;
-  -o-transition: all 200ms ease-in-out;
-  transition: all 200ms ease-in-out; }
-  a:hover, a:focus, a:active {
-    text-decoration: none; }
-
-:active, :focus {
-  outline: none; }
-
 .tac {
   text-align: center; }
 
@@ -8366,6 +8352,62 @@ a {
 
 .clear {
   clear: both; }
+
+/* BOOTSTRAP NO-GUTTER */
+.container-fluid.no-gutter .row {
+  margin-left: 0;
+  margin-right: 0; }
+
+.container-fluid.no-gutter .row [class*='col-'] {
+  padding-left: 0;
+  padding-right: 0; }
+
+.container-fluid.no-gutter {
+  padding: 0; }
+
+.container-fluid.no-gutter .row [class*='col-']:not(:first-child), .container-fluid.no-gutter .row [class*='col-']:not(:last-child), .container-fluid.no-gutter .row .col-xs-16, .container-fluid.no-gutter .row .col-sm-16, .container-fluid.no-gutter .row .col-md-16, .container-fluid.no-gutter .row .col-lg-16 {
+  padding-left: 0;
+  padding-right: 0; }
+
+/* CREATES NEW BOOTSTRAP EXTRA EXTRA SMALL CLASSES */
+@media only screen and (max-width: 600px) {
+
+  .col-xxs-offset-2 {
+    margin-left: 16.6666666667%; }
+
+  .col-xxs-offset-3 {
+    margin-left: 8.3333333333%; }
+
+  .col-xxs-offset-4 {
+    margin-left: 8.3333333333%; }
+
+  .col-xxs-offset-5 {
+    margin-left: 8.3333333333%; }
+
+  .col-xxs-offset-6 {
+    margin-left: 8.3333333333%; }
+
+  .col-xxs-offset-7 {
+    margin-left: 8.3333333333%; }
+
+  .col-xxs-offset-8 {
+    margin-left: 8.3333333333%; }
+
+  .col-xxs-offset-9 {
+    margin-left: 8.3333333333%; }
+
+  .col-xxs-offset-10 {
+    margin-left: 8.3333333333%; }
+
+  .col-xxs-offset-11 {
+    margin-left: 8.3333333333%; }
+
+  .col-xxs-10 {
+    width: 83.3333333333%; }
+
+  .col-xxs-12 {
+    width: 100%; }
+ }
 
 /* http://mynameismatthieu.com/WOW/docs.html */
 .wow {
@@ -8416,3 +8458,17 @@ a {
 /* NAVIGATION */
 .navbar {
   margin-bottom: 0px; }
+
+body {
+  padding-top: 50px; }
+
+a {
+  color: #de7946;
+  -webkit-transition: all 200ms ease-in-out;
+  -o-transition: all 200ms ease-in-out;
+  transition: all 200ms ease-in-out; }
+  a:hover, a:focus, a:active {
+    text-decoration: none; }
+
+:active, :focus {
+  outline: none; }
