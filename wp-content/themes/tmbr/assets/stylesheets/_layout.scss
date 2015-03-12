@@ -24,3 +24,28 @@ a {
 .tal { text-align: left;}
 
 .clear { clear: both;}
+
+/* BOOTSTRAP NO-GUTTER */
+.container-fluid.no-gutter .row {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.container-fluid.no-gutter .row [class*='col-']{
+  	padding-left: 0;
+  	padding-right: 0;
+}
+
+.container-fluid.no-gutter {
+	padding: 0;
+}
+
+.container-fluid.no-gutter .row [class*='col-']:not(:first-child),
+.container-fluid.no-gutter .row [class*='col-']:not(:last-child),
+.container-fluid.no-gutter .row .col-xs-16,
+.container-fluid.no-gutter .row .col-sm-16,
+.container-fluid.no-gutter .row .col-md-16,
+.container-fluid.no-gutter .row .col-lg-16 {
+	padding-left: 0;
+  	padding-right: 0;
+}
