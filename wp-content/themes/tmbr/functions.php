@@ -38,7 +38,7 @@ require_once('inc/load-scripts.php');
 // require_once('inc/is-tree.php');
 
 // Custom Gravity Form Submit filters
-//require_once('inc/gravity_form_filters.php');
+//require_once('inc/gravity-form-filters.php');
 
 // HIDES ADMIN BAR FOR DEV PURPOSES - this can also be done via Dashboard in WP Engine options
 // add_filter('show_admin_bar', '__return_false');
