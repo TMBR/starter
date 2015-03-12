@@ -1,9 +1,9 @@
 body {
-  padding-top: 50px;
+  padding-top: $gutter*2;
 }
 
 a {
-    color: $red-orange;
+    color: $blue;
 
     @include transition($transition200);
 
@@ -17,4 +17,39 @@ a {
 :active,
 :focus  {
   outline: none;
+}
+
+::-moz-selection { 
+	background: $blue;
+	color: $white;
+}
+
+::selection {
+	background: $blue;
+	color: $white;
+}
+
+h5,
+.h5 {
+	font-size: $h5;
+}
+
+h4,
+.h4 {
+	font-size: $h4;
+}
+
+h3,
+.h3 {
+	font-size: $h3;
+}
+
+h2,
+.h2 {
+	font-size: $h2;
+}
+
+h1,
+.h1 {
+	font-size: $h1;
 }

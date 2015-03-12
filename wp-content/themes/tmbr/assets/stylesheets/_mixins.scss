@@ -1,6 +1,6 @@
 /*
 Set Border radious for any element
-@include border-radius('0px');
+@include border-radius(0px);
 --------------------- */
 @mixin border-radius($radius) {
   -webkit-border-radius: $radius;
@@ -10,7 +10,7 @@ Set Border radious for any element
 
 /*
 opacity filter with x-browser fallback
-@include opacity('.9');
+@include opacity(.9);
 --------------------- */
 @mixin opacity($opacity) {
   opacity: $opacity;
@@ -29,7 +29,7 @@ Truncate text
 
 /*
 Background size with broswer prefix for cover image
-@include cover-background('path/to/img.jpg');
+@include cover-background(path/to/img.jpg);
 --------------------- */
 @mixin cover-background($img-uri) {
     background: url($img-uri) no-repeat center center fixed;
@@ -41,7 +41,7 @@ Background size with broswer prefix for cover image
 
 /*
 Background size with broswer prefix for cover
-@include background-cover('cover');
+@include background-cover(cover);
 --------------------- */
 @mixin background-cover($size) {
     -webkit-background-size: $size;
@@ -68,4 +68,87 @@ Background size with broswer prefix for cover
   @media all and (min-width:$min) and (max-width:$max) {
     @content
   }
+}
+
+/*
+CSS Arrow Shape
+@include arrow-right(10px, $blue);
+--------------------- */
+@mixin arrow-down($size, $color) {
+  height: 0;
+  width: 0;
+  border-top: $size solid $color;
+  border-right: $size solid transparent;
+  border-left: $size solid transparent;
+  border-bottom: 0 solid transparent;
+}
+
+@mixin arrow-up($size, $color) {
+  height: 0;
+  width: 0;
+  border-bottom: $size solid $color;
+  border-right: $size solid transparent;
+  border-left: $size solid transparent;
+  border-top: 0 solid transparent;
+}
+
+@mixin arrow-left($size, $color) {
+  height: 0;
+  width: 0;
+  border-right: $size solid $color;
+  border-top: $size solid transparent;
+  border-bottom: $size solid transparent;
+  border-left: 0 solid transparent;
+}
+
+@mixin arrow-right($size, $color) {
+  height: 0;
+  width: 0;
+  border-left: $size solid $color;
+  border-top: $size solid transparent;
+  border-bottom: $size solid transparent;
+  border-right: 0 solid transparent;
+}
+
+/*
+Positioning - Absolute / Fixed / Relative
+Set position (top, right, bottom, left ) & z-index
+@include absolute($t:50%, $l:0, $z: 9999);
+@include relative;
+--------------------- */
+@mixin absolute ($t: null, $r: null, $b: null, $l: null, $z: null) {
+  top: $t;
+  right: $r;
+  bottom: $b;
+  left: $l;
+  z-index: $z;
+  position: absolute;
+}
+
+@mixin fixed ($t: null, $r: null, $b: null, $l: null, $z: null) {
+  top: $t;
+  right: $r;
+  bottom: $b;
+  left: $l;
+  z-index: $z;
+  position: fixed;
+}
+
+@mixin relative ($t: null, $r: null, $b: null, $l: null, $z: null) {
+  top: $t;
+  right: $r;
+  bottom: $b;
+  left: $l;
+  z-index: $z;
+  position: relative;
+}
+
+/*
+Firefox hack for images with opacity changes
+@include ff-hack;
+--------------------- */
+@mixin ff-hack {
+  background-color: $black; 
+  -moz-backface-visibility: hidden; 
+  -webkit-transform: translateZ(0px); 
 }

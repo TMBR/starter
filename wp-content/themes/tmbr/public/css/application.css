@@ -8322,24 +8322,44 @@ html[xmlns] .flexslider .slides {
     right: 10px; }
  }
 
+/* COLORS */
+/* FONT FAMILIES */
+/* FONT SIZES */
+/* FONT WEIGHTS */
+/* FIXED WIDTHS */
+/* GUTTER */
 /*
 Set Border radious for any element
-@include border-radius('0px');
+@include border-radius(0px);
 --------------------- */
 /*
 opacity filter with x-browser fallback
-@include opacity('.9');
+@include opacity(.9);
 --------------------- */
 /*
 Truncate text
 --------------------- */
 /*
 Background size with broswer prefix for cover image
-@include cover-background('path/to/img.jpg');
+@include cover-background(path/to/img.jpg);
 --------------------- */
 /*
 Background size with broswer prefix for cover
-@include background-cover('cover');
+@include background-cover(cover);
+--------------------- */
+/*
+CSS Arrow Shape
+@include arrow-right(10px, $blue);
+--------------------- */
+/*
+Positioning - Absolute / Fixed / Relative
+Set position (top, right, bottom, left ) & z-index
+@include absolute($t:50%, $l:0, $z: 9999);
+@include relative;
+--------------------- */
+/*
+Firefox hack for images with opacity changes
+@include ff-hack;
 --------------------- */
 .tac {
   text-align: center; }
@@ -8352,6 +8372,11 @@ Background size with broswer prefix for cover
 
 .clear {
   clear: both; }
+
+/* INCREASE CONTAINER WIDTH AT 1400 PX + */
+@media screen and (min-width: 1400px) {
+  .container {
+    width: 1370px; } }
 
 /* BOOTSTRAP NO-GUTTER */
 .container-fluid.no-gutter .row {
@@ -8579,10 +8604,10 @@ Background size with broswer prefix for cover
   margin-bottom: 0px; }
 
 body {
-  padding-top: 50px; }
+  padding-top: 30px; }
 
 a {
-  color: #de7946;
+  color: #2E9FFF;
   -webkit-transition: all 200ms ease-in-out;
   -o-transition: all 200ms ease-in-out;
   transition: all 200ms ease-in-out; }
@@ -8591,3 +8616,26 @@ a {
 
 :active, :focus {
   outline: none; }
+
+::-moz-selection {
+  background: #2E9FFF;
+  color: #FFF; }
+
+::selection {
+  background: #2E9FFF;
+  color: #FFF; }
+
+h5, .h5 {
+  font-size: 16px; }
+
+h4, .h4 {
+  font-size: 18px; }
+
+h3, .h3 {
+  font-size: 24px; }
+
+h2, .h2 {
+  font-size: 30px; }
+
+h1, .h1 {
+  font-size: 52px; }
