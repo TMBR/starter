@@ -31,7 +31,8 @@
     "isotope": "*",
     "jquery-unveil": "*",
     "jquery.stellar": "*",
-    "flexslider": "~2.3.0",
+    "animate-css": "~3.2.3",
+    "FlexSlider": "git://github.com/woothemes/FlexSlider.git#version/2.3.0",
     "magnific-popup": "*"
   },
   "resolutions": {
