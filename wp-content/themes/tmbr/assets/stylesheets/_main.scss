@@ -1,9 +1,9 @@
 body {
-  padding-top: 50px;
+  padding-top: $gutter*2;
 }
 
 a {
-    color: $red-orange;
+    color: $blue;
 
     @include transition($transition200);
 
@@ -27,11 +27,6 @@ a {
 ::selection {
 	background: $blue;
 	color: $white;
-}
-
-h6,
-.h6 {
-	font-size: $h6;
 }
 
 h5,
