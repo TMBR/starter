@@ -9,7 +9,6 @@ add_action('wp_enqueue_scripts', function(){
 		'' // @TODO pull revved number
 	);
 
-	$in_header = false;
 	$in_footer = true;
 	wp_deregister_script('jquery');
 	wp_enqueue_script(
@@ -19,7 +18,7 @@ add_action('wp_enqueue_scripts', function(){
 			: _s_asset('js/vendor.js'),
 		array(),
 		'', // @TODO pull revved number from asset
-		$in_header
+		!$in_footer
 	);
 	wp_enqueue_script(
 		'application',
