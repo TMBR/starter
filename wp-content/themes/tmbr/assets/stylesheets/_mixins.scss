@@ -1,4 +1,33 @@
 /*
+Set Border radious for any element
+@include border-radius('0px');
+--------------------- */
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+  border-radius: $radius;
+  background-clip: padding-box;  /* stops bg color from leaking outside the border: */
+}
+
+/*
+opacity filter with x-browser fallback
+@include opacity('.9');
+--------------------- */
+@mixin opacity($opacity) {
+  opacity: $opacity;
+  $opacity-ie: $opacity * 100;
+  filter: alpha(opacity=$opacity-ie); //IE8
+}
+
+/*
+Truncate text
+--------------------- */
+@mixin text-truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/*
 Background size with broswer prefix for cover image
 @include cover-background('path/to/img.jpg');
 --------------------- */
