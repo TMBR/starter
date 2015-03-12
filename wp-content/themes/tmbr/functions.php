@@ -28,6 +28,9 @@ require_once('inc/load-scripts.php');
 // REGISTER MENUS
 // require_once('inc/register-menus.php');
 
+// CUSTOM IMG SIZE
+// require_once('inc/custom-img-size.php');
+
 // DEFINE CATEGORY OR OTHER TERMS
 // @define( 'cat_featured', 17 );
 

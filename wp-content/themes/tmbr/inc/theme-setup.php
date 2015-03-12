@@ -19,13 +19,6 @@ function tmbr_setup() {
 
 add_action('after_setup_theme', 'tmbr_setup');
 
-
-/************************ ADD IMAGE SIZE ****************************/
-if ( function_exists( 'add_image_size' ) ) {
-	add_image_size( 'full_screen', 1680, 945, true ); //(cropped)
-	add_image_size( 'mobile_full_screen', 1170, 658, true ); //(cropped)
-}
-
 // ADD TMBR LOGO TO LOGIN PAGE
 add_action('login_head', 'tmbr_login_head');
 
