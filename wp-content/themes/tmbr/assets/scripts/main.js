@@ -9,14 +9,14 @@ var ismobile = (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i
 	-----------------*/
 
 	// Set up Sliders
-	Slider.init();
+	// Slider.init();
 
 
 	if(ismobile == true){
 		$('body').addClass('mobile');
 	} else {
 		// non mobile actions
-		new WOW().init();
+		// new WOW().init();
 	}
 
 	// wait for full site to load before transition fires
@@ -51,17 +51,22 @@ var ismobile = (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i
 
 	}); // END Doc Ready
 
-	// Window scroll functions
-	$(window).scroll(function() {
-		// fade navigation bar
-		/*
-		if ( $(window).scrollTop() > 100) {
-			$("#topnav").addClass("darken").addClass("small");
-		} else {
-			$("#topnav").removeClass("darken").removeClass("small");
-		}
-		*/
-	}); // END window scroll
+
+
+	var throttleTimeOut = 200; //milliseconds before triggering function again
+	// Window Scroll functions
+	$(window).on('scroll', _throttle(function(){
+		/* do your normal scroll stuff here, but it'll be
+		 * more-reasonably controlled, so as to not peg
+		 * the host machine's processor */
+	}, throttleTimeOut));
+
+	// Window Resize functions
+	$(window).on('resize', _throttle(function(){
+		/* do your normal resize stuff here, but it'll be
+		 * more-reasonably controlled, so as to not peg
+		 * the host machine's processor */
+	}, throttleTimeOut));
 
 
 })(jQuery);
