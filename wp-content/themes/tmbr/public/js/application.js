@@ -23,6 +23,53 @@ var Slider = (function($) {
 	return slider;
 })(jQuery);
 
+// Credit goes to [Underscore.js](http://underscorejs.org/)
+
+/**
+ * Returns a function, that, when invoked, will only be triggered at most
+ * once during a given window of time. Normally, the throttled function will
+ * run as much as it can, without ever going more than once per wait
+ * duration; but if you’d like to disable the execution on the leading edge,
+ * pass {leading: false}. To disable execution on the trailing edge, ditto.
+ */
+
+// throttle's dependent upon _now
+_now = Date.now || function() {
+  return new Date().getTime();
+};
+
+_throttle = function(func, wait, options) {
+  var context, args, result;
+  var timeout = null;
+  var previous = 0;
+  if (!options) options = {};
+  var later = function() {
+    previous = options.leading === false ? 0 : _now();
+    timeout = null;
+    result = func.apply(context, args);
+    if (!timeout) context = args = null;
+  };
+  return function() {
+    var now = _now();
+    if (!previous && options.leading === false) previous = now;
+    var remaining = wait - (now - previous);
+    context = this;
+    args = arguments;
+    if (remaining <= 0 || remaining > wait) {
+      if (timeout) {
+        clearTimeout(timeout);
+        timeout = null;
+      }
+      previous = now;
+      result = func.apply(context, args);
+      if (!timeout) context = args = null;
+    } else if (!timeout && options.trailing !== false) {
+      timeout = setTimeout(later, remaining);
+    }
+    return result;
+  };
+};
+
 // Mobile device detection
 var ismobile = (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent));
 
@@ -34,14 +81,14 @@ var ismobile = (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i
 	-----------------*/
 
 	// Set up Sliders
-	Slider.init();
+	// Slider.init();
 
 
 	if(ismobile == true){
 		$('body').addClass('mobile');
 	} else {
 		// non mobile actions
-		new WOW().init();
+		// new WOW().init();
 	}
 
 	// wait for full site to load before transition fires
@@ -76,17 +123,22 @@ var ismobile = (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i
 
 	}); // END Doc Ready
 
-	// Window scroll functions
-	$(window).scroll(function() {
-		// fade navigation bar
-		/*
-		if ( $(window).scrollTop() > 100) {
-			$("#topnav").addClass("darken").addClass("small");
-		} else {
-			$("#topnav").removeClass("darken").removeClass("small");
-		}
-		*/
-	}); // END window scroll
+
+
+	var throttleTimeOut = 200; //milliseconds before triggering function again
+	// Window Scroll functions
+	$(window).on('scroll', _throttle(function(){
+		/* do your normal scroll stuff here, but it'll be
+		 * more-reasonably controlled, so as to not peg
+		 * the host machine's processor */
+	}, throttleTimeOut));
+
+	// Window Resize functions
+	$(window).on('resize', _throttle(function(){
+		/* do your normal resize stuff here, but it'll be
+		 * more-reasonably controlled, so as to not peg
+		 * the host machine's processor */
+	}, throttleTimeOut));
 
 
 })(jQuery);
