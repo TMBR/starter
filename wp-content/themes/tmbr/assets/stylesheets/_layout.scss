@@ -5,6 +5,13 @@
 
 .clear { clear: both;}
 
+/* INCREASE CONTAINER WIDTH AT 1400 PX + */
+.container {
+	@media screen and (min-width: 1400px) {
+		width: $fixed-w-xl;
+	}
+}
+
 /* BOOTSTRAP NO-GUTTER */
 .container-fluid.no-gutter .row {
   margin-left: 0;
