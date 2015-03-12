@@ -52,12 +52,12 @@
 @import '../vendor/font-awesome/scss/font-awesome';
 
 // Animate CSS
-@import '../vendor/animate/animate.scss';
+@import 'vendor/animate.scss';
 
 // Magnificent pop up
 @import '../vendor/magnific-popup/src/css/main';
 
-//Video JS - #### have to rename file to sass - and copy font to public folder
+// Video JS - #### have to rename file to sass - and copy font to public folder
 // @import 'vendor/video-js';
 
 // Flex Slider #### have to rename file to sass - move fonts to public
