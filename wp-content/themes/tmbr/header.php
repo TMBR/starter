@@ -21,6 +21,8 @@
 
 <body <?php body_class(); ?>>
 
+<div id="topnav">
 <?php
 // Top Nav
-get_template_part( 'partials/header/fixed_nav' );
+get_template_part( 'partials/header/fixed_nav' ); ?>
+</div>
