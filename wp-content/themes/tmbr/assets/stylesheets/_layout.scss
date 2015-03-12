@@ -29,3 +29,8 @@
 	padding-left: 0;
   	padding-right: 0;
 }
+
+/* CREATES NEW BOOTSTRAP EXTRA EXTRA SMALL CLASSES */
+@media only screen and (max-width: 600px) {
+	 @include make-grid(xxs);
+}
