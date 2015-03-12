@@ -142,3 +142,13 @@ Set position (top, right, bottom, left ) & z-index
   z-index: $z;
   position: relative;
 }
+
+/*
+Firefox hack for images with opacity changes
+@include ff-hack;
+--------------------- */
+@mixin ff-hack {
+  background-color: $black; 
+  -moz-backface-visibility: hidden; 
+  -webkit-transform: translateZ(0px); 
+}
