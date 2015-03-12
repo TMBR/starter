@@ -46,5 +46,8 @@ require_once('inc/load-scripts.php');
 // ACF - Add Multiple Options Pages (you need to have the ACF Options Page Add-On installed
 // require_once('inc/options-pages.php');
 
+// SHORTCODES
+// require_once('inc/shortcodes.php');
+
 // CUSTOM DASHBOARD WIDGET
 // require_once('inc/dashboard-widget.php');
