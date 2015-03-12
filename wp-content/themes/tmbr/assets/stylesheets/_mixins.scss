@@ -109,3 +109,36 @@ CSS Arrow Shape
   border-bottom: $size solid transparent;
   border-right: 0 solid transparent;
 }
+
+/*
+Positioning - Absolute / Fixed / Relative
+Set position (top, right, bottom, left ) & z-index
+@include absolute($t:50%, $l:0, $z: 9999);
+@include relative;
+--------------------- */
+@mixin absolute ($t: null, $r: null, $b: null, $l: null, $z: null) {
+  top: $t;
+  right: $r;
+  bottom: $b;
+  left: $l;
+  z-index: $z;
+  position: absolute;
+}
+
+@mixin fixed ($t: null, $r: null, $b: null, $l: null, $z: null) {
+  top: $t;
+  right: $r;
+  bottom: $b;
+  left: $l;
+  z-index: $z;
+  position: fixed;
+}
+
+@mixin relative ($t: null, $r: null, $b: null, $l: null, $z: null) {
+  top: $t;
+  right: $r;
+  bottom: $b;
+  left: $l;
+  z-index: $z;
+  position: relative;
+}
