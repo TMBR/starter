@@ -1,6 +1,6 @@
 /*
 Set Border radious for any element
-@include border-radius('0px');
+@include border-radius(0px);
 --------------------- */
 @mixin border-radius($radius) {
   -webkit-border-radius: $radius;
@@ -10,7 +10,7 @@ Set Border radious for any element
 
 /*
 opacity filter with x-browser fallback
-@include opacity('.9');
+@include opacity(.9);
 --------------------- */
 @mixin opacity($opacity) {
   opacity: $opacity;
@@ -29,7 +29,7 @@ Truncate text
 
 /*
 Background size with broswer prefix for cover image
-@include cover-background('path/to/img.jpg');
+@include cover-background(path/to/img.jpg);
 --------------------- */
 @mixin cover-background($img-uri) {
     background: url($img-uri) no-repeat center center fixed;
@@ -41,7 +41,7 @@ Background size with broswer prefix for cover image
 
 /*
 Background size with broswer prefix for cover
-@include background-cover('cover');
+@include background-cover(cover);
 --------------------- */
 @mixin background-cover($size) {
     -webkit-background-size: $size;
@@ -72,7 +72,7 @@ Background size with broswer prefix for cover
 
 /*
 CSS Arrow Shape
-@include arrow-right('10px, $blue);
+@include arrow-right(10px, $blue);
 --------------------- */
 @mixin arrow-down($size, $color) {
   height: 0;
