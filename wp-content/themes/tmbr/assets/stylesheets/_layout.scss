@@ -1,26 +1,36 @@
-body {
-  padding-top: 50px;
-}
-
-a {
-    color: $red-orange;
-
-    @include transition($transition200);
-
-    &:hover,
-	&:focus,
-	&:active {
-	  text-decoration: none;
-	}
-}
-
-:active,
-:focus  {
-  outline: none;
-}
 
 .tac { text-align: center;}
 .tar { text-align: right;}
 .tal { text-align: left;}
 
 .clear { clear: both;}
+
+/* BOOTSTRAP NO-GUTTER */
+.container-fluid.no-gutter .row {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.container-fluid.no-gutter .row [class*='col-']{
+  	padding-left: 0;
+  	padding-right: 0;
+}
+
+.container-fluid.no-gutter {
+	padding: 0;
+}
+
+.container-fluid.no-gutter .row [class*='col-']:not(:first-child),
+.container-fluid.no-gutter .row [class*='col-']:not(:last-child),
+.container-fluid.no-gutter .row .col-xs-16,
+.container-fluid.no-gutter .row .col-sm-16,
+.container-fluid.no-gutter .row .col-md-16,
+.container-fluid.no-gutter .row .col-lg-16 {
+	padding-left: 0;
+  	padding-right: 0;
+}
+
+/* CREATES NEW BOOTSTRAP EXTRA EXTRA SMALL CLASSES */
+@media only screen and (max-width: 600px) {
+	 @include make-grid(xxs);
+}
