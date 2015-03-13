@@ -81,7 +81,7 @@ var ismobile = (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i
 	-----------------*/
 
 	// Set up Sliders
-	// Slider.init();
+	 Slider.init();
 
 
 	if(ismobile == true){
