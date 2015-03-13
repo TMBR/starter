@@ -52,7 +52,7 @@ var ismobile = (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i
 	}); // END window .load
 
 
-	var throttleTimeOut = 200; //milliseconds before triggering function again
+	var throttleTimeOut = 50; //milliseconds before triggering function again
 	// Window Scroll functions
 	$(window).on('scroll', _throttle(function(){
 		/* do your normal scroll stuff here, but it'll be
