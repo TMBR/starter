@@ -348,7 +348,7 @@ class GFExport {
 
 	public static function export_form_page() {
 
-		if ( ! GFCommon::current_user_can_any( 'gravityforçms_edit_forms' ) ) {
+		if ( ! GFCommon::current_user_can_any( 'gravityforms_edit_forms' ) ) {
 			wp_die( 'You do not have permission to access this page' );
 		}
 
@@ -766,6 +766,9 @@ class GFExport {
 
 			$lines = '';
 		}
+
+		do_action( 'gform_post_export_entries', $form, $start_date, $end_date, $fields );
+
 	}
 
 	public static function add_default_export_fields( $form ) {

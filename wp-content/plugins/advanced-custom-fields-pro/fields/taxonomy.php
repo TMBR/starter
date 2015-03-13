@@ -310,6 +310,11 @@ class acf_field_taxonomy extends acf_field {
 	
 	function load_value( $value, $post_id, $field ) {
 		
+		// get valid terms
+		$value = acf_get_valid_terms($value, $field['taxonomy']);
+		
+		
+		// load/save
 		if( $field['load_save_terms'] ) {
 			
 			// bail early if no value
@@ -380,6 +385,28 @@ class acf_field_taxonomy extends acf_field {
 		// load_save_terms
 		if( $field['load_save_terms'] ) {
 			
+			// vars
+			$taxonomy = $field['taxonomy'];
+			
+			
+			// force value to array
+			$term_ids = acf_force_type_array( $value );
+			
+			
+			// convert to int
+			$term_ids = array_map('intval', $term_ids);
+			
+			
+			// bypass $this->set_terms if called directly from update_field
+			if( !did_action('acf/save_post') ) {
+				
+				wp_set_object_terms( $post_id, $term_ids, $taxonomy, false );
+				
+				return $value;
+				
+			}
+			
+			
 			// initialize
 			if( empty($this->set_terms) ) {
 				
@@ -393,22 +420,14 @@ class acf_field_taxonomy extends acf_field {
 			}
 			
 			
-			// force value to array
-			$term_ids = acf_force_type_array( $value );
-			
-			
-			// convert to int
-			$term_ids = array_map('intval', $term_ids);
-			
-			
 			// append
-			if( empty($this->set_terms[ $field['taxonomy'] ]) ) {
+			if( empty($this->set_terms[ $taxonomy ]) ) {
 				
-				$this->set_terms[ $field['taxonomy'] ] = array();
+				$this->set_terms[ $taxonomy ] = array();
 				
 			}
 			
-			$this->set_terms[ $field['taxonomy'] ] = array_merge($this->set_terms[ $field['taxonomy'] ], $term_ids);
+			$this->set_terms[ $taxonomy ] = array_merge($this->set_terms[ $taxonomy ], $term_ids);
 			
 		}
 		

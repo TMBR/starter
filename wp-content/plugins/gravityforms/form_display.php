@@ -197,7 +197,7 @@ class GFFormDisplay {
 				continue;
 			}
 
-			if ( $field->failed_validation || empty( $_FILES[ $input_name ]['name'] )) {
+			if ( $field->failed_validation || empty( $_FILES[ $input_name ]['name'] ) ) {
 				GFCommon::log_debug( "GFFormDisplay::upload_files(): Skipping field: {$field->label}({$field->id} - {$field->type})." );
 				continue;
 			}
@@ -430,7 +430,8 @@ class GFFormDisplay {
 		$target_page  = self::get_target_page( $form, $page_number, $field_values );
 
 		if ( $mode == 'render' ) {
-			$is_last_page = $target_page == self::get_max_page_number( $form );
+			$is_valid     = rgars( self::$submission, "{$form['id']}/is_valid" );
+			$is_last_page = $is_valid && $target_page == self::get_max_page_number( $form );
 		} else {
 			$is_last_page = (string) $target_page === '0';
 		}
@@ -1674,7 +1675,8 @@ class GFFormDisplay {
 					}
 
 					if ( rgar( $choice, 'isSelected' ) && $input_type == 'select' ) {
-						$val = $is_pricing_field && $field->type != 'quantity' ? $choice['value'] . '|' . GFCommon::to_number( rgar( $choice, 'price' ) ): $choice['value'];
+						$price = GFCommon::to_number( rgar( $choice, 'price' ) ) == false ? 0 : GFCommon::to_number( rgar( $choice, 'price' ) );
+						$val = $is_pricing_field && $field->type != 'quantity' ? $choice['value'] . '|' . $price: $choice['value'];
 						$default_values[ $field->id ] = $val;
 					} else if ( rgar( $choice, 'isSelected' ) ) {
 						if ( ! isset( $default_values[ $field->id ] ) ) {
@@ -2250,7 +2252,7 @@ class GFFormDisplay {
                 </div>
                 <div id='gform_page_{$form['id']}_{$field->pageNumber}' class='gform_page{$custom_class}' {$style}>
                     <div class='gform_page_fields'>
-                        <ul id='gform_fields_{$form['id']}' class='" . GFCommon::get_ul_classes( $form ) . "'>";
+                        <ul id='gform_fields_{$form['id']}_{$field->pageNumber}' class='" . GFCommon::get_ul_classes( $form ) . "'>";
 
 				return $html;
 			}

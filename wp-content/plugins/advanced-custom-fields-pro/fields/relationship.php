@@ -192,7 +192,7 @@ class acf_field_relationship extends acf_field {
 		
 		
 		// get posts grouped by post type
-		$groups = acf_get_posts( $args );
+		$groups = acf_get_grouped_posts( $args );
 		
 		if( !empty($groups) ) {
 			
@@ -375,63 +375,6 @@ class acf_field_relationship extends acf_field {
 		
 		// return
 		return $title;
-	}
-	
-	
-	/*
-	*  get_posts
-	*
-	*  This function will return an array of posts for a given field value
-	*
-	*  @type	function
-	*  @date	13/06/2014
-	*  @since	5.0.0
-	*
-	*  @param	$value (array)
-	*  @return	$value
-	*/
-	
-	function get_posts( $value ) {
-		
-		// force value to array
-		$value = acf_force_type_array( $value );
-		
-		
-		// convert to int
-		$value = array_map('intval', $value);
-		
-		
-		// load posts in 1 query to save multiple DB calls from following code
-		if( count($value) > 1 ) {
-			
-			get_posts(array(
-				'posts_per_page'	=> -1,
-				'post_type'			=> acf_get_post_types(),
-				'post_status'		=> 'any',
-				'post__in'			=> $value,
-			));
-			
-		}
-		
-		
-		// vars
-		$posts = array();
-		
-		
-		// update value to include $post
-		foreach( $value as $post_id ) {
-			
-			if( $post = get_post( $post_id ) ) {
-				
-				$posts[] = $post;
-				
-			}
-			
-		}
-		
-		
-		// return
-		return $posts;
 	}
 	
 	
@@ -686,9 +629,12 @@ class acf_field_relationship extends acf_field {
 			<ul class="acf-bl list">
 			
 				<?php if( !empty($field['value']) ): 
-						
+					
 					// get posts
-					$posts = $this->get_posts( $field['value'] );
+					$posts = acf_get_posts(array(
+						'post__in' => $field['value'],
+					));
+					
 					
 					// set choices
 					if( !empty($posts) ):
@@ -764,7 +710,7 @@ class acf_field_relationship extends acf_field {
 			'multiple'		=> 1,
 			'ui'			=> 1,
 			'allow_null'	=> 1,
-			'placeholder'	=> __("No taxonomy filter",'acf'),
+			'placeholder'	=> __("All taxonomies",'acf'),
 		));
 		
 		
@@ -865,8 +811,10 @@ class acf_field_relationship extends acf_field {
 		if( $field['return_format'] == 'object' ) {
 			
 			// get posts
-			$value = $this->get_posts( $value );
-		
+			$value = acf_get_posts(array(
+				'post__in' => $value,
+			));
+			
 		}
 		
 		

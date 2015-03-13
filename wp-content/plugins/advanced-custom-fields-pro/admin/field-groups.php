@@ -248,7 +248,7 @@ class acf_admin_field_groups {
 			return;
 			
 		}
-		
+	
 		
 		// import field group
 		if( $key = acf_maybe_get($_GET, 'acfsync') ) {

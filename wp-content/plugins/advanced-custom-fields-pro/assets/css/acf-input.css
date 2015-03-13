@@ -1016,7 +1016,8 @@ html[dir="rtl"] .acf-image-uploader .view {
 }
 /* fix % margin which causes .acf-uploadedTo to drop down below select */
 .media-frame select.attachment-filters {
-  margin-right: 6px;
+  margin-right: 6px !important;
+  vertical-align: middle;
 }
 .media-modal .acf-uploadedTo {
   line-height: 28px;

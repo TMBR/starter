@@ -391,12 +391,19 @@ class GFAPI {
 	 *  Filter by Field Values
 	 *     $search_criteria['field_filters'][] = array('key' => '1', 'value' => 'gquiz159982170');
 	 *
+	 *  Filter Operators
+	 *     Supported operators for scalar values: is/=, isnot/<>, contains
+	 *     $search_criteria['field_filters'][] = array('key' => '1', 'operator' => 'contains', value' => 'Steve');
+	 *     Supported operators for array values: in/=, not in/<>/!=
+	 *     $search_criteria['field_filters'][] = array('key' => '1', 'operator' => 'not in', value' => array( 'Alex', 'David', 'Dana' );
+	 *
 	 *  Filter by a checkbox value (not recommended)
 	 *     $search_criteria['field_filters'][] = array('key' => '2.2', 'value' => 'gquiz246fec995');
-	 *     note: this will work for checkboxes but it won't work if the checkboxes have been re-ordered - best to use the following example below
+	 *     note: this will work for checkboxes but it won't work if the checkboxes have been re-ordered - best to use the following examples below
 	 *
 	 *  Filter by a checkbox value (recommended)
 	 *     $search_criteria['field_filters'][] = array('key' => '2', 'value' => 'gquiz246fec995');
+	 *     $search_criteria['field_filters'][] = array('key' => '2', 'operator' => 'not in', value' => array( 'First Choice', 'Third Choice' );
 	 *
 	 *  Filter by a global search of values of any form field
 	 *     $search_criteria['field_filters'][] = array('value' => $search_value);
@@ -653,6 +660,7 @@ class GFAPI {
 
 		$form = GFFormsModel::get_form_meta( $form_id );
 		foreach ( $form['fields'] as $field ) {
+			/* @var GF_Field $field */
 			$type = GFFormsModel::get_input_type( $field );
 			if ( in_array( $type, array( 'html', 'page', 'section' ) ) ) {
 				continue;
@@ -802,11 +810,13 @@ class GFAPI {
 
 		$form = GFFormsModel::get_form_meta( $form_id );
 		foreach ( $form['fields'] as $field ) {
+			/* @var GF_Field $field */
 			if ( in_array( $field->type, array( 'html', 'page', 'section' ) ) ) {
 				continue;
 			}
-			if ( is_array( $field->inputs ) ) {
-				foreach ( $field->inputs as $input ) {
+			$inputs = $field->get_entry_inputs();
+			if ( is_array( $inputs ) ) {
+				foreach ( $inputs as $input ) {
 					$input_id = (string) $input['id'];
 					if ( isset( $entry[ $input_id ] ) ) {
 						$result = GFFormsModel::update_lead_field_value( $form, $entry, $field, 0, $input_id, $entry[ $input_id ] );
@@ -897,7 +907,15 @@ class GFAPI {
 		global $wpdb;
 
 		$entry = self::get_entry( $entry_id );
+		if ( is_wp_error( $entry ) ) {
+			return $entry;
+		}
+
 		$form = self::get_form( $entry['form_id'] );
+		if ( ! $form ) {
+			return false;
+		}
+
 		$field = GFFormsModel::get_field( $form, $input_id );
 
 		$lead_detail_id = $wpdb->get_var( $wpdb->prepare( "SELECT id FROM {$wpdb->prefix}rg_lead_detail WHERE lead_id=%d AND CAST(field_number as DECIMAL(4,2))=%s", $entry_id, $input_id ) );
