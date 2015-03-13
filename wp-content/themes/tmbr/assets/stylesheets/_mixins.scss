@@ -28,6 +28,19 @@ Truncate text
 }
 
 /*
+Transform
+@include transform(translateY(-50%));
+--------------------- */
+@mixin transform( $transform-props ) {
+  -webkit-transform: $transform-props;
+  -moz-transform: $transform-props;
+  -ms-transform: $transform-props;
+  -o-transform: $transform-props;
+  transform: $transform-props;
+}
+
+
+/*
 Background size with broswer prefix for cover image
 @include cover-background(path/to/img.jpg);
 --------------------- */
