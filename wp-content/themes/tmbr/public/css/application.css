@@ -8340,6 +8340,10 @@ opacity filter with x-browser fallback
 Truncate text
 --------------------- */
 /*
+Transform
+@include transform(translateY(-50%));
+--------------------- */
+/*
 Background size with broswer prefix for cover image
 @include cover-background(path/to/img.jpg);
 --------------------- */
