@@ -8378,25 +8378,27 @@ Firefox hack for images with opacity changes
   clear: both; }
 
 /* INCREASE CONTAINER WIDTH AT 1400 PX + */
-@media screen and (min-width: 1400px) {
-  .container {
-    width: 1370px; } }
-
+/*
+.container {
+	@media screen and (min-width: 1400px) {
+		width: $fixed-w-xl;
+	}
+}
+*/
 /* BOOTSTRAP NO-GUTTER */
-.container-fluid.no-gutter .row {
-  margin-left: 0;
-  margin-right: 0; }
+.nopad {
+  padding: 0px !important; }
+  .nopad [class*="col-"] {
+    padding-left: 0 !important;
+    padding-right: 0 !important; }
 
-.container-fluid.no-gutter .row [class*='col-'] {
-  padding-left: 0;
-  padding-right: 0; }
+.wow {
+  visibility: hidden; }
 
-.container-fluid.no-gutter {
-  padding: 0; }
-
-.container-fluid.no-gutter .row [class*='col-']:not(:first-child), .container-fluid.no-gutter .row [class*='col-']:not(:last-child), .container-fluid.no-gutter .row .col-xs-16, .container-fluid.no-gutter .row .col-sm-16, .container-fluid.no-gutter .row .col-md-16, .container-fluid.no-gutter .row .col-lg-16 {
-  padding-left: 0;
-  padding-right: 0; }
+/* MOBILE DEVICE SPECIFIC
+---------------------------- */
+body.mobile .wow {
+  visibility: visible; }
 
 /* CREATES NEW BOOTSTRAP EXTRA EXTRA SMALL CLASSES */
 @media only screen and (max-width: 600px) {
@@ -8608,7 +8610,8 @@ Firefox hack for images with opacity changes
   margin-bottom: 0px; }
 
 body {
-  padding-top: 30px; }
+  color: #4b431f;
+  overflow-x: hidden; }
 
 a {
   color: #2E9FFF;
@@ -8616,7 +8619,8 @@ a {
   -o-transition: all 200ms ease-in-out;
   transition: all 200ms ease-in-out; }
   a:hover, a:focus, a:active {
-    text-decoration: none; }
+    text-decoration: none;
+    outline: none; }
 
 :active, :focus {
   outline: none; }
@@ -8629,17 +8633,40 @@ a {
   background: #2E9FFF;
   color: #FFF; }
 
-h5, .h5 {
-  font-size: 16px; }
-
-h4, .h4 {
-  font-size: 18px; }
-
-h3, .h3 {
-  font-size: 24px; }
-
-h2, .h2 {
-  font-size: 30px; }
+h1, h2, h3, h4, h5, h6 {
+  text-transform: uppercase; }
 
 h1, .h1 {
-  font-size: 52px; }
+  font-size: 4em; }
+  @media all and (max-width: 767px) {
+    h1, .h1 {
+      font-size: 2em; } }
+
+h2, .h2 {
+  font-size: 3em; }
+
+h3, .h3 {
+  font-size: 2.5em; }
+
+h4, .h4 {
+  font-size: 2em; }
+
+h5, .h5 {
+  font-size: 1.5em; }
+
+/* GLOBAL BUTTONS */
+.btn {
+  display: inline-block;
+  text-transform: uppercase;
+  color: #e9e9de;
+  font-size: 1.3em;
+  padding: 0px 30px;
+  height: 50px;
+  line-height: 50px;
+  margin-top: 20px;
+  -webkit-border-radius: '0px';
+  border-radius: '0px';
+  background-clip: padding-box;
+  /* stops bg color from leaking outside the border: */ }
+  .btn.orange {
+    background-color: #c76c14; }

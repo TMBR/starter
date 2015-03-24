@@ -79,9 +79,34 @@
     fonts: ['assets/fonts/**']
   };
 
-  gulp.task('clean', function(cb) {
+ gulp.task('clean', function(cb) {
     // You can use multiple globbing patterns as you would with `gulp.src`
     del(['public'], cb);
+  });
+
+  gulp.task('clean:vendorScripts', function(cb) {
+    // You can use multiple globbing patterns as you would with `gulp.src`
+    del(['public/js/vendor*'], cb);
+  });
+
+  gulp.task('clean:appScripts', function(cb) {
+    // You can use multiple globbing patterns as you would with `gulp.src`
+    del(['public/js/application*'], cb);
+  });
+
+  gulp.task('clean:styles', function(cb) {
+    // You can use multiple globbing patterns as you would with `gulp.src`
+    del(['public/css/'], cb);
+  });
+
+  gulp.task('clean:images', function(cb) {
+    // You can use multiple globbing patterns as you would with `gulp.src`
+    del(['public/images/'], cb);
+  });
+
+  gulp.task('clean:fonts', function(cb) {
+    // You can use multiple globbing patterns as you would with `gulp.src`
+    del(['public/fonts/'], cb);
   });
 
 
@@ -133,19 +158,19 @@
   gulp.task('startwatch', function(){
     watchers = [
       gulp.watch(paths.vendorScripts, function(event){
-        runSequence('scripts:vendor', 'version');
+        runSequence('clean:vendorScripts', 'scripts:vendor', 'version');
       }),
       gulp.watch(paths.appScripts, function(event){
-        runSequence('scripts:app', 'version');
+        runSequence('clean:appScripts', 'scripts:app', 'version');
       }),
       gulp.watch(paths.stylesWatchDir, function(event){
-        runSequence('styles', 'version');
+        runSequence('clean:styles', 'styles', 'version');
       }),
       gulp.watch(paths.images, function(event){
-        runSequence('images', 'version');
+        runSequence('clean:images', 'images', 'version');
       }),
       gulp.watch(paths.fonts, function(event){
-        runSequence('fonts', 'version');
+        runSequence('clean:fonts', 'fonts', 'version');
       })
     ];
 
