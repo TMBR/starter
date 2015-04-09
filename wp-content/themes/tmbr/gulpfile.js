@@ -79,33 +79,29 @@
     fonts: ['assets/fonts/**']
   };
 
- gulp.task('clean', function(cb) {
+  gulp.task('clean', function(cb) {
     // You can use multiple globbing patterns as you would with `gulp.src`
     del(['public'], cb);
   });
 
+  /* This group of tasks deal with deleting specific groups of items from the
+   * public folder.  This is used presently for when the "watch" task notices a
+   * change in a certain set of files, it removes the original set, so that
+   * we're not building up giant lists of unused files as we make changes to
+   * the JS or SASS components. */
   gulp.task('clean:vendorScripts', function(cb) {
-    // You can use multiple globbing patterns as you would with `gulp.src`
     del(['public/js/vendor*'], cb);
   });
-
   gulp.task('clean:appScripts', function(cb) {
-    // You can use multiple globbing patterns as you would with `gulp.src`
     del(['public/js/application*'], cb);
   });
-
   gulp.task('clean:styles', function(cb) {
-    // You can use multiple globbing patterns as you would with `gulp.src`
     del(['public/css/'], cb);
   });
-
   gulp.task('clean:images', function(cb) {
-    // You can use multiple globbing patterns as you would with `gulp.src`
     del(['public/images/'], cb);
   });
-
   gulp.task('clean:fonts', function(cb) {
-    // You can use multiple globbing patterns as you would with `gulp.src`
     del(['public/fonts/'], cb);
   });
 
