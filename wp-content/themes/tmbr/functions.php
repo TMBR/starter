@@ -3,6 +3,9 @@
 // TMBR Helpers - always include this first, so other files can rely on it
 require_once('inc/helpers.php');
 
+// AUTO-UPDATES
+get_template_part( 'inc/auto-updates' );
+
 // WEATHER STUFF
 // require_once('inc/weather/init.php');
 // require_once('inc/weather-overrides.php');
