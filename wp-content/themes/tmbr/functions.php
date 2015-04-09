@@ -1,56 +1,56 @@
 <?php
 
 // TMBR Helpers - always include this first, so other files can rely on it
-require_once('inc/helpers.php');
+get_template_part( 'inc/helpers' );
 
 // AUTO-UPDATES
 get_template_part( 'inc/auto-updates' );
 
 // WEATHER STUFF
-// require_once('inc/weather/init.php');
-// require_once('inc/weather-overrides.php');
+// get_template_part( 'inc/weather/init' );
+// get_template_part( 'inc/weather-overrides' );
 
 // SOCIAL FEED
-// require_once('inc/socialfeed/init.php');
+// get_template_part( 'inc/socialfeed/init' );
 
 // THEME SETUP
-require_once('inc/theme-setup.php');
+get_template_part( 'inc/theme-setup' );
 
 // ENQUEUE SCRIPTS & STYLES
-require_once('inc/load-scripts.php');
+get_template_part( 'inc/load-scripts' );
 
 // REGISTER CUSTOM POST TYPE
-// require_once('inc/register-post-type.php');
+// get_template_part( 'inc/register-post-type' );
 
 // REGISTER CUSTOM TAXONOMY
-// require_once('inc/register-taxonomy.php');
+// get_template_part( 'inc/register-taxonomy' );
 
 // REGISTER SIDEBARS
-// require_once('inc/register-sidebars.php');
+// get_template_part( 'inc/register-sidebars' );
 
 // REGISTER MENUS
-// require_once('inc/register-menus.php');
+// get_template_part( 'inc/register-menus' );
 
 // CUSTOM IMG SIZE
-// require_once('inc/custom-img-size.php');
+// get_template_part( 'inc/custom-img-size' );
 
 // DEFINE CATEGORY OR OTHER TERMS
 // @define( 'cat_featured', 17 );
 
 // FAMILY TREE
-// require_once('inc/is-tree.php');
+// get_template_part( 'inc/is-tree' );
 
 // Custom Gravity Form Submit filters
-//require_once('inc/gravity-form-filters.php');
+//get_template_part( 'inc/gravity-form-filters' );
 
 // HIDES ADMIN BAR FOR DEV PURPOSES - this can also be done via Dashboard in WP Engine options
-// add_filter('show_admin_bar', '__return_false');
+// add_filter( 'show_admin_bar', '__return_false' );
 
 // ACF - Add Multiple Options Pages (you need to have the ACF Options Page Add-On installed
-// require_once('inc/options-pages.php');
+// get_template_part( 'inc/options-pages' );
 
 // SHORTCODES
-// require_once('inc/shortcodes.php');
+// get_template_part( 'inc/shortcodes' );
 
 // CUSTOM DASHBOARD WIDGET
-// require_once('inc/dashboard-widget.php');
+// get_template_part( 'inc/dashboard-widget' );
