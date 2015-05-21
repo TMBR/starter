@@ -4,6 +4,7 @@ define( 'DB_NAME', 'tmbr_starter' );
 
 // Rest of these can likely stay the same
 define( 'WP_DEBUG', true );
+define( 'SAVEQUERIES', true );
 define( 'WP_DEFAULT_THEME', 'tmbr' );
 
 define( 'WP_HOME', 'http://' . $_SERVER['HTTP_HOST'] );
