@@ -193,3 +193,17 @@ input#input-id {
   }
 }
 
+/*
+Color
+@include color(white, $white);
+--------------------- */
+@mixin color($class, $color) {
+  .#{$class} {
+    color: $color;
+    a {
+      &,&:visited {
+        color: $color;
+      }
+    }
+  }
+}
