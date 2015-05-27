@@ -87,8 +87,4 @@ input[type=submit] {
 	line-height: 50px;
 	margin-top: 20px;
 	@include border-radius(0);
-
-	&.orange {
-		background-color: $orange;
-	}
 }
