@@ -78,7 +78,7 @@ Background size with broswer prefix for cover
 }
 
 @mixin respond-between($min, $max) {
-  @media all and (min-width:$min) and (max-width:$max) {
+  @media all and (min-width:$min) and (max-width:$max - 1) {
     @content
   }
 }
