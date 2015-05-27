@@ -1,25 +1,25 @@
+
 body {
-  overflow-x: hidden;
 	color: $black;
+	overflow-x: hidden;
 }
 
 
 a {
-    color: $blue;
+	color: $blue;
+	@include transition($transition200);
 
-    @include transition($transition200);
-
-    &:hover,
+	&:hover,
 	&:focus,
 	&:active {
-	  text-decoration: none;
-	  outline: none;
+		text-decoration: none;
+		outline: none;
 	}
 }
 
 :active,
 :focus  {
-  outline: none;
+	outline: none;
 }
 
 ::-moz-selection {
@@ -32,17 +32,15 @@ a {
 	color: $white;
 }
 
-h1,h2,h3,h4,h5,h6 {
-  text-transform: uppercase;
-}
+h1,h2,h3,h4,h5,h6 { }
 
 
 h1,
 .h1 {
 	font-size: $h1;
-	  @include respond-to($screen-sm) {
-    	font-size: 2em;
-      }
+	@include respond-to($screen-sm) {
+		font-size: 2em;
+	}
 }
 
 h2,
@@ -64,18 +62,17 @@ h5,
 
 /* GLOBAL BUTTONS */
 .btn {
-  display: inline-block;
-  text-transform: uppercase;
-  color: $beige;
-  font-size: 1.3em;
-  padding: 0px 30px;
-  height: 50px;
-  line-height: 50px;
-  margin-top: 20px;
+	display: inline-block;
+	text-transform: uppercase;
+	color: $blue;
+	font-size: 1.3em;
+	padding: 0px 30px;
+	height: 50px;
+	line-height: 50px;
+	margin-top: 20px;
+	@include border-radius(0);
 
-	@include border-radius('0px');
-
-	  &.orange {
-	    background-color: $orange;
-	  }
+	&.orange {
+		background-color: $orange;
+	}
 }
