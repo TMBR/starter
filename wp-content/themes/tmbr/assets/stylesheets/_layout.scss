@@ -27,7 +27,8 @@
 }
 
 
-/* BOOTSTRAP NO-GUTTER */
+/* BOOTSTRAP NO-GUTTER 
+================================== */
 .nopad {
   padding: 0px !important;
     [class*="col-"] {
@@ -35,6 +36,26 @@
       padding-right: 0 !important;
     }
 }
+
+.no-gutter {
+	&.container-fluid,
+	&.container {
+		padding: 0;
+		.row {
+			margin-left: 0;
+			margin-right: 0;
+			[class*='col-'] {
+				&,
+				&:not(:first-child),
+				&:not(:last-child) {
+					padding-left: 0;
+					padding-right: 0;
+				}
+			}
+		}
+	}
+}
+
 .wow {visibility: hidden;}
 
 /* MOBILE DEVICE SPECIFIC
