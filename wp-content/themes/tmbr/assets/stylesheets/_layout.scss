@@ -1,4 +1,6 @@
 
+/* GENERAL LAYOUT
+================================= */
 .tac { text-align: center;}
 .tar { text-align: right;}
 .tal { text-align: left;}
@@ -58,7 +60,8 @@
 
 
 
-/* CREATES NEW BOOTSTRAP EXTRA EXTRA SMALL CLASSES */
+/* CREATES NEW BOOTSTRAP EXTRA EXTRA SMALL CLASSES 
+==================================== */
 @media only screen and (max-width: 600px) {
 	 @include make-grid(xxs);
 }
