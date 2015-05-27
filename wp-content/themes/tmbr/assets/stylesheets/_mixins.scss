@@ -165,3 +165,31 @@ Firefox hack for images with opacity changes
   -moz-backface-visibility: hidden; 
   -webkit-transform: translateZ(0px); 
 }
+
+/*
+Placeholder
+input#input-id {
+  @include placeholder {
+    color: $white;
+    background: $black;
+  }
+}
+--------------------- */
+@mixin placeholder {
+  &::-webkit-input-placeholder {
+      @content
+  }
+
+  &:-moz-placeholder { /* Firefox 18- */
+      @content  
+  }
+
+  &::-moz-placeholder {  /* Firefox 19+ */
+      @content  
+  }
+
+  &:-ms-input-placeholder {  
+      @content  
+  }
+}
+
