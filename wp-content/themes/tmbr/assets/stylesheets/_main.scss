@@ -60,7 +60,18 @@ h5,
 	font-size: $h5;
 }
 
-/* GLOBAL BUTTONS */
+/* INPUTS 
+.gf_wrapper input[type=text] {
+	@extend %input;
+}
+======================== */
+%input {
+	background: rgba($black,0.4);
+	border: 1px solid rgba($black,0.4);
+	color: $white;
+	@include placeholder($white);
+	@include border-radius(1px);
+}
 .btn {
 	display: inline-block;
 	text-transform: uppercase;
