@@ -1,13 +1,24 @@
 
 /* GENERAL LAYOUT
 ================================= */
-.tac { text-align: center;}
-.tar { text-align: right;}
-.tal { text-align: left;}
+.tac { 
+	text-align: center;
+	}
 
-.clear { clear: both;}
+.tar { 
+	text-align: right;
+	}
 
-/* INCREASE CONTAINER WIDTH AT 1400 PX + */
+.tal { 
+	text-align: left;
+	}
+
+.clear { 
+	clear: both;
+	}
+
+/* INCREASE CONTAINER WIDTH AT 1400 PX + 
+=================================== */
 /*
 .container {
 	@media screen and (min-width: 1400px) {
