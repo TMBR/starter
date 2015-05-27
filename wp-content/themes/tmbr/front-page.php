@@ -2,7 +2,7 @@
 
 <?php
 // Hero Slider
-get_template_part( 'partials/global/fullscreen_slider' ); ?>
+get_template_part( 'partials/slider/home-hero' ); ?>
 
 <div id="primary" class="content-area">
 	<div class="container">
