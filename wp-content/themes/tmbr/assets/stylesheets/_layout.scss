@@ -56,13 +56,7 @@
 	}
 }
 
-.wow {visibility: hidden;}
 
-/* MOBILE DEVICE SPECIFIC
----------------------------- */
-	body.mobile{
-		.wow {visibility: visible;}
-	}
 
 /* CREATES NEW BOOTSTRAP EXTRA EXTRA SMALL CLASSES */
 @media only screen and (max-width: 600px) {
