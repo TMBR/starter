@@ -47,14 +47,17 @@ h2,
 .h2 {
 	font-size: $h2;
 }
+
 h3,
 .h3 {
 	font-size: $h3;
 }
+
 h4,
 .h4 {
 	font-size: $h4;
 }
+
 h5,
 .h5 {
 	font-size: $h5;
@@ -72,6 +75,7 @@ h5,
 	@include placeholder($white);
 	@include border-radius(1px);
 }
+
 /* GLOBAL BUTTONS
 input[type=submit] {
 	@extend .btn;
