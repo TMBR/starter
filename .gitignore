@@ -5,6 +5,7 @@
 *.bak
 *.swp
 Thumbs.db
+error_log
 
 # wordpress specific
 wp-config.php
