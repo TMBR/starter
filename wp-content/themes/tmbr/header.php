@@ -1,12 +1,19 @@
 <!DOCTYPE html>
 <html <?php language_attributes(); ?>>
-<head>
-	<meta charset="<?php bloginfo('charset'); ?>" />
-    <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
-	<link rel="profile" href="http://gmpg.org/xfn/11">
-	<link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>">
+  <head>
 
-	<title><?php wp_title(' | ', true, 'right'); ?></title>
+    <meta charset="<?php bloginfo('charset'); ?>" />
+    <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+
+    <link rel="profile" href="http://gmpg.org/xfn/11">
+    <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>">
+
+    <!-- TYPEKIT
+    <script src="//use.typekit.net/mhf8zro.js"></script>
+    <script>try{Typekit.load();}catch(e){}</script>
+    -->
+
+    <title><?php wp_title(' | ', true, 'right'); ?></title>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -14,15 +21,14 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 
-	<?php wp_head(); ?>
+    <?php wp_head(); ?>
 
-
-</head>
+  </head>
 
 <body <?php body_class(); ?>>
 
-<div id="topnav">
-<?php
-// Top Nav
-get_template_part( 'partials/header/fixed_nav' ); ?>
-</div>
+  <header id="topnav">
+    <?php
+    // Top Nav
+    get_template_part( 'partials/header/fixed-nav' ); ?>
+  </header><!-- #topnav -->

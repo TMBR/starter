@@ -1,0 +1,29 @@
+/* VENDOR OVERRIDES & REQUIRED STYLES
+========================================= */
+
+/* 
+	FLEXSLIDER - Overwrites Native (and usually unnecessary) CSS Styles
+	http://www.woothemes.com/flexslider/
+=============================================== */
+
+.flexslider {
+	border: none;
+	margin-bottom: 0px;
+	background: transparent;
+	@include border-radius(0);
+}
+
+/* 
+	WOW.JS - Required Classes
+	http://mynameismatthieu.com/WOW/docs.html 
+=============================================== */
+
+.wow {
+	visibility: hidden;
+}
+
+body.mobile{
+	.wow {visibility: visible;}
+}
+
+

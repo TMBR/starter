@@ -78,7 +78,7 @@ Background size with broswer prefix for cover
 }
 
 @mixin respond-between($min, $max) {
-  @media all and (min-width:$min) and (max-width:$max) {
+  @media all and (min-width:$min) and (max-width:$max - 1) {
     @content
   }
 }
@@ -164,4 +164,46 @@ Firefox hack for images with opacity changes
   background-color: $black; 
   -moz-backface-visibility: hidden; 
   -webkit-transform: translateZ(0px); 
+}
+
+/*
+Placeholder
+input#input-id {
+  @include placeholder {
+    color: $white;
+    background: $black;
+  }
+}
+--------------------- */
+@mixin placeholder {
+  &::-webkit-input-placeholder {
+      @content
+  }
+
+  &:-moz-placeholder { /* Firefox 18- */
+      @content  
+  }
+
+  &::-moz-placeholder {  /* Firefox 19+ */
+      @content  
+  }
+
+  &:-ms-input-placeholder {  
+      @content  
+  }
+}
+
+/*
+Color
+@include color(white, $white);
+--------------------- */
+@mixin color($class, $color) {
+  .#{$class} {
+    color: $color;
+    a {
+      &,&:visited {
+        color: $color;
+      }
+    }
+  }
 }

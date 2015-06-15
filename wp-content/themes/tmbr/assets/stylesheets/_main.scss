@@ -1,25 +1,25 @@
+
 body {
-  color: $drk-green;
-  overflow-x: hidden;
+	color: $black;
+	overflow-x: hidden;
 }
 
 
 a {
-    color: $blue;
+	color: $blue;
+	@include transition($transition200);
 
-    @include transition($transition200);
-
-    &:hover,
+	&:hover,
 	&:focus,
 	&:active {
-	  text-decoration: none;
-	  outline: none;
+		text-decoration: none;
+		outline: none;
 	}
 }
 
 :active,
 :focus  {
-  outline: none;
+	outline: none;
 }
 
 ::-moz-selection {
@@ -32,50 +32,66 @@ a {
 	color: $white;
 }
 
-h1,h2,h3,h4,h5,h6 {
-  text-transform: uppercase;
-}
+h1,h2,h3,h4,h5,h6 { }
 
 
 h1,
 .h1 {
 	font-size: $h1;
-	  @include respond-to($screen-sm) {
-    	font-size: 2em;
-      }
+	@include respond-to($screen-sm) {
+		font-size: 2em;
+	}
 }
 
 h2,
 .h2 {
 	font-size: $h2;
 }
+
 h3,
 .h3 {
 	font-size: $h3;
 }
+
 h4,
 .h4 {
 	font-size: $h4;
 }
+
 h5,
 .h5 {
 	font-size: $h5;
 }
 
-/* GLOBAL BUTTONS */
+/* INPUTS 
+.gf_wrapper input[type=text] {
+	@extend %input;
+}
+======================== */
+%input {
+	background: rgba($black,0.4);
+	border: 1px solid rgba($black,0.4);
+	color: $white;
+	@include border-radius(1px);
+	@include placeholder{
+		color: $white;
+		background: $black;
+	}
+}
+
+/* GLOBAL BUTTONS
+input[type=submit] {
+	@extend .btn;
+}
+======================== */
 .btn {
-  display: inline-block;
-  text-transform: uppercase;
-  color: $beige;
-  font-size: 1.3em;
-  padding: 0px 30px;
-  height: 50px;
-  line-height: 50px;
-  margin-top: 20px;
-
-	@include border-radius('0px');
-
-	  &.orange {
-	    background-color: $orange;
-	  }
+	display: inline-block;
+	text-transform: uppercase;
+	color: $blue;
+	font-size: 1.3em;
+	padding: 0px 30px;
+	height: 50px;
+	line-height: 50px;
+	margin-top: 20px;
+	@include border-radius(0);
 }

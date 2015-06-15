@@ -1,11 +1,24 @@
 
-.tac { text-align: center;}
-.tar { text-align: right;}
-.tal { text-align: left;}
+/* GENERAL LAYOUT
+================================= */
+.tac { 
+	text-align: center;
+	}
 
-.clear { clear: both;}
+.tar { 
+	text-align: right;
+	}
 
-/* INCREASE CONTAINER WIDTH AT 1400 PX + */
+.tal { 
+	text-align: left;
+	}
+
+.clear { 
+	clear: both;
+	}
+
+/* INCREASE CONTAINER WIDTH AT 1400 PX + 
+=================================== */
 /*
 .container {
 	@media screen and (min-width: 1400px) {
@@ -14,8 +27,21 @@
 }
 */
 
+/* NO MARGIN
+================================= */
+.b-margin0,
+.tb-margin0 { 
+	margin-bottom: 0;
+}
 
-/* BOOTSTRAP NO-GUTTER */
+.t-margin0,
+.tb-margin0 { 
+	margin-top: 0;
+}
+
+
+/* BOOTSTRAP NO-GUTTER 
+================================== */
 .nopad {
   padding: 0px !important;
     [class*="col-"] {
@@ -23,15 +49,30 @@
       padding-right: 0 !important;
     }
 }
-.wow {visibility: hidden;}
 
-/* MOBILE DEVICE SPECIFIC
----------------------------- */
-	body.mobile{
-		.wow {visibility: visible;}
+.no-gutter {
+	&.container-fluid,
+	&.container {
+		padding: 0;
+		.row {
+			margin-left: 0;
+			margin-right: 0;
+			[class*='col-'] {
+				&,
+				&:not(:first-child),
+				&:not(:last-child) {
+					padding-left: 0;
+					padding-right: 0;
+				}
+			}
+		}
 	}
+}
 
-/* CREATES NEW BOOTSTRAP EXTRA EXTRA SMALL CLASSES */
+
+
+/* CREATES NEW BOOTSTRAP EXTRA EXTRA SMALL CLASSES 
+==================================== */
 @media only screen and (max-width: 600px) {
 	 @include make-grid(xxs);
 }

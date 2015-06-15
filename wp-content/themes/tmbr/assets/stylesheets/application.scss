@@ -71,12 +71,13 @@
 @import "variables";
 @import "mixins";
 
+@import "vendor-fix";
+
 @import "layout";
 
 // ISOTOPE
 // @import "isotope";
-// WOW
-@import "wow";
+
 // PACE
 @import "pace";
 
