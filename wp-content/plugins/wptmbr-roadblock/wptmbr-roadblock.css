@@ -1,0 +1,57 @@
+
+/*
+ *	Backend Styles
+ *
+*/
+
+.postbox img.gravatar {
+	max-width: 100%;
+}
+
+.postbox .inside {
+	display: table
+}
+
+.postbox .wptreehouse-badges > li {
+	float: left; 
+	margin: 5px; 
+	text-align: center; 
+	height: 220px; 
+	width: 120px;
+	overflow: hidden;
+}           
+
+.postbox .wptreehouse-badges li li {
+	margin: 2px 0; 
+	padding: 0;
+}
+
+.postbox .wptreehouse-badges img {
+	float: left;
+	width: 100%; 
+	margin-bottom: 5px;
+}           
+
+.postbox .wptreehouse-project-name a {
+	font-size: .8em; 
+	text-decoration: none; 
+	line-height: .5em
+}
+
+.postbox .wptreehouse-badges-and-points li {
+	padding: 5px 10px; 
+	background: #474747; 
+	color: #ddd; 
+	border-radius: 20px; 
+	font-size: 1.2em; 
+	float: left;
+}  
+
+.postbox .wptreehouse-badges-and-points li:first-child {
+	margin-right: 5px
+}   
+
+.postbox .wptreehouse-badges-and-points strong {
+	color: #92ae57;
+}           
+
