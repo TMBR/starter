@@ -1,7 +1,6 @@
 <?php
 /**
- * @package    WPSEO
- * @subpackage Internals
+ * @package    WPSEO\Internals
  * @since      1.5.0
  */
 
@@ -872,15 +871,11 @@ class WPSEO_Option_Wpseo extends WPSEO_Option {
 		'ignore_meta_description_warning' => null, // overwrite in __construct()
 		'ignore_page_comments'            => false,
 		'ignore_permalink'                => false,
-		'ignore_tour'                     => false,
 		'ms_defaults_set'                 => false,
 		'theme_description_found'         => null, // overwrite in __construct()
 		'theme_has_description'           => null, // overwrite in __construct()
-		'tracking_popup_done'             => false,
 		// Non-form field, should only be set via validation routine
 		'version'                         => '', // leave default as empty to ensure activation/upgrade works
-		'seen_about'                      => false,
-
 		// Form fields:
 		'alexaverify'                     => '', // text field
 		'company_logo'                    => '',
@@ -890,8 +885,9 @@ class WPSEO_Option_Wpseo extends WPSEO_Option {
 		'googleverify'                    => '', // text field
 		'msverify'                        => '', // text field
 		'person_name'                     => '',
+		'website_name'                    => '',
+		'alternate_website_name'          => '',
 		'yandexverify'                    => '',
-		'yoast_tracking'                  => false,
 	);
 
 	/**
@@ -911,8 +907,6 @@ class WPSEO_Option_Wpseo extends WPSEO_Option {
 		'ignore_meta_description_warning',
 		'ignore_page_comments',
 		'ignore_permalink',
-		'ignore_tour',
-		'seen_about',
 		/* theme dependent */
 		'theme_description_found',
 		'theme_has_description',
@@ -945,11 +939,6 @@ class WPSEO_Option_Wpseo extends WPSEO_Option {
 		/* Clear the cache on update/add */
 		add_action( 'add_option_' . $this->option_name, array( 'WPSEO_Utils', 'clear_cache' ) );
 		add_action( 'update_option_' . $this->option_name, array( 'WPSEO_Utils', 'clear_cache' ) );
-
-
-		/* Check if the yoast tracking cron job needs adding/removing on successfull option add/update */
-		add_action( 'add_option_' . $this->option_name, array( 'WPSEO_Utils', 'schedule_yoast_tracking' ), 15, 2 );
-		add_action( 'update_option_' . $this->option_name, array( 'WPSEO_Utils', 'schedule_yoast_tracking' ), 15, 2 );
 	}
 
 
@@ -1016,6 +1005,8 @@ class WPSEO_Option_Wpseo extends WPSEO_Option {
 				/* text fields */
 				case 'company_name':
 				case 'person_name':
+				case 'website_name':
+				case 'alternate_website_name':
 					if ( isset( $dirty[ $key ] ) && $dirty[ $key ] !== '' ) {
 						$clean[ $key ] = sanitize_text_field( $dirty[ $key ] );
 					}
@@ -1051,9 +1042,7 @@ class WPSEO_Option_Wpseo extends WPSEO_Option {
 				case 'ignore_meta_description_warning':
 				case 'ignore_page_comments':
 				case 'ignore_permalink':
-				case 'ignore_tour':
 				case 'ms_defaults_set':
-				case 'tracking_popup_done':
 					if ( isset( $dirty[ $key ] ) ) {
 						$clean[ $key ] = WPSEO_Utils::validate_bool( $dirty[ $key ] );
 					}
@@ -1067,7 +1056,6 @@ class WPSEO_Option_Wpseo extends WPSEO_Option {
 				/* Covers
 				 * 		'disableadvanced_meta'
 				 * 		'yoast_tracking'
-				 *      'seen_about'
 				 */
 				default:
 					$clean[ $key ] = ( isset( $dirty[ $key ] ) ? WPSEO_Utils::validate_bool( $dirty[ $key ] ) : false );
@@ -1092,30 +1080,8 @@ class WPSEO_Option_Wpseo extends WPSEO_Option {
 	 * @return  array            Cleaned option
 	 */
 	protected function clean_option( $option_value, $current_version = null, $all_old_option_values = null ) {
-
-		// Rename some options *and* change their value
-		$rename = array(
-			'presstrends'       => array(
-				'new_name'  => 'yoast_tracking',
-				'new_value' => true,
-			),
-			'presstrends_popup' => array(
-				'new_name'  => 'tracking_popup_done',
-				'new_value' => true,
-			),
-		);
-		foreach ( $rename as $old => $new ) {
-			if ( isset( $option_value[ $old ] ) && ! isset( $option_value[ $new['new_name'] ] ) ) {
-				$option_value[ $new['new_name'] ] = $new['new_value'];
-				unset( $option_value[ $old ] );
-			}
-		}
-		unset( $rename, $old, $new );
-
-
 		// Deal with renaming of some options without losing the settings
 		$rename = array(
-			'tracking_popup'           => 'tracking_popup_done',
 			'meta_description_warning' => 'ignore_meta_description_warning',
 		);
 		foreach ( $rename as $old => $new ) {
@@ -1143,9 +1109,7 @@ class WPSEO_Option_Wpseo extends WPSEO_Option {
 			'ignore_meta_description_warning',
 			'ignore_page_comments',
 			'ignore_permalink',
-			'ignore_tour',
 			// 'disableadvanced_meta', => not needed as is 'on' which will auto-convert to true
-			'tracking_popup_done',
 		);
 		foreach ( $value_change as $key ) {
 			if ( isset( $option_value[ $key ] ) && in_array( $option_value[ $key ], array(
@@ -1189,10 +1153,10 @@ class WPSEO_Option_Permalinks extends WPSEO_Option {
 		'cleanpermalink-googlesitesearch' => false,
 		'cleanreplytocom'                 => false,
 		'cleanslugs'                      => true,
-		'hide-feedlinks'   => false,
-		'hide-rsdlink'     => false,
-		'hide-shortlink'   => false,
-		'hide-wlwmanifest' => false,
+		'hide-feedlinks'                  => false,
+		'hide-rsdlink'                    => false,
+		'hide-shortlink'                  => false,
+		'hide-wlwmanifest'                => false,
 		'redirectattachment'              => false,
 		'stripcategorybase'               => false,
 		'trailingslash'                   => false,
@@ -2536,7 +2500,6 @@ class WPSEO_Option_Social extends WPSEO_Option {
 	protected $defaults = array(
 		// Non-form fields, set via procedural code in admin/pages/social.php
 		'fb_admins'          => array(), // array of user id's => array( name => '', link => '' )
-		'fbapps'             => array(), // array of linked fb apps id's => fb app display names
 
 		// Non-form field, set via translate_defaults() and validate_option() methods
 		'fbconnectkey'       => '',
@@ -2554,13 +2517,13 @@ class WPSEO_Option_Social extends WPSEO_Option {
 		'pinterest_url'      => '',
 		'pinterestverify'    => '',
 		'plus-publisher'     => '', // text field
-		'twitter'            => false,
+		'twitter'            => true,
 		'twitter_site'       => '', // text field
 		'twitter_card_type'  => 'summary',
 		'youtube_url'        => '',
 		'google_plus_url'    => '',
 		// Form field, but not always available:
-		'fbadminapp'         => 0, // app id from fbapps list
+		'fbadminapp'         => '', // facbook app id
 	);
 
 	/**
@@ -2569,7 +2532,6 @@ class WPSEO_Option_Social extends WPSEO_Option {
 	public $ms_exclude = array(
 		/* privacy */
 		'fb_admins',
-		'fbapps',
 		'fbconnectkey',
 		'fbadminapp',
 		'pinterestverify',
@@ -2695,29 +2657,6 @@ class WPSEO_Option_Social extends WPSEO_Option {
 					}
 					break;
 
-
-				/* Will not always exist in form */
-				case 'fbapps':
-					if ( isset( $dirty[ $key ] ) && is_array( $dirty[ $key ] ) ) {
-						if ( $dirty[ $key ] === array() ) {
-							$clean[ $key ] = array();
-						}
-						else {
-							$clean[ $key ] = array();
-							foreach ( $dirty[ $key ] as $app_id => $display_name ) {
-								if ( ctype_digit( (string) $app_id ) !== false ) {
-									$clean[ $key ][ $app_id ] = sanitize_text_field( $display_name );
-								}
-							}
-							unset( $app_id, $display_name );
-						}
-					}
-					elseif ( isset( $old[ $key ] ) && is_array( $old[ $key ] ) ) {
-						$clean[ $key ] = $old[ $key ];
-					}
-					break;
-
-
 				/* text fields */
 				case 'og_frontpage_desc':
 				case 'og_frontpage_title':
@@ -2761,6 +2700,9 @@ class WPSEO_Option_Social extends WPSEO_Option {
 						if ( preg_match( '`^[A-Za-z0-9_]{1,25}$`', $twitter_id ) ) {
 							$clean[ $key ] = $twitter_id;
 						}
+						elseif ( preg_match( '`^http(?:s)?://(?:www\.)?twitter\.com/(?P<handle>[A-Za-z0-9_]{1,25})/?$`', $twitter_id, $matches ) ) {
+							$clean[ $key ] = $matches['handle'];
+						}
 						else {
 							if ( isset( $old[ $key ] ) && $old[ $key ] !== '' ) {
 								$twitter_id = sanitize_text_field( ltrim( $old[ $key ], '@' ) );
@@ -2797,11 +2739,9 @@ class WPSEO_Option_Social extends WPSEO_Option {
 		}
 
 		/**
-		 * Only validate 'fbadminapp' once we are sure that 'fbapps' has been validated already.
-		 * Will not always exist in form - if not available it means that fbapps is empty,
-		 * so leave the clean default.
+		 * Only validate 'fbadminapp', so leave the clean default.
 		 */
-		if ( isset( $dirty['fbadminapp'], $clean['fbapps'][ $dirty['fbadminapp'] ] ) && $dirty['fbadminapp'] != 0 ) {
+		if ( isset( $dirty['fbadminapp'] ) && ! empty( $dirty['fbadminapp'] ) ) {
 			$clean['fbadminapp'] = $dirty['fbadminapp'];
 		}
 
@@ -2852,19 +2792,6 @@ class WPSEO_Option_Social extends WPSEO_Option {
 		unset( $old_option );
 
 
-		/* Clean some values which may not always be in form and may otherwise not be cleaned/validated */
-		if ( isset( $option_value['fbapps'] ) && ( is_array( $option_value['fbapps'] ) && $option_value['fbapps'] !== array() ) ) {
-			$fbapps = array();
-			foreach ( $option_value['fbapps'] as $app_id => $display_name ) {
-				if ( ctype_digit( (string) $app_id ) !== false ) {
-					$fbapps[ $app_id ] = sanitize_text_field( $display_name );
-				}
-			}
-			$option_value['fbapps'] = $fbapps;
-
-			unset( $app_id, $display_name, $fbapps );
-		}
-
 		return $option_value;
 	}
 
@@ -2875,6 +2802,7 @@ class WPSEO_Option_Social extends WPSEO_Option {
 /**
  * Option: wpseo_ms
  */
+
 /**
  * Site option for Multisite installs only
  *
@@ -3060,7 +2988,7 @@ class WPSEO_Option_MS extends WPSEO_Option {
 					break;
 
 				default:
-						$clean[ $key ] = ( isset( $dirty[ $key ] ) ? WPSEO_Utils::validate_bool( $dirty[ $key ] ) : false );
+					$clean[ $key ] = ( isset( $dirty[ $key ] ) ? WPSEO_Utils::validate_bool( $dirty[ $key ] ) : false );
 					break;
 			}
 		}
@@ -3069,22 +2997,22 @@ class WPSEO_Option_MS extends WPSEO_Option {
 	}
 
 
-		/**
-		 * Clean a given option value
-		 *
-		 * @param  array  $option_value          Old (not merged with defaults or filtered) option value to
-		 *                                       clean according to the rules for this option
-		 * @param  string $current_version       (optional) Version from which to upgrade, if not set,
-		 *                                       version specific upgrades will be disregarded
-		 * @param  array  $all_old_option_values (optional) Only used when importing old options to have
-		 *                                       access to the real old values, in contrast to the saved ones
-		 *
-		 * @return  array            Cleaned option
-		 */
-		/*protected function clean_option( $option_value, $current_version = null, $all_old_option_values = null ) {
+	/**
+	 * Clean a given option value
+	 *
+	 * @param  array  $option_value          Old (not merged with defaults or filtered) option value to
+	 *                                       clean according to the rules for this option
+	 * @param  string $current_version       (optional) Version from which to upgrade, if not set,
+	 *                                       version specific upgrades will be disregarded
+	 * @param  array  $all_old_option_values (optional) Only used when importing old options to have
+	 *                                       access to the real old values, in contrast to the saved ones
+	 *
+	 * @return  array            Cleaned option
+	 */
+	/*protected function clean_option( $option_value, $current_version = null, $all_old_option_values = null ) {
 
-			return $option_value;
-		}*/
+		return $option_value;
+	}*/
 } /* End of class WPSEO_Option_MS */
 
 /**
@@ -3911,24 +3839,6 @@ class WPSEO_Options {
 
 		return WPSEO_Utils::grant_access();
 	}
-
-	/**
-	 * (Un-)schedule the yoast tracking cronjob if the tracking option has changed
-	 *
-	 * @deprecated 1.5.6.1
-	 * @deprecated use WPSEO_Utils::schedule_yoast_tracking()
-	 * @see        WPSEO_Utils::schedule_yoast_tracking()
-	 *
-	 * @param  mixed $disregard        Not needed - passed by add/update_option action call
-	 *                                 Option name if option was added, old value if option was updated
-	 * @param  array $value            The (new/current) value of the wpseo option
-	 * @param  bool  $force_unschedule Whether to force an unschedule (i.e. on deactivate)
-	 */
-	public static function schedule_yoast_tracking( $disregard, $value, $force_unschedule = false ) {
-		_deprecated_function( __METHOD__, 'WPSEO 1.5.6.1', 'WPSEO_Utils::schedule_yoast_tracking()' );
-		WPSEO_Utils::schedule_yoast_tracking( $disregard, $value, $force_unschedule );
-	}
-
 
 	/**
 	 * Clears the WP or W3TC cache depending on which is used

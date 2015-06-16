@@ -34,6 +34,14 @@ class WPSEO_Upgrade {
 			$this->upgrade_20();
 		}
 
+		if ( version_compare( $this->options['version'], '2.1', '<' ) ) {
+			$this->upgrade_21();
+		}
+
+		if ( version_compare( $this->options['version'], '2.2', '<' ) ) {
+			$this->upgrade_22();
+		}
+
 		$this->finish_up();
 	}
 
@@ -77,6 +85,39 @@ class WPSEO_Upgrade {
 	}
 
 	/**
+	 * Detects if taxonomy terms were split and updates the corresponding taxonomy meta's accordingly.
+	 */
+	private function upgrade_21() {
+		$taxonomies = get_option( 'wpseo_taxonomy_meta', array() );
+
+		if ( ! empty( $taxonomies ) ) {
+			foreach ( $taxonomies as $taxonomy => $tax_metas ) {
+				foreach ( $tax_metas as $term_id => $tax_meta ) {
+					if ( function_exists( 'wp_get_split_term' ) && $new_term_id = wp_get_split_term( $term_id, $taxonomy ) ) {
+						$taxonomies[ $taxonomy ][ $new_term_id ] = $taxonomies[ $taxonomy ][ $term_id ];
+						unset( $taxonomies[ $taxonomy ][ $term_id ] );
+					}
+				}
+			}
+
+			update_option( 'wpseo_taxonomy_meta', $taxonomies );
+		}
+	}
+
+	/**
+	 * Performs upgrade functions to WP SEO 2.2
+	 */
+	private function upgrade_22() {
+		// Unschedule our tracking
+		wp_clear_scheduled_hook( 'yoast_tracking' );
+
+		// Clear the tracking settings, the seen about setting and the ignore tour setting
+		$options = get_option( 'wpseo' );
+		unset( $options['tracking_popup_done'], $options['yoast_tracking'], $options['seen_about'], $options['ignore_tour'] );
+		update_option( 'wpseo', $options );
+	}
+
+	/**
 	 * Moves the hide- links options from the permalinks option to the titles option
 	 */
 	private function move_hide_links_options() {
@@ -112,7 +153,6 @@ class WPSEO_Upgrade {
 	 */
 	private function finish_up() {
 		$this->options = get_option( 'wpseo' );                             // re-get to make sure we have the latest version
-		$this->options['seen_about'] = false;                               // make sure user is redirected to the about screen
 		update_option( 'wpseo', $this->options );                           // this also ensures the DB version is equal to WPSEO_VERSION
 
 		add_action( 'shutdown', 'flush_rewrite_rules' );                    // Just flush rewrites, always, to at least make them work after an upgrade.
