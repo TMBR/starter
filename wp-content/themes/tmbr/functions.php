@@ -6,6 +6,13 @@ get_template_part( 'inc/helpers' );
 // AUTO-UPDATES
 get_template_part( 'inc/auto-updates' );
 
+// ENQUEUE SCRIPTS & STYLES
+get_template_part( 'inc/load-scripts' );
+
+// ROADBLOCK PLUGIN
+get_template_part( 'inc/wptmbr-roadblock/wptmbr-roadblock' );
+
+
 // WEATHER STUFF
 // get_template_part( 'inc/weather/init' );
 // get_template_part( 'inc/weather-overrides' );
@@ -16,8 +23,7 @@ get_template_part( 'inc/auto-updates' );
 // THEME SETUP
 get_template_part( 'inc/theme-setup' );
 
-// ENQUEUE SCRIPTS & STYLES
-get_template_part( 'inc/load-scripts' );
+
 
 // REGISTER CUSTOM POST TYPE
 // get_template_part( 'inc/register-post-type' );
