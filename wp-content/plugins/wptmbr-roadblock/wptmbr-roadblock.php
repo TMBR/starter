@@ -10,6 +10,18 @@
  *
 */
 
+
+
+/*
+ * Assign global variables
+ *
+*/
+
+$plugin_url = WP_PLUGIN_URL . '/wptmbr-roadblock';
+$options = array();
+
+
+
 /*
  * Add link to plugin in the admin menu
  * under 'Settings > TMBR Roadblock'
