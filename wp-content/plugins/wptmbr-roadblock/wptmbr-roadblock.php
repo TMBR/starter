@@ -92,11 +92,15 @@ function wptmbr_roadblock_options_page() {
 
 function wptmbr_roadblock_markup() {
 
+	global $options;
+	
+	$options = get_option('wptmbr_roadblock');
+	
 	require( 'inc/modal-markup.php');
 
 }
-
 add_action( 'wp_footer', 'wptmbr_roadblock_markup');
+
 function wptmbr_roadblock_styles() {
 
 	wp_enqueue_style( 'wptmbr_roadblock_styles', plugins_url( 'wptmbr-roadblock/wptmbr-roadblock.css'));
