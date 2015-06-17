@@ -1,57 +1,113 @@
 
-/*
- *	Backend Styles
- *
-*/
 
-.postbox img.gravatar {
-	max-width: 100%;
+/* OVERLAY
+===================== */
+.overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	z-index: 1050;
+
+	background-color: #000;
+	filter: alpha(opacity=40);
+	opacity: .4;
+
+	display: none; 
 }
 
-.postbox .inside {
-	display: table
-}
+/* MODAL WRAPPER
+===================== */
 
-.postbox .wptreehouse-badges > li {
-	float: left; 
-	margin: 5px; 
-	text-align: center; 
-	height: 220px; 
-	width: 120px;
+.modal {
+	position: fixed;
+	top: 50%; 
+	left: 50%;
+	width: 50%;
 	overflow: hidden;
-}           
+	z-index:1051; /* 1px higher than the overlay layer */
 
-.postbox .wptreehouse-badges li li {
-	margin: 2px 0; 
+	-webkit-transform: translate(-50%,-50%);
+	-moz-transform: translate(-50%,-50%);
+	-ms-transform: translate(-50%,-50%);
+	-o-transform: translate(-50%,-50%);
+	transform: translate(-50%,-50%);
+
+	background-color: #FFF;
+	border: 1px solid #999;
+	border: 1px solid rgba(0, 0, 0, .2);
+	border-radius: 6px;
+	outline: 0;
+	-webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, .5);
+	box-shadow: 0 3px 9px rgba(0, 0, 0, .5);
+
+	display: none; 
+}
+
+
+
+/* CLOSE BUTTON 
+===================== */
+
+#newsletter_signup .close-email {
+	color: #000;
+	text-shadow: 0 1px 0 #fff;
+	-webkit-appearance: none;
 	padding: 0;
+
+	cursor: pointer;
+	
+	-webkit-transition: color .2s ease-in;
+    -o-transition: color .2s ease-in;
+	transition: color .2s ease-in;
 }
 
-.postbox .wptreehouse-badges img {
-	float: left;
-	width: 100%; 
-	margin-bottom: 5px;
-}           
-
-.postbox .wptreehouse-project-name a {
-	font-size: .8em; 
-	text-decoration: none; 
-	line-height: .5em
+#newsletter_signup p.close-email {
+	filter: alpha(opacity=40);
+	opacity: .4;
 }
 
-.postbox .wptreehouse-badges-and-points li {
-	padding: 5px 10px; 
-	background: #474747; 
-	color: #ddd; 
-	border-radius: 20px; 
-	font-size: 1.2em; 
-	float: left;
-}  
+#newsletter_signup .close-email:hover,
+#newsletter_signup .close-email:focus {
+	color: #000;
+	text-decoration: none;
+	cursor: pointer;
+	filter: alpha(opacity=50);
+	opacity: .5;
+} 
 
-.postbox .wptreehouse-badges-and-points li:first-child {
-	margin-right: 5px
-}   
+#newsletter_signup p.close-email:hover,
+#newsletter_signup p.close-email:focus {
+	filter: alpha(opacity=70);
+	opacity: .7;
+}
 
-.postbox .wptreehouse-badges-and-points strong {
-	color: #92ae57;
-}           
 
+/* MODAL HEADER
+===================== */
+#newsletter_signup .modal-header {
+	min-height: 16.42857143px;
+	padding: 15px;
+	border-bottom: 1px solid #e5e5e5;
+}
+
+#newsletter_signup .modal-title {
+	margin: 0;
+	line-height: 1.42857143;
+}
+
+/* MODAL BODY
+===================== */
+#newsletter_signup .modal-body {
+	position: relative;
+	padding: 15px;
+}
+
+/* MODAL FOOTER
+===================== */
+#newsletter_signup .modal-footer {
+	padding: 15px;
+	text-align: right;
+	border-top: 1px solid #e5e5e5;
+}
