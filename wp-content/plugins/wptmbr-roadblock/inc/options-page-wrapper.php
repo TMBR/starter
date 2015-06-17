@@ -48,11 +48,11 @@
 								<p><input class="button-primary" type="submit" name="wptmbr_form_submit" value="Update" /></p>
 
 							</form>
-						</div><!-- .inside -->
+						</div><!-- /inside -->
 
-					</div><!-- .postbox -->
+					</div><!-- /postbox -->
 
-				</div><!-- .meta-box-sortables .ui-sortable -->
+				</div><!-- /meta-box-sortables .ui-sortable -->
 
 			</div><!-- post-body-content -->
 
@@ -61,7 +61,7 @@
 		<br class="clear">
 	</div><!-- #poststuff -->
 
-</div> <!-- .wrap -->
+</div> <!-- /wrap -->
 
 
 
