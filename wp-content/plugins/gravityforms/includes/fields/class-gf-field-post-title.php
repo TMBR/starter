@@ -10,7 +10,7 @@ class GF_Field_Post_Title extends GF_Field {
 	public $type = 'post_title';
 
 	public function get_form_editor_field_title() {
-		return __( 'Title', 'gravityforms' );
+		return esc_attr__( 'Title', 'gravityforms' );
 	}
 
 	function get_form_editor_field_settings() {
@@ -36,7 +36,7 @@ class GF_Field_Post_Title extends GF_Field {
 		);
 	}
 
-	public function is_conditional_logic_supported(){
+	public function is_conditional_logic_supported() {
 		return true;
 	}
 
@@ -68,7 +68,7 @@ class GF_Field_Post_Title extends GF_Field {
 
 	}
 
-	public function allow_html(){
+	public function allow_html() {
 		return true;
 	}
 }

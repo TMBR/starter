@@ -18,15 +18,27 @@ abstract class GFFeedAddOn extends GFAddOn {
 	protected $_multiple_feeds = true;
 
 	/**
+	 * If true, only first matching feed will be processed.
+	 * @var bool
+	 */
+	protected $_single_feed_submission = false;
+
+	/**
+	 * If $_single_feed_submission is true, $_single_submission_feed will store the current single submission feed as stored by the get_single_submission_feed() method.
+	 * @var bool
+	 */
+	protected $_single_submission_feed = false;
+
+	/**
 	 * @var string Version number of the Add-On Framework
 	 */
 	private $_feed_version = '0.11';
 	private $_feed_settings_fields = array();
 	private $_current_feed_id = false;
 
-	public function init_frontend() {
+	public function init() {
 
-		parent::init_frontend();
+		parent::init();
 
 		add_filter( 'gform_entry_post_save', array( $this, 'maybe_process_feed' ), 10, 2 );
 
@@ -41,14 +53,15 @@ abstract class GFFeedAddOn extends GFAddOn {
 	}
 
 	protected function setup() {
+		global $wpdb;
+		$table_name = $wpdb->prefix . 'gf_addon_feed';
 
 		//upgrading Feed Add-On base class
 		$installed_version = get_option( 'gravityformsaddon_feed-base_version' );
-		if ( $installed_version != $this->_feed_version ) {
+		if ( $installed_version != $this->_feed_version || ! $this->table_exists( $table_name ) ) {
 			$this->upgrade_base( $installed_version );
+			update_option( 'gravityformsaddon_feed-base_version', $this->_feed_version );
 		}
-
-		update_option( 'gravityformsaddon_feed-base_version', $this->_feed_version );
 
 		parent::setup();
 	}
@@ -126,32 +139,40 @@ abstract class GFFeedAddOn extends GFAddOn {
 
 	public function maybe_process_feed( $entry, $form ) {
 
-		//Getting all feeds for current add-on
-		$feeds = $this->get_feeds( $form['id'] );
+		$feeds = false;
 
-		if ( empty( $feeds ) ){
+		//Getting all feeds for current add-on
+		if ( $this->_single_feed_submission ) {
+			$feed = $this->get_single_submission_feed( $entry, $form );
+			if ( $feed ) {
+				$feeds = array( $feed );
+			}
+		} else {
+			$feeds = $this->get_feeds( $form['id'] );
+		}
+
+		if ( empty( $feeds ) ) {
 			//no feeds to process
 			return $entry;
 		}
 
-		if ( $entry['status'] == 'spam' ){
+		if ( $entry['status'] == 'spam' ) {
 			$this->log_debug( 'GFFeedAddOn::maybe_process_feed(): Entry #' . $entry['id'] . ' is marked as spam.' );
 			return $entry;
 		}
 
 		$is_delayed = false;
-		if ( class_exists( 'GFPayPal' ) ){
+		if ( class_exists( 'GFPayPal' ) ) {
 			//get paypal feed to pass for delay check, must be done per add-on
 			$paypal_feeds = $this->get_feeds_by_slug( 'gravityformspaypal', $form['id'] );
 			$active_paypal_feed = '';
 			//loop through paypal feeds to get active one for this form submission, needed to see if add-on processing should be delayed
-			foreach ( $paypal_feeds as $paypal_feed ){
-				if ( $paypal_feed['is_active'] && $this->is_feed_condition_met( $paypal_feed, $form, $entry ) ){
+			foreach ( $paypal_feeds as $paypal_feed ) {
+				if ( $paypal_feed['is_active'] && $this->is_feed_condition_met( $paypal_feed, $form, $entry ) ) {
 					$active_paypal_feed = $paypal_feed;
 					break;
 				}
 			}
-
 
 			if ( ! empty( $active_paypal_feed ) && $this->is_delayed( $active_paypal_feed ) && $this->has_paypal_payment( $active_paypal_feed, $form, $entry ) ) {
 				$this->log_debug( 'GFFeedAddOn::maybe_process_feed(): Feed processing is delayed pending payment, not processing feed for entry #' . $entry['id'] . ' for ' . $this->_slug );
@@ -167,7 +188,7 @@ abstract class GFFeedAddOn extends GFAddOn {
 				$this->log_debug( "GFFeedAddOn::maybe_process_feed(): Feed is inactive, not processing feed (#{$feed['id']} - {$feed_name}) for entry #{$entry['id']} for {$this->_slug}" );
 				continue;
 			}
-			if ( ! $this->is_feed_condition_met( $feed, $form, $entry ) ){
+			if ( ! $this->is_feed_condition_met( $feed, $form, $entry ) ) {
 				$feed_name = rgar( $feed['meta'], 'feedName' );
 				$this->log_debug( "GFFeedAddOn::maybe_process_feed(): Feed condition not met, not processing feed (#{$feed['id']} - {$feed_name}) for entry #{$entry['id']} for {$this->_slug}" );
 				continue;
@@ -184,6 +205,8 @@ abstract class GFFeedAddOn extends GFAddOn {
 				//should the add-on fulfill be done here????
 				$this->log_debug( 'GFFeedAddOn::maybe_process_feed(): Marking entry #' . $entry['id'] . ' as fulfilled for ' . $this->_slug );
 				gform_update_meta( $entry['id'], "{$this->_slug}_is_fulfilled", true );
+			} else {
+				$this->delay_feed( $feed, $entry, $form );
 			}
 		}
 
@@ -202,13 +225,18 @@ abstract class GFFeedAddOn extends GFAddOn {
 		return $entry;
 	}
 
-	public function is_delayed( $paypal_feed ){
+	public function is_delayed( $paypal_feed ) {
 		//look for delay in paypal feed specific to add-on
 		$delay = rgar( $paypal_feed['meta'], 'delay_' . $this->_slug );
 		return $delay;
 	}
 
 	public function process_feed( $feed, $entry, $form ) {
+
+		return;
+	}
+
+	public function delay_feed( $feed, $entry, $form ) {
 
 		return;
 	}
@@ -234,7 +262,7 @@ abstract class GFFeedAddOn extends GFAddOn {
 
 		if ( method_exists( 'GFPayPal', 'get_config_by_entry' ) ) {
 			$feed = GFPayPal::get_config_by_entry( $entry );
-		} else if ( method_exists( 'GFPayPal', 'get_config' ) ) {
+		} elseif ( method_exists( 'GFPayPal', 'get_config' ) ) {
 			$feed = GFPayPal::get_config( $form_id );
 		} else {
 			$feed = false;
@@ -243,7 +271,7 @@ abstract class GFFeedAddOn extends GFAddOn {
 		return $feed;
 	}
 
-	public function has_paypal_payment( $feed, $form, $entry ){
+	public function has_paypal_payment( $feed, $form, $entry ) {
 
 		$products = GFCommon::get_product_fields( $form, $entry );
 
@@ -276,7 +304,7 @@ abstract class GFFeedAddOn extends GFAddOn {
 				$trial_amount = $product_price * $quantity;
 				$is_trial_or_setup_fee = true;
 
-			} else if ( ! empty( $setup_fee_field ) && $setup_fee_field == $field_id ) {
+			} elseif ( ! empty( $setup_fee_field ) && $setup_fee_field == $field_id ) {
 
 				$fee_amount = $product_price * $quantity;
 				$is_trial_or_setup_fee = true;
@@ -288,7 +316,7 @@ abstract class GFFeedAddOn extends GFAddOn {
 			}
 
 			//Do not add to line items if the payment field is set to "Form Total" and the current field was used for trial or setup fee.
-			if ( $is_trial_or_setup_fee && ! is_numeric( $payment_field ) ){
+			if ( $is_trial_or_setup_fee && ! is_numeric( $payment_field ) ) {
 				continue;
 			}
 
@@ -325,16 +353,16 @@ abstract class GFFeedAddOn extends GFAddOn {
 		return $results;
 	}
 
-	public function get_feeds_by_slug ( $slug, $form_id = null ){
+	public function get_feeds_by_slug ( $slug, $form_id = null ) {
 		global $wpdb;
 
 		$form_filter = is_numeric( $form_id ) ? $wpdb->prepare( 'AND form_id=%d', absint( $form_id ) ) : '';
 
-		$sql = $wpdb->prepare("SELECT * FROM {$wpdb->prefix}gf_addon_feed
-                               WHERE addon_slug=%s {$form_filter}", $slug);
+		$sql = $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}gf_addon_feed
+                               WHERE addon_slug=%s {$form_filter}", $slug );
 
 		$results = $wpdb->get_results( $sql, ARRAY_A );
-		foreach( $results as &$result ){
+		foreach( $results as &$result ) {
 			$result['meta'] = json_decode( $result['meta'], true );
 		}
 
@@ -347,14 +375,12 @@ abstract class GFFeedAddOn extends GFAddOn {
 		return empty( $feed_id ) ? false : $this->get_feed( $feed_id );
 	}
 
-	public function get_current_feed_id(){
-		if ( $this->_current_feed_id ){
+	public function get_current_feed_id() {
+		if ( $this->_current_feed_id ) {
 			return $this->_current_feed_id;
-		}
-		else if ( ! rgempty( 'gf_feed_id' ) ){
+		} elseif ( ! rgempty( 'gf_feed_id' ) ) {
 			return rgpost( 'gf_feed_id' );
-		}
-		else {
+		} else {
 			return rgget( 'fid' );
 		}
 	}
@@ -468,13 +494,13 @@ abstract class GFFeedAddOn extends GFAddOn {
 	public function form_settings_header() {
 		if ( $this->is_feed_list_page() ) {
 			$title = $this->form_settings_title();
-
-			return $title . " <a class='add-new-h2' href='" . add_query_arg( array( 'fid' => 0 ) ) . "'>" . __( 'Add New', 'gravityforms' ) . '</a>';
+			$url = add_query_arg( array( 'fid' => 0 ) );
+			return $title . " <a class='add-new-h2' href='" . esc_html( $url ) . "'>" . esc_html__( 'Add New', 'gravityforms' ) . '</a>';
 		}
 	}
 
 	public function form_settings_title() {
-		return sprintf( __( '%s Feeds', 'gravityforms' ), $this->_title );
+		return sprintf( esc_html__( '%s Feeds', 'gravityforms' ), $this->_title );
 	}
 
 	protected function feed_edit_page( $form, $feed_id ) {
@@ -502,18 +528,18 @@ abstract class GFFeedAddOn extends GFAddOn {
 
 	}
 
-	public function settings( $sections ){
+	public function settings( $sections ) {
 
 		parent::settings( $sections );
 
 		?>
-		<input type="hidden" name="gf_feed_id" value="<?php echo $this->get_current_feed_id() ?>" />
+		<input type="hidden" name="gf_feed_id" value="<?php echo esc_attr( $this->get_current_feed_id() ); ?>" />
 		<?php
 
 	}
 
 	public function feed_settings_title() {
-		return __( 'Feed Settings', 'gravityforms' );
+		return esc_html__( 'Feed Settings', 'gravityforms' );
 	}
 
 	public function feed_list_page( $form = null ) {
@@ -542,8 +568,8 @@ abstract class GFFeedAddOn extends GFAddOn {
 			<!--Needed to save state after bulk operations-->
 			<input type="hidden" value="gf_edit_forms" name="page">
 			<input type="hidden" value="settings" name="view">
-			<input type="hidden" value="<?php echo $this->_slug; ?>" name="subview">
-			<input type="hidden" value="<?php echo rgar( $form, 'id' ); ?>" name="id">
+			<input type="hidden" value="<?php echo esc_attr( $this->_slug ); ?>" name="subview">
+			<input type="hidden" value="<?php echo esc_attr( rgar( $form, 'id' ) ); ?>" name="id">
 			<input id="single_action" type="hidden" value="" name="single_action">
 			<input id="single_action_argument" type="hidden" value="" name="single_action_argument">
 			<?php wp_nonce_field( 'feed_list', 'feed_list' ) ?>
@@ -571,8 +597,8 @@ abstract class GFFeedAddOn extends GFAddOn {
 
 	public function feed_list_title() {
 		$url = add_query_arg( array( 'fid' => '0' ) );
-
-		return sprintf( __( '%s Feeds', 'gravityforms' ), $this->get_short_title() ) . " <a class='add-new-h2' href='{$url}'>" . __( 'Add New' , 'gravityforms' ) . '</a>';
+		$url = esc_url( $url );
+		return sprintf( esc_html__( '%s Feeds', 'gravityforms' ), $this->get_short_title() ) . " <a class='add-new-h2' href='{$url}'>" . esc_html__( 'Add New' , 'gravityforms' ) . '</a>';
 	}
 
 	protected function maybe_save_feed_settings( $feed_id, $form_id ) {
@@ -593,15 +619,14 @@ abstract class GFFeedAddOn extends GFAddOn {
 		$result   = false;
 
 		if ( $is_valid ) {
+			$settings = $this->filter_settings( $sections, $settings );
 			$feed_id = $this->save_feed_settings( $feed_id, $form_id, $settings );
-			if ( $feed_id ){
+			if ( $feed_id ) {
 				GFCommon::add_message( $this->get_save_success_message( $sections ) );
-			}
-			else{
+			} else {
 				GFCommon::add_error_message( $this->get_save_error_message( $sections ) );
 			}
-		}
-		else{
+		} else {
 			GFCommon::add_error_message( $this->get_save_error_message( $sections ) );
 		}
 
@@ -623,13 +648,13 @@ abstract class GFFeedAddOn extends GFAddOn {
 	protected function get_save_success_message( $sections ) {
 		$save_button = $this->get_save_button( $sections );
 
-		return isset( $save_button['messages']['success'] ) ? $save_button['messages']['success'] : __( 'Feed updated successfully.', 'gravityforms' );
+		return isset( $save_button['messages']['success'] ) ? $save_button['messages']['success'] : esc_html__( 'Feed updated successfully.', 'gravityforms' );
 	}
 
 	protected function get_save_error_message( $sections ) {
 		$save_button = $this->get_save_button( $sections );
 
-		return isset( $save_button['messages']['error'] ) ? $save_button['messages']['error'] : __( 'There was an error updating this feed. Please review all errors below and try again.', 'gravityforms' );
+		return isset( $save_button['messages']['error'] ) ? $save_button['messages']['error'] : esc_html__( 'There was an error updating this feed. Please review all errors below and try again.', 'gravityforms' );
 	}
 
 	protected function save_feed_settings( $feed_id, $form_id, $settings ) {
@@ -688,7 +713,7 @@ abstract class GFFeedAddOn extends GFAddOn {
 	 * Override this function to add custom bulk actions
 	 */
 	protected function get_bulk_actions() {
-		$bulk_actions = array( 'delete' => __( 'Delete', 'gravityforms' ) );
+		$bulk_actions = array( 'delete' => esc_html__( 'Delete', 'gravityforms' ) );
 
 		return $bulk_actions;
 	}
@@ -717,11 +742,11 @@ abstract class GFFeedAddOn extends GFAddOn {
 	}
 
 	protected function get_action_links() {
-		$feed_id  = '{id}';
+		$feed_id  = '_id_';
 		$edit_url = add_query_arg( array( 'fid' => $feed_id ) );
 		$links    = array(
-			'edit'   => '<a title="' . __( 'Edit this feed', 'gravityforms' ) . '" href="' . $edit_url . '">' . __( 'Edit', 'gravityforms' ) . '</a>',
-			'delete' => '<a title="' . __( 'Delete this feed', 'gravityforms' ) . '" class="submitdelete" onclick="javascript: if(confirm(\'' . __( 'WARNING: You are about to delete this item.', 'gravityforms' ) . __( "\'Cancel\' to stop, \'OK\' to delete.", 'gravityforms' ) . '\')){ gaddon.deleteFeed(\'' . $feed_id . '\'); }" style="cursor:pointer;">' . __( 'Delete', 'gravityforms' ) . '</a>'
+			'edit'   => '<a title="' . esc_attr__( 'Edit this feed', 'gravityforms' ) . '" href="' . esc_url( $edit_url ) . '">' . esc_html__( 'Edit', 'gravityforms' ) . '</a>',
+			'delete' => '<a title="' . esc_attr__( 'Delete this feed', 'gravityforms' ) . '" class="submitdelete" onclick="javascript: if(confirm(\'' . esc_js( __( 'WARNING: You are about to delete this item.', 'gravityforms' ) ) . esc_js( __( "'Cancel' to stop, 'OK' to delete.", 'gravityforms' ) ) . '\')){ gaddon.deleteFeed(\'' . esc_js( $feed_id ) . '\'); }" style="cursor:pointer;">' . esc_html__( 'Delete', 'gravityforms' ) . '</a>'
 		);
 
 		return $links;
@@ -736,7 +761,8 @@ abstract class GFFeedAddOn extends GFAddOn {
 	 * @return string The message
 	 */
 	public function feed_list_no_item_message() {
-		return sprintf( __( "You don't have any feeds configured. Let's go %screate one%s!", 'gravityforms' ), "<a href='" . add_query_arg( array( 'fid' => 0 ) ) . "'>", '</a>' );
+		$url = add_query_arg( array( 'fid' => 0 ) );
+		return sprintf( esc_html__( "You don't have any feeds configured. Let's go %screate one%s!", 'gravityforms' ), "<a href='" . esc_url( $url ) . "'>", '</a>' );
 	}
 
 	/**
@@ -750,9 +776,9 @@ abstract class GFFeedAddOn extends GFAddOn {
 	public function get_column_value( $item, $column ) {
 		if ( is_callable( array( $this, "get_column_value_{$column}" ) ) ) {
 			return call_user_func( array( $this, "get_column_value_{$column}" ), $item );
-		} else if ( isset( $item[ $column ] ) ) {
+		} elseif ( isset( $item[ $column ] ) ) {
 			return $item[ $column ];
-		} else if ( isset( $item['meta'][ $column ] ) ) {
+		} elseif ( isset( $item['meta'][ $column ] ) ) {
 			return $item['meta'][ $column ];
 		}
 	}
@@ -782,7 +808,7 @@ abstract class GFFeedAddOn extends GFAddOn {
 
 	protected function settings_feed_condition( $field, $echo = true ) {
 
-		$checkbox_label = isset( $field['checkbox_label'] ) ? $field['checkbox_label'] : __( 'Enable Condition', 'gravityforms' );
+		$checkbox_label = isset( $field['checkbox_label'] ) ? $field['checkbox_label'] : esc_html__( 'Enable Condition', 'gravityforms' );
 
 		$checkbox_field           = array(
 			'name'    => 'feed_condition_conditional_logic',
@@ -808,7 +834,7 @@ abstract class GFFeedAddOn extends GFAddOn {
 			'name'  => 'feed_condition_conditional_logic_object',
 			'value' => $conditional_logic,
 		);
-		$instructions = isset( $field['instructions'] ) ? $field['instructions'] : __( 'Process this feed if', 'gravityforms' );
+		$instructions = isset( $field['instructions'] ) ? $field['instructions'] : esc_html__( 'Process this feed if', 'gravityforms' );
 		$html         = $this->settings_checkbox( $checkbox_field, '', false );
 		$html .= $this->settings_hidden( $hidden_field, '', false );
 		$html .= '<div id="feed_condition_conditional_logic_container"><!-- dynamically populated --></div>';
@@ -875,18 +901,18 @@ abstract class GFFeedAddOn extends GFAddOn {
 
 		?>
 
-		<li style="<?php echo $settings_style ?>" id="delay_<?php echo $addon_name; ?>_container">
-			<input type="checkbox" name="paypal_delay_<?php echo $addon_name; ?>" id="paypal_delay_<?php echo $addon_name; ?>" value="1" <?php echo rgar( $feed_meta, "delay_$addon_name" ) ? "checked='checked'" : '' ?> />
-			<label class="inline" for="paypal_delay_<?php echo $addon_name; ?>">
+		<div style="<?php echo esc_attr( $settings_style ); ?>" id="delay_<?php echo esc_attr__( $addon_name ); ?>_container">
+			<input type="checkbox" name="paypal_delay_<?php echo esc_attr( $addon_name ); ?>" id="paypal_delay_<?php echo esc_attr( $addon_name ); ?>" value="1" <?php echo rgar( $feed_meta, "delay_$addon_name" ) ? "checked='checked'" : '' ?> class="gaddon-setting gaddon-checkbox" />
+			<label class="inline" for="paypal_delay_<?php echo esc_attr( $addon_name ); ?>">
 				<?php
 				if ( rgar( $this->delayed_payment_integration, 'option_label' ) ) {
 					echo rgar( $this->delayed_payment_integration, 'option_label' );
 				} else {
-					_e( 'Process ' . $this->get_short_title() . ' feed only when payment is received.', 'gravityforms' );
+					printf( esc_html__( 'Process %s feed only when payment is received.', 'gravityforms' ), $this->get_short_title() );
 				}
 				?>
 			</label>
-		</li>
+		</div>
 
 		<script type="text/javascript">
 			jQuery(document).ready(function ($) {
@@ -900,9 +926,9 @@ abstract class GFFeedAddOn extends GFAddOn {
 						isApplicableFeed = true;
 
 					if (isApplicableFeed) {
-						jQuery("#delay_<?php echo $addon_name; ?>_container").show();
+						jQuery(<?php echo json_encode( '#delay_' . $addon_name . '_container' ); ?>).show();
 					} else {
-						jQuery("#delay_<?php echo $addon_name; ?>_container").hide();
+						jQuery(<?php echo json_encode( '#delay_' . $addon_name . '_container' ); ?>).hide();
 					}
 
 				});
@@ -922,7 +948,7 @@ abstract class GFFeedAddOn extends GFAddOn {
 
 		$this->log_debug( 'GFFeedAddOn::paypal_fulfillment(): Checking PayPal fulfillment for transaction ' . $transaction_id . ' for ' . $this->_slug );
 		$is_fulfilled = gform_get_meta( $entry['id'], "{$this->_slug}_is_fulfilled" );
-		if( $is_fulfilled ){
+		if ( $is_fulfilled ) {
 			$this->log_debug( 'GFFeedAddOn::paypal_fulfillment(): Entry ' . $entry['id'] . ' is already fulfilled for ' . $this->_slug . '. No action necessary.' );
 			return false;
 		}
@@ -932,12 +958,12 @@ abstract class GFFeedAddOn extends GFAddOn {
 		$feed_to_process = '';
 		$feeds = $this->get_feeds( $entry['form_id'] );
 		foreach ( $feeds as $feed ){
-			if ( $feed['is_active'] && $this->is_feed_condition_met( $feed, $form, $entry ) ){
+			if ( $feed['is_active'] && $this->is_feed_condition_met( $feed, $form, $entry ) ) {
 				$feed_to_process = $feed;
 				break;
 			}
 		}
-		if ( empty( $feed_to_process ) ){
+		if ( empty( $feed_to_process ) ) {
 			$this->log_debug( 'GFFeedAddOn::paypal_fulfillment(): No active feeds found or feeds did not meet conditional logic for ' . $this->_slug . '. No fulfillment necessary.' );
 			return false;
 		}
@@ -1000,7 +1026,7 @@ abstract class GFFeedAddOn extends GFAddOn {
 		return true;
 	}
 
-	protected function is_delayed_payment( $entry, $form, $is_delayed ) {
+	public function is_delayed_payment( $entry, $form, $is_delayed ) {
 		if ( $this->_slug == 'gravityformspaypal' ) {
 			return false;
 		}
@@ -1013,6 +1039,46 @@ abstract class GFFeedAddOn extends GFAddOn {
 		$has_payment = self::get_paypal_payment_amount( $form, $entry, $paypal_feed ) > 0;
 
 		return rgar( $paypal_feed['meta'], "delay_{$this->_slug}" ) && $has_payment && ! $is_delayed;
+	}
+
+	public function get_single_submission_feed( $entry = false, $form = false ) {
+
+		if ( ! $entry && ! $form ) {
+			return false;
+		}
+
+		$feed = false;
+
+		if ( ! empty( $this->_single_submission_feed ) ) {
+
+			$feed = $this->_single_submission_feed;
+
+		} elseif( $entry['id'] ) {
+
+			$feeds = $this->get_feeds_by_entry( $entry['id'] );
+
+			if ( empty( $feeds ) ) {
+				$feed = $this->get_single_submission_feed( false, $form );
+			} else {
+				$feed = $this->get_feed( $feeds[0] );
+			}
+
+		} elseif ( $form ) {
+
+			$feeds = $this->get_feeds( $form['id'] );
+
+			foreach ( $feeds as $_feed ) {
+				if ( $_feed['is_active'] && $this->is_feed_condition_met( $_feed, $form, $entry ) ) {
+					$feed = $_feed;
+					break;
+				}
+			}
+
+			$this->_single_submission_feed = $feed;
+
+		}
+
+		return $feed;
 	}
 
 }
@@ -1045,7 +1111,7 @@ class GFAddOnFeedsTable extends WP_List_Table {
 		$this->_message_callback      = $message_callback;
 
 		$standard_cols = array(
-			'cb'        => __( 'Checkbox', 'gravityforms' ),
+			'cb'        => esc_html__( 'Checkbox', 'gravityforms' ),
 			'is_active' => '',
 		);
 
@@ -1055,12 +1121,13 @@ class GFAddOnFeedsTable extends WP_List_Table {
 			$all_cols,
 			array(),
 			array(),
+			rgar( array_values( $all_cols ), 2 ),
 		);
 
 		parent::__construct(
 			array(
-				'singular' => __( 'feed', 'gravityforms' ),
-				'plural'   => __( 'feeds', 'gravityforms' ),
+				'singular' => esc_html__( 'feed', 'gravityforms' ),
+				'plural'   => esc_html__( 'feeds', 'gravityforms' ),
 				'ajax'     => false,
 			)
 		);
@@ -1114,7 +1181,7 @@ class GFAddOnFeedsTable extends WP_List_Table {
 		$feed_id = rgar( $item, 'id' );
 
 		return sprintf(
-			'<input type="checkbox" name="feed_ids[]" value="%s" />', $feed_id
+			'<input type="checkbox" name="feed_ids[]" value="%s" />', esc_attr( $feed_id )
 		);
 	}
 
@@ -1122,9 +1189,9 @@ class GFAddOnFeedsTable extends WP_List_Table {
 
 		$actions = apply_filters( $this->_slug . '_feed_actions', $this->_action_links, $item, $column );
 
-		//replacing {id} merge variable with actual feed id
+		//replacing _id_ merge variable with actual feed id
 		foreach ( $actions as $action => &$link ) {
-			$link = str_replace( '{id}', $item['id'], $link );
+			$link = str_replace( '_id_', $item['id'], $link );
 		}
 
 		return sprintf( '%1$s %2$s', $value, $this->row_actions( $actions ) );
@@ -1134,8 +1201,8 @@ class GFAddOnFeedsTable extends WP_List_Table {
 		$is_active = intval( rgar( $item, 'is_active' ) );
 		$src       = GFCommon::get_base_url() . "/images/active{$is_active}.png";
 
-		$title = $is_active ? __( 'Active', 'gravityforms' ) : __( 'Inactive', 'gravityforms' );
-		$img   = "<img src='{$src}' title='{$title}' onclick='gaddon.toggleFeedActive(this, \"{$this->_slug}\", {$item['id']});' style='cursor:pointer';/>";
+		$title = $is_active ? esc_attr__( 'Active', 'gravityforms' ) : esc_attr__( 'Inactive', 'gravityforms' );
+		$img   = sprintf( '<img src="%s" title="%s" onclick="gaddon.toggleFeedActive(this, \'%s\', \'%s\');" style="cursor:pointer";/>', $src, $title, esc_js( $this->_slug ), esc_js( $item['id'] ) );
 
 		return $img;
 	}

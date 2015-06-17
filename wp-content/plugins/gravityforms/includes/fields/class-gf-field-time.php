@@ -10,7 +10,7 @@ class GF_Field_Time extends GF_Field {
 	public $type = 'time';
 
 	public function get_form_editor_field_title() {
-		return __( 'Time', 'gravityforms' );
+		return esc_attr__( 'Time', 'gravityforms' );
 	}
 
 	function get_form_editor_field_settings() {
@@ -43,8 +43,8 @@ class GF_Field_Time extends GF_Field {
 			$value[1] = $matches[2];
 		}
 
-		$hour   = $value[0];
-		$minute = $value[1];
+		$hour   = rgar( $value, 0 );
+		$minute = rgar( $value, 1 );
 
 		if ( empty( $hour ) && empty( $minute ) ) {
 			return;
@@ -57,7 +57,7 @@ class GF_Field_Time extends GF_Field {
 
 		if ( ! $is_valid_format || $hour < $min_hour || $hour > $max_hour || $minute < 0 || $minute >= 60 ) {
 			$this->failed_validation  = true;
-			$this->validation_message = empty( $this->errorMessage ) ? __( 'Please enter a valid time.', 'gravityforms' ) : $this->errorMessage;
+			$this->validation_message = empty( $this->errorMessage ) ? esc_html__( 'Please enter a valid time.', 'gravityforms' ) : $this->errorMessage;
 		}
 	}
 
@@ -66,7 +66,7 @@ class GF_Field_Time extends GF_Field {
 		$is_entry_detail = $this->is_entry_detail();
 		$is_form_editor  = $this->is_form_editor();
 
-		$form_id  = $form['id'];
+		$form_id  = absint( $form['id'] );
 		$id       = intval( $this->id );
 		$field_id = $is_entry_detail || $is_form_editor || $form_id == 0 ? "input_$id" : 'input_' . $form_id . "_$id";
 
@@ -86,7 +86,7 @@ class GF_Field_Time extends GF_Field {
 			$the_rest    = strtolower( rgar( $matches, 3 ) );
 			$am_selected = strpos( $the_rest, 'am' ) > -1 ? "selected='selected'" : '';
 			$pm_selected = strpos( $the_rest, 'pm' ) > -1  ? "selected='selected'" : '';
-		} else if ( is_array( $value ) ) {
+		} elseif ( is_array( $value ) ) {
 			$value       = array_values( $value );
 			$hour        = esc_attr( $value[0] );
 			$minute      = esc_attr( $value[1] );
@@ -113,8 +113,8 @@ class GF_Field_Time extends GF_Field {
 
 		$ampm_field_style = $is_form_editor && $this->timeFormat == '24' ? "style='display:none;'" : '';
 		if ( $is_form_editor || $this->timeFormat != '24' ) {
-			$am_text = __( 'AM', 'gravityforms' );
-			$pm_text = __( 'PM', 'gravityforms' );
+			$am_text = esc_html__( 'AM', 'gravityforms' );
+			$pm_text = esc_html__( 'PM', 'gravityforms' );
 			$ampm_field = $is_sub_label_above ? "<div class='gfield_time_ampm ginput_container' {$ampm_field_style}>
                                                             <label for='{$field_id}_3'>&nbsp;</label>
                                                             <select name='input_{$id}[]' id='{$field_id}_3' $ampm_tabindex {$disabled_text}>
@@ -132,8 +132,8 @@ class GF_Field_Time extends GF_Field {
 			$ampm_field = '';
 		}
 
-		$hour_label = rgar( $hour_input, 'customLabel' ) != '' ? $hour_input['customLabel'] : __( 'HH', 'gravityforms' );
-		$minute_label = rgar( $minute_input, 'customLabel' ) != '' ? $minute_input['customLabel'] : _x( 'MM', 'Abbreviation: Minutes', 'gravityforms' );
+		$hour_label = rgar( $hour_input, 'customLabel' ) != '' ? $hour_input['customLabel'] : esc_html__( 'HH', 'gravityforms' );
+		$minute_label = rgar( $minute_input, 'customLabel' ) != '' ? $minute_input['customLabel'] : esc_html( _x( 'MM', 'Abbreviation: Minutes', 'gravityforms' ) );
 
 		if ( $is_sub_label_above ) {
 			return "<div class='clear-multi'>
@@ -162,7 +162,7 @@ class GF_Field_Time extends GF_Field {
 		}
 	}
 
-	public function is_value_submission_empty( $form_id ){
+	public function is_value_submission_empty( $form_id ) {
 		$value = rgpost( 'input_' . $this->id );
 		if ( is_array( $value ) ) {
 			// Date field and date drop-downs
@@ -227,6 +227,13 @@ class GF_Field_Time extends GF_Field {
 		}
 
 		return parent::get_first_input_id( $form );
+	}
+
+	public function sanitize_settings() {
+		parent::sanitize_settings();
+		if ( ! $this->timeFormat || ! in_array( $this->timeFormat, array( 12, 24 ) ) ) {
+			$this->timeFormat = '12';
+		}
 	}
 
 }

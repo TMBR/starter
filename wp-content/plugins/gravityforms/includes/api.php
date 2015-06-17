@@ -29,9 +29,11 @@ class GFAPI {
 	 *
 	 * @param int $form_id The ID of the Form
 	 *
-	 * @return mixed The form meta array or a WP_Error instance
+	 * @return mixed The form meta array or false
 	 */
 	public static function get_form( $form_id ) {
+
+		$form_id = absint( $form_id );
 
 		$form = GFFormsModel::get_form_meta( $form_id );
 		if ( ! $form ) {
@@ -181,22 +183,22 @@ class GFAPI {
 
 		// Strip confirmations and notifications
 		$form_display_meta = $form;
-		unset($form_display_meta['confirmations']);
-		unset($form_display_meta['notifications']);
+		unset( $form_display_meta['confirmations'] );
+		unset( $form_display_meta['notifications'] );
 
 		$result = GFFormsModel::update_form_meta( $form_id, $form_display_meta );
 		if ( false === $result ) {
 			return new WP_Error( 'error_updating_form', __( 'Error updating form', 'gravityforms' ), $wpdb->last_error );
 		}
 
-		if(isset($form['confirmations']) && is_array($form['confirmations'])){
+		if ( isset( $form['confirmations'] ) && is_array( $form['confirmations'] ) ) {
 			$result = GFFormsModel::update_form_meta( $form_id, $form['confirmations'], 'confirmations' );
 			if ( false === $result ) {
 				return new WP_Error( 'error_updating_confirmations', __( 'Error updating form confirmations', 'gravityforms' ), $wpdb->last_error );
 			}
 		}
 
-		if(isset($form['notifications']) && is_array($form['notifications'])){
+		if ( isset( $form['notifications'] ) && is_array( $form['notifications'] ) ) {
 			$result = GFFormsModel::update_form_meta( $form_id, $form['notifications'], 'notifications' );
 			if ( false === $result ) {
 				return new WP_Error( 'error_updating_notifications', __( 'Error updating form notifications', 'gravityforms' ), $wpdb->last_error );
@@ -229,8 +231,14 @@ class GFAPI {
 	public static function update_forms_property( $form_ids, $property_key, $value ) {
 		global $wpdb;
 		$table        = GFFormsModel::get_form_table_name();
-		$property_key = esc_sql( $property_key );
-		$value        = esc_sql( $value );
+
+		$db_columns = GFFormsModel::get_form_db_columns();
+
+		if ( ! in_array( strtolower( $property_key ), $db_columns ) ) {
+			return new WP_Error( 'property_key_incorrect', __( 'Property key incorrect', 'gravityforms' ) );
+		}
+
+		$value = esc_sql( $value );
 		if ( ! is_numeric( $value ) ) {
 			$value = sprintf( "'%s'", $value );
 		}
@@ -564,9 +572,9 @@ class GFAPI {
 		global $wpdb;
 
 		if ( empty( $entry_id ) ) {
-			$entry_id = $entry['id'];
+			$entry_id = absint( $entry['id'] );
 		} else {
-			$entry["id"] = $entry_id;
+			$entry['id'] = absint( $entry_id );
 		}
 
 		if ( empty( $entry_id ) ) {
@@ -613,9 +621,9 @@ class GFAPI {
 		$status         = isset( $entry['status'] ) ? $entry['status'] : 'active';
 
 		global $current_user;
-		$user_id = isset( $entry['created_by'] ) ? esc_sql( $entry['created_by'] ) : '';
+		$user_id = isset( $entry['created_by'] ) ?  absint( $entry['created_by'] ) : '';
 		if ( empty( $user_id ) ) {
-			$user_id = $current_user && $current_user->ID ? $current_user->ID : 'NULL';
+			$user_id = $current_user && $current_user->ID ? absint( $current_user->ID ) : 'NULL';
 		}
 
 		$transaction_type = isset( $entry['transaction_type'] ) ? intval( $entry['transaction_type'] ) : 'NULL';
@@ -659,6 +667,10 @@ class GFAPI {
 		$current_fields    = $wpdb->get_results( $wpdb->prepare( "SELECT id, field_number FROM $lead_detail_table WHERE lead_id=%d", $entry_id ) );
 
 		$form = GFFormsModel::get_form_meta( $form_id );
+
+		$form = apply_filters( 'gform_form_pre_update_entry', $form, $entry, $entry_id );
+		$form = apply_filters( "gform_form_pre_update_entry_{$form_id}", $form, $entry, $entry_id );
+
 		foreach ( $form['fields'] as $field ) {
 			/* @var GF_Field $field */
 			$type = GFFormsModel::get_input_type( $field );
@@ -681,8 +693,8 @@ class GFAPI {
 					}
 				}
 			} else {
-				$field_id       = $field->id;
-				$field_value    = isset( $entry[ (string) $field_id ] ) ? $entry[ (string) $field_id ] : '';
+				$field_id    = $field->id;
+				$field_value = isset( $entry[ (string) $field_id ] ) ? $entry[ (string) $field_id ] : '';
 				if ( $field_value != $current_entry[ $field_id ] ) {
 					$lead_detail_id = GFFormsModel::get_lead_detail_id( $current_fields, $field_id );
 					$result         = GFFormsModel::update_lead_field_value( $form, $entry, $field, $lead_detail_id, $field_id, $field_value );
@@ -781,9 +793,9 @@ class GFAPI {
 		$status         = isset( $entry['status'] ) ? $entry['status'] : 'active';
 
 		global $current_user;
-		$user_id = isset( $entry['created_by'] ) ? esc_sql( $entry['created_by'] ) : '';
+		$user_id = isset( $entry['created_by'] ) ? absint( $entry['created_by'] ) : '';
 		if ( empty( $user_id ) ) {
-			$user_id = $current_user && $current_user->ID ? $current_user->ID : 'NULL';
+			$user_id = $current_user && $current_user->ID ? absint( $current_user->ID )  : 'NULL';
 		}
 
 		$transaction_type = isset( $entry['transaction_type'] ) ? intval( $entry['transaction_type'] ) : 'NULL';
@@ -840,7 +852,7 @@ class GFAPI {
 		if ( is_array( $entry_meta ) ) {
 			foreach ( array_keys( $entry_meta ) as $key ) {
 				if ( isset( $entry[ $key ] ) ) {
-					gform_update_meta( $entry_id, $key, $entry[ $key ] );
+					gform_update_meta( $entry_id, $key, $entry[ $key ], $form['id'] );
 				}
 			}
 		}
@@ -918,7 +930,12 @@ class GFAPI {
 
 		$field = GFFormsModel::get_field( $form, $input_id );
 
-		$lead_detail_id = $wpdb->get_var( $wpdb->prepare( "SELECT id FROM {$wpdb->prefix}rg_lead_detail WHERE lead_id=%d AND CAST(field_number as DECIMAL(4,2))=%s", $entry_id, $input_id ) );
+		$input_id_min = (float) $input_id - 0.0001;
+		$input_id_max = (float) $input_id + 0.0001;
+
+		$lead_details_table_name = GFFormsModel::get_lead_details_table_name();
+
+		$lead_detail_id = $wpdb->get_var( $wpdb->prepare( "SELECT id FROM {$lead_details_table_name} WHERE lead_id=%d AND field_number BETWEEN %s AND %s", $entry_id, $input_id_min, $input_id_max ) );
 
 		$result = true;
 		if ( ! isset( $entry[ $input_id ] ) || $entry[ $input_id ] != $value ){
@@ -975,13 +992,19 @@ class GFAPI {
 	 *
 	 * @return array An array containing the result of the submission.
 	 */
-	public static function submit_form($form_id, $input_values, $field_values = array(), $target_page = 0, $source_page = 1){
+	public static function submit_form( $form_id, $input_values, $field_values = array(), $target_page = 0, $source_page = 1 ) {
 		$form_id = absint( $form_id );
-		$input_values[ 'is_submit_' . $form_id ] = true;
-		$input_values['gform_submit'] = $form_id;
+		$form    = GFAPI::get_form( $form_id );
+
+		if ( empty( $form ) || ! $form['is_active'] || $form['is_trash'] ) {
+			return new WP_Error( 'form_not_found', __( 'Your form could not be found', 'gravityforms' ) );
+		}
+
+		$input_values[ 'is_submit_' . $form_id ]                = true;
+		$input_values['gform_submit']                           = $form_id;
 		$input_values[ 'gform_target_page_number_' . $form_id ] = absint( $target_page );
 		$input_values[ 'gform_source_page_number_' . $form_id ] = absint( $source_page );
-		$input_values['gform_field_values'] = $field_values;
+		$input_values['gform_field_values']                     = $field_values;
 
 		require_once(GFCommon::get_base_path() . '/form_display.php');
 
@@ -995,6 +1018,10 @@ class GFAPI {
 			GFFormDisplay::process_form( $form_id );
 		} catch ( Exception $ex ) {
 			return new WP_Error( 'error_processing_form', __( 'There was an error while processing the form:', 'gravityforms' ) . ' ' . $ex->getCode() . ' ' . $ex->getMessage() );
+		}
+
+		if ( empty( GFFormDisplay::$submission ) ) {
+			return new WP_Error( 'error_processing_form', __( 'There was an error while processing the form:', 'gravityforms' ) );
 		}
 
 		$submissions_array = GFFormDisplay::$submission;
@@ -1015,8 +1042,8 @@ class GFAPI {
 			$result['validation_messages'] = $validation_messages;
 		}
 
-		$result['page_number'] = $submission_details['page_number'];
-		$result['source_page_number'] = $submission_details['source_page_number'];
+		$result['page_number']          = $submission_details['page_number'];
+		$result['source_page_number']   = $submission_details['source_page_number'];
 		$result['confirmation_message'] = $submission_details['confirmation_message'];
 
 		if ( isset( $submission_details['resume_token'] ) ) {
@@ -1185,7 +1212,8 @@ class GFAPI {
 			return array();
 		}
 
-		GFCommon::log_debug( "GFAPI::send_notifications(): Gathering notifications for {$event} event." );
+		$entry_id = rgar( $entry, 'id' );
+		GFCommon::log_debug( "GFAPI::send_notifications(): Gathering notifications for {$event} event for entry #{$entry_id}." );
 
 		$notifications_to_send = array();
 
@@ -1200,7 +1228,7 @@ class GFAPI {
 					GFCommon::log_debug( "GFAPI::send_notifications(): Notification is disabled by gform_disable_user_notification hook, not including notification (#{$notification['id']} - {$notification['name']})." );
 					//skip user notification if it has been disabled by a hook
 					continue;
-				} else if ( rgar( $notification, 'type' ) == 'admin' && apply_filters( "gform_disable_admin_notification_{$form['id']}", apply_filters( 'gform_disable_admin_notification', false, $form, $entry ), $form, $entry ) ) {
+				} elseif ( rgar( $notification, 'type' ) == 'admin' && apply_filters( "gform_disable_admin_notification_{$form['id']}", apply_filters( 'gform_disable_admin_notification', false, $form, $entry ), $form, $entry ) ) {
 					GFCommon::log_debug( "GFAPI::send_notifications(): Notification is disabled by gform_disable_admin_notification hook, not including notification (#{$notification['id']} - {$notification['name']})." );
 					//skip admin notification if it has been disabled by a hook
 					continue;
@@ -1237,7 +1265,22 @@ class GFAPI {
 		return GFCommon::current_user_can_any( $capabilities );
 	}
 
+	// FIELDS -----------------------------------------------------
 
+	/**
+	 * Returns an array containing the form fields of the specified type or types.
+	 *
+	 * @since 1.9.9.8
+	 *
+	 * @param array $form
+	 * @param array|string $types
+	 * @param bool $use_input_type
+	 *
+	 * @return GF_Field[]
+	 */
+	public static function get_fields_by_type( $form, $types, $use_input_type = false ) {
+		return GFFormsModel::get_fields_by_type( $form, $types, $use_input_type );
+	}
 
 	// HELPERS ----------------------------------------------------
 
