@@ -6,21 +6,39 @@ if( !function_exists('gravity_form') ) {
 ?>
 
 <div class="overlay"></div>
-  <div id="newsletter_signup" class="modal">
-	  <div class="popup-bg"></div> 
-	  <h3><?php echo esc_html($wptmbr_header); ?></h3>
-	  <?php //$options = get_option( 'wptmbr_roadblock'); print_r($options);?>
-	  	<div id="email-signup">
-	  	<p style="margin-bottom: 0;">Receive early notification of packages, last minute deals and upcoming events.</p>
-	  	<?php //echo do_shortcode('[gravityform id='. $wptmbr_gfid.' title=false description=false ajax=true]'); ?>
 
-	  	
-	  	<?php gravity_form( intval($wptmbr_gfid), false, false, false, '', true); ?>
-	  	
-	  	<?php //$test = '[gravityform id='. $wptmbr_gfid .' title=false description=false ajax=true]';
-	  	//echo $test; ?>
-		  	<div class="clear"></div>
-		  	<p class="close-email">&times; Close Window</p>
-		</div>
-  </div>
+<div id="newsletter_signup" class="modal">
 
+	<div class="modal-dialog" role="document">
+
+		<div class="modal-content">
+
+
+			<div class="modal-header">
+
+				<button type="button" class="close close-email">&times;</button>
+				<h3 class="modal-title"><?php echo esc_html($wptmbr_header); ?></h3>
+
+			</div><!-- /modal-header -->
+
+
+			<div class="modal-body">
+
+				<p><?php echo esc_html($wptmbr_text); ?></p>
+				<?php gravity_form( intval($wptmbr_gfid), false, false, false, '', true); ?>
+
+			</div><!-- /modal-body -->
+
+
+			<div class="modal-footer">
+
+				<p class="close-email text-center">&times; No Thanks</p>
+
+			</div><!-- /modal-footer -->
+
+
+		</div><!-- /modal-content -->
+		
+	</div><!-- /modal-dialog -->
+
+</div>  <!-- #newsletter_signup -->
