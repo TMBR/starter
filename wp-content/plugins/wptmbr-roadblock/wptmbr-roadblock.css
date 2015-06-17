@@ -104,13 +104,24 @@
 	padding: 15px;
 }
 
+#newsletter_signup.roadblock-confirm .modal-body {
+	padding: 30px;
+	text-align: center;
+}
+
 /* MODAL FOOTER
 ===================== */
 #newsletter_signup .modal-footer {
-	padding: 15px;
+	padding: 10px;
 	text-align: right;
 	border-top: 1px solid #e5e5e5;
 }
+
+#newsletter_signup .modal-footer p {
+	margin-bottom: 0;
+	font-size: 12px;
+}
+
 /* PRE CONFIRM / POST CONFIRM
 ===================== */
 .modal .pre-confirm {
