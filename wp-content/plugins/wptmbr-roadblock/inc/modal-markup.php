@@ -42,3 +42,15 @@ if( !function_exists('gravity_form') ) {
 	</div><!-- /modal-dialog -->
 
 </div>  <!-- #newsletter_signup -->
+
+<script type="text/javascript">
+
+//Add class to #newsletter_signup once Gravity Forms confirmation is loaded
+
+jQuery(document).ready(function(){
+	jQuery(document).bind('gform_confirmation_loaded', function(event, form_id){
+		jQuery('#newsletter_signup').addClass('roadblock-confirm');
+	});
+});
+
+</script>
