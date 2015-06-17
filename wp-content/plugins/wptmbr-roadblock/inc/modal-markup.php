@@ -24,7 +24,7 @@ if( !function_exists('gravity_form') ) {
 
 			<div class="modal-body">
 
-				<p><?php echo esc_html($wptmbr_text); ?></p>
+				<p class="pre-confirm"><?php echo esc_html($wptmbr_text); ?></p>
 				<?php gravity_form( intval($wptmbr_gfid), false, false, false, '', true); ?>
 
 			</div><!-- /modal-body -->
@@ -32,7 +32,8 @@ if( !function_exists('gravity_form') ) {
 
 			<div class="modal-footer">
 
-				<p class="close-email text-center">&times; No Thanks</p>
+				<p class="close-email text-center pre-confirm">&times; No Thanks</p>
+				<p class="close-email text-center post-confirm">&times; Close</p>
 
 			</div><!-- /modal-footer -->
 
