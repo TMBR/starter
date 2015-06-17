@@ -7,11 +7,14 @@
 
 	<!-- IF GRAVITY FORMS IS NOT INSTALLED & ACTIVE, FOLLOWING ERROR APPEARS -->
 	<?php if( !function_exists('gravity_form') ) : ?>
+
 		<div class="error form-invalid">
-			<p><strong>This plugin will not work until you have installed &amp; activated the Gravity Forms plugin!</strong><br/> 
+			<p><strong>This plugin will not work until you have installed &amp; activated Gravity Forms.</strong><br/> 
 			<a href="/wp-admin/plugins.php">Activate Gravity Forms</a> | <a href="http://www.gravityforms.com/" target="_blank">Install Gravity Forms</a></p>
 		</div><!-- /error /form-invalid -->
+
 	<?php return; endif; ?>
+
 	<?php if( isset( $_POST['wptmbr_form_submitted'] ) ) : ?>
 		<div class="updated">
 			<p><strong>Your changes have been saved!</strong></p>
@@ -29,7 +32,7 @@
 
 					<div class="postbox">
 
-						<h3 class="hndle"><span>Customize Modal Content</span></h3>
+						<h3 class="hndle"><span>Customize Your Roadblock</span></h3>
 					
 						<div class="inside">
 							<form name="wptmbr_content_form" method="post" action="">
