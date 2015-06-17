@@ -111,3 +111,20 @@
 	text-align: right;
 	border-top: 1px solid #e5e5e5;
 }
+/* PRE CONFIRM / POST CONFIRM
+===================== */
+.modal .pre-confirm {
+	display: block;
+}
+
+.modal .post-confirm {
+	display: none;
+}
+
+.modal.roadblock-confirm .pre-confirm {
+	display: none;
+}
+
+.modal.roadblock-confirm .post-confirm {
+	display: block;
+}
