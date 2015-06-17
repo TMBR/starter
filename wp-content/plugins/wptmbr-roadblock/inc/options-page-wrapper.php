@@ -4,6 +4,15 @@
 	<div id="icon-options-general" class="icon32"></div>
 	<h2>TMBR Roadblock Plugin Settings</h2>
 
+
+	<!-- IF GRAVITY FORMS IS NOT INSTALLED & ACTIVE, FOLLOWING ERROR APPEARS -->
+	<?php if( !function_exists('gravity_form') ) : ?>
+		<div class="error form-invalid">
+			<p><strong>This plugin will not work until you have installed &amp; activated the Gravity Forms plugin!</strong><br/> 
+			<a href="/wp-admin/plugins.php">Activate Gravity Forms</a> | <a href="http://www.gravityforms.com/" target="_blank">Install Gravity Forms</a></p>
+		</div><!-- /error /form-invalid -->
+	<?php return; endif; ?>
+	
 	<div id="poststuff">
 
 		<div id="post-body" class="metabox-holder columns-2">
