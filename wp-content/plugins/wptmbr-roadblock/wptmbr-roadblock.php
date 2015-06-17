@@ -17,8 +17,8 @@
  *
 */
 
-$plugin_url = WP_PLUGIN_URL . '/wptmbr-roadblock';
-$options = array();
+//$plugin_url = WP_PLUGIN_URL . '/wptmbr-roadblock';
+//$options = array();
 
 
 
@@ -55,18 +55,20 @@ function wptmbr_roadblock_options_page() {
 		wp_die( 'You do not have sufficient permission to access this page.');
 	}
 
-	global $plugin_url;
-	global $options;
+	//global $plugin_url;
+	//global $options;
 
 	if( isset( $_POST['wptmbr_form_submitted'] ) ) {
 
-		$hidden_field = esc_html( $_POST['wptmbr_form_submitted'] );
+		$hidden_field = $_POST['wptmbr_form_submitted'];
 
 		if( $hidden_field == 'Y' ) {
-			echo $_POST['wptmbr_header'];
-			$wptmbr_header = esc_html( $_POST['wptmbr_header'] );
-			$wptmbr_text = esc_html( $_POST['wptmbr_text'] );
-			$wptmbr_gfid = esc_html( $_POST['wptmbr_gfid'] );
+			//echo $_POST['wptmbr_header'];
+			$wptmbr_header = wp_filter_nohtml_kses( $_POST['wptmbr_header'] );
+			$wptmbr_text = wp_filter_nohtml_kses( $_POST['wptmbr_text'] );
+			$wptmbr_gfid = intval( $_POST['wptmbr_gfid'] );
+
+			$options = array();
 
 			$options['wptmbr_header'] = $wptmbr_header;
 			$options['wptmbr_text'] = $wptmbr_text;
@@ -79,9 +81,9 @@ function wptmbr_roadblock_options_page() {
 
 	}
 
-	$options = get_option( 'wptmbr_roadblock');
+	$options = get_option( 'wptmbr_roadblock' );
 
-	if( $options != '') {
+	if( !empty ( $options ) && is_array( $options ) ) {
 		$wptmbr_header = $options['wptmbr_header'];
 		$wptmbr_text = $options['wptmbr_text'];
 		$wptmbr_gfid = $options['wptmbr_gfid'];
@@ -90,17 +92,27 @@ function wptmbr_roadblock_options_page() {
 	require( 'inc/options-page-wrapper.php' );
 }
 
-function wptmbr_roadblock_markup() {
 
-	global $options;
+function wptmbr_roadblock_markup() {
 	
-	$options = get_option('wptmbr_roadblock');
+	$options = get_option( 'wptmbr_roadblock' );
 	
-	require( 'inc/modal-markup.php');
+	if( empty ( $options ) || !is_array( $options ) ) {
+
+		return;
+
+	}
+
+	$wptmbr_header = $options['wptmbr_header'];
+	$wptmbr_text = $options['wptmbr_text'];
+	$wptmbr_gfid = $options['wptmbr_gfid'];
+
+	require( 'inc/modal-markup.php' );
 
 }
 add_action( 'wp_footer', 'wptmbr_roadblock_markup');
 
+/*
 function wptmbr_roadblock_styles() {
 
 	wp_enqueue_style( 'wptmbr_roadblock_styles', plugins_url( 'wptmbr-roadblock/wptmbr-roadblock.css'));
@@ -108,6 +120,6 @@ function wptmbr_roadblock_styles() {
 }
 
 add_action( 'admin_head', 'wptmbr_roadblock_styles');
-
+*/
 
 ?>
