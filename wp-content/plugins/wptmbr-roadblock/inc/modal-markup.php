@@ -17,8 +17,8 @@ if( !function_exists('gravity_form') ) {
 			<div class="modal-header">
 
 				<button type="button" class="close close-email">&times;</button>
-				<h3 class="modal-title"><?php echo esc_html($wptmbr_header); ?></h3>
-
+				<h3 class="modal-title pre-confirm"><?php echo esc_html($wptmbr_header); ?></h3>
+				<h3 class="modal-title post-confirm">Success!</h3>
 			</div><!-- /modal-header -->
 
 
