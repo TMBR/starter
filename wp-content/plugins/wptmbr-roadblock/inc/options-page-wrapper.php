@@ -12,6 +12,11 @@
 			<a href="/wp-admin/plugins.php">Activate Gravity Forms</a> | <a href="http://www.gravityforms.com/" target="_blank">Install Gravity Forms</a></p>
 		</div><!-- /error /form-invalid -->
 	<?php return; endif; ?>
+	<?php if( isset( $_POST['wptmbr_form_submitted'] ) ) : ?>
+		<div class="updated">
+			<p><strong>Your changes have been saved!</strong></p>
+		</div><!-- /updated -->
+	<?php endif; ?>
 	
 	<div id="poststuff">
 
