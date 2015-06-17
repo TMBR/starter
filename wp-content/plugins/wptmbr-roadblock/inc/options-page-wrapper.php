@@ -27,17 +27,17 @@
 
 									<tr>
 										<td class="row-title"><label for="wptmbr_header">Form Header</label></td>
-										<td><input name="wptmbr_header" id="wptmbr_header" type="text" value="<?php echo $wptmbr_header; ?>" class="regular-text" /></td>
+										<td><input name="wptmbr_header" id="wptmbr_header" type="text" value="<?php echo esc_attr($wptmbr_header); ?>" class="regular-text" /></td>
 									</tr>
 
 									<tr>
 										<td class="row-title"><label for="wptmbr_text">Form Text</label></td>
-										<td><textarea name="wptmbr_text" id="wptmbr_text" cols="80" rows="10" ><?php echo $wptmbr_text; ?></textarea></td>
+										<td><textarea name="wptmbr_text" id="wptmbr_text" cols="80" rows="5" ><?php echo esc_textarea($wptmbr_text); ?></textarea></td>
 									</tr>
 
 									<tr>
 										<td class="row-title"><label for="wptmbr_gfid">Gravity Form ID</label></td>
-										<td><input name="wptmbr_gfid" id="wptmbr_gfid" type="text" value="<?php echo $wptmbr_gfid; ?>" class="small-text" /></td>
+										<td><input name="wptmbr_gfid" id="wptmbr_gfid" type="number" min="1" value="<?php echo esc_attr($wptmbr_gfid); ?>" class="small-text" /></td>
 									</tr>
 									
 								</table>
