@@ -139,3 +139,45 @@
 .modal.roadblock-confirm .post-confirm {
 	display: block;
 }
+
+/* STYLE SUBMIT BUTTON W/ BOOTSTRAP BTN CLASSES
+====================== */
+
+#newsletter_signup .gform_footer input[type=submit] {
+  display: inline-block;
+  padding: 6px 12px;
+  margin-bottom: 0;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 1.42857143;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  -ms-touch-action: manipulation;
+      touch-action: manipulation;
+  cursor: pointer;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  background-image: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+#newsletter_signup .gform_footer input[type=submit]:focus,
+#newsletter_signup .gform_footer input[type=submit]:active:focus {
+  outline: thin dotted;
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
+}
+#newsletter_signup .gform_footer input[type=submit]:hover,
+#newsletter_signup .gform_footer input[type=submit]:focus {
+  color: #333;
+  text-decoration: none;
+}
+#newsletter_signup .gform_footer input[type=submit]:active {
+  background-image: none;
+  outline: 0;
+  -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
+          box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
+}
