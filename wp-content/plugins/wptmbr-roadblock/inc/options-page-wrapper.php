@@ -13,16 +13,15 @@
 
 				<div class="meta-box-sortables ui-sortable">
 
-
-				
 					<div class="postbox">
 
-						<h3><span>Customize Modal Content</span></h3>
-
+						<h3 class="hndle"><span>Customize Modal Content</span></h3>
+					
 						<div class="inside">
 							<form name="wptmbr_content_form" method="post" action="">
 
 								<input type="hidden" name="wptmbr_form_submitted" value="Y">
+
 								<table class="form-table">
 
 									<tr>
@@ -34,36 +33,33 @@
 										<td class="row-title"><label for="wptmbr_text">Form Text</label></td>
 										<td><textarea name="wptmbr_text" id="wptmbr_text" cols="80" rows="5" ><?php echo esc_textarea($wptmbr_text); ?></textarea></td>
 									</tr>
-
+									
+									<tr>
+										<td colspan="2">
+											<hr/>
+											<h4>In order for this plugin to work properly, make sure that you have activated the Gravity Forms plugin.</h4>
+										</td>
 									<tr>
 										<td class="row-title"><label for="wptmbr_gfid">Gravity Form ID</label></td>
 										<td><input name="wptmbr_gfid" id="wptmbr_gfid" type="number" min="1" value="<?php echo esc_attr($wptmbr_gfid); ?>" class="small-text" /></td>
 									</tr>
-									
 								</table>
 						
 								<p><input class="button-primary" type="submit" name="wptmbr_form_submit" value="Update" /></p>
+
 							</form>
-						</div>
-						<!-- .inside -->
+						</div><!-- .inside -->
 
-					</div>
-					<!-- .postbox -->
-				
-				</div>
-				<!-- .meta-box-sortables .ui-sortable -->
+					</div><!-- .postbox -->
 
-			</div>
-			<!-- post-body-content -->
+				</div><!-- .meta-box-sortables .ui-sortable -->
 
-			
+			</div><!-- post-body-content -->
 
-		</div>
-		<!-- #post-body .metabox-holder .columns-2 -->
+		</div><!-- #post-body .metabox-holder .columns-2 -->
 
 		<br class="clear">
-	</div>
-	<!-- #poststuff -->
+	</div><!-- #poststuff -->
 
 </div> <!-- .wrap -->
 
