@@ -3,38 +3,26 @@
 /*
  *	Plugin Name: TMBR Roadblock Signup
  *	Plugin URI: http://www.wearetmbr.com
- *	Description: This plugin displays a subscribe form roadblock when users have viewed 3 pages on a website. If the user closes the window, this roadblock does not reappear for 60 days. 
+ *	Description: This plugin uses a cookie to display a subscribe form roadblock once users have clicked through 3 pages on website. 
  *	License: GPL2
  *	Version: 1.0
- *	Author: Galen Strasen, TMBR
+ *	Author: TMBR - A CREATIVE AGENCY
  *
 */
 
 
 
-/*
- * Assign global variables
- *
-*/
-
-//$plugin_url = WP_PLUGIN_URL . '/wptmbr-roadblock';
-//$options = array();
+/* 	ASSIGN GLOBAL VARIABLES
+===================================== */
+$plugin_url = WP_PLUGIN_URL . '/wptmbr-roadblock';
 
 
 
-/*
- * Add link to plugin in the admin menu
- * under 'Settings > TMBR Roadblock'
- *
-*/
+/*	ADD LINK TO PLUGIN SETTINGS 
+	IN THE ADMIN MENU
+===================================== */
 
 function wptmbr_roadblock_menu() {
-
-	/* 
-	 * Use the add_options_page function
-	 * add_options_page( $page_tutle, $menu_title, $capability, $menu-slug, $function )
-	 *
-	*/
 
 	add_options_page(
 		'Official TMBR Roadblock Plugin',
@@ -49,21 +37,20 @@ add_action( 'admin_menu', 'wptmbr_roadblock_menu' );
 
 
 
+/* 	SET UP PLUGIN SETTINGS PAGE
+===================================== */
 function wptmbr_roadblock_options_page() {
 
 	if( !current_user_can('manage_options') ) {
 		wp_die( 'You do not have sufficient permission to access this page.');
 	}
 
-	//global $plugin_url;
-	//global $options;
-
 	if( isset( $_POST['wptmbr_form_submitted'] ) ) {
 
 		$hidden_field = $_POST['wptmbr_form_submitted'];
 
 		if( $hidden_field == 'Y' ) {
-			//echo $_POST['wptmbr_header'];
+			
 			$wptmbr_header = wp_filter_nohtml_kses( $_POST['wptmbr_header'] );
 			$wptmbr_text = wp_filter_nohtml_kses( $_POST['wptmbr_text'] );
 			$wptmbr_gfid = intval( $_POST['wptmbr_gfid'] );
@@ -93,14 +80,15 @@ function wptmbr_roadblock_options_page() {
 }
 
 
+
+/* 	GET MARKUP FOR MODAL
+===================================== */
 function wptmbr_roadblock_markup() {
 	
 	$options = get_option( 'wptmbr_roadblock' );
 	
 	if( empty ( $options ) || !is_array( $options ) ) {
-
 		return;
-
 	}
 
 	$wptmbr_header = $options['wptmbr_header'];
@@ -112,14 +100,19 @@ function wptmbr_roadblock_markup() {
 }
 add_action( 'wp_footer', 'wptmbr_roadblock_markup');
 
-/*
-function wptmbr_roadblock_styles() {
 
-	wp_enqueue_style( 'wptmbr_roadblock_styles', plugins_url( 'wptmbr-roadblock/wptmbr-roadblock.css'));
+
+/* 	ENQUEUE NECESSARY SCRIPTS & STYLES
+===================================== */
+function wptmbr_roadblock_enqueue() {
+
+	wp_enqueue_style( 'wptmbr_roadblock_styles', plugins_url( 'wptmbr-roadblock/wptmbr-roadblock.css' ) );
+
+	wp_enqueue_script( 'jquery_cookie', plugins_url( 'wptmbr-roadblock/vendor/jquery.cookie.js' ), array( 'jquery' ), '', true ); 
+	wp_enqueue_script( 'wptmbr_roadblock_script', plugins_url( 'wptmbr-roadblock/wptmbr-roadblock.js' ), array( 'jquery' ), '', true ); 
 
 }
+add_action( 'wp_enqueue_scripts', 'wptmbr_roadblock_enqueue');
 
-add_action( 'admin_head', 'wptmbr_roadblock_styles');
-*/
 
 ?>
