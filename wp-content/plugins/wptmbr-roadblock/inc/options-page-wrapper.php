@@ -52,11 +52,6 @@
 									</tr>
 									
 									<tr>
-										<td colspan="2">
-											<hr/>
-											<h4>In order for this plugin to work properly, make sure that you have activated the Gravity Forms plugin.</h4>
-										</td>
-									<tr>
 										<td class="row-title"><label for="wptmbr_gfid">Gravity Form ID</label></td>
 										<td><input name="wptmbr_gfid" id="wptmbr_gfid" type="number" min="1" value="<?php echo esc_attr($wptmbr_gfid); ?>" class="small-text" /></td>
 									</tr>
