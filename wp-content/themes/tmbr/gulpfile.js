@@ -8,6 +8,7 @@
   var imagemin = require('gulp-imagemin');
   var sourcemaps = require('gulp-sourcemaps');
   var del = require('del');
+  var expect = require('gulp-expect-file');
   var sass = require("gulp-sass");
   var runSequence = require('run-sequence');
   var rev = require('gulp-rev');
@@ -108,6 +109,7 @@
 
   gulp.task('scripts:vendor', function(){
     return gulp.src(paths.vendorScripts)
+      .pipe(expect(paths.vendorScripts))
       .pipe(concat('vendor.js'))
       .pipe(gulp.dest('public/js'))
       .pipe(uglify())
@@ -118,6 +120,7 @@
 
   gulp.task('scripts:app', function(){
     return gulp.src(paths.appScripts)
+      .pipe(expect(paths.appScripts))
       .pipe(concat('application.js'))
       .pipe(gulp.dest('public/js'))
       .pipe(uglify())
