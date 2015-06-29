@@ -19,6 +19,9 @@ get_template_part( 'inc/theme-setup' );
 // ENQUEUE SCRIPTS & STYLES
 get_template_part( 'inc/load-scripts' );
 
+// PAGE EXCERPT
+get_template_part( 'inc/page-excerpt' );
+
 // REGISTER CUSTOM POST TYPE
 // get_template_part( 'inc/register-post-type' );
 
