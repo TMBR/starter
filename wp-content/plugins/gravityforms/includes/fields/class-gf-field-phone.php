@@ -10,7 +10,7 @@ class GF_Field_Phone extends GF_Field {
 	public $type = 'phone';
 
 	public function get_form_editor_field_title() {
-		return __( 'Phone', 'gravityforms' );
+		return esc_attr__( 'Phone', 'gravityforms' );
 	}
 
 	function get_form_editor_field_settings() {
@@ -33,7 +33,7 @@ class GF_Field_Phone extends GF_Field {
 		);
 	}
 
-	public function is_conditional_logic_supported(){
+	public function is_conditional_logic_supported() {
 		return true;
 	}
 
@@ -61,7 +61,7 @@ class GF_Field_Phone extends GF_Field {
 		$class_suffix  = $is_entry_detail ? '_admin' : '';
 		$class         = $size . $class_suffix;
 
-		$instruction           = $this->phoneFormat == 'standard' ? __( 'Phone format:', 'gravityforms' ) . ' (###) ###-####' : '';
+		$instruction           = $this->phoneFormat == 'standard' ? esc_html__( 'Phone format:', 'gravityforms' ) . ' (###) ###-####' : '';
 		$instruction_div       = $this->failed_validation && ! empty( $instruction ) ? "<div class='instruction validation_message'>$instruction</div>" : '';
 		$html_input_type       = RGFormsModel::is_html5_enabled() ? 'tel' : 'text';
 		$logic_event           = $this->get_conditional_logic_event( 'keyup' );
@@ -84,11 +84,20 @@ class GF_Field_Phone extends GF_Field {
 
 	public function get_form_inline_script_on_page_render( $form ) {
 		$script = '';
-		if ( $this->phoneFormat == 'standard' ){
-			$script = "jQuery('#input_{$form['id']}_{$this->id}').mask('(999) 999-9999').bind('keypress', function(e){if(e.which == 13){jQuery(this).blur();} } );";
+		if ( $this->phoneFormat == 'standard' ) {
+			$script = "if(!/(android)/i.test(navigator.userAgent)){jQuery('#input_{$form['id']}_{$this->id}').mask('(999) 999-9999').bind('keypress', function(e){if(e.which == 13){jQuery(this).blur();} } );}";
 		}
 		return $script;
 	}
+
+	public function sanitize_settings() {
+		parent::sanitize_settings();
+
+		if ( $this->phoneFormat && ! in_array( $this->phoneFormat, array( 'standard', 'international' ) ) ) {
+			$this->phoneFormat = 'standard';
+		}
+	}
+
 
 }
 

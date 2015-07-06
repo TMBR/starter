@@ -10,7 +10,7 @@ class GF_Field_List extends GF_Field {
 	public $type = 'list';
 
 	public function get_form_editor_field_title() {
-		return __( 'List', 'gravityforms' );
+		return esc_attr__( 'List', 'gravityforms' );
 	}
 
 	function get_form_editor_field_settings() {
@@ -32,7 +32,7 @@ class GF_Field_List extends GF_Field {
 		);
 	}
 
-	public function get_first_input_id( $form ){
+	public function get_first_input_id( $form ) {
 		return ! $this->is_form_editor() ? sprintf( 'input_%s_%s_shim', $form['id'], $this->id ) : '';
 	}
 
@@ -48,7 +48,7 @@ class GF_Field_List extends GF_Field {
 			$value = maybe_unserialize( $value );
 		}
 
-		if ( ! is_array( $value ) ){
+		if ( ! is_array( $value ) ) {
 			$value = array( array() );
 		}
 
@@ -125,15 +125,15 @@ class GF_Field_List extends GF_Field {
 				// can't replace these icons with the webfont versions since they appear on the front end.
 
 				$list .= "<td class='gfield_list_icons'>";
-				$list .= "   <img src='{$add_icon}' class='add_list_item {$disabled_icon_class}' {$disabled_text} title='" . __( 'Add another row', 'gravityforms' ) . "' alt='" . __( 'Add a row', 'gravityforms' ) . "' {$on_click} style='cursor:pointer; margin:0 3px;' />" .
-					"   <img src='{$delete_icon}' {$disabled_text} title='" . __( 'Remove this row', 'gravityforms' ) . "' alt='" . __( 'Remove this row', 'gravityforms' ) . "' class='delete_list_item' style='cursor:pointer; {$delete_display}' onclick='gformDeleteListItem(this, {$maxRow})' />";
+				$list .= "   <img src='{$add_icon}' class='add_list_item {$disabled_icon_class}' {$disabled_text} title='" . esc_attr__( 'Add another row', 'gravityforms' ) . "' alt='" . esc_attr__( 'Add a row', 'gravityforms' ) . "' {$on_click} style='cursor:pointer; margin:0 3px;' />" .
+					"   <img src='{$delete_icon}' {$disabled_text} title='" . esc_attr__( 'Remove this row', 'gravityforms' ) . "' alt='" . esc_attr__( 'Remove this row', 'gravityforms' ) . "' class='delete_list_item' style='cursor:pointer; {$delete_display}' onclick='gformDeleteListItem(this, {$maxRow})' />";
 				$list .= '</td>';
 
 			}
 
 			$list .= '</tr>';
 
-			if ( ! empty( $maxRow ) && $rownum >= $maxRow ){
+			if ( ! empty( $maxRow ) && $rownum >= $maxRow ) {
 				break;
 			}
 
@@ -148,11 +148,11 @@ class GF_Field_List extends GF_Field {
 
 	}
 
-	public function get_svg_image_block(){
+	public function get_svg_image_block() {
 		global $_has_image_block;
 
 		//return image block once per page load
-		if ( ! $_has_image_block ){
+		if ( ! $_has_image_block ) {
 
 			$_has_image_block = true;
 			return '
@@ -255,7 +255,7 @@ class GF_Field_List extends GF_Field {
 		return $value;
 	}
 
-	public function is_value_submission_empty( $form_id ){
+	public function is_value_submission_empty( $form_id ) {
 		$value = rgpost( 'input_' . $this->id );
 		if ( is_array( $value ) ) {
 			//empty if all inputs are empty (for inputs with the same name)
@@ -300,16 +300,16 @@ class GF_Field_List extends GF_Field {
 
 			if ( empty( $items ) ) {
 				return '';
-			} else if ( $format == 'text' ) {
+			} elseif ( $format == 'text' ) {
 				return substr( $items, 0, strlen( $items ) - 2 ); //removing last comma
-			} else if ( $format == 'url' ) {
+			} elseif ( $format == 'url' ) {
 				return substr( $items, 0, strlen( $items ) - 1 ); //removing last comma
-			} else if ( $media == 'email' ) {
+			} elseif ( $media == 'email' ) {
 				return "<ul class='bulleted'>{$items}</ul>";
 			} else {
 				return "<ul class='bulleted'>{$items}</ul>";
 			}
-		} else if ( is_array( $value ) ) {
+		} elseif ( is_array( $value ) ) {
 			$columns = array_keys( $value[0] );
 
 			$list = '';
@@ -318,7 +318,7 @@ class GF_Field_List extends GF_Field {
 				case 'text' :
 					$is_first_row = true;
 					foreach ( $value as $item ) {
-						if ( ! $is_first_row ){
+						if ( ! $is_first_row ) {
 							$list .= "\n\n" . $this->label . ': ';
 						}
 
@@ -332,7 +332,7 @@ class GF_Field_List extends GF_Field {
 					foreach ( $value as $item ) {
 						$list .= implode( "|", array_values( $item ) ) . ',';
 					}
-					if ( ! empty( $list ) ){
+					if ( ! empty( $list ) ) {
 						$list = substr( $list, 0, strlen( $list ) - 1 );
 					}
 
@@ -407,7 +407,7 @@ class GF_Field_List extends GF_Field {
 		return $value;
 	}
 
-	public function get_value_merge_tag( $value, $input_id, $entry, $form, $modifier, $raw_value, $url_encode, $esc_html, $format ) {
+	public function get_value_merge_tag( $value, $input_id, $entry, $form, $modifier, $raw_value, $url_encode, $esc_html, $format, $nl2br ) {
 		$output_format = in_array( $modifier, array( 'text', 'html', 'url' ) ) ? $modifier : $format;
 
 		return GFCommon::get_lead_field_display( $this, $raw_value, $entry['currency'], true, $output_format );
@@ -435,6 +435,11 @@ class GF_Field_List extends GF_Field {
 
 			return $rows;
 		}
+	}
+
+	public function sanitize_settings() {
+		parent::sanitize_settings();
+		$this->maxRows = absint( $this->maxRows );
 	}
 
 }

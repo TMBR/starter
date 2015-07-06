@@ -126,22 +126,24 @@ function Currency(currency){
 }
 
 function gformCleanNumber(text, symbol_right, symbol_left, decimal_separator){
+    var clean_number = '',
+        float_number = '',
+        digit = '',
+        is_negative = false;
+
     //converting to a string if a number as passed
     text = text + " ";
 
     //Removing symbol in unicode format (i.e. &#4444;)
-    text = text.replace(/&.*?;/, "", text);
+    text = text.replace(/&.*?;/, "");
 
     //Removing symbol from text
     text = text.replace(symbol_right, "");
     text = text.replace(symbol_left, "");
 
-
     //Removing all non-numeric characters
-    var clean_number = "";
-    var is_negative = false;
     for(var i=0; i<text.length; i++){
-        var digit = text.substr(i,1);
+        digit = text.substr(i,1);
         if( (parseInt(digit) >= 0 && parseInt(digit) <= 9) || digit == decimal_separator )
             clean_number += digit;
         else if(digit == '-')
@@ -149,14 +151,11 @@ function gformCleanNumber(text, symbol_right, symbol_left, decimal_separator){
     }
 
     //Removing thousand separators but keeping decimal point
-    var float_number = "";
-
-    for(var i=0; i<clean_number.length; i++)
-    {
-        var char = clean_number.substr(i,1);
-        if (char >= '0' && char <= '9')
-            float_number += char;
-        else if(char == decimal_separator){
+    for(var i=0; i<clean_number.length; i++) {
+        digit = clean_number.substr(i,1);
+        if (digit >= '0' && digit <= '9')
+            float_number += digit;
+        else if(digit == decimal_separator){
             float_number += ".";
         }
     }
@@ -223,23 +222,27 @@ function gformDeleteUploadedFile(formId, fieldId, deleteButton){
     parent.find("input[type=\"text\"]").val('');
 
     //removing file from uploaded meta
-    var files = jQuery.secureEvalJSON(jQuery('#gform_uploaded_files_' + formId).val());
-    if(files){
-        var inputName = "input_" + fieldId;
-        var $multfile = parent.find("#gform_multifile_upload_" + formId + "_" + fieldId );
-        if( $multfile.length > 0 ) {
-            files[inputName].splice(fileIndex, 1);
-            var settings = $multfile.data('settings');
-            var max = settings.gf_vars.max_files;
-            jQuery("#" + settings.gf_vars.message_id).html('');
-            if(files[inputName].length < max)
-                gfMultiFileUploader.toggleDisabled(settings, false);
+    var filesJson = jQuery('#gform_uploaded_files_' + formId).val();
 
-        } else {
-            files[inputName] = null;
+    if(filesJson){
+        var files = jQuery.secureEvalJSON(filesJson);
+        if(files) {
+            var inputName = "input_" + fieldId;
+            var $multfile = parent.find("#gform_multifile_upload_" + formId + "_" + fieldId );
+            if( $multfile.length > 0 ) {
+                files[inputName].splice(fileIndex, 1);
+                var settings = $multfile.data('settings');
+                var max = settings.gf_vars.max_files;
+                jQuery("#" + settings.gf_vars.message_id).html('');
+                if(files[inputName].length < max)
+                    gfMultiFileUploader.toggleDisabled(settings, false);
+
+            } else {
+                files[inputName] = null;
+            }
+
+            jQuery('#gform_uploaded_files_' + formId).val(jQuery.toJSON(files));
         }
-
-        jQuery('#gform_uploaded_files_' + formId).val(jQuery.toJSON(files));
     }
 }
 
@@ -322,8 +325,6 @@ function gformGetFieldId(element){
 
 function gformCalculateProductPrice(form_id, productFieldId){
 
-    var price = gformGetBasePrice(form_id, productFieldId);
-
     var suffix = "_" + form_id + "_" + productFieldId;
 
 
@@ -374,16 +375,20 @@ function gformCalculateProductPrice(form_id, productFieldId){
         });
     });
 
-    jQuery(".gfield_option" + suffix).find("input:checked, select").each(function(){
-        if(!gformIsHidden(jQuery(this)))
-            price += gformGetPrice(jQuery(this).val());
-    });
+	var price = gformGetBasePrice(form_id, productFieldId);
+	var quantity = gformGetProductQuantity( form_id, productFieldId );
 
-    var quantity = gformGetProductQuantity( form_id, productFieldId );
+	//calculating options if quantity is more than 0 (a product was selected).
+	if( quantity > 0 ) {
 
-    //setting global variable if quantity is more than 0 (a product was selected). Will be used when calculating total
-    if(quantity > 0)
-        _anyProductSelected = true;
+		jQuery(".gfield_option" + suffix).find("input:checked, select").each(function(){
+			if(!gformIsHidden(jQuery(this)))
+				price += gformGetPrice(jQuery(this).val());
+		});
+
+		//setting global variable if quantity is more than 0 (a product was selected). Will be used when calculating total
+		_anyProductSelected = true;
+	}
 
     price = price * quantity;
     price = Math.round(price * 100) / 100;
@@ -392,6 +397,11 @@ function gformCalculateProductPrice(form_id, productFieldId){
 }
 
 function gformGetProductQuantity( formId, productFieldId ) {
+
+	//If product is not selected
+	if ( ! gformIsProductSelected( formId, productFieldId )){
+		return 0;
+	}
 
     var quantity,
         quantityInput = jQuery( '#ginput_quantity_' + formId + '_' + productFieldId);
@@ -419,6 +429,26 @@ function gformGetProductQuantity( formId, productFieldId ) {
     quantity = parseFloat( quantity );
 
     return quantity;
+}
+
+
+function gformIsProductSelected( formId, productFieldId ) {
+
+	var suffix = "_" + formId + "_" + productFieldId;
+
+	var productField = jQuery("#ginput_base_price" + suffix + ", .gfield_donation" + suffix + " input[type=\"text\"], .gfield_product" + suffix + " .ginput_amount");
+	if( productField.val() && ! gformIsHidden(productField) ){
+		return true;
+	}
+	else
+	{
+		productField = jQuery(".gfield_product" + suffix + " select, .gfield_product" + suffix + " input:checked, .gfield_donation" + suffix + " select, .gfield_donation" + suffix + " input:checked");
+		if( productField.val() && ! gformIsHidden(productField) ){
+			return true;
+		}
+	}
+
+	return false;
 }
 
 function gformGetBasePrice(formId, productFieldId){
@@ -1135,6 +1165,41 @@ var gform = {
     var strings = typeof gform_gravityforms != 'undefined' ? gform_gravityforms.strings : {};
     var imagesUrl = typeof gform_gravityforms != 'undefined' ? gform_gravityforms.vars.images_url : "";
 
+
+	$(document).bind('gform_post_render', function(e, formID){
+
+		$("form#gform_" + formID + " .gform_fileupload_multifile").each(function(){
+			setup(this);
+		});
+		var $form = $("form#gform_" + formID);
+		if($form.length > 0){
+			$form.submit(function(){
+				var pendingUploads = false;
+				$.each(gfMultiFileUploader.uploaders, function(i, uploader){
+					if(uploader.total.queued>0){
+						pendingUploads = true;
+						return false;
+					}
+				});
+				if(pendingUploads){
+					alert(strings.currently_uploading);
+					window["gf_submitting_" + formID] = false;
+					$('#gform_ajax_spinner_' + formID).remove();
+					return false;
+				}
+			});
+		}
+
+	});
+
+	$(document).bind("gform_post_conditional_logic", function(e,formID, fields, isInit){
+		if(!isInit){
+			$.each(gfMultiFileUploader.uploaders, function(i, uploader){
+				uploader.refresh();
+			});
+		}
+	});
+
     $(document).ready(function () {
         if((typeof adminpage !== 'undefined' && adminpage === 'toplevel_page_gf_edit_forms')|| typeof plupload == 'undefined'){
             $(".gform_button_select_files").prop("disabled", true);
@@ -1142,41 +1207,12 @@ var gform = {
             $(".gform_fileupload_multifile").each(function(){
                 setup(this);
             });
-        } else {
-            $(document).bind('gform_post_render', function(e, formID){
-
-                $("form#gform_" + formID + " .gform_fileupload_multifile").each(function(){
-                    setup(this);
-                });
-                var $form = $("form#gform_" + formID);
-                if($form.length > 0){
-                    $form.submit(function(){
-                        var pendingUploads = false;
-                        $.each(gfMultiFileUploader.uploaders, function(i, uploader){
-                            if(uploader.total.queued>0){
-                                pendingUploads = true;
-                                return false;
-                            }
-                        });
-                        if(pendingUploads){
-                            alert(strings.currently_uploading);
-                            window["gf_submitting_" + formID] = false;
-                            $('#gform_ajax_spinner_' + formID).remove();
-                            return false;
-                        }
-                    });
-                }
-
-            });
-            $(document).bind("gform_post_conditional_logic", function(e,formID, fields, isInit){
-                if(!isInit){
-                    $.each(gfMultiFileUploader.uploaders, function(i, uploader){
-                        uploader.refresh();
-                    });
-                }
-            });
         }
     });
+
+    gfMultiFileUploader.setup = function (uploadElement){
+        setup( uploadElement );
+    };
 
     function setup(uploadElement){
         var settings = $(uploadElement).data('settings');
@@ -1420,7 +1456,7 @@ function gformInitSpinner( formId, spinnerUrl ) {
 
 	jQuery('#gform_' + formId).submit(function () {
 		if (jQuery('#gform_ajax_spinner_' + formId).length == 0) {
-			jQuery('#gform_submit_button_' + formId + ', #gform_wrapper_' + formId + ' .gform_next_button')
+			jQuery('#gform_submit_button_' + formId + ', #gform_wrapper_' + formId + ' .gform_next_button, #gform_send_resume_link_button_' + formId)
 				.after('<img id="gform_ajax_spinner_' + formId + '"  class="gform_ajax_spinner" src="' + spinnerUrl + '" alt="" />');
 		}
 	});

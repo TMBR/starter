@@ -1,7 +1,6 @@
 <?php
 /**
- * @package    WPSEO
- * @subpackage Admin
+ * @package WPSEO\Admin
  */
 
 /**
@@ -60,6 +59,8 @@ class WPSEO_Admin {
 		add_filter( 'set-screen-option', array( $this, 'save_bulk_edit_options' ), 10, 3 );
 
 		add_action( 'activated_plugin', array( 'WPSEO_Plugin_Conflict', 'hook_check_for_plugin_conflicts' ), 10, 1 );
+
+		WPSEO_Utils::register_cache_clear_option( 'wpseo',  '' );
 	}
 
 	/**
@@ -196,7 +197,7 @@ class WPSEO_Admin {
 			array(
 				'id'      => 'basic-help',
 				'title'   => __( 'Template explanation', 'wordpress-seo' ),
-				'content' => '<p>' . __( 'The title &amp; metas settings for WordPress SEO are made up of variables that are replaced by specific values from the page when the page is displayed. The tabs on the left explain the available variables.', 'wordpress-seo' ) . '</p>',
+				'content' => '<p>' . __( 'The title &amp; metas settings for WordPress SEO are made up of variables that are replaced by specific values from the page when the page is displayed. The tabs on the left explain the available variables.', 'wordpress-seo' ) . '</p>' . '<p>' . __( 'Note that not all variables can be used in every template.', 'wordpress-seo' ) . '</p>',
 			)
 		);
 
@@ -339,7 +340,7 @@ class WPSEO_Admin {
 				<p>
 					<strong>%1$s</strong>
 					%2$s
-					<a href="javascript:wpseo_setIgnore(\'blog_public_warning\',\'robotsmessage\',\'%3$s\');" class="button">%4$s</a>
+					<a href="javascript:wpseoSetIgnore(\'blog_public_warning\',\'robotsmessage\',\'%3$s\');" class="button">%4$s</a>
 				</p>
 			</div>',
 			__( 'Huge SEO Issue: You\'re blocking access to robots.', 'wordpress-seo' ),
@@ -373,7 +374,7 @@ class WPSEO_Admin {
 				<p>
 					<strong>%1$s</strong>
 					%2$s
-					<a href="javascript:wpseo_setIgnore(\'meta_description_warning\',\'metamessage\',\'%3$s\');" class="button">%4$s</a>
+					<a href="javascript:wpseoSetIgnore(\'meta_description_warning\',\'metamessage\',\'%3$s\');" class="button">%4$s</a>
 				</p>
 			</div>',
 			__( 'SEO Issue:', 'wordpress-seo' ),
@@ -475,6 +476,11 @@ class WPSEO_Admin {
 
 		// Turn it to an array and strip stopwords by comparing against an array of stopwords
 		$clean_slug_array = array_diff( explode( '-', $clean_slug ), $this->stopwords() );
+
+		// Don't change the slug if there are less than 3 words left
+		if ( count( $clean_slug_array ) < 3 ) {
+			return $clean_slug;
+		}
 
 		// Turn the sanitized array into a string
 		$clean_slug = join( '-', $clean_slug_array );

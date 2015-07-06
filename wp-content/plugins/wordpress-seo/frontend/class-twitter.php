@@ -1,7 +1,6 @@
 <?php
 /**
- * @package    WPSEO
- * @subpackage Frontend
+ * @package WPSEO\Frontend
  */
 
 /**
@@ -60,12 +59,6 @@ class WPSEO_Twitter {
 		$this->image();
 		if ( is_singular() ) {
 			$this->author();
-		}
-
-		// No need to show these when OpenGraph is also showing, as it'd be the same contents and Twitter
-		// would fallback to OpenGraph anyway.
-		if ( $this->options['opengraph'] === false ) {
-			$this->url();
 		}
 
 		/**
@@ -165,6 +158,9 @@ class WPSEO_Twitter {
 		if ( is_singular() ) {
 			$meta_desc = $this->single_description();
 		}
+		elseif ( WPSEO_Frontend::get_instance()->is_posts_page() ) {
+			$meta_desc = $this->single_description( get_option( 'page_for_posts' ) );
+		}
 		else {
 			$meta_desc = $this->fallback_description();
 		}
@@ -183,10 +179,13 @@ class WPSEO_Twitter {
 	/**
 	 * Returns the description for a singular page
 	 *
+	 * @param int $post_id
+	 *
 	 * @return string
 	 */
-	private function single_description() {
-		$meta_desc = trim( WPSEO_Meta::get_value( 'twitter-description' ) );
+	private function single_description( $post_id = 0 ) {
+		$meta_desc = trim( WPSEO_Meta::get_value( 'twitter-description', $post_id ) );
+
 		if ( is_string( $meta_desc ) && '' !== $meta_desc ) {
 			return $meta_desc;
 		}
@@ -217,6 +216,9 @@ class WPSEO_Twitter {
 		if ( is_singular() ) {
 			$title = $this->single_title();
 		}
+		elseif ( WPSEO_Frontend::get_instance()->is_posts_page() ) {
+			$title = $this->single_title( get_option( 'page_for_posts' ) );
+		}
 		else {
 			$title = $this->fallback_title();
 		}
@@ -235,10 +237,12 @@ class WPSEO_Twitter {
 	/**
 	 * Returns the Twitter title for a single post
 	 *
+	 * @param int $post_id
+	 *
 	 * @return string
 	 */
-	private function single_title() {
-		$title = WPSEO_Meta::get_value( 'twitter-title' );
+	private function single_title( $post_id = 0 ) {
+		$title = WPSEO_Meta::get_value( 'twitter-title', $post_id );
 		if ( ! is_string( $title ) || '' === $title ) {
 			return $this->fallback_title();
 		}
@@ -489,23 +493,6 @@ class WPSEO_Twitter {
 			if ( is_string( $this->options['twitter_site'] ) && $this->options['twitter_site'] !== '' ) {
 				$this->output_metatag( 'creator', '@' . $this->options['twitter_site'] );
 			}
-		}
-	}
-
-	/**
-	 * Displays the URL for Twitter.
-	 *
-	 * Only used when OpenGraph is inactive.
-	 */
-	protected function url() {
-		/**
-		 * Filter: 'wpseo_twitter_url' - Allow changing the URL as output in the Twitter card by WP SEO
-		 *
-		 * @api string $unsigned Canonical URL
-		 */
-		$url = apply_filters( 'wpseo_twitter_url', WPSEO_Frontend::get_instance()->canonical( false ) );
-		if ( is_string( $url ) && $url !== '' ) {
-			$this->output_metatag( 'url', esc_url( $url ), true );
 		}
 	}
 
