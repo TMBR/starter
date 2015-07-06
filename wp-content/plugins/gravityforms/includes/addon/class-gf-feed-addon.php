@@ -183,13 +183,13 @@ abstract class GFFeedAddOn extends GFAddOn {
 		//Processing feeds
 		$processed_feeds = array();
 		foreach ( $feeds as $feed ) {
+			$feed_name = rgempty( 'feed_name', $feed['meta'] ) ? rgar( $feed['meta'], 'feedName' ) : rgar( $feed['meta'], 'feed_name' );
+
 			if ( ! $feed['is_active'] ) {
-				$feed_name = rgar( $feed['meta'], 'feedName' );
 				$this->log_debug( "GFFeedAddOn::maybe_process_feed(): Feed is inactive, not processing feed (#{$feed['id']} - {$feed_name}) for entry #{$entry['id']} for {$this->_slug}" );
 				continue;
 			}
 			if ( ! $this->is_feed_condition_met( $feed, $form, $entry ) ) {
-				$feed_name = rgar( $feed['meta'], 'feedName' );
 				$this->log_debug( "GFFeedAddOn::maybe_process_feed(): Feed condition not met, not processing feed (#{$feed['id']} - {$feed_name}) for entry #{$entry['id']} for {$this->_slug}" );
 				continue;
 			}
@@ -199,7 +199,6 @@ abstract class GFFeedAddOn extends GFAddOn {
 			//process feed if not delayed
 			if ( ! $is_delayed ) {
 				//all requirements met, process feed
-				$feed_name = rgar( $feed['meta'], 'feedName' );
 				$this->log_debug( "GFFeedAddOn::maybe_process_feed(): Starting to process feed (#{$feed['id']} - {$feed_name}) for entry #{$entry['id']} for {$this->_slug}" );
 				$this->process_feed( $feed, $entry, $form );
 				//should the add-on fulfill be done here????
@@ -409,6 +408,35 @@ abstract class GFFeedAddOn extends GFAddOn {
 		return rgar( $processed_feeds, $this->_slug );
 	}
 
+	public function get_default_feed_name(){
+		//query db to look for two formats that the feed name could have been auto-generated with
+		//format from migration to add-on framework: 'Feed ' . $counter
+		//new auto-generated format when adding new feed: $short_title . ' Feed ' . $counter
+		$counter_to_use = 0; //set to zero unless a new number is found while checking existing feed names (will be incremented by 1 at the end)
+		//$feeds_to_filter = GFFeedAddOn::get_feeds_by_slug( $this->_slug );
+		$feeds_to_filter = $this->get_feeds_by_slug( $this->_slug );
+		if ( $feeds_to_filter ){
+			//loop through and look for name pattern to find what to make default feed name
+			foreach ( $feeds_to_filter as $check ){
+				$name = rgar( $check['meta'], 'feed_name' ) ? trim( $check['meta']['feed_name'] ) : trim( $check['meta']['feedName'] );
+				$pattern = '/(^Feed|^' . $this->_short_title . ' Feed)\s\d+/';
+				preg_match( $pattern,$name,$matches );
+				if ( $matches ){
+					//number should be characters at the end after a space
+					$last_space = strrpos( $matches[0],' ' );
+					$digit = substr( $matches[0],$last_space );
+					if ( $digit >= $counter_to_use ){
+						//counter in existing feed name greater, use it instead
+						$counter_to_use = $digit;
+					}
+				}
+			}
+		}
+		//set default feed name
+		$value = $this->_short_title . ' Feed ' . ($counter_to_use + 1);
+		return $value;
+	}
+
 	public function update_feed_meta( $id, $meta ) {
 		global $wpdb;
 
@@ -596,6 +624,10 @@ abstract class GFFeedAddOn extends GFAddOn {
 	}
 
 	public function feed_list_title() {
+		if ( ! $this->can_create_feed() ) {
+			return sprintf( __( '%s Feeds', 'gravityforms' ), $this->get_short_title() );
+		}
+		
 		$url = add_query_arg( array( 'fid' => '0' ) );
 		$url = esc_url( $url );
 		return sprintf( esc_html__( '%s Feeds', 'gravityforms' ), $this->get_short_title() ) . " <a class='add-new-h2' href='{$url}'>" . esc_html__( 'Add New' , 'gravityforms' ) . '</a>';
@@ -694,6 +726,10 @@ abstract class GFFeedAddOn extends GFAddOn {
 						$field['hidden'] = true;
 						break;
 				}
+
+				if ( $field['name'] == 'feedName' ){
+					$field['default_value'] = $this->get_default_feed_name();
+				}
 			}
 		}
 
@@ -770,7 +806,28 @@ abstract class GFFeedAddOn extends GFAddOn {
 	 * @return string|false
 	 */
 	public function feed_list_message() {
+		if ( ! $this->can_create_feed() ) {
+			return $this->configure_addon_message();
+		}
+		
 		return false;
+	}
+
+	public function configure_addon_message() {
+		
+		$settings_label = sprintf( __( '%s Settings', 'gravityforms' ), $this->get_short_title() );
+		$settings_link  = sprintf( '<a href="%s">%s</a>', esc_url( $this->get_plugin_settings_url() ), $settings_label );
+
+		return sprintf( __( 'To get started, please configure your %s.', 'gravityforms' ), $settings_link );
+		
+	}
+	
+	/**
+	 * Override this function to prevent the feed creation UI from being rendered.
+	 * @return boolean|true
+	 */
+	public function can_create_feed() {
+		return true;
 	}
 
 	public function get_column_value( $item, $column ) {

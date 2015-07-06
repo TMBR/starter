@@ -657,7 +657,11 @@ class GFExport {
 		$headers = array();
 		foreach ( $fields as $field_id ) {
 			$field = RGFormsModel::get_field( $form, $field_id );
-			$value = str_replace( '"', '""', GFCommon::get_label( $field, $field_id ) );
+			$label = gf_apply_filters( 'gform_entries_field_header_pre_export', array(
+				$form_id,
+				$field_id
+			), GFCommon::get_label( $field, $field_id ), $form, $field );
+			$value = str_replace( '"', '""', $label );
 
 			GFCommon::log_debug( "GFExport::start_export(): Header for field ID {$field_id}: {$value}" );
 

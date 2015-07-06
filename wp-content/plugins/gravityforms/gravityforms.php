@@ -3,7 +3,7 @@
 Plugin Name: Gravity Forms
 Plugin URI: http://www.gravityforms.com
 Description: Easily create web forms and manage form entries within the WordPress admin.
-Version: 1.9.10.2
+Version: 1.9.11
 Author: rocketgenius
 Author URI: http://www.rocketgenius.com
 Text Domain: gravityforms
@@ -112,7 +112,7 @@ add_action( 'plugins_loaded', array( 'GFForms', 'loaded' ) );
 
 class GFForms {
 
-	public static $version = '1.9.10.2';
+	public static $version = '1.9.11';
 
 	public static function loaded() {
 
@@ -131,10 +131,8 @@ class GFForms {
 	//Plugin starting point. Will load appropriate files
 	public static function init() {
 
-		// Initializing translations. Translation files in the WP_LANG_DIR folder have a higher priority.
-		$locale = apply_filters( 'plugin_locale', get_locale(), 'gravityforms' );
-		load_textdomain( 'gravityforms', WP_LANG_DIR . '/gravityforms/gravityforms-' . $locale . '.mo' );
-		load_plugin_textdomain( 'gravityforms', false, '/gravityforms/languages' );
+		//load text domains
+		GFCommon::load_gf_text_domain( 'gravityforms' );
 
 		add_filter( 'gform_logging_supported', array( 'RGForms', 'set_logging_supported' ) );
 		add_action( 'admin_head', array( 'GFCommon', 'maybe_output_gf_vars' ) );
@@ -247,7 +245,7 @@ class GFForms {
 						// entry detail: resend notifications
 						add_action( 'wp_ajax_gf_resend_notifications', array( 'RGForms', 'resend_notifications' ) );
 
-						// Shortocde UI
+						// Shortcode UI
 						add_action( 'wp_ajax_gf_do_shortcode',  array( 'GFForms', 'handle_ajax_do_shortcode' ) );
 					}
 
@@ -1272,7 +1270,7 @@ class GFForms {
 				$shortcode_string = GFCommon::conditional_shortcode( $attributes, $content );
 				break;
 
-			case 'form' :
+			default :
 				//displaying form
 				$title        = strtolower( $title ) == 'false' ? false : true;
 				$description  = strtolower( $description ) == 'false' ? false : true;
@@ -1291,7 +1289,6 @@ class GFForms {
 
 				$shortcode_string = self::get_form( $id, $title, $description, false, $field_value_array, $ajax, $tabindex );
 
-				break;
 		}
 
 		$shortcode_string = apply_filters( "gform_shortcode_{$action}", $shortcode_string, $attributes, $content );

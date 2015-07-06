@@ -65,7 +65,7 @@ class GF_Field_Name extends GF_Field {
 		$form_sub_label_placement  = rgar( $form, 'subLabelPlacement' );
 		$field_sub_label_placement = $this->subLabelPlacement;
 		$is_sub_label_above        = $field_sub_label_placement == 'above' || ( empty( $field_sub_label_placement ) && $form_sub_label_placement == 'above' );
-		$sub_label_class_attribute = $field_sub_label_placement == 'hidden_label' ? "class='hidden_sub_label'" : '';
+		$sub_label_class_attribute = $field_sub_label_placement == 'hidden_label' ? "class='hidden_sub_label screen-reader-text'" : '';
 
 		$prefix = '';
 		$first  = '';
@@ -91,6 +91,12 @@ class GF_Field_Name extends GF_Field {
 		$middle_placeholder_attribute = GFCommon::get_input_placeholder_attribute( $middle_input );
 		$last_placeholder_attribute   = GFCommon::get_input_placeholder_attribute( $last_input );
 		$suffix_placeholder_attribute = GFCommon::get_input_placeholder_attribute( $suffix_input );
+
+		// ARIA labels. Prefix is handled in self::get_name_prefix_field().
+		$first_name_aria_label  = esc_attr__( 'First name', 'gravityforms' );
+		$middle_name_aria_label = esc_attr__( 'Middle name', 'gravityforms' );
+		$last_name_aria_label   = esc_attr__( 'Last name', 'gravityforms' );
+		$suffix_aria_label      = esc_attr__( 'Name suffix', 'gravityforms' );
 
 		switch ( $this->nameFormat ) {
 
@@ -129,7 +135,7 @@ class GF_Field_Name extends GF_Field {
 					if ( $is_admin || ! rgar( $first_input, 'isHidden' ) ) {
 						$first_markup = "<span id='{$field_id}_3_container' class='name_first' {$style}>
                                                     <label for='{$field_id}_3' {$sub_label_class_attribute}>{$first_name_sub_label}</label>
-                                                    <input type='text' name='input_{$id}.3' id='{$field_id}_3' value='{$first}' {$first_tabindex} {$disabled_text} {$first_placeholder_attribute}/>
+                                                    <input type='text' name='input_{$id}.3' id='{$field_id}_3' value='{$first}' aria-label='{$first_name_aria_label}' {$first_tabindex} {$disabled_text} {$first_placeholder_attribute}/>
                                                 </span>";
 					}
 
@@ -137,7 +143,7 @@ class GF_Field_Name extends GF_Field {
 					if ( $is_admin || ( isset( $middle_input['isHidden'] ) && $middle_input['isHidden'] == false ) ) {
 						$middle_markup = "<span id='{$field_id}_4_container' class='name_middle' {$style}>
                                                     <label for='{$field_id}_4' {$sub_label_class_attribute}>{$middle_name_sub_label}</label>
-                                                    <input type='text' name='input_{$id}.4' id='{$field_id}_4' value='{$middle}' {$middle_tabindex} {$disabled_text} {$middle_placeholder_attribute}/>
+                                                    <input type='text' name='input_{$id}.4' id='{$field_id}_4' value='{$middle}' aria-label='{$middle_name_aria_label}' {$middle_tabindex} {$disabled_text} {$middle_placeholder_attribute}/>
                                                 </span>";
 					}
 
@@ -145,7 +151,7 @@ class GF_Field_Name extends GF_Field {
 					if ( $is_admin || ! rgar( $last_input, 'isHidden' ) ) {
 						$last_markup = "<span id='{$field_id}_6_container' class='name_last' {$style}>
                                                             <label for='{$field_id}_6' {$sub_label_class_attribute}>{$last_name_sub_label}</label>
-                                                            <input type='text' name='input_{$id}.6' id='{$field_id}_6' value='{$last}' {$last_tabindex} {$disabled_text} {$last_placeholder_attribute}/>
+                                                            <input type='text' name='input_{$id}.6' id='{$field_id}_6' value='{$last}' aria-label='{$last_name_aria_label}' {$last_tabindex} {$disabled_text} {$last_placeholder_attribute}/>
                                                         </span>";
 					}
 
@@ -154,7 +160,7 @@ class GF_Field_Name extends GF_Field {
 						$suffix_select_class = isset( $suffix_input['choices'] ) && is_array( $suffix_input['choices'] ) ? 'name_suffix_select' : '';
 						$suffix_markup       = "<span id='{$field_id}_8_container' class='name_suffix {$suffix_select_class}' {$style}>
                                                         <label for='{$field_id}_8' {$sub_label_class_attribute}>{$suffix_sub_label}</label>
-                                                        <input type='text' name='input_{$id}.8' id='{$field_id}_8' value='{$suffix}' {$suffix_tabindex} {$disabled_text} {$suffix_placeholder_attribute}/>
+                                                        <input type='text' name='input_{$id}.8' id='{$field_id}_8' value='{$suffix}' aria-label='{$suffix_aria_label}' {$suffix_tabindex} {$disabled_text} {$suffix_placeholder_attribute}/>
                                                     </span>";
 					}
 				} else {
@@ -171,7 +177,7 @@ class GF_Field_Name extends GF_Field {
 					$style = ( $is_admin && rgar( $first_input, 'isHidden' ) ) ? "style='display:none;'" : '';
 					if ( $is_admin || ! rgar( $first_input, 'isHidden' ) ) {
 						$first_markup = "<span id='{$field_id}_3_container' class='name_first' {$style}>
-                                                    <input type='text' name='input_{$id}.3' id='{$field_id}_3' value='{$first}' {$first_tabindex} {$disabled_text} {$first_placeholder_attribute}/>
+                                                    <input type='text' name='input_{$id}.3' id='{$field_id}_3' value='{$first}' aria-label='{$first_name_aria_label}' {$first_tabindex} {$disabled_text} {$first_placeholder_attribute}/>
                                                     <label for='{$field_id}_3' {$sub_label_class_attribute}>{$first_name_sub_label}</label>
                                                 </span>";
 					}
@@ -179,7 +185,7 @@ class GF_Field_Name extends GF_Field {
 					$style = ( $is_admin && ( ! isset( $middle_input['isHidden'] ) || rgar( $middle_input, 'isHidden' ) ) ) ? "style='display:none;'" : '';
 					if ( $is_admin || ( isset( $middle_input['isHidden'] ) && $middle_input['isHidden'] == false ) ) {
 						$middle_markup = "<span id='{$field_id}_4_container' class='name_middle' {$style}>
-                                                    <input type='text' name='input_{$id}.4' id='{$field_id}_4' value='{$middle}' {$middle_tabindex} {$disabled_text} {$middle_placeholder_attribute}/>
+                                                    <input type='text' name='input_{$id}.4' id='{$field_id}_4' value='{$middle}' aria-label='{$middle_name_aria_label}' {$middle_tabindex} {$disabled_text} {$middle_placeholder_attribute}/>
                                                     <label for='{$field_id}_4' {$sub_label_class_attribute}>{$middle_name_sub_label}</label>
                                                 </span>";
 					}
@@ -187,7 +193,7 @@ class GF_Field_Name extends GF_Field {
 					$style = ( $is_admin && rgar( $last_input, 'isHidden' ) ) ? "style='display:none;'" : '';
 					if ( $is_admin || ! rgar( $last_input, 'isHidden' ) ) {
 						$last_markup = "<span id='{$field_id}_6_container' class='name_last' {$style}>
-                                                    <input type='text' name='input_{$id}.6' id='{$field_id}_6' value='{$last}' {$last_tabindex} {$disabled_text} {$last_placeholder_attribute}/>
+                                                    <input type='text' name='input_{$id}.6' id='{$field_id}_6' value='{$last}' aria-label='{$last_name_aria_label}' {$last_tabindex} {$disabled_text} {$last_placeholder_attribute}/>
                                                     <label for='{$field_id}_6' {$sub_label_class_attribute}>{$last_name_sub_label}</label>
                                                 </span>";
 					}
@@ -196,7 +202,7 @@ class GF_Field_Name extends GF_Field {
 					if ( $is_admin || ! rgar( $suffix_input, 'isHidden' ) ) {
 						$suffix_select_class = isset( $suffix_input['choices'] ) && is_array( $suffix_input['choices'] ) ? 'name_suffix_select' : '';
 						$suffix_markup       = "<span id='{$field_id}_8_container' class='name_suffix {$suffix_select_class}' {$style}>
-                                                    <input type='text' name='input_{$id}.8' id='{$field_id}_8' value='{$suffix}' {$suffix_tabindex} {$disabled_text} {$suffix_placeholder_attribute}/>
+                                                    <input type='text' name='input_{$id}.8' id='{$field_id}_8' value='{$suffix}' aria-label='{$suffix_aria_label}' {$suffix_tabindex} {$disabled_text} {$suffix_placeholder_attribute}/>
                                                     <label for='{$field_id}_8' {$sub_label_class_attribute}>{$suffix_sub_label}</label>
                                                 </span>";
 					}
@@ -232,7 +238,7 @@ class GF_Field_Name extends GF_Field {
 					if ( $is_admin || ! rgar( $first_input, 'isHidden' ) ) {
 						$first_markup = "<span id='{$field_id}_3_container' class='name_first' {$style}>
                                                     <label for='{$field_id}_3' {$sub_label_class_attribute}>{$first_name_sub_label}</label>
-                                                    <input type='text' name='input_{$id}.3' id='{$field_id}_3' value='{$first}' {$first_tabindex} {$disabled_text} {$first_placeholder_attribute}/>
+                                                    <input type='text' name='input_{$id}.3' id='{$field_id}_3' value='{$first}' aria-label='{$first_name_aria_label}' {$first_tabindex} {$disabled_text} {$first_placeholder_attribute}/>
                                                 </span>";
 					}
 
@@ -241,7 +247,7 @@ class GF_Field_Name extends GF_Field {
 					if ( $is_admin || ! rgar( $last_input, 'isHidden' ) ) {
 						$last_markup = "<span id='{$field_id}_6_container' class='name_last' {$style}>
                                                 <label for='{$field_id}_6' {$sub_label_class_attribute}>" . $last_name_sub_label . "</label>
-                                                <input type='text' name='input_{$id}.6' id='{$field_id}_6' value='{$last}' {$last_tabindex} {$disabled_text} {$last_placeholder_attribute}/>
+                                                <input type='text' name='input_{$id}.6' id='{$field_id}_6' value='{$last}' aria-label='{$last_name_aria_label}' {$last_tabindex} {$disabled_text} {$last_placeholder_attribute}/>
                                             </span>";
 					}
 				} else {
@@ -249,7 +255,7 @@ class GF_Field_Name extends GF_Field {
 					$style        = ( $is_admin && rgar( $first_input, 'isHidden' ) ) ? "style='display:none;'" : '';
 					if ( $is_admin || ! rgar( $first_input, 'isHidden' ) ) {
 						$first_markup = "<span id='{$field_id}_3_container' class='name_first' {$style}>
-                                                    <input type='text' name='input_{$id}.3' id='{$field_id}_3' value='{$first}' {$first_tabindex} {$disabled_text} {$first_placeholder_attribute}/>
+                                                    <input type='text' name='input_{$id}.3' id='{$field_id}_3' value='{$first}' aria-label='{$first_name_aria_label}' {$first_tabindex} {$disabled_text} {$first_placeholder_attribute}/>
                                                     <label for='{$field_id}_3' {$sub_label_class_attribute}>{$first_name_sub_label}</label>
                                                </span>";
 					}
@@ -258,7 +264,7 @@ class GF_Field_Name extends GF_Field {
 					$style       = ( $is_admin && rgar( $last_input, 'isHidden' ) ) ? "style='display:none;'" : '';
 					if ( $is_admin || ! rgar( $last_input, 'isHidden' ) ) {
 						$last_markup = "<span id='{$field_id}_6_container' class='name_last' {$style}>
-                                                    <input type='text' name='input_{$id}.6' id='{$field_id}_6' value='{$last}' {$last_tabindex} {$disabled_text} {$last_placeholder_attribute}/>
+                                                    <input type='text' name='input_{$id}.6' id='{$field_id}_6' value='{$last}' aria-label='{$last_name_aria_label}' {$last_tabindex} {$disabled_text} {$last_placeholder_attribute}/>
                                                     <label for='{$field_id}_6' {$sub_label_class_attribute}>{$last_name_sub_label}</label>
                                                 </span>";
 					}
@@ -319,6 +325,9 @@ class GF_Field_Name extends GF_Field {
 
 	public static function get_name_prefix_field( $input, $id, $field_id, $value, $disabled_text, $tabindex ) {
 
+		$prefix_aria_label = esc_attr__( 'Name prefix', 'gravityforms' );
+
+
 		if ( isset( $input['choices'] ) && is_array( $input['choices'] ) ) {
 			$placeholder_value = GFCommon::get_input_placeholder_value( $input );
 			$options           = "<option value=''>{$placeholder_value}</option>";
@@ -330,13 +339,15 @@ class GF_Field_Name extends GF_Field {
 				$selected                = $is_this_choice_selected ? "selected='selecteed'" : '';
 				$options .= "<option value='{$choice_value}' {$selected}>{$choice['text']}</option>";
 			}
-			$markup = "<select name='input_{$id}.2' id='{$field_id}_2' {$tabindex} {$disabled_text}>
+
+			$markup = "<select name='input_{$id}.2' id='{$field_id}_2' aria-label='{$prefix_aria_label}' {$tabindex} {$disabled_text}>
                           {$options}
                       </select>";
+
 		} else {
 			$placeholder_attribute = GFCommon::get_input_placeholder_attribute( $input );
 
-			$markup = "<input type='text' name='input_{$id}.2' id='{$field_id}_2' value='{$value}' {$tabindex} {$disabled_text} {$placeholder_attribute}/>";
+			$markup = "<input type='text' name='input_{$id}.2' id='{$field_id}_2' value='{$value}' aria-label='{$prefix_aria_label}' {$tabindex} {$disabled_text} {$placeholder_attribute}/>";
 		}
 
 		return $markup;

@@ -119,7 +119,7 @@ class GFCommon {
 			}
 
 			$number    = explode( '.', $number );
-			$number[0] = number_format( $number[0], 0, '', $thousands_sep );
+			$number[0] = number_format( floatval( $number[0] ), 0, '', $thousands_sep );
 			$number    = implode( $dec_point, $number );
 		}
 
@@ -180,6 +180,9 @@ class GFCommon {
 
 	    $rules = apply_filters( 'gform_upload_root_htaccess_rules', $rules );
 	    if ( ! empty( $rules ) ) {
+		    if ( ! function_exists( 'insert_with_markers' ) ) {
+			    require_once( ABSPATH . 'wp-admin/includes/misc.php' );
+		    }
 		    insert_with_markers( $htaccess_file, 'Gravity Forms', $rules );
 	    }
     }
@@ -2348,7 +2351,7 @@ class GFCommon {
 					$field_value .= '|' . $price;
 				}
 
-				if ( rgblank( $value ) && RG_CURRENT_VIEW != 'entry' ) {
+				if ( ! isset( $_GET['gf_token'] ) && empty( $_POST ) && rgblank( $value ) && RG_CURRENT_VIEW != 'entry' ) {
 					$selected = rgar( $choice, 'isSelected' ) ? "selected='selected'" : '';
 				} else {
 					if ( is_array( $value ) ) {
@@ -4204,6 +4207,16 @@ class GFCommon {
 			'min_range' => $min,
 			'max_range' => $max
 		) ) ? $value : $min;
+	}
+
+	public static function load_gf_text_domain( $domain ){
+		// Initializing translations. Translation files in the WP_LANG_DIR folder have a higher priority.
+		global $l10n;
+		$locale = apply_filters( 'plugin_locale', get_locale(), 'gravityforms' );
+		if ( ! isset( $l10n[$domain] ) ){
+			load_textdomain( 'gravityforms', WP_LANG_DIR . '/gravityforms/gravityforms-' . $locale . '.mo' );
+			load_plugin_textdomain( 'gravityforms', false, '/gravityforms/languages' );
+		}
 	}
 }
 

@@ -2059,7 +2059,11 @@ class GFFormDisplay {
 			$mask   = $field->inputMaskValue;
 			$script = "jQuery('#input_{$form['id']}_{$field->id}').mask('" . esc_js( $mask ) . "').bind('keypress', function(e){if(e.which == 13){jQuery(this).blur();} } );";
 
-			$script_str .= apply_filters( "gform_input_mask_script_{$form['id']}", apply_filters( 'gform_input_mask_script', $script, $form['id'], $field->id, $mask ), $form['id'], $field->id, $mask );
+			$script_str .= gf_apply_filters( 'gform_input_mask_script', $form['id'], $script, $form['id'], $field->id, $mask );
+		}
+
+		if ( ! empty( $script_str ) ) {
+			return 'if(!/(android)/i.test(navigator.userAgent)){' . $script_str . '}';
 		}
 
 		return $script_str;
@@ -2368,7 +2372,8 @@ class GFFormDisplay {
 
 		$product_suffix           = "_{$form['id']}_" . $field->productField;
 		$option_class             = $field->type == 'option' ? "gfield_price gfield_price{$product_suffix} gfield_option{$product_suffix}" : '';
-		$quantity_class           = $field->type == 'quantity' ? "gfield_price gfield_price{$product_suffix} gfield_quantity{$product_suffix}" : '';
+		$quantity_class           = $field->type == 'quantity' ? "gfield_price gfield_price{$product_suffix} gfield_quantity gfield_quantity{$product_suffix}" : '';
+        $total_class              = $field->type == 'total' ? "gfield_price gfield_price{$product_suffix} gfield_total gfield_total{$product_suffix}" : '';
 		$shipping_class           = $field->type == 'shipping' ? "gfield_price gfield_shipping gfield_shipping_{$form['id']}" : '';
 		$product_class            = $field->type == 'product' ? "gfield_price gfield_price_{$form['id']}_{$field->id} gfield_product_{$form['id']}_{$field->id}" : '';
 		$hidden_product_class     = $input_type == 'hiddenproduct' ? 'gfield_hidden_product' : '';
@@ -2387,7 +2392,7 @@ class GFFormDisplay {
 		$field_setting_label_placement       = $field->labelPlacement;
 		$label_placement                     = empty( $field_setting_label_placement ) ? '' : $field_setting_label_placement;
 
-		$css_class = "$selectable_class gfield $error_class $section_class $admin_only_class $custom_class $hidden_class $html_block_class $html_formatted_class $html_no_follows_desc_class $option_class $quantity_class $product_class $donation_class $shipping_class $page_class $required_class $hidden_product_class $creditcard_warning_class $calculation_class $sublabel_class $description_class $label_placement";
+		$css_class = "$selectable_class gfield $error_class $section_class $admin_only_class $custom_class $hidden_class $html_block_class $html_formatted_class $html_no_follows_desc_class $option_class $quantity_class $product_class $total_class $donation_class $shipping_class $page_class $required_class $hidden_product_class $creditcard_warning_class $calculation_class $sublabel_class $description_class $label_placement";
 		$css_class = preg_replace( '/\s+/', ' ', $css_class ); //removing extra spaces
 
 		$css_class = apply_filters( "gform_field_css_class_{$form['id']}", apply_filters( 'gform_field_css_class', trim( $css_class ), $field, $form ), $field, $form );

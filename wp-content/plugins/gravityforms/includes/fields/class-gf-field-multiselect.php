@@ -26,7 +26,6 @@ class GF_Field_MultiSelect extends GF_Field {
 			'choices_setting',
 			'rules_setting',
 			'visibility_setting',
-			'duplicate_setting',
 			'description_setting',
 			'css_class_setting',
 		);

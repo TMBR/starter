@@ -30,7 +30,9 @@ if ( ! class_exists( 'RGCurrency' ) ) {
 			//Removing symbol from text
 			$text = str_replace( $this->currency['symbol_right'], '', $text );
 			$text = str_replace( $this->currency['symbol_left'], '', $text );
-
+			if ( ! empty( $this->currency['symbol_old'] ) ) {
+				$text = str_replace( $this->currency['symbol_old'], '', $text );
+			}
 
 			//Removing all non-numeric characters
 			$array        = str_split( $text );
@@ -83,7 +85,7 @@ if ( ! class_exists( 'RGCurrency' ) ) {
 				$number   = floatval( substr( $number, 1 ) );
 			}
 
-			$money        = number_format( $number, $this->currency['decimals'], $this->currency['decimal_separator'], $this->currency['thousand_separator'] );
+			$money = number_format( $number, $this->currency['decimals'], $this->currency['decimal_separator'], $this->currency['thousand_separator'] );
 
 			if ( $money == '0.00' ){
 				$negative = '';
@@ -129,7 +131,7 @@ if ( ! class_exists( 'RGCurrency' ) ) {
 				'SGD' => array( 'name' => esc_html__( 'Singapore Dollar', 'gravityforms' ), 'symbol_left' => '$', 'symbol_right' => '', 'symbol_padding' => ' ', 'thousand_separator' => ',', 'decimal_separator' => '.', 'decimals' => 2 ),
 				'ZAR' => array( 'name' => esc_html__( 'South African Rand', 'gravityforms' ), 'symbol_left' => 'R', 'symbol_right' => '', 'symbol_padding' => '', 'thousand_separator' => ',', 'decimal_separator' => '.', 'decimals' => 2 ),
 				'SEK' => array( 'name' => esc_html__( 'Swedish Krona', 'gravityforms' ), 'symbol_left' => '', 'symbol_right' => 'Kr', 'symbol_padding' => ' ', 'thousand_separator' => ' ', 'decimal_separator' => ',', 'decimals' => 2 ),
-				'CHF' => array( 'name' => esc_html__( 'Swiss Franc', 'gravityforms' ), 'symbol_left' => 'CHF', 'symbol_right' => '', 'symbol_padding' => ' ', 'thousand_separator' => "'", 'decimal_separator' => '.', 'decimals' => 2 ),
+				'CHF' => array( 'name' => esc_html__( 'Swiss Franc', 'gravityforms' ), 'symbol_left' => 'CHF', 'symbol_right' => '', 'symbol_padding' => ' ', 'thousand_separator' => "'", 'decimal_separator' => '.', 'decimals' => 2, 'symbol_old' => 'Fr.' ),
 				'TWD' => array( 'name' => esc_html__( 'Taiwan New Dollar', 'gravityforms' ), 'symbol_left' => '$', 'symbol_right' => '', 'symbol_padding' => ' ', 'thousand_separator' => ',', 'decimal_separator' => '.', 'decimals' => 2 ),
 				'THB' => array( 'name' => esc_html__( 'Thai Baht', 'gravityforms' ), 'symbol_left' => '&#3647;', 'symbol_right' => '', 'symbol_padding' => ' ', 'thousand_separator' => ',', 'decimal_separator' => '.', 'decimals' => 2 ),
 				'USD' => array( 'name' => esc_html__( 'U.S. Dollar', 'gravityforms' ), 'symbol_left' => '$', 'symbol_right' => '', 'symbol_padding' => '', 'thousand_separator' => ',', 'decimal_separator' => '.', 'decimals' => 2 )

@@ -407,13 +407,15 @@ abstract class GFPaymentAddOn extends GFFeedAddOn {
 			$entry['is_fulfilled']     = '1';
 			$payment['payment_status'] = 'Paid';
 			$payment['payment_date']   = gmdate( 'Y-m-d H:i:s' );
+			$payment['type'] = 'complete_payment';
 			$this->complete_payment( $entry, $payment );
 
 		} else {
 
 			$entry['payment_status'] = 'Failed';
-			$this->add_note( $entry['id'], sprintf( esc_html__( 'Payment failed to be captured. Reason: %s', 'gravityforms' ), $payment['error_message'] ), 'error' );
-			GFAPI::update_entry( $entry );
+			$payment['type']         = 'fail_payment';
+			$payment['note']         = sprintf( esc_html__( 'Payment failed to be captured. Reason: %s', 'gravityforms' ), $payment['error_message'] );
+			$this->fail_payment( $entry, $payment );
 
 		}
 
@@ -459,6 +461,9 @@ abstract class GFPaymentAddOn extends GFFeedAddOn {
 			GFAPI::update_entry( $entry );
 
 			$this->add_note( $entry['id'], sprintf( esc_html__( 'Subscription failed to be created. Reason: %s', 'gravityforms' ), $subscription['error_message'] ), 'error' );
+
+			$subscription['type'] = 'fail_create_subscription';
+			$this->post_payment_action( $entry, $subscription );
 
 		}
 
@@ -540,10 +545,10 @@ abstract class GFPaymentAddOn extends GFFeedAddOn {
 		$card_field = $this->get_credit_card_field( $form );
 		if ( $card_field ) {
 
-			$form_data['card_number']          = $this->remove_spaces_from_card_number( rgpost( "input_{$card_field['id']}_1" ) );
-			$form_data['card_expiration_date'] = rgpost( "input_{$card_field['id']}_2" );
-			$form_data['card_security_code']   = rgpost( "input_{$card_field['id']}_3" );
-			$form_data['card_name']            = rgpost( "input_{$card_field['id']}_5" );
+			$form_data['card_number']          = $this->remove_spaces_from_card_number( rgpost( "input_{$card_field->id}_1" ) );
+			$form_data['card_expiration_date'] = rgpost( "input_{$card_field->id}_2" );
+			$form_data['card_security_code']   = rgpost( "input_{$card_field->id}_3" );
+			$form_data['card_name']            = rgpost( "input_{$card_field->id}_5" );
 
 		}
 
@@ -843,6 +848,7 @@ abstract class GFPaymentAddOn extends GFFeedAddOn {
 
 		GFAPI::update_entry_property( $entry['id'], 'payment_status', $action['payment_status'] );
 		$this->add_note( $entry['id'], $action['note'] );
+		$this->post_payment_action( $entry, $action );
 
 		return true;
 	}
@@ -883,6 +889,7 @@ abstract class GFPaymentAddOn extends GFFeedAddOn {
 		if ( has_filter( 'gform_post_payment_completed' ) ) {
 			$this->log_debug( __METHOD__ . '(): Executing functions hooked to gform_post_payment_completed.' );
 		}
+		$this->post_payment_action( $entry, $action );
 
 		return true;
 	}
@@ -910,6 +917,7 @@ abstract class GFPaymentAddOn extends GFFeedAddOn {
 		if ( has_filter( 'gform_post_payment_refunded' ) ) {
 			$this->log_debug( __METHOD__ . '(): Executing functions hooked to gform_post_payment_refunded.' );
 		}
+		$this->post_payment_action( $entry, $action );
 
 		return true;
 	}
@@ -927,6 +935,7 @@ abstract class GFPaymentAddOn extends GFFeedAddOn {
 
 		GFAPI::update_entry_property( $entry['id'], 'payment_status', $action['payment_status'] );
 		$this->add_note( $entry['id'], $action['note'] );
+		$this->post_payment_action( $entry, $action );
 
 		return true;
 	}
@@ -943,6 +952,7 @@ abstract class GFPaymentAddOn extends GFFeedAddOn {
 
 		GFAPI::update_entry_property( $entry['id'], 'payment_status', $action['payment_status'] );
 		$this->add_note( $entry['id'], $action['note'] );
+		$this->post_payment_action( $entry, $action );
 
 		return true;
 	}
@@ -974,6 +984,10 @@ abstract class GFPaymentAddOn extends GFFeedAddOn {
 			if ( has_filter( 'gform_post_subscription_started' ) ) {
 				$this->log_debug( __METHOD__ . '(): Executing functions hooked to gform_post_subscription_started.' );
 			}
+
+			$subscription['type'] = 'create_subscription';
+			$this->post_payment_action( $entry, $subscription );
+
 		}
 
 		return $entry;
@@ -1007,6 +1021,7 @@ abstract class GFPaymentAddOn extends GFFeedAddOn {
 		if ( has_filter( 'gform_post_add_subscription_payment' ) ) {
 			$this->log_debug( __METHOD__ . '(): Executing functions hooked to gform_post_add_subscription_payment.' );
 		}
+		$this->post_payment_action( $entry, $action );
 
 		return true;
 	}
@@ -1030,6 +1045,7 @@ abstract class GFPaymentAddOn extends GFFeedAddOn {
 		if ( has_filter( 'gform_post_fail_subscription_payment' ) ) {
 			$this->log_debug( __METHOD__ . '(): Executing functions hooked to gform_post_fail_subscription_payment.' );
 		}
+		$this->post_payment_action( $entry, $action );
 
 		return true;
 	}
@@ -1047,7 +1063,6 @@ abstract class GFPaymentAddOn extends GFFeedAddOn {
 		}
 
 		GFAPI::update_entry_property( $entry['id'], 'payment_status', 'Cancelled' );
-
 		$this->add_note( $entry['id'], $note );
 
 		// include $subscriber_id as 3rd parameter for backwards compatibility
@@ -1055,6 +1070,15 @@ abstract class GFPaymentAddOn extends GFFeedAddOn {
 		if ( has_filter( 'gform_subscription_canceled' ) ) {
 			$this->log_debug( __METHOD__ . '(): Executing functions hooked to gform_subscription_canceled.' );
 		}
+
+		$action = array(
+			'type'            => 'cancel_subscription',
+			'subscription_id' => $entry['transaction_id'],
+			'entry_id'        => $entry['id'],
+			'payment_status'  => 'Cancelled',
+			'note'            => $note,
+		);
+		$this->post_payment_action( $entry, $action );
 
 		return true;
 	}
@@ -1067,6 +1091,7 @@ abstract class GFPaymentAddOn extends GFFeedAddOn {
 
 		GFAPI::update_entry_property( $entry['id'], 'payment_status', 'Expired' );
 		$this->add_note( $entry['id'], $action['note'] );
+		$this->post_payment_action( $entry, $action );
 
 		return true;
 	}
@@ -1094,6 +1119,18 @@ abstract class GFPaymentAddOn extends GFFeedAddOn {
 		return $entry_id ? $entry_id : false;
 	}
 
+	/**
+	 * Helper for making the gform_post_payment_action hook available to the various payment interaction methods
+	 *
+	 * @param array $entry
+	 * @param array $action
+	 */
+	public function post_payment_action( $entry, $action ) {
+		do_action( 'gform_post_payment_action', $entry, $action );
+		if ( has_filter( 'gform_post_payment_action' ) ) {
+			$this->log_debug( __METHOD__ . '(): Executing functions hooked to gform_post_payment_action.' );
+		}
+	}
 
 	// -------- Cron --------------------
 	protected function setup_cron() {
@@ -2215,7 +2252,7 @@ class GFPaymentStatsTable extends WP_List_Table {
 		return rgar( $item, $column );
 	}
 
-	function column_revenue( $item ){
+	function column_revenue( $item ) {
 		return GFCommon::to_money( $item['revenue'] );
 	}
 
@@ -2227,7 +2264,7 @@ class GFPaymentStatsTable extends WP_List_Table {
 		$total_items = $this->get_pagination_arg( 'total_items' );
 		$total_pages = $this->get_pagination_arg( 'total_pages' );
 
-		$output = '<span class="displaying-num">' . esc_html( sprintf( _n( '1 item', '%s items', $total_items, 'gravityforms' ), number_format_i18n( $total_items ) ) ) . '</span>';
+		$output = '<span class="displaying-num">' . sprintf( _n( '1 item', '%s items', $total_items, 'gravityforms' ), number_format_i18n( $total_items ) ) . '</span>';
 
 		$current = $this->get_pagenum();
 
@@ -2260,7 +2297,7 @@ class GFPaymentStatsTable extends WP_List_Table {
 		$html_current_page = $current;
 
 		$html_total_pages = sprintf( "<span class='total-pages'>%s</span>", number_format_i18n( $total_pages ) );
-		$page_links[]     = '<span class="paging-input">' . esc_html( sprintf( _x( '%1$s of %2$s', 'paging', 'gravityforms' ) ), $html_current_page, $html_total_pages ) . '</span>';
+		$page_links[]     = '<span class="paging-input">' . esc_html( sprintf( _x( '%1$s of %2$s', 'paging', 'gravityforms' ), $html_current_page, $html_total_pages ) ) . '</span>';
 
 		$page_links[] = sprintf(
 			"<a class='%s' title='%s' style='cursor:pointer;' onclick='gresults.setCustomFilter(\"paged\", \"%s\"); gresults.getResults(); gresults.setCustomFilter(\"paged\", \"1\");'>%s</a>",

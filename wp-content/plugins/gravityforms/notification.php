@@ -56,7 +56,6 @@ Class GFNotification {
 			//clear out notification because it could have legacy data populated
 			$notification = array( 'isActive' => isset( $notification['isActive'] ) ? rgar( $notification, 'isActive' ) : true );
 
-
 			$is_update = true;
 
 			if ( $is_new_notification ) {
@@ -70,7 +69,7 @@ Class GFNotification {
 			$notification['event']             = sanitize_text_field( rgpost( 'gform_notification_event' ) );
 			$notification['to']                = rgpost( 'gform_notification_to_type' ) == 'field' ? rgpost( 'gform_notification_to_field' ) : rgpost( 'gform_notification_to_email' );
 			$to_type = rgpost( 'gform_notification_to_type' );
-			if ( ! in_array( $to_type, array( 'email', 'field', 'routing' ) ) ) {
+			if ( ! in_array( $to_type, array( 'email', 'field', 'routing', 'hidden' ) ) ) {
 				$to_type = 'email';
 			}
 			$notification['toType']            = $to_type;
@@ -78,9 +77,7 @@ Class GFNotification {
 			$notification['bcc']               = rgpost( 'gform_notification_bcc' );
 			$notification['subject']           = sanitize_text_field( rgpost( 'gform_notification_subject' ) );
 
-			$allowed_tags                      = wp_kses_allowed_html( 'post' );
-			$message                           = rgpost( 'gform_notification_message' );
-			$notification['message']           = wp_kses( $message, $allowed_tags );
+			$notification['message']           = rgpost( 'gform_notification_message' );
 
 			$notification['from']              = sanitize_text_field( rgpost( 'gform_notification_from' ) );
 			$notification['fromName']          = sanitize_text_field( rgpost( 'gform_notification_from_name' ) );
@@ -946,7 +943,7 @@ Class GFNotification {
 		}
 
 		$reply_to = rgpost( 'gform_notification_reply_to' );
-		if ( ! empty( $bcc ) && ! self::is_valid_notification_email( $reply_to ) ) {
+		if ( ! empty( $reply_to ) && ! self::is_valid_notification_email( $reply_to ) ) {
 			$is_valid = false;
 			GFCommon::add_error_message( esc_html__( 'Please enter a valid email address or merge tag in the Reply To field.', 'gravityforms' ) );
 		}

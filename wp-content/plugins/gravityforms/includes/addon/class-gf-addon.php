@@ -1304,6 +1304,8 @@ abstract class GFAddOn {
                     value="' . esc_attr( $value ) . '" ' .
 		         implode( ' ', $attributes ) .
 		         ' />';
+		         
+		$html .= rgar( $field, 'after_input' );
 
 		$feedback_callback = rgar( $field, 'feedback_callback' );
 		if ( is_callable( $feedback_callback ) ) {
@@ -1756,6 +1758,19 @@ abstract class GFAddOn {
 
 		$field['choices'] = $this->get_field_map_choices( $form_id, $field_type, $exclude_field_types );
 
+		if ( empty( $field['choices'] ) || ( count( $field['choices'] ) == 1 && rgblank( $field['choices'][0]['value'] ) ) ) {
+			
+			if ( ( ! is_array( $field_type ) && ! rgblank( $field_type ) ) || ( is_array( $field_type ) && count( $field_type ) == 1 ) ) {
+			
+				$type = is_array( $field_type ) ? $field_type[0] : $field_type;
+				$type = ucfirst( GF_Fields::get( $type )->get_form_editor_field_title() );
+				
+				return sprintf( __( 'Please add a %s field to your form.', 'gravityforms' ), $type );
+				
+			}
+
+		}
+		
 		return $this->settings_select( $field, false );
 
 	}
@@ -1770,7 +1785,21 @@ abstract class GFAddOn {
 
 		$fields = array();
 
-		$fields[] = array( 'value' => '', 'label' => '' );
+		// Setup first choice 
+		if ( rgblank( $field_type ) || ( is_array( $field_type ) && count( $field_type ) > 1 ) ) {
+			
+			$first_choice_label = __( 'Select a Field', 'gravityforms' );
+			
+		} else {
+			
+			$type = is_array( $field_type ) ? $field_type[0] : $field_type;
+			$type = ucfirst( GF_Fields::get( $type )->get_form_editor_field_title() );
+			
+			$first_choice_label = sprintf( __( 'Select a %s Field', 'gravityforms' ), $type );
+			
+		}
+
+		$fields[] = array( 'value' => '', 'label' => $first_choice_label );
 
 		// Adding default fields
 		if ( is_null( $field_type ) ) {
@@ -2040,7 +2069,23 @@ abstract class GFAddOn {
 		$field['choices'] = array();
 
 		if ( ! $args['disable_first_choice'] ) {
-			$field['choices'][] = array( 'value' => '', 'label' => '' );
+
+			// Setup first choice 
+			if ( empty( $args['input_types'] ) || ( is_array( $args['input_types'] ) && count( $args['input_types'] ) > 1 ) ) {
+				
+				$first_choice_label = __( 'Select a Field', 'gravityforms' );
+				
+			} else {
+				
+				$type = is_array( $args['input_types'] ) ? $args['input_types'][0] : $args['input_types'];
+				$type = ucfirst( GF_Fields::get( $type )->get_form_editor_field_title() );
+				
+				$first_choice_label = sprintf( __( 'Select a %s Field', 'gravityforms' ), $type );
+				
+			}
+
+			$field['choices'][] = array( 'value' => '', 'label' => $first_choice_label );
+			
 		}
 
 		$field['choices'] = array_merge( $field['choices'], $this->get_form_fields_as_choices( $this->get_current_form(), $args ) );
@@ -2354,7 +2399,8 @@ abstract class GFAddOn {
 			'gaddon_no_output_field_properties',
 			array(
 				'default_value', 'label', 'choices', 'feedback_callback', 'checked', 'checkbox_label', 'value', 'type',
-				'validation_callback', 'required', 'hidden', 'tooltip', 'dependency', 'messages', 'name', 'args', 'exclude_field_types'
+				'validation_callback', 'required', 'hidden', 'tooltip', 'dependency', 'messages', 'name', 'args', 'exclude_field_types',
+				'field_type', 'after_input'
 			), $field
 		);
 
@@ -3486,7 +3532,7 @@ abstract class GFAddOn {
 		if ( $this->maybe_uninstall() ) {
 			?>
 			<div class="push-alert-gold" style="border-left: 1px solid #E6DB55; border-right: 1px solid #E6DB55;">
-				<?php sprintf( esc_html__( '%s has been successfully uninstalled. It can be re-activated from the %splugins page%s.', 'gravityforms' ), esc_html( $this->_title ), "<a href='plugins.php'>", '</a>' ); ?>
+				<?php printf( esc_html__( '%s has been successfully uninstalled. It can be re-activated from the %splugins page%s.', 'gravityforms' ), esc_html( $this->_title ), "<a href='plugins.php'>", '</a>' ); ?>
 			</div>
 		<?php
 
@@ -4101,23 +4147,28 @@ abstract class GFAddOn {
 	 */
 	public function get_field_value( $form, $entry, $field_id ) {
 
+		$field_value = '';
+
 		switch ( strtolower( $field_id ) ) {
 
 			case 'form_title':
-				return rgar( $form, 'title' );
+				$field_value = rgar( $form, 'title' );
+				break;
 
 			case 'date_created':
 				$date_created = rgar( $entry, strtolower( $field_id ) );
 				if ( empty( $date_created ) ) {
 					//the date created may not yet be populated if this function is called during the validation phase and the entry is not yet created
-					return gmdate( 'Y-m-d H:i:s' );
+					$field_value = gmdate( 'Y-m-d H:i:s' );
 				} else {
-					return $date_created;
+					$field_value = $date_created;
 				}
+				break;
 
 			case 'ip':
 			case 'source_url':
-				return rgar( $entry, strtolower( $field_id ) );
+				$field_value = rgar( $entry, strtolower( $field_id ) );
+				break;
 
 			default:
 				$field      = GFFormsModel::get_field( $form, $field_id );
@@ -4126,11 +4177,11 @@ abstract class GFAddOn {
 
 				if ( $is_integer && $input_type == 'address' ) {
 
-					return $this->get_full_address( $entry, $field_id );
+					$field_value = $this->get_full_address( $entry, $field_id );
 
 				} elseif ( $is_integer && $input_type == 'name' ) {
 
-					return $this->get_full_name( $entry, $field_id );
+					$field_value = $this->get_full_name( $entry, $field_id );
 
 				} elseif ( $is_integer && $input_type == 'checkbox' ) {
 
@@ -4143,20 +4194,41 @@ abstract class GFAddOn {
 						}
 					}
 
-					return implode( ', ', $selected );
+					$field_value = implode( ', ', $selected );
 
 				} elseif ( $input_type == 'list' ) {
 
-					return $this->get_list_field_value( $entry, $field_id, $field );
+					$field_value = $this->get_list_field_value( $entry, $field_id, $field );
 
 				} else {
 
-					return rgar( $entry, $field_id );
+					$field_value = rgar( $entry, $field_id );
 
 				}
 
 		}
 
+		return $this->maybe_override_field_value( $field_value, $form, $entry, $field_id );
+	}
+
+	/**
+	 * Enables use of the gform_SLUG_field_value filter to override the field value. Override this function to prevent the filter being used or to implement a custom filter.
+	 *
+	 * @param string $field_value
+	 * @param array $form
+	 * @param array $entry
+	 * @param string $field_id
+	 *
+	 * @return string
+	 */
+	public function maybe_override_field_value( $field_value, $form, $entry, $field_id ) {
+		/* Get Add-On slug */
+		$slug = str_replace( 'gravityforms', '', $this->_slug );
+
+		return gf_apply_filters( "gform_{$slug}_field_value", array(
+			$form['id'],
+			$field_id
+		), $field_value, $form, $entry, $field_id );
 	}
 
 	/**
@@ -4252,6 +4324,50 @@ abstract class GFAddOn {
 		}
 
 		return GFCommon::implode_non_blank( ', ', $column_values );
+	}
+	
+	/**
+	 * Returns the field ID of the first field of the desired type.
+	 * 
+	 * @access public
+	 * @param string $field_type
+	 * @param int $subfield_id (default: null)
+	 * @param int $form_id (default: null)
+	 * @return string
+	 */
+	public function get_first_field_by_type( $field_type, $subfield_id = null, $form_id = null, $return_first_only = true ) {
+		
+		/* Get the current form ID. */
+		if ( rgblank( $form_id ) ) {
+			
+			$form_id = rgget( 'id' );
+			
+		}
+		
+		/* Get the form. */
+		$form = GFAPI::get_form( $form_id );
+		
+		/* Get the request field type for the form. */
+		$fields = GFAPI::get_fields_by_type( $form, array( $field_type ) );
+		
+		if ( count( $fields ) == 0 || ( count( $fields ) > 1 && $return_first_only ) ) {
+			
+			return null;
+			
+		} else {
+			
+			if ( rgblank( $subfield_id ) ) {
+				
+				return $fields[0]->id;
+				
+			} else {
+				
+				return $fields[0]->id . '.' . $subfield_id;
+				
+			}
+			
+		}
+		
 	}
 
 	//--------------  Helper functions  ---------------------------------------------------

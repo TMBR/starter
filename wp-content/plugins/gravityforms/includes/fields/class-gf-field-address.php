@@ -84,7 +84,7 @@ class GF_Field_Address extends GF_Field {
 		$form_sub_label_placement  = rgar( $form, 'subLabelPlacement' );
 		$field_sub_label_placement = $this->subLabelPlacement;
 		$is_sub_label_above        = $field_sub_label_placement == 'above' || ( empty( $field_sub_label_placement ) && $form_sub_label_placement == 'above' );
-		$sub_label_class_attribute = $field_sub_label_placement == 'hidden_label' ? "class='hidden_sub_label'" : '';
+		$sub_label_class_attribute = $field_sub_label_placement == 'hidden_label' ? "class='hidden_sub_label screen-reader-text'" : '';
 
 		$street_value  = '';
 		$street2_value = '';
@@ -168,12 +168,12 @@ class GF_Field_Address extends GF_Field {
 		$style          = ( $is_admin && rgar( $address_street_field_input, 'isHidden' ) ) ? "style='display:none;'" : '';
 		if ( $is_admin || ! rgar( $address_street_field_input, 'isHidden' ) ) {
 			if ( $is_sub_label_above ) {
-				$street_address = " <span class='ginput_full{$class_suffix}' id='{$field_id}_1_container' {$style}>
+				$street_address = " <span class='ginput_full{$class_suffix} address_line_1' id='{$field_id}_1_container' {$style}>
                                         <label for='{$field_id}_1' id='{$field_id}_1_label' {$sub_label_class_attribute}>{$address_street_sub_label}</label>
                                         <input type='text' name='input_{$id}.1' id='{$field_id}_1' value='{$street_value}' {$tabindex} {$disabled_text} {$street_placeholder_attribute}/>
                                     </span>";
 			} else {
-				$street_address = " <span class='ginput_full{$class_suffix}' id='{$field_id}_1_container' {$style}>
+				$street_address = " <span class='ginput_full{$class_suffix} address_line_1' id='{$field_id}_1_container' {$style}>
                                         <input type='text' name='input_{$id}.1' id='{$field_id}_1' value='{$street_value}' {$tabindex} {$disabled_text} {$street_placeholder_attribute}/>
                                         <label for='{$field_id}_1' id='{$field_id}_1_label' {$sub_label_class_attribute}>{$address_street_sub_label}</label>
                                     </span>";
@@ -186,12 +186,12 @@ class GF_Field_Address extends GF_Field {
 		if ( $is_admin || ( ! $this->hideAddress2 && ! rgar( $address_street2_field_input, 'isHidden' ) ) ) {
 			$tabindex = $this->get_tabindex();
 			if ( $is_sub_label_above ) {
-				$street_address2 = "<span class='ginput_full{$class_suffix}' id='{$field_id}_2_container' {$style}>
+				$street_address2 = "<span class='ginput_full{$class_suffix} address_line_2' id='{$field_id}_2_container' {$style}>
                                         <label for='{$field_id}_2' id='{$field_id}_2_label' {$sub_label_class_attribute}>{$address_street2_sub_label}</label>
                                         <input type='text' name='input_{$id}.2' id='{$field_id}_2' value='{$street2_value}' {$tabindex} {$disabled_text} {$street2_placeholder_attribute}/>
                                     </span>";
 			} else {
-				$street_address2 = "<span class='ginput_full{$class_suffix}' id='{$field_id}_2_container' {$style}>
+				$street_address2 = "<span class='ginput_full{$class_suffix} address_line_2' id='{$field_id}_2_container' {$style}>
                                         <input type='text' name='input_{$id}.2' id='{$field_id}_2' value='{$street2_value}' {$tabindex} {$disabled_text} {$street2_placeholder_attribute}/>
                                         <label for='{$field_id}_2' id='{$field_id}_2_label' {$sub_label_class_attribute}>{$address_street2_sub_label}</label>
                                     </span>";
@@ -205,12 +205,12 @@ class GF_Field_Address extends GF_Field {
 			$style    = ( $is_admin && rgar( $address_zip_field_input, 'isHidden' ) ) ? "style='display:none;'" : '';
 			if ( $is_admin || ! rgar( $address_zip_field_input, 'isHidden' ) ) {
 				if ( $is_sub_label_above ) {
-					$zip = "<span class='ginput_{$zip_location}{$class_suffix}' id='{$field_id}_5_container' {$style}>
+					$zip = "<span class='ginput_{$zip_location}{$class_suffix} address_zip' id='{$field_id}_5_container' {$style}>
                                     <label for='{$field_id}_5' id='{$field_id}_5_label' {$sub_label_class_attribute}>{$address_zip_sub_label}</label>
                                     <input type='text' name='input_{$id}.5' id='{$field_id}_5' value='{$zip_value}' {$tabindex} {$disabled_text} {$zip_placeholder_attribute}/>
                                 </span>";
 				} else {
-					$zip = "<span class='ginput_{$zip_location}{$class_suffix}' id='{$field_id}_5_container' {$style}>
+					$zip = "<span class='ginput_{$zip_location}{$class_suffix} address_zip' id='{$field_id}_5_container' {$style}>
                                     <input type='text' name='input_{$id}.5' id='{$field_id}_5' value='{$zip_value}' {$tabindex} {$disabled_text} {$zip_placeholder_attribute}/>
                                     <label for='{$field_id}_5' id='{$field_id}_5_label' {$sub_label_class_attribute}>{$address_zip_sub_label}</label>
                                 </span>";
@@ -223,12 +223,12 @@ class GF_Field_Address extends GF_Field {
 			$style    = ( $is_admin && rgar( $address_city_field_input, 'isHidden' ) ) ? "style='display:none;'" : '';
 			if ( $is_admin || ! rgar( $address_city_field_input, 'isHidden' ) ) {
 				if ( $is_sub_label_above ) {
-					$city = "<span class='ginput_{$city_location}{$class_suffix}' id='{$field_id}_3_container' {$style}>
+					$city = "<span class='ginput_{$city_location}{$class_suffix} address_city' id='{$field_id}_3_container' {$style}>
                                     <label for='{$field_id}_3' id='{$field_id}_3_label' {$sub_label_class_attribute}>{$address_city_sub_label}</label>
                                     <input type='text' name='input_{$id}.3' id='{$field_id}_3' value='{$city_value}' {$tabindex} {$disabled_text} {$city_placeholder_attribute}/>
                                  </span>";
 				} else {
-					$city = "<span class='ginput_{$city_location}{$class_suffix}' id='{$field_id}_3_container' {$style}>
+					$city = "<span class='ginput_{$city_location}{$class_suffix} address_city' id='{$field_id}_3_container' {$style}>
                                     <input type='text' name='input_{$id}.3' id='{$field_id}_3' value='{$city_value}' {$tabindex} {$disabled_text} {$city_placeholder_attribute}/>
                                     <label for='{$field_id}_3' id='{$field_id}_3_label' {$sub_label_class_attribute}>{$address_city_sub_label}</label>
                                  </span>";
@@ -240,12 +240,12 @@ class GF_Field_Address extends GF_Field {
 			if ( $is_admin || ( ! $this->hideState && ! rgar( $address_state_field_input, 'isHidden' ) ) ) {
 				$state_field = $this->get_state_field( $id, $field_id, $state_value, $disabled_text, $form_id );
 				if ( $is_sub_label_above ) {
-					$state = "<span class='ginput_{$state_location}{$class_suffix}' id='{$field_id}_4_container' {$style}>
+					$state = "<span class='ginput_{$state_location}{$class_suffix} address_state' id='{$field_id}_4_container' {$style}>
                                            <label for='{$field_id}_4' id='{$field_id}_4_label' {$sub_label_class_attribute}>{$address_state_sub_label}</label>
                                            $state_field
                                       </span>";
 				} else {
-					$state = "<span class='ginput_{$state_location}{$class_suffix}' id='{$field_id}_4_container' {$style}>
+					$state = "<span class='ginput_{$state_location}{$class_suffix} address_state' id='{$field_id}_4_container' {$style}>
                                            $state_field
                                            <label for='{$field_id}_4' id='{$field_id}_4_label' {$sub_label_class_attribute}>{$address_state_sub_label}</label>
                                       </span>";
@@ -261,12 +261,12 @@ class GF_Field_Address extends GF_Field {
 			$style    = ( $is_admin && rgar( $address_city_field_input, 'isHidden' ) ) ? "style='display:none;'" : '';
 			if ( $is_admin || ! rgar( $address_city_field_input, 'isHidden' ) ) {
 				if ( $is_sub_label_above ) {
-					$city = "<span class='ginput_{$city_location}{$class_suffix}' id='{$field_id}_3_container' {$style}>
+					$city = "<span class='ginput_{$city_location}{$class_suffix} address_city' id='{$field_id}_3_container' {$style}>
                                     <label for='{$field_id}_3' id='{$field_id}_3_label' {$sub_label_class_attribute}>{$address_city_sub_label}</label>
                                     <input type='text' name='input_{$id}.3' id='{$field_id}_3' value='{$city_value}' {$tabindex} {$disabled_text} {$city_placeholder_attribute}/>
                                  </span>";
 				} else {
-					$city = "<span class='ginput_{$city_location}{$class_suffix}' id='{$field_id}_3_container' {$style}>
+					$city = "<span class='ginput_{$city_location}{$class_suffix} address_city' id='{$field_id}_3_container' {$style}>
                                     <input type='text' name='input_{$id}.3' id='{$field_id}_3' value='{$city_value}' {$tabindex} {$disabled_text} {$city_placeholder_attribute}/>
                                     <label for='{$field_id}_3' id='{$field_id}_3_label' {$sub_label_class_attribute}>{$address_city_sub_label}</label>
                                  </span>";
@@ -278,12 +278,12 @@ class GF_Field_Address extends GF_Field {
 			if ( $is_admin || ( ! $this->hideState && ! rgar( $address_state_field_input, 'isHidden' ) ) ) {
 				$state_field = $this->get_state_field( $id, $field_id, $state_value, $disabled_text, $form_id );
 				if ( $is_sub_label_above ) {
-					$state = "<span class='ginput_{$state_location}{$class_suffix}' id='{$field_id}_4_container' {$style}>
+					$state = "<span class='ginput_{$state_location}{$class_suffix} address_state' id='{$field_id}_4_container' {$style}>
                                         <label for='{$field_id}_4' id='{$field_id}_4_label' {$sub_label_class_attribute}>$address_state_sub_label</label>
                                         $state_field
                                       </span>";
 				} else {
-					$state = "<span class='ginput_{$state_location}{$class_suffix}' id='{$field_id}_4_container' {$style}>
+					$state = "<span class='ginput_{$state_location}{$class_suffix} address_state' id='{$field_id}_4_container' {$style}>
                                         $state_field
                                         <label for='{$field_id}_4' id='{$field_id}_4_label' {$sub_label_class_attribute}>$address_state_sub_label</label>
                                       </span>";
@@ -298,12 +298,12 @@ class GF_Field_Address extends GF_Field {
 			$style    = ( $is_admin && rgar( $address_zip_field_input, 'isHidden' ) ) ? "style='display:none;'" : '';
 			if ( $is_admin || ! rgar( $address_zip_field_input, 'isHidden' ) ) {
 				if ( $is_sub_label_above ) {
-					$zip = "<span class='ginput_{$zip_location}{$class_suffix}' id='{$field_id}_5_container' {$style}>
+					$zip = "<span class='ginput_{$zip_location}{$class_suffix} address_zip' id='{$field_id}_5_container' {$style}>
                                     <label for='{$field_id}_5' id='{$field_id}_5_label' {$sub_label_class_attribute}>{$address_zip_sub_label}</label>
                                     <input type='text' name='input_{$id}.5' id='{$field_id}_5' value='{$zip_value}' {$tabindex} {$disabled_text} {$zip_placeholder_attribute}/>
                                 </span>";
 				} else {
-					$zip = "<span class='ginput_{$zip_location}{$class_suffix}' id='{$field_id}_5_container' {$style}>
+					$zip = "<span class='ginput_{$zip_location}{$class_suffix} address_zip' id='{$field_id}_5_container' {$style}>
                                     <input type='text' name='input_{$id}.5' id='{$field_id}_5' value='{$zip_value}' {$tabindex} {$disabled_text} {$zip_placeholder_attribute}/>
                                     <label for='{$field_id}_5' id='{$field_id}_5_label' {$sub_label_class_attribute}>{$address_zip_sub_label}</label>
                                 </span>";
@@ -315,12 +315,12 @@ class GF_Field_Address extends GF_Field {
 			$style    = $hide_country ? "style='display:none;'" : '';
 			$tabindex = $this->get_tabindex();
 			if ( $is_sub_label_above ) {
-				$country = "<span class='ginput_{$country_location}{$class_suffix}' id='{$field_id}_6_container' {$style}>
+				$country = "<span class='ginput_{$country_location}{$class_suffix} address_country' id='{$field_id}_6_container' {$style}>
                                         <label for='{$field_id}_6' id='{$field_id}_6_label' {$sub_label_class_attribute}>{$address_country_sub_label}</label>
                                         <select name='input_{$id}.6' id='{$field_id}_6' {$tabindex} {$disabled_text}>{$country_list}</select>
                                     </span>";
 			} else {
-				$country = "<span class='ginput_{$country_location}{$class_suffix}' id='{$field_id}_6_container' {$style}>
+				$country = "<span class='ginput_{$country_location}{$class_suffix} address_country' id='{$field_id}_6_container' {$style}>
                                         <select name='input_{$id}.6' id='{$field_id}_6' {$tabindex} {$disabled_text}>{$country_list}</select>
                                         <label for='{$field_id}_6' id='{$field_id}_6_label' {$sub_label_class_attribute}>{$address_country_sub_label}</label>
                                     </span>";
@@ -455,7 +455,7 @@ class GF_Field_Address extends GF_Field {
 			'gform_countries', array(
 				esc_html__( 'Afghanistan', 'gravityforms' ), esc_html__( 'Albania', 'gravityforms' ), esc_html__( 'Algeria', 'gravityforms' ), esc_html__( 'American Samoa', 'gravityforms' ), esc_html__( 'Andorra', 'gravityforms' ), esc_html__( 'Angola', 'gravityforms' ), esc_html__( 'Antigua and Barbuda', 'gravityforms' ), esc_html__( 'Argentina', 'gravityforms' ), esc_html__( 'Armenia', 'gravityforms' ), esc_html__( 'Australia', 'gravityforms' ), esc_html__( 'Austria', 'gravityforms' ), esc_html__( 'Azerbaijan', 'gravityforms' ), esc_html__( 'Bahamas', 'gravityforms' ), esc_html__( 'Bahrain', 'gravityforms' ), esc_html__( 'Bangladesh', 'gravityforms' ), esc_html__( 'Barbados', 'gravityforms' ), esc_html__( 'Belarus', 'gravityforms' ), esc_html__( 'Belgium', 'gravityforms' ), esc_html__( 'Belize', 'gravityforms' ), esc_html__( 'Benin', 'gravityforms' ), esc_html__( 'Bermuda', 'gravityforms' ), esc_html__( 'Bhutan', 'gravityforms' ), esc_html__( 'Bolivia', 'gravityforms' ), esc_html__( 'Bosnia and Herzegovina', 'gravityforms' ), esc_html__( 'Botswana', 'gravityforms' ), esc_html__( 'Brazil', 'gravityforms' ), esc_html__( 'Brunei', 'gravityforms' ), esc_html__( 'Bulgaria', 'gravityforms' ), esc_html__( 'Burkina Faso', 'gravityforms' ), esc_html__( 'Burundi', 'gravityforms' ), esc_html__( 'Cambodia', 'gravityforms' ), esc_html__( 'Cameroon', 'gravityforms' ), esc_html__( 'Canada', 'gravityforms' ), esc_html__( 'Cape Verde', 'gravityforms' ), esc_html__( 'Cayman Islands', 'gravityforms' ), esc_html__( 'Central African Republic', 'gravityforms' ), esc_html__( 'Chad', 'gravityforms' ), esc_html__( 'Chile', 'gravityforms' ), esc_html__( 'China', 'gravityforms' ), esc_html__( 'Colombia', 'gravityforms' ), esc_html__( 'Comoros', 'gravityforms' ), esc_html__( 'Congo, Democratic Republic of the', 'gravityforms' ), esc_html__( 'Congo, Republic of the', 'gravityforms' ), esc_html__( 'Costa Rica', 'gravityforms' ), esc_html__( "Côte d'Ivoire", 'gravityforms' ), esc_html__( 'Croatia', 'gravityforms' ), esc_html__( 'Cuba', 'gravityforms' ), esc_html__( 'Cyprus', 'gravityforms' ), esc_html__( 'Czech Republic', 'gravityforms' ), esc_html__( 'Denmark', 'gravityforms' ), esc_html__( 'Djibouti', 'gravityforms' ), esc_html__( 'Dominica', 'gravityforms' ), esc_html__( 'Dominican Republic', 'gravityforms' ), esc_html__( 'East Timor', 'gravityforms' ), esc_html__( 'Ecuador', 'gravityforms' ), esc_html__( 'Egypt', 'gravityforms' ), esc_html__( 'El Salvador', 'gravityforms' ), esc_html__( 'Equatorial Guinea', 'gravityforms' ), esc_html__( 'Eritrea', 'gravityforms' ), esc_html__( 'Estonia', 'gravityforms' ), esc_html__( 'Ethiopia', 'gravityforms' ), esc_html__( 'Faroe Islands', 'gravityforms' ), esc_html__( 'Fiji', 'gravityforms' ), esc_html__( 'Finland', 'gravityforms' ), esc_html__( 'France', 'gravityforms' ), esc_html__( 'French Polynesia', 'gravityforms' ), esc_html__( 'Gabon', 'gravityforms' ),
 				esc_html__( 'Gambia', 'gravityforms' ), _x( 'Georgia', 'Country', 'gravityforms' ), esc_html__( 'Germany', 'gravityforms' ), esc_html__( 'Ghana', 'gravityforms' ), esc_html__( 'Greece', 'gravityforms' ), esc_html__( 'Greenland', 'gravityforms' ), esc_html__( 'Grenada', 'gravityforms' ), esc_html__( 'Guam', 'gravityforms' ), esc_html__( 'Guatemala', 'gravityforms' ), esc_html__( 'Guinea', 'gravityforms' ), esc_html__( 'Guinea-Bissau', 'gravityforms' ), esc_html__( 'Guyana', 'gravityforms' ), esc_html__( 'Haiti', 'gravityforms' ), esc_html__( 'Honduras', 'gravityforms' ), esc_html__( 'Hong Kong', 'gravityforms' ), esc_html__( 'Hungary', 'gravityforms' ), esc_html__( 'Iceland', 'gravityforms' ), esc_html__( 'India', 'gravityforms' ), esc_html__( 'Indonesia', 'gravityforms' ), esc_html__( 'Iran', 'gravityforms' ), esc_html__( 'Iraq', 'gravityforms' ), esc_html__( 'Ireland', 'gravityforms' ), esc_html__( 'Israel', 'gravityforms' ), esc_html__( 'Italy', 'gravityforms' ), esc_html__( 'Jamaica', 'gravityforms' ), esc_html__( 'Japan', 'gravityforms' ), esc_html__( 'Jordan', 'gravityforms' ), esc_html__( 'Kazakhstan', 'gravityforms' ), esc_html__( 'Kenya', 'gravityforms' ), esc_html__( 'Kiribati', 'gravityforms' ), esc_html__( 'North Korea', 'gravityforms' ), esc_html__( 'South Korea', 'gravityforms' ), esc_html__( 'Kosovo', 'gravityforms' ), esc_html__( 'Kuwait', 'gravityforms' ), esc_html__( 'Kyrgyzstan', 'gravityforms' ), esc_html__( 'Laos', 'gravityforms' ), esc_html__( 'Latvia', 'gravityforms' ), esc_html__( 'Lebanon', 'gravityforms' ), esc_html__( 'Lesotho', 'gravityforms' ), esc_html__( 'Liberia', 'gravityforms' ), esc_html__( 'Libya', 'gravityforms' ), esc_html__( 'Liechtenstein', 'gravityforms' ), esc_html__( 'Lithuania', 'gravityforms' ), esc_html__( 'Luxembourg', 'gravityforms' ), esc_html__( 'Macedonia', 'gravityforms' ), esc_html__( 'Madagascar', 'gravityforms' ), esc_html__( 'Malawi', 'gravityforms' ), esc_html__( 'Malaysia', 'gravityforms' ), esc_html__( 'Maldives', 'gravityforms' ), esc_html__( 'Mali', 'gravityforms' ), esc_html__( 'Malta', 'gravityforms' ), esc_html__( 'Marshall Islands', 'gravityforms' ), esc_html__( 'Mauritania', 'gravityforms' ), esc_html__( 'Mauritius', 'gravityforms' ), esc_html__( 'Mexico', 'gravityforms' ), esc_html__( 'Micronesia', 'gravityforms' ), esc_html__( 'Moldova', 'gravityforms' ), esc_html__( 'Monaco', 'gravityforms' ), esc_html__( 'Mongolia', 'gravityforms' ), esc_html__( 'Montenegro', 'gravityforms' ), esc_html__( 'Morocco', 'gravityforms' ), esc_html__( 'Mozambique', 'gravityforms' ), esc_html__( 'Myanmar', 'gravityforms' ), esc_html__( 'Namibia', 'gravityforms' ), esc_html__( 'Nauru', 'gravityforms' ), esc_html__( 'Nepal', 'gravityforms' ), esc_html__( 'Netherlands', 'gravityforms' ), esc_html__( 'New Zealand', 'gravityforms' ),
-				esc_html__( 'Nicaragua', 'gravityforms' ), esc_html__( 'Niger', 'gravityforms' ), esc_html__( 'Nigeria', 'gravityforms' ), esc_html__( 'Northern Mariana Islands', 'gravityforms' ), esc_html__( 'Norway', 'gravityforms' ), esc_html__( 'Oman', 'gravityforms' ), esc_html__( 'Pakistan', 'gravityforms' ), esc_html__( 'Palau', 'gravityforms' ), esc_html__( 'Palestine, State of', 'gravityforms' ), esc_html__( 'Panama', 'gravityforms' ), esc_html__( 'Papua New Guinea', 'gravityforms' ), esc_html__( 'Paraguay', 'gravityforms' ), esc_html__( 'Peru', 'gravityforms' ), esc_html__( 'Philippines', 'gravityforms' ), esc_html__( 'Poland', 'gravityforms' ), esc_html__( 'Portugal', 'gravityforms' ), esc_html__( 'Puerto Rico', 'gravityforms' ), esc_html__( 'Qatar', 'gravityforms' ), esc_html__( 'Romania', 'gravityforms' ), esc_html__( 'Russia', 'gravityforms' ), esc_html__( 'Rwanda', 'gravityforms' ), esc_html__( 'Saint Kitts and Nevis', 'gravityforms' ), esc_html__( 'Saint Lucia', 'gravityforms' ), esc_html__( 'Saint Vincent and the Grenadines', 'gravityforms' ), esc_html__( 'Samoa', 'gravityforms' ), esc_html__( 'San Marino', 'gravityforms' ), esc_html__( 'Sao Tome and Principe', 'gravityforms' ), esc_html__( 'Saudi Arabia', 'gravityforms' ), esc_html__( 'Senegal', 'gravityforms' ), esc_html__( 'Serbia and Montenegro', 'gravityforms' ), esc_html__( 'Seychelles', 'gravityforms' ), esc_html__( 'Sierra Leone', 'gravityforms' ), esc_html__( 'Singapore', 'gravityforms' ), esc_html__( 'Sint Maarten', 'gravityforms' ), esc_html__( 'Slovakia', 'gravityforms' ), esc_html__( 'Slovenia', 'gravityforms' ), esc_html__( 'Solomon Islands', 'gravityforms' ), esc_html__( 'Somalia', 'gravityforms' ), esc_html__( 'South Africa', 'gravityforms' ), esc_html__( 'Spain', 'gravityforms' ), esc_html__( 'Sri Lanka', 'gravityforms' ), esc_html__( 'Sudan', 'gravityforms' ), esc_html__( 'Sudan, South', 'gravityforms' ), esc_html__( 'Suriname', 'gravityforms' ), esc_html__( 'Swaziland', 'gravityforms' ), esc_html__( 'Sweden', 'gravityforms' ), esc_html__( 'Switzerland', 'gravityforms' ), esc_html__( 'Syria', 'gravityforms' ), esc_html__( 'Taiwan', 'gravityforms' ), esc_html__( 'Tajikistan', 'gravityforms' ), esc_html__( 'Tanzania', 'gravityforms' ), esc_html__( 'Thailand', 'gravityforms' ), esc_html__( 'Togo', 'gravityforms' ), esc_html__( 'Tonga', 'gravityforms' ), esc_html__( 'Trinidad and Tobago', 'gravityforms' ), esc_html__( 'Tunisia', 'gravityforms' ), esc_html__( 'Turkey', 'gravityforms' ), esc_html__( 'Turkmenistan', 'gravityforms' ), esc_html__( 'Tuvalu', 'gravityforms' ), esc_html__( 'Uganda', 'gravityforms' ), esc_html__( 'Ukraine', 'gravityforms' ), esc_html__( 'United Arab Emirates', 'gravityforms' ), esc_html__( 'United Kingdom', 'gravityforms' ),
+				esc_html__( 'Nicaragua', 'gravityforms' ), esc_html__( 'Niger', 'gravityforms' ), esc_html__( 'Nigeria', 'gravityforms' ), esc_html__( 'Northern Mariana Islands', 'gravityforms' ), esc_html__( 'Norway', 'gravityforms' ), esc_html__( 'Oman', 'gravityforms' ), esc_html__( 'Pakistan', 'gravityforms' ), esc_html__( 'Palau', 'gravityforms' ), esc_html__( 'Palestine, State of', 'gravityforms' ), esc_html__( 'Panama', 'gravityforms' ), esc_html__( 'Papua New Guinea', 'gravityforms' ), esc_html__( 'Paraguay', 'gravityforms' ), esc_html__( 'Peru', 'gravityforms' ), esc_html__( 'Philippines', 'gravityforms' ), esc_html__( 'Poland', 'gravityforms' ), esc_html__( 'Portugal', 'gravityforms' ), esc_html__( 'Puerto Rico', 'gravityforms' ), esc_html__( 'Qatar', 'gravityforms' ), esc_html__( 'Romania', 'gravityforms' ), esc_html__( 'Russia', 'gravityforms' ), esc_html__( 'Rwanda', 'gravityforms' ), esc_html__( 'Saint Kitts and Nevis', 'gravityforms' ), esc_html__( 'Saint Lucia', 'gravityforms' ), esc_html__( 'Saint Vincent and the Grenadines', 'gravityforms' ), esc_html__( 'Samoa', 'gravityforms' ), esc_html__( 'San Marino', 'gravityforms' ), esc_html__( 'Sao Tome and Principe', 'gravityforms' ), esc_html__( 'Saudi Arabia', 'gravityforms' ), esc_html__( 'Senegal', 'gravityforms' ), esc_html__( 'Serbia', 'gravityforms' ), esc_html__( 'Seychelles', 'gravityforms' ), esc_html__( 'Sierra Leone', 'gravityforms' ), esc_html__( 'Singapore', 'gravityforms' ), esc_html__( 'Sint Maarten', 'gravityforms' ), esc_html__( 'Slovakia', 'gravityforms' ), esc_html__( 'Slovenia', 'gravityforms' ), esc_html__( 'Solomon Islands', 'gravityforms' ), esc_html__( 'Somalia', 'gravityforms' ), esc_html__( 'South Africa', 'gravityforms' ), esc_html__( 'Spain', 'gravityforms' ), esc_html__( 'Sri Lanka', 'gravityforms' ), esc_html__( 'Sudan', 'gravityforms' ), esc_html__( 'Sudan, South', 'gravityforms' ), esc_html__( 'Suriname', 'gravityforms' ), esc_html__( 'Swaziland', 'gravityforms' ), esc_html__( 'Sweden', 'gravityforms' ), esc_html__( 'Switzerland', 'gravityforms' ), esc_html__( 'Syria', 'gravityforms' ), esc_html__( 'Taiwan', 'gravityforms' ), esc_html__( 'Tajikistan', 'gravityforms' ), esc_html__( 'Tanzania', 'gravityforms' ), esc_html__( 'Thailand', 'gravityforms' ), esc_html__( 'Togo', 'gravityforms' ), esc_html__( 'Tonga', 'gravityforms' ), esc_html__( 'Trinidad and Tobago', 'gravityforms' ), esc_html__( 'Tunisia', 'gravityforms' ), esc_html__( 'Turkey', 'gravityforms' ), esc_html__( 'Turkmenistan', 'gravityforms' ), esc_html__( 'Tuvalu', 'gravityforms' ), esc_html__( 'Uganda', 'gravityforms' ), esc_html__( 'Ukraine', 'gravityforms' ), esc_html__( 'United Arab Emirates', 'gravityforms' ), esc_html__( 'United Kingdom', 'gravityforms' ),
 				esc_html__( 'United States', 'gravityforms' ), esc_html__( 'Uruguay', 'gravityforms' ), esc_html__( 'Uzbekistan', 'gravityforms' ), esc_html__( 'Vanuatu', 'gravityforms' ), esc_html__( 'Vatican City', 'gravityforms' ), esc_html__( 'Venezuela', 'gravityforms' ), esc_html__( 'Vietnam', 'gravityforms' ), esc_html__( 'Virgin Islands, British', 'gravityforms' ), esc_html__( 'Virgin Islands, U.S.', 'gravityforms' ), esc_html__( 'Yemen', 'gravityforms' ), esc_html__( 'Zambia', 'gravityforms' ), esc_html__( 'Zimbabwe', 'gravityforms' ),
 			)
 		);
@@ -513,7 +513,7 @@ class GF_Field_Address extends GF_Field {
 			esc_html__( 'CONGO, DEMOCRATIC REPUBLIC OF THE', 'gravityforms' ) => 'CD',
 			esc_html__( 'CONGO, REPUBLIC OF THE', 'gravityforms' )            => 'CG',
 			esc_html__( 'COSTA RICA', 'gravityforms' )                        => 'CR',
-			esc_html__( "CÔTE D'IVOIRE", 'gravityforms' )              => 'CI',
+			esc_html__( "CÔTE D'IVOIRE", 'gravityforms' )                     => 'CI',
 			esc_html__( 'CROATIA', 'gravityforms' )                           => 'HR',
 			esc_html__( 'CUBA', 'gravityforms' )                              => 'CU',
 			esc_html__( 'CYPRUS', 'gravityforms' )                            => 'CY',
@@ -632,7 +632,7 @@ class GF_Field_Address extends GF_Field {
 			esc_html__( 'SAO TOME AND PRINCIPE', 'gravityforms' )             => 'ST',
 			esc_html__( 'SAUDI ARABIA', 'gravityforms' )                      => 'SA',
 			esc_html__( 'SENEGAL', 'gravityforms' )                           => 'SN',
-			esc_html__( 'SERBIA AND MONTENEGRO', 'gravityforms' )             => 'RS',
+			esc_html__( 'SERBIA', 'gravityforms' )                            => 'RS',
 			esc_html__( 'SEYCHELLES', 'gravityforms' )                        => 'SC',
 			esc_html__( 'SIERRA LEONE', 'gravityforms' )                      => 'SL',
 			esc_html__( 'SINGAPORE', 'gravityforms' )                         => 'SG',

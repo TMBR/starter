@@ -128,7 +128,8 @@ class GF_Field_Radio extends GF_Field {
 					} else {
 						$other_value = $other_default_value;
 					}
-					$label = "<input id='input_{$this->formId}_{$this->id}_other' name='input_{$this->id}_other' type='text' value='" . esc_attr( $other_value ) . "' onfocus='$onfocus' onblur='$onblur' $tabindex $onkeyup $disabled_text />";
+
+					$label = "<input id='input_{$this->formId}_{$this->id}_other' name='input_{$this->id}_other' type='text' value='" . esc_attr( $other_value ) . "' aria-label='" . esc_attr__( 'Other', 'gravityforms' ) . "' onfocus='$onfocus' onblur='$onblur' $tabindex $onkeyup $disabled_text />";
 				}
 
 				$choice_markup = sprintf( "<li class='gchoice_$id'><input name='input_%d' type='radio' value='%s' %s id='choice_%s' $tabindex %s $logic_event %s />%s</li>", $this->id, esc_attr( $field_value ), $checked, $id, $disabled_text, $input_focus, $label );
