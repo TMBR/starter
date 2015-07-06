@@ -258,7 +258,7 @@
       {
         "param":"options_page",
         "operator":"==",
-        "value":""
+        "value":"global-settings"
       }
     ]
   ],
@@ -268,5 +268,5 @@
   "label_placement":"top",
   "instruction_placement":"label",
   "hide_on_screen":"",
-  "modified":1436203488
+  "modified":1436204344
 }
