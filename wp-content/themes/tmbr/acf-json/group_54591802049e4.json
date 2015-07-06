@@ -3,39 +3,16 @@
   "title":"General Business Information",
   "fields":[
     {
-      "key":"field_5459183752008",
-      "label":"Season",
-      "name":"season",
-      "prefix":"",
-      "type":"radio",
-      "instructions":"Select the current season, this will control various season based conditional content on the site. ",
-      "required":0,
-      "conditional_logic":0,
-      "wrapper":{
-        "width":"",
-        "class":"",
-        "id":""
-      },
-      "choices":{
-        "summer":"Summer",
-        "winter":"Winter"
-      },
-      "other_choice":0,
-      "save_other_choice":0,
-      "default_value":"",
-      "layout":"vertical"
-    },
-    {
-      "key":"field_5459187c52009",
-      "label":"Store Hours - Open",
-      "name":"store_hours_open",
+      "key":"field_559ac2aa1a71a",
+      "label":"Business Name",
+      "name":"schema_name",
       "prefix":"",
       "type":"text",
-      "instructions":"",
+      "instructions":"The business name.\r\n\r\n<a href=\"http:\/\/schema.org\/name\" target=\"_blank\">http:\/\/schema.org\/name<\/a>",
       "required":0,
       "conditional_logic":0,
       "wrapper":{
-        "width":"",
+        "width":50,
         "class":"",
         "id":""
       },
@@ -48,12 +25,12 @@
       "disabled":0
     },
     {
-      "key":"field_54627f4fe26ec",
-      "label":"Store Hours - Close",
-      "name":"store_hours_close",
+      "key":"field_559ac430b6f6d",
+      "label":"Description",
+      "name":"schema_description",
       "prefix":"",
-      "type":"text",
-      "instructions":"",
+      "type":"textarea",
+      "instructions":"A short description of the business.\r\n\r\n<a href=\"http:\/\/schema.org\/description\" target=\"_blank\">http:\/\/schema.org\/description<\/a>",
       "required":0,
       "conditional_logic":0,
       "wrapper":{
@@ -63,19 +40,78 @@
       },
       "default_value":"",
       "placeholder":"",
-      "prepend":"",
-      "append":"",
       "maxlength":"",
+      "rows":3,
+      "new_lines":"wpautop",
       "readonly":0,
       "disabled":0
+    },
+    {
+      "key":"field_559ac52f6fa07",
+      "label":"Logo",
+      "name":"schema_logo",
+      "prefix":"",
+      "type":"image",
+      "instructions":"An associated logo.\r\n\r\n<a href=\"http:\/\/schema.org\/logo\" target=\"_blank\">http:\/\/schema.org\/logo<\/a>",
+      "required":0,
+      "conditional_logic":0,
+      "wrapper":{
+        "width":"",
+        "class":"",
+        "id":""
+      },
+      "return_format":"array",
+      "preview_size":"thumbnail",
+      "library":"all",
+      "min_width":"",
+      "min_height":"",
+      "min_size":"",
+      "max_width":"",
+      "max_height":"",
+      "max_size":"",
+      "mime_types":""
+    },
+    {
+      "key":"field_559ac5746fa08",
+      "label":"URL",
+      "name":"schema_url",
+      "prefix":"",
+      "type":"url",
+      "instructions":"URL of the business.\r\n\r\n<a href=\"http:\/\/schema.org\/url\" target=\"_blank\">http:\/\/schema.org\/url<\/a>",
+      "required":0,
+      "conditional_logic":0,
+      "wrapper":{
+        "width":75,
+        "class":"",
+        "id":""
+      },
+      "default_value":"",
+      "placeholder":""
+    },
+    {
+      "key":"field_559ac61990fae",
+      "label":"",
+      "name":"",
+      "prefix":"",
+      "type":"message",
+      "instructions":"",
+      "required":0,
+      "conditional_logic":0,
+      "wrapper":{
+        "width":"",
+        "class":"",
+        "id":""
+      },
+      "message":"<h1>Contact Information<\/h1>",
+      "esc_html":0
     },
     {
       "key":"field_545918985200a",
       "label":"Phone Number",
-      "name":"phone_number",
+      "name":"schema_phone",
       "prefix":"",
       "type":"text",
-      "instructions":"",
+      "instructions":"The telephone number.\r\n\r\n<a href=\"http:\/\/schema.org\/telephone\" target=\"_blank\">http:\/\/schema.org\/telephone<\/a>",
       "required":0,
       "conditional_logic":0,
       "wrapper":{
@@ -94,10 +130,10 @@
     {
       "key":"field_548e2a012f938",
       "label":"Fax Number",
-      "name":"fax_number",
+      "name":"schema_fax",
       "prefix":"",
       "type":"text",
-      "instructions":"",
+      "instructions":"The fax number.\r\n\r\n<a href=\"http:\/\/schema.org\/faxNumber\" target=\"_blank\">http:\/\/schema.org\/faxNumber<\/a>",
       "required":0,
       "conditional_logic":0,
       "wrapper":{
@@ -114,16 +150,77 @@
       "disabled":0
     },
     {
-      "key":"field_548e299c2f934",
-      "label":"Street Address",
-      "name":"street_address",
+      "key":"field_559ad4e27f82b",
+      "label":"Email",
+      "name":"schema_email",
       "prefix":"",
       "type":"text",
+      "instructions":"Email address.\r\n\r\n<a href=\"http:\/\/schema.org\/email\" target=\"_blank\">http:\/\/schema.org\/email<\/a>",
+      "required":0,
+      "conditional_logic":0,
+      "wrapper":{
+        "width":"",
+        "class":"",
+        "id":""
+      },
+      "default_value":"",
+      "placeholder":"",
+      "prepend":"",
+      "append":"",
+      "maxlength":"",
+      "readonly":0,
+      "disabled":0
+    },
+    {
+      "key":"field_559ac69af2a4a",
+      "label":"",
+      "name":"",
+      "prefix":"",
+      "type":"message",
       "instructions":"",
       "required":0,
       "conditional_logic":0,
       "wrapper":{
         "width":"",
+        "class":"",
+        "id":""
+      },
+      "message":"<h1>Address<\/h1>",
+      "esc_html":0
+    },
+    {
+      "key":"field_548e299c2f934",
+      "label":"Physical Address",
+      "name":"schema_street_address",
+      "prefix":"",
+      "type":"text",
+      "instructions":"The street address.\r\n\r\n<a href=\"http:\/\/schema.org\/streetAddress\" target=\"_blank\">http:\/\/schema.org\/streetAddress<\/a>",
+      "required":0,
+      "conditional_logic":0,
+      "wrapper":{
+        "width":"",
+        "class":"",
+        "id":""
+      },
+      "default_value":"",
+      "placeholder":"",
+      "prepend":"",
+      "append":"",
+      "maxlength":"",
+      "readonly":0,
+      "disabled":0
+    },
+    {
+      "key":"field_559ac6d5f2a4b",
+      "label":"PO Box",
+      "name":"schema_po_box",
+      "prefix":"",
+      "type":"text",
+      "instructions":"The post office box number for PO box addresses.\r\n\r\n<a href=\"http:\/\/schema.org\/postOfficeBoxNumber\" target=\"_blank\">http:\/\/schema.org\/postOfficeBoxNumber<\/a>",
+      "required":0,
+      "conditional_logic":0,
+      "wrapper":{
+        "width":50,
         "class":"",
         "id":""
       },
@@ -138,10 +235,10 @@
     {
       "key":"field_548e29b02f935",
       "label":"City",
-      "name":"city",
+      "name":"schema_city",
       "prefix":"",
       "type":"text",
-      "instructions":"",
+      "instructions":"The city or locality.\r\n\r\n<a href=\"http:\/\/schema.org\/addressLocality\" target=\"_blank\">http:\/\/schema.org\/addressLocality<\/a>",
       "required":0,
       "conditional_logic":0,
       "wrapper":{
@@ -160,14 +257,14 @@
     {
       "key":"field_548e29ce2f936",
       "label":"State",
-      "name":"state",
+      "name":"schema_state",
       "prefix":"",
       "type":"text",
-      "instructions":"",
+      "instructions":"The region or state.\r\n\r\n<a href=\"http:\/\/schema.org\/addressRegion\" target=\"_blank\">http:\/\/schema.org\/addressRegion<\/a>",
       "required":0,
       "conditional_logic":0,
       "wrapper":{
-        "width":"",
+        "width":15,
         "class":"",
         "id":""
       },
@@ -180,16 +277,38 @@
       "disabled":0
     },
     {
-      "key":"field_548e29db2f937",
-      "label":"Zip Code",
-      "name":"zip_code",
+      "key":"field_559ac73bf2a4c",
+      "label":"Country",
+      "name":"schema_country",
       "prefix":"",
       "type":"text",
-      "instructions":"",
+      "instructions":"The country. \r\n\r\n<a href=\"http:\/\/schema.org\/addressCountry\" target=\"_blank\">http:\/\/schema.org\/addressCountry<\/a>",
       "required":0,
       "conditional_logic":0,
       "wrapper":{
-        "width":"",
+        "width":75,
+        "class":"",
+        "id":""
+      },
+      "default_value":"",
+      "placeholder":"",
+      "prepend":"",
+      "append":"",
+      "maxlength":"",
+      "readonly":0,
+      "disabled":0
+    },
+    {
+      "key":"field_548e29db2f937",
+      "label":"Zip Code",
+      "name":"schema_zip",
+      "prefix":"",
+      "type":"text",
+      "instructions":"The postal code.\r\n\r\n<a href=\"http:\/\/schema.org\/postalCode\" target=\"_blank\">http:\/\/schema.org\/postalCode<\/a>",
+      "required":0,
+      "conditional_logic":0,
+      "wrapper":{
+        "width":25,
         "class":"",
         "id":""
       },
@@ -200,6 +319,23 @@
       "maxlength":5,
       "readonly":0,
       "disabled":0
+    },
+    {
+      "key":"field_559ad51e7f82c",
+      "label":"",
+      "name":"",
+      "prefix":"",
+      "type":"message",
+      "instructions":"",
+      "required":0,
+      "conditional_logic":0,
+      "wrapper":{
+        "width":"",
+        "class":"",
+        "id":""
+      },
+      "message":"<h1>Social Links<\/a>",
+      "esc_html":0
     },
     {
       "key":"field_546bbaa2c97c9",
@@ -265,8 +401,8 @@
   "menu_order":0,
   "position":"normal",
   "style":"default",
-  "label_placement":"top",
+  "label_placement":"left",
   "instruction_placement":"label",
   "hide_on_screen":"",
-  "modified":1436204344
+  "modified":1436210586
 }
