@@ -1,272 +1,272 @@
 {
-    "key": "group_54591802049e4",
-    "title": "General options",
-    "fields": [
-        {
-            "key": "field_5459183752008",
-            "label": "Season",
-            "name": "season",
-            "prefix": "",
-            "type": "radio",
-            "instructions": "Select the current season, this will control various season based conditional content on the site. ",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "choices": {
-                "summer": "Summer",
-                "winter": "Winter"
-            },
-            "other_choice": 0,
-            "save_other_choice": 0,
-            "default_value": "",
-            "layout": "vertical"
-        },
-        {
-            "key": "field_5459187c52009",
-            "label": "Store Hours - Open",
-            "name": "store_hours_open",
-            "prefix": "",
-            "type": "text",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "",
-            "placeholder": "",
-            "prepend": "",
-            "append": "",
-            "maxlength": "",
-            "readonly": 0,
-            "disabled": 0
-        },
-        {
-            "key": "field_54627f4fe26ec",
-            "label": "Store Hours - Close",
-            "name": "store_hours_close",
-            "prefix": "",
-            "type": "text",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "",
-            "placeholder": "",
-            "prepend": "",
-            "append": "",
-            "maxlength": "",
-            "readonly": 0,
-            "disabled": 0
-        },
-        {
-            "key": "field_545918985200a",
-            "label": "Phone Number",
-            "name": "phone_number",
-            "prefix": "",
-            "type": "text",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "",
-            "placeholder": "",
-            "prepend": "",
-            "append": "",
-            "maxlength": "",
-            "readonly": 0,
-            "disabled": 0
-        },
-        {
-            "key": "field_548e2a012f938",
-            "label": "Fax Number",
-            "name": "fax_number",
-            "prefix": "",
-            "type": "text",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "",
-            "placeholder": "",
-            "prepend": "",
-            "append": "",
-            "maxlength": "",
-            "readonly": 0,
-            "disabled": 0
-        },
-        {
-            "key": "field_548e299c2f934",
-            "label": "Street Address",
-            "name": "street_address",
-            "prefix": "",
-            "type": "text",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "",
-            "placeholder": "",
-            "prepend": "",
-            "append": "",
-            "maxlength": "",
-            "readonly": 0,
-            "disabled": 0
-        },
-        {
-            "key": "field_548e29b02f935",
-            "label": "City",
-            "name": "city",
-            "prefix": "",
-            "type": "text",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "",
-            "placeholder": "",
-            "prepend": "",
-            "append": "",
-            "maxlength": "",
-            "readonly": 0,
-            "disabled": 0
-        },
-        {
-            "key": "field_548e29ce2f936",
-            "label": "State",
-            "name": "state",
-            "prefix": "",
-            "type": "text",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "",
-            "placeholder": "",
-            "prepend": "",
-            "append": "",
-            "maxlength": 2,
-            "readonly": 0,
-            "disabled": 0
-        },
-        {
-            "key": "field_548e29db2f937",
-            "label": "Zip Code",
-            "name": "zip_code",
-            "prefix": "",
-            "type": "text",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "",
-            "placeholder": "",
-            "prepend": "",
-            "append": "",
-            "maxlength": 5,
-            "readonly": 0,
-            "disabled": 0
-        },
-        {
-            "key": "field_546bbaa2c97c9",
-            "label": "Facebook Link",
-            "name": "facebook_link",
-            "prefix": "",
-            "type": "url",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "",
-            "placeholder": ""
-        },
-        {
-            "key": "field_546bbab2c97ca",
-            "label": "Twitter Link",
-            "name": "twitter_link",
-            "prefix": "",
-            "type": "url",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "",
-            "placeholder": ""
-        },
-        {
-            "key": "field_546bbabdc97cb",
-            "label": "Instagram Link",
-            "name": "instagram_link",
-            "prefix": "",
-            "type": "url",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "",
-            "placeholder": ""
-        }
-    ],
-    "location": [
-        [
-            {
-                "param": "options_page",
-                "operator": "==",
-                "value": ""
-            }
-        ]
-    ],
-    "menu_order": 0,
-    "position": "normal",
-    "style": "default",
-    "label_placement": "top",
-    "instruction_placement": "label",
-    "hide_on_screen": "",
-    "modified": 1426278294
+  "key":"group_54591802049e4",
+  "title":"General Business Information",
+  "fields":[
+    {
+      "key":"field_5459183752008",
+      "label":"Season",
+      "name":"season",
+      "prefix":"",
+      "type":"radio",
+      "instructions":"Select the current season, this will control various season based conditional content on the site. ",
+      "required":0,
+      "conditional_logic":0,
+      "wrapper":{
+        "width":"",
+        "class":"",
+        "id":""
+      },
+      "choices":{
+        "summer":"Summer",
+        "winter":"Winter"
+      },
+      "other_choice":0,
+      "save_other_choice":0,
+      "default_value":"",
+      "layout":"vertical"
+    },
+    {
+      "key":"field_5459187c52009",
+      "label":"Store Hours - Open",
+      "name":"store_hours_open",
+      "prefix":"",
+      "type":"text",
+      "instructions":"",
+      "required":0,
+      "conditional_logic":0,
+      "wrapper":{
+        "width":"",
+        "class":"",
+        "id":""
+      },
+      "default_value":"",
+      "placeholder":"",
+      "prepend":"",
+      "append":"",
+      "maxlength":"",
+      "readonly":0,
+      "disabled":0
+    },
+    {
+      "key":"field_54627f4fe26ec",
+      "label":"Store Hours - Close",
+      "name":"store_hours_close",
+      "prefix":"",
+      "type":"text",
+      "instructions":"",
+      "required":0,
+      "conditional_logic":0,
+      "wrapper":{
+        "width":"",
+        "class":"",
+        "id":""
+      },
+      "default_value":"",
+      "placeholder":"",
+      "prepend":"",
+      "append":"",
+      "maxlength":"",
+      "readonly":0,
+      "disabled":0
+    },
+    {
+      "key":"field_545918985200a",
+      "label":"Phone Number",
+      "name":"phone_number",
+      "prefix":"",
+      "type":"text",
+      "instructions":"",
+      "required":0,
+      "conditional_logic":0,
+      "wrapper":{
+        "width":"",
+        "class":"",
+        "id":""
+      },
+      "default_value":"",
+      "placeholder":"",
+      "prepend":"",
+      "append":"",
+      "maxlength":"",
+      "readonly":0,
+      "disabled":0
+    },
+    {
+      "key":"field_548e2a012f938",
+      "label":"Fax Number",
+      "name":"fax_number",
+      "prefix":"",
+      "type":"text",
+      "instructions":"",
+      "required":0,
+      "conditional_logic":0,
+      "wrapper":{
+        "width":"",
+        "class":"",
+        "id":""
+      },
+      "default_value":"",
+      "placeholder":"",
+      "prepend":"",
+      "append":"",
+      "maxlength":"",
+      "readonly":0,
+      "disabled":0
+    },
+    {
+      "key":"field_548e299c2f934",
+      "label":"Street Address",
+      "name":"street_address",
+      "prefix":"",
+      "type":"text",
+      "instructions":"",
+      "required":0,
+      "conditional_logic":0,
+      "wrapper":{
+        "width":"",
+        "class":"",
+        "id":""
+      },
+      "default_value":"",
+      "placeholder":"",
+      "prepend":"",
+      "append":"",
+      "maxlength":"",
+      "readonly":0,
+      "disabled":0
+    },
+    {
+      "key":"field_548e29b02f935",
+      "label":"City",
+      "name":"city",
+      "prefix":"",
+      "type":"text",
+      "instructions":"",
+      "required":0,
+      "conditional_logic":0,
+      "wrapper":{
+        "width":"",
+        "class":"",
+        "id":""
+      },
+      "default_value":"",
+      "placeholder":"",
+      "prepend":"",
+      "append":"",
+      "maxlength":"",
+      "readonly":0,
+      "disabled":0
+    },
+    {
+      "key":"field_548e29ce2f936",
+      "label":"State",
+      "name":"state",
+      "prefix":"",
+      "type":"text",
+      "instructions":"",
+      "required":0,
+      "conditional_logic":0,
+      "wrapper":{
+        "width":"",
+        "class":"",
+        "id":""
+      },
+      "default_value":"",
+      "placeholder":"",
+      "prepend":"",
+      "append":"",
+      "maxlength":2,
+      "readonly":0,
+      "disabled":0
+    },
+    {
+      "key":"field_548e29db2f937",
+      "label":"Zip Code",
+      "name":"zip_code",
+      "prefix":"",
+      "type":"text",
+      "instructions":"",
+      "required":0,
+      "conditional_logic":0,
+      "wrapper":{
+        "width":"",
+        "class":"",
+        "id":""
+      },
+      "default_value":"",
+      "placeholder":"",
+      "prepend":"",
+      "append":"",
+      "maxlength":5,
+      "readonly":0,
+      "disabled":0
+    },
+    {
+      "key":"field_546bbaa2c97c9",
+      "label":"Facebook Link",
+      "name":"facebook_link",
+      "prefix":"",
+      "type":"url",
+      "instructions":"",
+      "required":0,
+      "conditional_logic":0,
+      "wrapper":{
+        "width":"",
+        "class":"",
+        "id":""
+      },
+      "default_value":"",
+      "placeholder":""
+    },
+    {
+      "key":"field_546bbab2c97ca",
+      "label":"Twitter Link",
+      "name":"twitter_link",
+      "prefix":"",
+      "type":"url",
+      "instructions":"",
+      "required":0,
+      "conditional_logic":0,
+      "wrapper":{
+        "width":"",
+        "class":"",
+        "id":""
+      },
+      "default_value":"",
+      "placeholder":""
+    },
+    {
+      "key":"field_546bbabdc97cb",
+      "label":"Instagram Link",
+      "name":"instagram_link",
+      "prefix":"",
+      "type":"url",
+      "instructions":"",
+      "required":0,
+      "conditional_logic":0,
+      "wrapper":{
+        "width":"",
+        "class":"",
+        "id":""
+      },
+      "default_value":"",
+      "placeholder":""
+    }
+  ],
+  "location":[
+    [
+      {
+        "param":"options_page",
+        "operator":"==",
+        "value":""
+      }
+    ]
+  ],
+  "menu_order":0,
+  "position":"normal",
+  "style":"default",
+  "label_placement":"top",
+  "instruction_placement":"label",
+  "hide_on_screen":"",
+  "modified":1436203488
 }
