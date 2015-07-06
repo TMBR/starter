@@ -1,3 +1,10 @@
+# Return Fast 404 for assets that don't exist
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule .(jpe?g|gif|png|css|js)$ - [L,R=404]
+</IfModule>
 
 # BEGIN WordPress
 <IfModule mod_rewrite.c>
