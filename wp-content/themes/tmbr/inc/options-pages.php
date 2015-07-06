@@ -1,6 +1,13 @@
 <?php
 
+/*
 // ACF PRO Options pages
+-----------------------------
+> http://www.advancedcustomfields.com/resources/register-multiple-options-pages/
+> http://www.advancedcustomfields.com/resources/acf_add_options_sub_page/
+
+*/
+
 if( function_exists('acf_add_options_page') ) {
 
 	acf_add_options_page(array(
