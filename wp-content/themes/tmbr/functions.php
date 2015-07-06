@@ -4,7 +4,7 @@
 get_template_part( 'inc/helpers' );
 
 // AUTO-UPDATES
-get_template_part( 'inc/auto-updates' );
+//get_template_part( 'inc/auto-updates' );
 
 // WEATHER STUFF
 // get_template_part( 'inc/weather/init' );
