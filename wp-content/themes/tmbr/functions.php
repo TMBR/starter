@@ -50,7 +50,7 @@ get_template_part( 'inc/page-excerpt' );
 // add_filter( 'show_admin_bar', '__return_false' );
 
 // ACF - Add Multiple Options Pages (you need to have the ACF Options Page Add-On installed
-// get_template_part( 'inc/options-pages' );
+get_template_part( 'inc/options-pages' );
 
 // SHORTCODES
 // get_template_part( 'inc/shortcodes' );
