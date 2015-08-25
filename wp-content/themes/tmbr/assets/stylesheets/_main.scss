@@ -27,6 +27,10 @@ a {
 	color: $white;
 }
 
+::-moz-focus-inner {
+	border:0;
+}
+
 ::selection {
 	background: $blue;
 	color: $white;
