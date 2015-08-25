@@ -1,22 +1,25 @@
 (function() {
-
-  var gulp = require('gulp');
-  var gutil = require('gulp-util');
-  var concat = require('gulp-concat');
-  var uglify = require('gulp-uglify');
-  var uglifycss = require('gulp-uglifycss');
-  var imagemin = require('gulp-imagemin');
-  var sourcemaps = require('gulp-sourcemaps');
-  var del = require('del');
-  var expect = require('gulp-expect-file');
-  var sass = require("gulp-sass");
-  var runSequence = require('run-sequence');
-  var rev = require('gulp-rev');
-  var rename = require('gulp-rename');
-
-
-  var livereload = require('gulp-livereload');
-
+  try {
+    var gulp = require('gulp');
+    var gutil = require('gulp-util');
+    var concat = require('gulp-concat');
+    var uglify = require('gulp-uglify');
+    var uglifycss = require('gulp-uglifycss');
+    var imagemin = require('gulp-imagemin');
+    var sourcemaps = require('gulp-sourcemaps');
+    var del = require('del');
+    var expect = require('gulp-expect-file');
+    var sass = require("gulp-sass");
+    var runSequence = require('run-sequence');
+    var rev = require('gulp-rev');
+    var rename = require('gulp-rename');
+    var livereload = require('gulp-livereload');
+  } catch( e ) {
+    console.log('Could not find one of the packages gulp needs to run.  Please run `npm install` to see if that resolves the issue.  The error is below:');
+    console.log(e);
+    return false;
+  }
+  
   var paths = {
     vendorScripts: [
       // specify your vendor scripts in dependency order
