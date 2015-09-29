@@ -1,6 +1,6 @@
 {
   "name": "tmbr-starter",
-  "version": "0.3",
+  "version": "0.4.0",
   "author": "Matt Richmond<mrichmond@wearetmbr.com>",
   "description": "A basic gulp setup for TMBR front end web",
   "dependencies": {
@@ -12,11 +12,14 @@
     "gulp-livereload": "3.8.0",
     "gulp-rename": "1.2.2",
     "gulp-rev": "5.0.0",
-    "gulp-sass": "2.0.1",
+    "gulp-sass": "^2.0",
     "gulp-sourcemaps": "1.5.2",
     "gulp-uglify": "1.2.0",
     "gulp-uglifycss": "1.0.4",
     "gulp-util": "3.0.5",
-    "run-sequence": "1.1.1"
+    "run-sequence": "1.1.1",
+    "gulp-consolidate": "^0.1.2",
+    "gulp-iconfont": "^5.0.0",
+    "lodash": "^3.10.1"
   }
 }
