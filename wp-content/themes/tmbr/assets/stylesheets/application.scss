@@ -48,8 +48,9 @@
 @import "../vendor/twbs-bootstrap-sass/vendor/assets/stylesheets/bootstrap/_utilities.scss";
 @import "../vendor/twbs-bootstrap-sass/vendor/assets/stylesheets/bootstrap/_responsive-utilities.scss";
 
-// Fonts - #### have to copy fonts to public folder
-@import '../vendor/font-awesome/scss/font-awesome';
+// FONTS
+@import '../vendor/font-awesome/scss/font-awesome'; // #### have to copy fonts to public folder
+@import 'tmbricons.scss'; // This is built by the `iconfont` gulp task
 
 // Animate CSS
 @import 'vendor/animate.scss';
