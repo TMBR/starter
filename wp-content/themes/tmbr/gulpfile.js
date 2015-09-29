@@ -17,6 +17,7 @@
     var iconfont = require('gulp-iconfont');
     var runTimestamp = Math.round(Date.now()/1000);
     var consolidate = require('gulp-consolidate');
+    var autoprefixer = require('gulp-autoprefixer');
   } catch( e ) {
     console.log('Could not find one of the packages gulp needs to run.  Please run `npm install` to see if that resolves the issue.  The error is below:');
     console.log(e);
@@ -142,6 +143,10 @@
     return gulp.src(paths.styles)
       .pipe(sass({
         precision: 10
+      }))
+      .pipe(autoprefixer({
+          browsers: ['last 2 versions'],
+          cascade: false
       }))
       .pipe(gulp.dest('public/css'))
       .pipe(rename('application.min.css'))
