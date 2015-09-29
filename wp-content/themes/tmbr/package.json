@@ -1,6 +1,6 @@
 {
   "name": "tmbr-starter",
-  "version": "0.3",
+  "version": "0.4.0",
   "author": "Matt Richmond<mrichmond@wearetmbr.com>",
   "description": "A basic gulp setup for TMBR front end web",
   "dependencies": {
