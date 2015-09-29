@@ -14,12 +14,15 @@
     var rev = require('gulp-rev');
     var rename = require('gulp-rename');
     var livereload = require('gulp-livereload');
+    var iconfont = require('gulp-iconfont');
+    var runTimestamp = Math.round(Date.now()/1000);
+    var consolidate = require('gulp-consolidate');
   } catch( e ) {
     console.log('Could not find one of the packages gulp needs to run.  Please run `npm install` to see if that resolves the issue.  The error is below:');
     console.log(e);
     return false;
   }
-  
+
   var paths = {
     vendorScripts: [
       // specify your vendor scripts in dependency order
@@ -80,8 +83,12 @@
     ],
     stylesWatchDir: 'assets/stylesheets/**/*.scss',
     images: ['assets/images/**'],
-    fonts: ['assets/fonts/**']
+    fonts: ['assets/fonts/**'],
+    icons: ['assets/icons/**/*.svg']
   };
+
+
+
 
   gulp.task('clean', function(cb) {
     // You can use multiple globbing patterns as you would with `gulp.src`
@@ -209,6 +216,7 @@
   gulp.task('default', function(){
     runSequence(
       ['clean'],
+      ['iconfont'],
       ['scripts:vendor', 'scripts:app', 'styles', 'images', 'fonts'],
       ['version', 'startwatch'],
       'refresh'
@@ -218,9 +226,62 @@
   gulp.task('build', function(){
     runSequence(
       'clean',
+      'iconfont',
       ['scripts:vendor', 'scripts:app', 'styles', 'images', 'fonts'],
       'version'
     );
   });
+
+
+  /****************** ICON FONT SECTION *********************/
+
+  /**
+   * Takes SVG files in the assets/icons directory and builds a font from them.
+   * The font gets placed in the assets/fonts directory, which will then be
+   * copied into the public/fonts dir during build time.
+   *
+   * An SCSS file is generated called tmbricons.scss.  This file needs to be
+   * added to the application.scss file for the font to be utilized in the
+   * concatenated assets.
+   *
+   * An template exists from which the tmbricons.scss file is generated. That
+   * file is `assets/stylesheets/template_tmbricons.tmpl`.  The syntax is
+   * fairly self-documenting and shouldn't need to be changed often at all -
+   * likely not even per project.
+   */
+  gulp.task('iconfont', function(){
+    return gulp.src(paths.icons)
+      .pipe(iconfont({
+        fontName: 'tmbricons', // required
+        appendUnicode: true, // recommended option
+        formats: ['ttf', 'eot', 'woff', 'woff2', 'svg'], // default, 'woff2' and 'svg' are available
+        timestamp: runTimestamp, // recommended to get consistent builds when watching files
+      }))
+      .on('glyphs', buildFontCss)
+      .pipe(gulp.dest('assets/fonts/'));
+  });
+
+
+  /**
+   * Function that Builds the SCSS file based on the icons processed by iconfont task.
+   *
+   * @param glyphs Collection of fonts that were processed
+   * @param options = options passed into the iconfont() method in the iconfont task
+   */
+  var buildFontCss = function(glyphs, options) {
+    var options = {
+      glyphs: glyphs.map(function(glyph) {
+        // this line is needed because gulp-iconfont has changed the api from 2.0
+        return { name: glyph.name, codepoint: glyph.unicode[0].charCodeAt(0) }
+      }),
+      fontName: options.fontName,
+      fontPath: '../fonts/', // set path to font (from your CSS file if relative)
+      className: options.fontName // set class name in your CSS
+    };
+    gulp.src('assets/stylesheets/template_' + options.fontName + '.tmpl')
+      .pipe(consolidate('lodash', options)) // compile the template
+      .pipe(rename(options.fontName + '.scss'))
+      .pipe(gulp.dest('assets/stylesheets/')); // set path to export your CSS
+  }
 
 })();
