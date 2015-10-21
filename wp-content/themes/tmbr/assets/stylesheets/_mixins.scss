@@ -168,28 +168,25 @@ Firefox hack for images with opacity changes
 
 /*
 Placeholder
-input#input-id {
-  @include placeholder {
-    color: $white;
-    background: $black;
-  }
-}
 --------------------- */
 @mixin placeholder {
   &::-webkit-input-placeholder {
-      @content
+    @content
   }
 
   &:-moz-placeholder { /* Firefox 18- */
-      @content  
+    @content  
   }
 
   &::-moz-placeholder {  /* Firefox 19+ */
-      @content  
+    @content  
   }
 
   &:-ms-input-placeholder {  
-      @content  
+    @content  
+  }
+}
+
   }
 }
 
