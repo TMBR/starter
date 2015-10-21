@@ -1,23 +1,9 @@
-$transition300:   all 300ms ease-in-out;
-$transition200:   all 200ms ease-in-out;
 
-$menu-height : 80px;
-$mobile-menu-height : 50px;
+$transition: all .2s ease-in; 
 
 /* COLORS */
-
 $white: #FFF;
 $black : #000;
-$blue: #2E9FFF;
-$gray: #797979;
-
-$orange: #c76c14;
-$beige : #e9e9de;
-$tan : #f5f4e6;
-$drk-green : #4b431f;
-
-/* FONT FAMILIES */
-$proxima: 'proxima-nova', sans-serif;
 
 /* FONT SIZES */
 $h1: 4em;
@@ -25,7 +11,7 @@ $h2: 3em;
 $h3: 2.5em;
 $h4: 2em;
 $h5: 1.5em;
-$bodycopy: 1em;
+$p: 1em;
 
 /* FONT WEIGHTS */
 $fw-light: 300;

@@ -1,14 +1,10 @@
 
 body {
-	color: $black;
 	overflow-x: hidden;
 }
 
-
 a {
-	color: $blue;
-	@include transition($transition200);
-
+	@include transition($transition);
 	&:hover,
 	&:focus,
 	&:active {
@@ -23,48 +19,53 @@ a {
 }
 
 ::-moz-selection {
-	background: $blue;
+	background: $black;
+	color: $white;
+}
+
+::selection {
+	background: $black;
 	color: $white;
 }
 
 ::-moz-focus-inner {
-	border:0;
+	border: 0;
 }
-
-::selection {
-	background: $blue;
-	color: $white;
-}
-
-h1,h2,h3,h4,h5,h6 { }
 
 
 h1,
 .h1 {
-	font-size: $h1;
-	@include respond-to($screen-sm) {
-		font-size: 2em;
-	}
+	font-size: $h1; /* 4em */
+	@include respond-to($screen-sm) { font-size: 3.5em; }
+	@include respond-to($screen-xs) { font-size: $h2; }
 }
 
 h2,
 .h2 {
-	font-size: $h2;
+	font-size: $h2; /* 3em */
+	@include respond-to($screen-sm) { font-size: 2.75em; }
+	@include respond-to($screen-xs) { font-size: $h3; }
 }
 
 h3,
 .h3 {
-	font-size: $h3;
+	font-size: $h3; /* 2.5em */
+	@include respond-to($screen-sm) { font-size: 2.25em; }
+	@include respond-to($screen-xs) { font-size: $h4; }
 }
 
 h4,
 .h4 {
-	font-size: $h4;
+	font-size: $h4; /* 2em */
+	@include respond-to($screen-sm) { font-size: 1.75em; }
+	@include respond-to($screen-xs) { font-size: $h5; }
 }
 
 h5,
 .h5 {
-	font-size: $h5;
+	font-size: $h5; /* 1.5em */
+	@include respond-to($screen-sm) { font-size: 1.25em; }
+	@include respond-to($screen-xs) { font-size: $p; }
 }
 
 /* INPUTS 
@@ -73,10 +74,7 @@ h5,
 }
 ======================== */
 %input {
-	background: rgba($black,0.4);
-	border: 1px solid rgba($black,0.4);
 	color: $white;
-	@include border-radius(1px);
 	@include placeholder{
 		color: $white;
 		background: $black;
@@ -88,14 +86,4 @@ input[type=submit] {
 	@extend .btn;
 }
 ======================== */
-.btn {
-	display: inline-block;
-	text-transform: uppercase;
-	color: $blue;
-	font-size: 1.3em;
-	padding: 0px 30px;
-	height: 50px;
-	line-height: 50px;
-	margin-top: 20px;
-	@include border-radius(0);
-}
+.btn { }
