@@ -4,7 +4,7 @@ var Slider = (function($) {
 
 			$(document).ready(function() {
 
-			  $('#home_slider').flexslider({
+			  $('#home-slider').flexslider({
 			    animation: "slide",
 			    slideshow: false, // auto play on load
 			    slideshowSpeed: 4000,
