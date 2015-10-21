@@ -187,7 +187,25 @@ Placeholder
   }
 }
 
+/*
+Animation
+--------------------- */
+@mixin animation( $property, $animation-props ){
+  @if $property == animation {
+    -webkit-animation: $animation-props;
+        -moz-animation: $animation-props;
+        -ms-animation: $animation-props;
+        -o-animation: $animation-props;
+        animation: $animation-props;
   }
+  @else {
+    -webkit-animation-#{$property}: $animation-props;
+    -moz-animation-#{$property}: $animation-props;
+    -ms-animation-#{$property}: $animation-props;
+    -o-animation-#{$property}: $animation-props;
+    animation--#{$property}: $animation-props;
+  }
+  
 }
 
 /*
