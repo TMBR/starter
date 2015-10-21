@@ -32,10 +32,10 @@ get_template_part( 'inc/page-excerpt' );
 // get_template_part( 'inc/register-sidebars' );
 
 // REGISTER MENUS
-// get_template_part( 'inc/register-menus' );
+get_template_part( 'inc/register-menus' );
 
 // CUSTOM IMG SIZE
-// get_template_part( 'inc/custom-img-size' );
+get_template_part( 'inc/custom-img-size' );
 
 // DEFINE CATEGORY OR OTHER TERMS
 // @define( 'cat_featured', 17 );
