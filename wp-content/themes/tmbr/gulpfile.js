@@ -68,6 +68,9 @@
       // Parallax background images
       // 'assets/vendor/jquery.stellar/jquery.stellar.js',
 
+      // RESPOND.JS
+      'assets/vendor/respond/src/respond.js',
+      
       // Lazy Load Assets unveil
       'assets/vendor/jquery-unveil/jquery.unveil.js'
     ],

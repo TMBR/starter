@@ -33,7 +33,8 @@
     "jquery.stellar": "*",
     "animate-css": "~3.2.3",
     "FlexSlider": "git://github.com/woothemes/FlexSlider.git#version/2.3.0",
-    "magnific-popup": "*"
+    "magnific-popup": "*",
+    "respond": "~1.4.2"
   },
   "resolutions": {
     "jquery": "~2.1.0"
