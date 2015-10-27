@@ -16,7 +16,6 @@
 			SiteApp.Preloader();
 			SiteApp.Slider();
 			//SiteApp.Lightbox();
-			//SiteApp.Animated();
 
 			// Call this to show all animited items
 			// SiteApp.ShowAnimated();
@@ -32,7 +31,7 @@
 			if(ismobile == true){
 				$('body').addClass('mobile');
 			} else {
-				// new WOW().init();
+				$('body').addClass('no-touch');
 			}
 
 		},
