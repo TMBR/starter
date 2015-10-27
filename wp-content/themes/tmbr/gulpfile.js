@@ -55,7 +55,6 @@
       // 'assets/vendor/jquery.stellar/jquery.stellar.js',                  Stellar.js (parallax helper) - http://markdalgleish.com/projects/stellar.js/
       // 'assets/vendor/magnific-popup/dist/jquery.magnific-popup.js',      Magnific Popup (responsive lightbox) - http://dimsemenov.com/plugins/magnific-popup/
       // 'assets/vendor/pace/pace.js',                                      PACE (page load progress bar) - http://github.hubspot.com/pace/docs/welcome/
-      'assets/vendor/wow/dist/wow.js',                                  //  WOW.js (animate asset loading) *depends on animate.css - http://mynameismatthieu.com/WOW/
       // 'assets/vendor/videojs/dist/video-js/video.js',                    Video.js (work with HTML5 video) - http://videojs.com/
       'assets/vendor/respond/src/respond.js',                           //  Respond.js (media query helper for IE) - https://github.com/scottjehl/Respond
       'assets/vendor/responsejs/response.js'                            //  Response.js (serve responsive content via HTML5) - http://responsejs.com/
