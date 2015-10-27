@@ -1,9 +1,13 @@
 
-<footer>
+</main>
+<!-- #page-main -->
+
+
+<footer id="footer" role="footer">
 	<div class="container">
 		<div class="row">
 			<div class="col-xs-6">
-				<?php get_template_part( 'partials/global/schema' ); ?>
+				<?php get_template_part( 'partials/footer/schema' ); ?>
 			</div><!-- /col -->
 			<div class="col-xs-6"></div>
 			<div class="col-xs-12">
@@ -15,6 +19,7 @@
 	</div>
 </footer><!-- #colophon -->
 
+</div><!-- .body -->
 
 <?php wp_footer(); ?>
 
