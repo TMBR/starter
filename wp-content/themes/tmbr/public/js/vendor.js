@@ -10611,703 +10611,6 @@ return jQuery;
 
 }));
 
-/* ========================================================================
- * Bootstrap: alert.js v3.1.1
- * http://getbootstrap.com/javascript/#alerts
- * ========================================================================
- * Copyright 2011-2014 Twitter, Inc.
- * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
- * ======================================================================== */
-
-
-+function ($) {
-  'use strict';
-
-  // ALERT CLASS DEFINITION
-  // ======================
-
-  var dismiss = '[data-dismiss="alert"]'
-  var Alert   = function (el) {
-    $(el).on('click', dismiss, this.close)
-  }
-
-  Alert.prototype.close = function (e) {
-    var $this    = $(this)
-    var selector = $this.attr('data-target')
-
-    if (!selector) {
-      selector = $this.attr('href')
-      selector = selector && selector.replace(/.*(?=#[^\s]*$)/, '') // strip for ie7
-    }
-
-    var $parent = $(selector)
-
-    if (e) e.preventDefault()
-
-    if (!$parent.length) {
-      $parent = $this.hasClass('alert') ? $this : $this.parent()
-    }
-
-    $parent.trigger(e = $.Event('close.bs.alert'))
-
-    if (e.isDefaultPrevented()) return
-
-    $parent.removeClass('in')
-
-    function removeElement() {
-      $parent.trigger('closed.bs.alert').remove()
-    }
-
-    $.support.transition && $parent.hasClass('fade') ?
-      $parent
-        .one($.support.transition.end, removeElement)
-        .emulateTransitionEnd(150) :
-      removeElement()
-  }
-
-
-  // ALERT PLUGIN DEFINITION
-  // =======================
-
-  var old = $.fn.alert
-
-  $.fn.alert = function (option) {
-    return this.each(function () {
-      var $this = $(this)
-      var data  = $this.data('bs.alert')
-
-      if (!data) $this.data('bs.alert', (data = new Alert(this)))
-      if (typeof option == 'string') data[option].call($this)
-    })
-  }
-
-  $.fn.alert.Constructor = Alert
-
-
-  // ALERT NO CONFLICT
-  // =================
-
-  $.fn.alert.noConflict = function () {
-    $.fn.alert = old
-    return this
-  }
-
-
-  // ALERT DATA-API
-  // ==============
-
-  $(document).on('click.bs.alert.data-api', dismiss, Alert.prototype.close)
-
-}(jQuery);
-
-/* ========================================================================
- * Bootstrap: button.js v3.1.1
- * http://getbootstrap.com/javascript/#buttons
- * ========================================================================
- * Copyright 2011-2014 Twitter, Inc.
- * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
- * ======================================================================== */
-
-
-+function ($) {
-  'use strict';
-
-  // BUTTON PUBLIC CLASS DEFINITION
-  // ==============================
-
-  var Button = function (element, options) {
-    this.$element  = $(element)
-    this.options   = $.extend({}, Button.DEFAULTS, options)
-    this.isLoading = false
-  }
-
-  Button.DEFAULTS = {
-    loadingText: 'loading...'
-  }
-
-  Button.prototype.setState = function (state) {
-    var d    = 'disabled'
-    var $el  = this.$element
-    var val  = $el.is('input') ? 'val' : 'html'
-    var data = $el.data()
-
-    state = state + 'Text'
-
-    if (!data.resetText) $el.data('resetText', $el[val]())
-
-    $el[val](data[state] || this.options[state])
-
-    // push to event loop to allow forms to submit
-    setTimeout($.proxy(function () {
-      if (state == 'loadingText') {
-        this.isLoading = true
-        $el.addClass(d).attr(d, d)
-      } else if (this.isLoading) {
-        this.isLoading = false
-        $el.removeClass(d).removeAttr(d)
-      }
-    }, this), 0)
-  }
-
-  Button.prototype.toggle = function () {
-    var changed = true
-    var $parent = this.$element.closest('[data-toggle="buttons"]')
-
-    if ($parent.length) {
-      var $input = this.$element.find('input')
-      if ($input.prop('type') == 'radio') {
-        if ($input.prop('checked') && this.$element.hasClass('active')) changed = false
-        else $parent.find('.active').removeClass('active')
-      }
-      if (changed) $input.prop('checked', !this.$element.hasClass('active')).trigger('change')
-    }
-
-    if (changed) this.$element.toggleClass('active')
-  }
-
-
-  // BUTTON PLUGIN DEFINITION
-  // ========================
-
-  var old = $.fn.button
-
-  $.fn.button = function (option) {
-    return this.each(function () {
-      var $this   = $(this)
-      var data    = $this.data('bs.button')
-      var options = typeof option == 'object' && option
-
-      if (!data) $this.data('bs.button', (data = new Button(this, options)))
-
-      if (option == 'toggle') data.toggle()
-      else if (option) data.setState(option)
-    })
-  }
-
-  $.fn.button.Constructor = Button
-
-
-  // BUTTON NO CONFLICT
-  // ==================
-
-  $.fn.button.noConflict = function () {
-    $.fn.button = old
-    return this
-  }
-
-
-  // BUTTON DATA-API
-  // ===============
-
-  $(document).on('click.bs.button.data-api', '[data-toggle^="button"]', function (e) {
-    var $btn = $(e.target)
-    if (!$btn.hasClass('btn')) $btn = $btn.closest('.btn')
-    $btn.button('toggle')
-    e.preventDefault()
-  })
-
-}(jQuery);
-
-/* ========================================================================
- * Bootstrap: collapse.js v3.1.1
- * http://getbootstrap.com/javascript/#collapse
- * ========================================================================
- * Copyright 2011-2014 Twitter, Inc.
- * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
- * ======================================================================== */
-
-
-+function ($) {
-  'use strict';
-
-  // COLLAPSE PUBLIC CLASS DEFINITION
-  // ================================
-
-  var Collapse = function (element, options) {
-    this.$element      = $(element)
-    this.options       = $.extend({}, Collapse.DEFAULTS, options)
-    this.transitioning = null
-
-    if (this.options.parent) this.$parent = $(this.options.parent)
-    if (this.options.toggle) this.toggle()
-  }
-
-  Collapse.DEFAULTS = {
-    toggle: true
-  }
-
-  Collapse.prototype.dimension = function () {
-    var hasWidth = this.$element.hasClass('width')
-    return hasWidth ? 'width' : 'height'
-  }
-
-  Collapse.prototype.show = function () {
-    if (this.transitioning || this.$element.hasClass('in')) return
-
-    var startEvent = $.Event('show.bs.collapse')
-    this.$element.trigger(startEvent)
-    if (startEvent.isDefaultPrevented()) return
-
-    var actives = this.$parent && this.$parent.find('> .panel > .in')
-
-    if (actives && actives.length) {
-      var hasData = actives.data('bs.collapse')
-      if (hasData && hasData.transitioning) return
-      actives.collapse('hide')
-      hasData || actives.data('bs.collapse', null)
-    }
-
-    var dimension = this.dimension()
-
-    this.$element
-      .removeClass('collapse')
-      .addClass('collapsing')[dimension](0)
-
-    this.transitioning = 1
-
-    var complete = function (e) {
-      if (e && e.target != this.$element[0]) {
-        this.$element
-          .one($.support.transition.end, $.proxy(complete, this))
-        return
-      }
-      this.$element
-        .removeClass('collapsing')
-        .addClass('collapse in')[dimension]('')
-      this.transitioning = 0
-      this.$element.trigger('shown.bs.collapse')
-    }
-
-    if (!$.support.transition) return complete.call(this)
-
-    var scrollSize = $.camelCase(['scroll', dimension].join('-'))
-
-    this.$element
-      .one($.support.transition.end, $.proxy(complete, this))
-      .emulateTransitionEnd(350)[dimension](this.$element[0][scrollSize])
-  }
-
-  Collapse.prototype.hide = function () {
-    if (this.transitioning || !this.$element.hasClass('in')) return
-
-    var startEvent = $.Event('hide.bs.collapse')
-    this.$element.trigger(startEvent)
-    if (startEvent.isDefaultPrevented()) return
-
-    var dimension = this.dimension()
-
-    this.$element[dimension](this.$element[dimension]())[0].offsetHeight
-
-    this.$element
-      .addClass('collapsing')
-      .removeClass('collapse')
-      .removeClass('in')
-
-    this.transitioning = 1
-
-    var complete = function (e) {
-      if (e && e.target != this.$element[0]) {
-        this.$element
-          .one($.support.transition.end, $.proxy(complete, this))
-        return
-      }
-      this.transitioning = 0
-      this.$element
-        .trigger('hidden.bs.collapse')
-        .removeClass('collapsing')
-        .addClass('collapse')
-    }
-
-    if (!$.support.transition) return complete.call(this)
-
-    this.$element
-      [dimension](0)
-      .one($.support.transition.end, $.proxy(complete, this))
-      .emulateTransitionEnd(350)
-  }
-
-  Collapse.prototype.toggle = function () {
-    this[this.$element.hasClass('in') ? 'hide' : 'show']()
-  }
-
-
-  // COLLAPSE PLUGIN DEFINITION
-  // ==========================
-
-  var old = $.fn.collapse
-
-  $.fn.collapse = function (option) {
-    return this.each(function () {
-      var $this   = $(this)
-      var data    = $this.data('bs.collapse')
-      var options = $.extend({}, Collapse.DEFAULTS, $this.data(), typeof option == 'object' && option)
-
-      if (!data && options.toggle && option == 'show') option = !option
-      if (!data) $this.data('bs.collapse', (data = new Collapse(this, options)))
-      if (typeof option == 'string') data[option]()
-    })
-  }
-
-  $.fn.collapse.Constructor = Collapse
-
-
-  // COLLAPSE NO CONFLICT
-  // ====================
-
-  $.fn.collapse.noConflict = function () {
-    $.fn.collapse = old
-    return this
-  }
-
-
-  // COLLAPSE DATA-API
-  // =================
-
-  $(document).on('click.bs.collapse.data-api', '[data-toggle="collapse"]', function (e) {
-    var $this   = $(this), href
-    var target  = $this.attr('data-target')
-        || e.preventDefault()
-        || (href = $this.attr('href')) && href.replace(/.*(?=#[^\s]+$)/, '') //strip for ie7
-    var $target = $(target)
-    var data    = $target.data('bs.collapse')
-    var option  = data ? 'toggle' : $this.data()
-    var parent  = $this.attr('data-parent')
-    var $parent = parent && $(parent)
-
-    if (!data || !data.transitioning) {
-      if ($parent) $parent.find('[data-toggle="collapse"][data-parent="' + parent + '"]').not($this).addClass('collapsed')
-      $this[$target.hasClass('in') ? 'addClass' : 'removeClass']('collapsed')
-    }
-
-    $target.collapse(option)
-  })
-
-}(jQuery);
-
-/* ========================================================================
- * Bootstrap: dropdown.js v3.1.1
- * http://getbootstrap.com/javascript/#dropdowns
- * ========================================================================
- * Copyright 2011-2014 Twitter, Inc.
- * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
- * ======================================================================== */
-
-
-+function ($) {
-  'use strict';
-
-  // DROPDOWN CLASS DEFINITION
-  // =========================
-
-  var backdrop = '.dropdown-backdrop'
-  var toggle   = '[data-toggle="dropdown"]'
-  var Dropdown = function (element) {
-    $(element).on('click.bs.dropdown', this.toggle)
-  }
-
-  Dropdown.prototype.toggle = function (e) {
-    var $this = $(this)
-
-    if ($this.is('.disabled, :disabled')) return
-
-    var $parent  = getParent($this)
-    var isActive = $parent.hasClass('open')
-
-    clearMenus()
-
-    if (!isActive) {
-      if ('ontouchstart' in document.documentElement && !$parent.closest('.navbar-nav').length) {
-        // if mobile we use a backdrop because click events don't delegate
-        $('<div class="dropdown-backdrop"/>').insertAfter($(this)).on('click', clearMenus)
-      }
-
-      var relatedTarget = { relatedTarget: this }
-      $parent.trigger(e = $.Event('show.bs.dropdown', relatedTarget))
-
-      if (e.isDefaultPrevented()) return
-
-      $this.trigger('focus')
-
-      $parent
-        .toggleClass('open')
-        .trigger('shown.bs.dropdown', relatedTarget)
-    }
-
-    return false
-  }
-
-  Dropdown.prototype.keydown = function (e) {
-    if (!/(38|40|27)/.test(e.keyCode)) return
-
-    var $this = $(this)
-
-    e.preventDefault()
-    e.stopPropagation()
-
-    if ($this.is('.disabled, :disabled')) return
-
-    var $parent  = getParent($this)
-    var isActive = $parent.hasClass('open')
-
-    if (!isActive || (isActive && e.keyCode == 27)) {
-      if (e.which == 27) $parent.find(toggle).trigger('focus')
-      return $this.trigger('click')
-    }
-
-    var desc = ' li:not(.divider):visible a'
-    var $items = $parent.find('[role="menu"]' + desc + ', [role="listbox"]' + desc)
-
-    if (!$items.length) return
-
-    var index = $items.index($items.filter(':focus'))
-
-    if (e.keyCode == 38 && index > 0)                 index--                        // up
-    if (e.keyCode == 40 && index < $items.length - 1) index++                        // down
-    if (!~index)                                      index = 0
-
-    $items.eq(index).trigger('focus')
-  }
-
-  function clearMenus(e) {
-    if (e && e.which === 3) return
-    $(backdrop).remove()
-    $(toggle).each(function () {
-      var $parent = getParent($(this))
-      var relatedTarget = { relatedTarget: this }
-      if (!$parent.hasClass('open')) return
-      $parent.trigger(e = $.Event('hide.bs.dropdown', relatedTarget))
-      if (e.isDefaultPrevented()) return
-      $parent.removeClass('open').trigger('hidden.bs.dropdown', relatedTarget)
-    })
-  }
-
-  function getParent($this) {
-    var selector = $this.attr('data-target')
-
-    if (!selector) {
-      selector = $this.attr('href')
-      selector = selector && /#[A-Za-z]/.test(selector) && selector.replace(/.*(?=#[^\s]*$)/, '') //strip for ie7
-    }
-
-    var $parent = selector && $(selector)
-
-    return $parent && $parent.length ? $parent : $this.parent()
-  }
-
-
-  // DROPDOWN PLUGIN DEFINITION
-  // ==========================
-
-  var old = $.fn.dropdown
-
-  $.fn.dropdown = function (option) {
-    return this.each(function () {
-      var $this = $(this)
-      var data  = $this.data('bs.dropdown')
-
-      if (!data) $this.data('bs.dropdown', (data = new Dropdown(this)))
-      if (typeof option == 'string') data[option].call($this)
-    })
-  }
-
-  $.fn.dropdown.Constructor = Dropdown
-
-
-  // DROPDOWN NO CONFLICT
-  // ====================
-
-  $.fn.dropdown.noConflict = function () {
-    $.fn.dropdown = old
-    return this
-  }
-
-
-  // APPLY TO STANDARD DROPDOWN ELEMENTS
-  // ===================================
-
-  $(document)
-    .on('click.bs.dropdown.data-api', clearMenus)
-    .on('click.bs.dropdown.data-api', '.dropdown form', function (e) { e.stopPropagation() })
-    .on('click.bs.dropdown.data-api', toggle, Dropdown.prototype.toggle)
-    .on('keydown.bs.dropdown.data-api', toggle + ', [role="menu"], [role="listbox"]', Dropdown.prototype.keydown)
-
-}(jQuery);
-
-/* ========================================================================
- * Bootstrap: tab.js v3.1.1
- * http://getbootstrap.com/javascript/#tabs
- * ========================================================================
- * Copyright 2011-2014 Twitter, Inc.
- * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
- * ======================================================================== */
-
-
-+function ($) {
-  'use strict';
-
-  // TAB CLASS DEFINITION
-  // ====================
-
-  var Tab = function (element) {
-    this.element = $(element)
-  }
-
-  Tab.prototype.show = function () {
-    var $this    = this.element
-    var $ul      = $this.closest('ul:not(.dropdown-menu)')
-    var selector = $this.data('target')
-
-    if (!selector) {
-      selector = $this.attr('href')
-      selector = selector && selector.replace(/.*(?=#[^\s]*$)/, '') //strip for ie7
-    }
-
-    if ($this.parent('li').hasClass('active')) return
-
-    var previous = $ul.find('.active:last a')[0]
-    var e        = $.Event('show.bs.tab', {
-      relatedTarget: previous
-    })
-
-    $this.trigger(e)
-
-    if (e.isDefaultPrevented()) return
-
-    var $target = $(selector)
-
-    this.activate($this.parent('li'), $ul)
-    this.activate($target, $target.parent(), function () {
-      $this.trigger({
-        type: 'shown.bs.tab',
-        relatedTarget: previous
-      })
-    })
-  }
-
-  Tab.prototype.activate = function (element, container, callback) {
-    var $active    = container.find('> .active')
-    var transition = callback
-      && $.support.transition
-      && $active.hasClass('fade')
-
-    function next() {
-      $active
-        .removeClass('active')
-        .find('> .dropdown-menu > .active')
-        .removeClass('active')
-
-      element.addClass('active')
-
-      if (transition) {
-        element[0].offsetWidth // reflow for transition
-        element.addClass('in')
-      } else {
-        element.removeClass('fade')
-      }
-
-      if (element.parent('.dropdown-menu')) {
-        element.closest('li.dropdown').addClass('active')
-      }
-
-      callback && callback()
-    }
-
-    transition ?
-      $active
-        .one($.support.transition.end, next)
-        .emulateTransitionEnd(150) :
-      next()
-
-    $active.removeClass('in')
-  }
-
-
-  // TAB PLUGIN DEFINITION
-  // =====================
-
-  var old = $.fn.tab
-
-  $.fn.tab = function ( option ) {
-    return this.each(function () {
-      var $this = $(this)
-      var data  = $this.data('bs.tab')
-
-      if (!data) $this.data('bs.tab', (data = new Tab(this)))
-      if (typeof option == 'string') data[option]()
-    })
-  }
-
-  $.fn.tab.Constructor = Tab
-
-
-  // TAB NO CONFLICT
-  // ===============
-
-  $.fn.tab.noConflict = function () {
-    $.fn.tab = old
-    return this
-  }
-
-
-  // TAB DATA-API
-  // ============
-
-  $(document).on('click.bs.tab.data-api', '[data-toggle="tab"], [data-toggle="pill"]', function (e) {
-    e.preventDefault()
-    $(this).tab('show')
-  })
-
-}(jQuery);
-
-/* ========================================================================
- * Bootstrap: transition.js v3.1.1
- * http://getbootstrap.com/javascript/#transitions
- * ========================================================================
- * Copyright 2011-2014 Twitter, Inc.
- * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
- * ======================================================================== */
-
-
-+function ($) {
-  'use strict';
-
-  // CSS TRANSITION SUPPORT (Shoutout: http://www.modernizr.com/)
-  // ============================================================
-
-  function transitionEnd() {
-    var el = document.createElement('bootstrap')
-
-    var transEndEventNames = {
-      WebkitTransition : 'webkitTransitionEnd',
-      MozTransition    : 'transitionend',
-      OTransition      : 'oTransitionEnd otransitionend',
-      transition       : 'transitionend'
-    }
-
-    for (var name in transEndEventNames) {
-      if (el.style[name] !== undefined) {
-        return { end: transEndEventNames[name] }
-      }
-    }
-
-    return false // explicit for ie8 (  ._.)
-  }
-
-  // http://blog.alexmaccaw.com/css-transitions
-  $.fn.emulateTransitionEnd = function (duration) {
-    var called = false, $el = this
-    $(this).one($.support.transition.end, function () { called = true })
-    var callback = function () { if (!called) $($el).trigger($.support.transition.end) }
-    setTimeout(callback, duration)
-    return this
-  }
-
-  $(function () {
-    $.support.transition = transitionEnd()
-  })
-
-}(jQuery);
-
 /*
  * jQuery FlexSlider v2.3.0
  * Copyright 2012 WooThemes
@@ -12489,6 +11792,713 @@ return jQuery;
   };
 })(jQuery);
 
+/*!
+Waypoints - 4.0.0
+Copyright © 2011-2015 Caleb Troughton
+Licensed under the MIT license.
+https://github.com/imakewebthings/waypoints/blog/master/licenses.txt
+*/
+(function() {
+  'use strict'
+
+  var keyCounter = 0
+  var allWaypoints = {}
+
+  /* http://imakewebthings.com/waypoints/api/waypoint */
+  function Waypoint(options) {
+    if (!options) {
+      throw new Error('No options passed to Waypoint constructor')
+    }
+    if (!options.element) {
+      throw new Error('No element option passed to Waypoint constructor')
+    }
+    if (!options.handler) {
+      throw new Error('No handler option passed to Waypoint constructor')
+    }
+
+    this.key = 'waypoint-' + keyCounter
+    this.options = Waypoint.Adapter.extend({}, Waypoint.defaults, options)
+    this.element = this.options.element
+    this.adapter = new Waypoint.Adapter(this.element)
+    this.callback = options.handler
+    this.axis = this.options.horizontal ? 'horizontal' : 'vertical'
+    this.enabled = this.options.enabled
+    this.triggerPoint = null
+    this.group = Waypoint.Group.findOrCreate({
+      name: this.options.group,
+      axis: this.axis
+    })
+    this.context = Waypoint.Context.findOrCreateByElement(this.options.context)
+
+    if (Waypoint.offsetAliases[this.options.offset]) {
+      this.options.offset = Waypoint.offsetAliases[this.options.offset]
+    }
+    this.group.add(this)
+    this.context.add(this)
+    allWaypoints[this.key] = this
+    keyCounter += 1
+  }
+
+  /* Private */
+  Waypoint.prototype.queueTrigger = function(direction) {
+    this.group.queueTrigger(this, direction)
+  }
+
+  /* Private */
+  Waypoint.prototype.trigger = function(args) {
+    if (!this.enabled) {
+      return
+    }
+    if (this.callback) {
+      this.callback.apply(this, args)
+    }
+  }
+
+  /* Public */
+  /* http://imakewebthings.com/waypoints/api/destroy */
+  Waypoint.prototype.destroy = function() {
+    this.context.remove(this)
+    this.group.remove(this)
+    delete allWaypoints[this.key]
+  }
+
+  /* Public */
+  /* http://imakewebthings.com/waypoints/api/disable */
+  Waypoint.prototype.disable = function() {
+    this.enabled = false
+    return this
+  }
+
+  /* Public */
+  /* http://imakewebthings.com/waypoints/api/enable */
+  Waypoint.prototype.enable = function() {
+    this.context.refresh()
+    this.enabled = true
+    return this
+  }
+
+  /* Public */
+  /* http://imakewebthings.com/waypoints/api/next */
+  Waypoint.prototype.next = function() {
+    return this.group.next(this)
+  }
+
+  /* Public */
+  /* http://imakewebthings.com/waypoints/api/previous */
+  Waypoint.prototype.previous = function() {
+    return this.group.previous(this)
+  }
+
+  /* Private */
+  Waypoint.invokeAll = function(method) {
+    var allWaypointsArray = []
+    for (var waypointKey in allWaypoints) {
+      allWaypointsArray.push(allWaypoints[waypointKey])
+    }
+    for (var i = 0, end = allWaypointsArray.length; i < end; i++) {
+      allWaypointsArray[i][method]()
+    }
+  }
+
+  /* Public */
+  /* http://imakewebthings.com/waypoints/api/destroy-all */
+  Waypoint.destroyAll = function() {
+    Waypoint.invokeAll('destroy')
+  }
+
+  /* Public */
+  /* http://imakewebthings.com/waypoints/api/disable-all */
+  Waypoint.disableAll = function() {
+    Waypoint.invokeAll('disable')
+  }
+
+  /* Public */
+  /* http://imakewebthings.com/waypoints/api/enable-all */
+  Waypoint.enableAll = function() {
+    Waypoint.invokeAll('enable')
+  }
+
+  /* Public */
+  /* http://imakewebthings.com/waypoints/api/refresh-all */
+  Waypoint.refreshAll = function() {
+    Waypoint.Context.refreshAll()
+  }
+
+  /* Public */
+  /* http://imakewebthings.com/waypoints/api/viewport-height */
+  Waypoint.viewportHeight = function() {
+    return window.innerHeight || document.documentElement.clientHeight
+  }
+
+  /* Public */
+  /* http://imakewebthings.com/waypoints/api/viewport-width */
+  Waypoint.viewportWidth = function() {
+    return document.documentElement.clientWidth
+  }
+
+  Waypoint.adapters = []
+
+  Waypoint.defaults = {
+    context: window,
+    continuous: true,
+    enabled: true,
+    group: 'default',
+    horizontal: false,
+    offset: 0
+  }
+
+  Waypoint.offsetAliases = {
+    'bottom-in-view': function() {
+      return this.context.innerHeight() - this.adapter.outerHeight()
+    },
+    'right-in-view': function() {
+      return this.context.innerWidth() - this.adapter.outerWidth()
+    }
+  }
+
+  window.Waypoint = Waypoint
+}())
+;(function() {
+  'use strict'
+
+  function requestAnimationFrameShim(callback) {
+    window.setTimeout(callback, 1000 / 60)
+  }
+
+  var keyCounter = 0
+  var contexts = {}
+  var Waypoint = window.Waypoint
+  var oldWindowLoad = window.onload
+
+  /* http://imakewebthings.com/waypoints/api/context */
+  function Context(element) {
+    this.element = element
+    this.Adapter = Waypoint.Adapter
+    this.adapter = new this.Adapter(element)
+    this.key = 'waypoint-context-' + keyCounter
+    this.didScroll = false
+    this.didResize = false
+    this.oldScroll = {
+      x: this.adapter.scrollLeft(),
+      y: this.adapter.scrollTop()
+    }
+    this.waypoints = {
+      vertical: {},
+      horizontal: {}
+    }
+
+    element.waypointContextKey = this.key
+    contexts[element.waypointContextKey] = this
+    keyCounter += 1
+
+    this.createThrottledScrollHandler()
+    this.createThrottledResizeHandler()
+  }
+
+  /* Private */
+  Context.prototype.add = function(waypoint) {
+    var axis = waypoint.options.horizontal ? 'horizontal' : 'vertical'
+    this.waypoints[axis][waypoint.key] = waypoint
+    this.refresh()
+  }
+
+  /* Private */
+  Context.prototype.checkEmpty = function() {
+    var horizontalEmpty = this.Adapter.isEmptyObject(this.waypoints.horizontal)
+    var verticalEmpty = this.Adapter.isEmptyObject(this.waypoints.vertical)
+    if (horizontalEmpty && verticalEmpty) {
+      this.adapter.off('.waypoints')
+      delete contexts[this.key]
+    }
+  }
+
+  /* Private */
+  Context.prototype.createThrottledResizeHandler = function() {
+    var self = this
+
+    function resizeHandler() {
+      self.handleResize()
+      self.didResize = false
+    }
+
+    this.adapter.on('resize.waypoints', function() {
+      if (!self.didResize) {
+        self.didResize = true
+        Waypoint.requestAnimationFrame(resizeHandler)
+      }
+    })
+  }
+
+  /* Private */
+  Context.prototype.createThrottledScrollHandler = function() {
+    var self = this
+    function scrollHandler() {
+      self.handleScroll()
+      self.didScroll = false
+    }
+
+    this.adapter.on('scroll.waypoints', function() {
+      if (!self.didScroll || Waypoint.isTouch) {
+        self.didScroll = true
+        Waypoint.requestAnimationFrame(scrollHandler)
+      }
+    })
+  }
+
+  /* Private */
+  Context.prototype.handleResize = function() {
+    Waypoint.Context.refreshAll()
+  }
+
+  /* Private */
+  Context.prototype.handleScroll = function() {
+    var triggeredGroups = {}
+    var axes = {
+      horizontal: {
+        newScroll: this.adapter.scrollLeft(),
+        oldScroll: this.oldScroll.x,
+        forward: 'right',
+        backward: 'left'
+      },
+      vertical: {
+        newScroll: this.adapter.scrollTop(),
+        oldScroll: this.oldScroll.y,
+        forward: 'down',
+        backward: 'up'
+      }
+    }
+
+    for (var axisKey in axes) {
+      var axis = axes[axisKey]
+      var isForward = axis.newScroll > axis.oldScroll
+      var direction = isForward ? axis.forward : axis.backward
+
+      for (var waypointKey in this.waypoints[axisKey]) {
+        var waypoint = this.waypoints[axisKey][waypointKey]
+        var wasBeforeTriggerPoint = axis.oldScroll < waypoint.triggerPoint
+        var nowAfterTriggerPoint = axis.newScroll >= waypoint.triggerPoint
+        var crossedForward = wasBeforeTriggerPoint && nowAfterTriggerPoint
+        var crossedBackward = !wasBeforeTriggerPoint && !nowAfterTriggerPoint
+        if (crossedForward || crossedBackward) {
+          waypoint.queueTrigger(direction)
+          triggeredGroups[waypoint.group.id] = waypoint.group
+        }
+      }
+    }
+
+    for (var groupKey in triggeredGroups) {
+      triggeredGroups[groupKey].flushTriggers()
+    }
+
+    this.oldScroll = {
+      x: axes.horizontal.newScroll,
+      y: axes.vertical.newScroll
+    }
+  }
+
+  /* Private */
+  Context.prototype.innerHeight = function() {
+    /*eslint-disable eqeqeq */
+    if (this.element == this.element.window) {
+      return Waypoint.viewportHeight()
+    }
+    /*eslint-enable eqeqeq */
+    return this.adapter.innerHeight()
+  }
+
+  /* Private */
+  Context.prototype.remove = function(waypoint) {
+    delete this.waypoints[waypoint.axis][waypoint.key]
+    this.checkEmpty()
+  }
+
+  /* Private */
+  Context.prototype.innerWidth = function() {
+    /*eslint-disable eqeqeq */
+    if (this.element == this.element.window) {
+      return Waypoint.viewportWidth()
+    }
+    /*eslint-enable eqeqeq */
+    return this.adapter.innerWidth()
+  }
+
+  /* Public */
+  /* http://imakewebthings.com/waypoints/api/context-destroy */
+  Context.prototype.destroy = function() {
+    var allWaypoints = []
+    for (var axis in this.waypoints) {
+      for (var waypointKey in this.waypoints[axis]) {
+        allWaypoints.push(this.waypoints[axis][waypointKey])
+      }
+    }
+    for (var i = 0, end = allWaypoints.length; i < end; i++) {
+      allWaypoints[i].destroy()
+    }
+  }
+
+  /* Public */
+  /* http://imakewebthings.com/waypoints/api/context-refresh */
+  Context.prototype.refresh = function() {
+    /*eslint-disable eqeqeq */
+    var isWindow = this.element == this.element.window
+    /*eslint-enable eqeqeq */
+    var contextOffset = isWindow ? undefined : this.adapter.offset()
+    var triggeredGroups = {}
+    var axes
+
+    this.handleScroll()
+    axes = {
+      horizontal: {
+        contextOffset: isWindow ? 0 : contextOffset.left,
+        contextScroll: isWindow ? 0 : this.oldScroll.x,
+        contextDimension: this.innerWidth(),
+        oldScroll: this.oldScroll.x,
+        forward: 'right',
+        backward: 'left',
+        offsetProp: 'left'
+      },
+      vertical: {
+        contextOffset: isWindow ? 0 : contextOffset.top,
+        contextScroll: isWindow ? 0 : this.oldScroll.y,
+        contextDimension: this.innerHeight(),
+        oldScroll: this.oldScroll.y,
+        forward: 'down',
+        backward: 'up',
+        offsetProp: 'top'
+      }
+    }
+
+    for (var axisKey in axes) {
+      var axis = axes[axisKey]
+      for (var waypointKey in this.waypoints[axisKey]) {
+        var waypoint = this.waypoints[axisKey][waypointKey]
+        var adjustment = waypoint.options.offset
+        var oldTriggerPoint = waypoint.triggerPoint
+        var elementOffset = 0
+        var freshWaypoint = oldTriggerPoint == null
+        var contextModifier, wasBeforeScroll, nowAfterScroll
+        var triggeredBackward, triggeredForward
+
+        if (waypoint.element !== waypoint.element.window) {
+          elementOffset = waypoint.adapter.offset()[axis.offsetProp]
+        }
+
+        if (typeof adjustment === 'function') {
+          adjustment = adjustment.apply(waypoint)
+        }
+        else if (typeof adjustment === 'string') {
+          adjustment = parseFloat(adjustment)
+          if (waypoint.options.offset.indexOf('%') > - 1) {
+            adjustment = Math.ceil(axis.contextDimension * adjustment / 100)
+          }
+        }
+
+        contextModifier = axis.contextScroll - axis.contextOffset
+        waypoint.triggerPoint = elementOffset + contextModifier - adjustment
+        wasBeforeScroll = oldTriggerPoint < axis.oldScroll
+        nowAfterScroll = waypoint.triggerPoint >= axis.oldScroll
+        triggeredBackward = wasBeforeScroll && nowAfterScroll
+        triggeredForward = !wasBeforeScroll && !nowAfterScroll
+
+        if (!freshWaypoint && triggeredBackward) {
+          waypoint.queueTrigger(axis.backward)
+          triggeredGroups[waypoint.group.id] = waypoint.group
+        }
+        else if (!freshWaypoint && triggeredForward) {
+          waypoint.queueTrigger(axis.forward)
+          triggeredGroups[waypoint.group.id] = waypoint.group
+        }
+        else if (freshWaypoint && axis.oldScroll >= waypoint.triggerPoint) {
+          waypoint.queueTrigger(axis.forward)
+          triggeredGroups[waypoint.group.id] = waypoint.group
+        }
+      }
+    }
+
+    Waypoint.requestAnimationFrame(function() {
+      for (var groupKey in triggeredGroups) {
+        triggeredGroups[groupKey].flushTriggers()
+      }
+    })
+
+    return this
+  }
+
+  /* Private */
+  Context.findOrCreateByElement = function(element) {
+    return Context.findByElement(element) || new Context(element)
+  }
+
+  /* Private */
+  Context.refreshAll = function() {
+    for (var contextId in contexts) {
+      contexts[contextId].refresh()
+    }
+  }
+
+  /* Public */
+  /* http://imakewebthings.com/waypoints/api/context-find-by-element */
+  Context.findByElement = function(element) {
+    return contexts[element.waypointContextKey]
+  }
+
+  window.onload = function() {
+    if (oldWindowLoad) {
+      oldWindowLoad()
+    }
+    Context.refreshAll()
+  }
+
+  Waypoint.requestAnimationFrame = function(callback) {
+    var requestFn = window.requestAnimationFrame ||
+      window.mozRequestAnimationFrame ||
+      window.webkitRequestAnimationFrame ||
+      requestAnimationFrameShim
+    requestFn.call(window, callback)
+  }
+  Waypoint.Context = Context
+}())
+;(function() {
+  'use strict'
+
+  function byTriggerPoint(a, b) {
+    return a.triggerPoint - b.triggerPoint
+  }
+
+  function byReverseTriggerPoint(a, b) {
+    return b.triggerPoint - a.triggerPoint
+  }
+
+  var groups = {
+    vertical: {},
+    horizontal: {}
+  }
+  var Waypoint = window.Waypoint
+
+  /* http://imakewebthings.com/waypoints/api/group */
+  function Group(options) {
+    this.name = options.name
+    this.axis = options.axis
+    this.id = this.name + '-' + this.axis
+    this.waypoints = []
+    this.clearTriggerQueues()
+    groups[this.axis][this.name] = this
+  }
+
+  /* Private */
+  Group.prototype.add = function(waypoint) {
+    this.waypoints.push(waypoint)
+  }
+
+  /* Private */
+  Group.prototype.clearTriggerQueues = function() {
+    this.triggerQueues = {
+      up: [],
+      down: [],
+      left: [],
+      right: []
+    }
+  }
+
+  /* Private */
+  Group.prototype.flushTriggers = function() {
+    for (var direction in this.triggerQueues) {
+      var waypoints = this.triggerQueues[direction]
+      var reverse = direction === 'up' || direction === 'left'
+      waypoints.sort(reverse ? byReverseTriggerPoint : byTriggerPoint)
+      for (var i = 0, end = waypoints.length; i < end; i += 1) {
+        var waypoint = waypoints[i]
+        if (waypoint.options.continuous || i === waypoints.length - 1) {
+          waypoint.trigger([direction])
+        }
+      }
+    }
+    this.clearTriggerQueues()
+  }
+
+  /* Private */
+  Group.prototype.next = function(waypoint) {
+    this.waypoints.sort(byTriggerPoint)
+    var index = Waypoint.Adapter.inArray(waypoint, this.waypoints)
+    var isLast = index === this.waypoints.length - 1
+    return isLast ? null : this.waypoints[index + 1]
+  }
+
+  /* Private */
+  Group.prototype.previous = function(waypoint) {
+    this.waypoints.sort(byTriggerPoint)
+    var index = Waypoint.Adapter.inArray(waypoint, this.waypoints)
+    return index ? this.waypoints[index - 1] : null
+  }
+
+  /* Private */
+  Group.prototype.queueTrigger = function(waypoint, direction) {
+    this.triggerQueues[direction].push(waypoint)
+  }
+
+  /* Private */
+  Group.prototype.remove = function(waypoint) {
+    var index = Waypoint.Adapter.inArray(waypoint, this.waypoints)
+    if (index > -1) {
+      this.waypoints.splice(index, 1)
+    }
+  }
+
+  /* Public */
+  /* http://imakewebthings.com/waypoints/api/first */
+  Group.prototype.first = function() {
+    return this.waypoints[0]
+  }
+
+  /* Public */
+  /* http://imakewebthings.com/waypoints/api/last */
+  Group.prototype.last = function() {
+    return this.waypoints[this.waypoints.length - 1]
+  }
+
+  /* Private */
+  Group.findOrCreate = function(options) {
+    return groups[options.axis][options.name] || new Group(options)
+  }
+
+  Waypoint.Group = Group
+}())
+;(function() {
+  'use strict'
+
+  var $ = window.jQuery
+  var Waypoint = window.Waypoint
+
+  function JQueryAdapter(element) {
+    this.$element = $(element)
+  }
+
+  $.each([
+    'innerHeight',
+    'innerWidth',
+    'off',
+    'offset',
+    'on',
+    'outerHeight',
+    'outerWidth',
+    'scrollLeft',
+    'scrollTop'
+  ], function(i, method) {
+    JQueryAdapter.prototype[method] = function() {
+      var args = Array.prototype.slice.call(arguments)
+      return this.$element[method].apply(this.$element, args)
+    }
+  })
+
+  $.each([
+    'extend',
+    'inArray',
+    'isEmptyObject'
+  ], function(i, method) {
+    JQueryAdapter[method] = $[method]
+  })
+
+  Waypoint.adapters.push({
+    name: 'jquery',
+    Adapter: JQueryAdapter
+  })
+  Waypoint.Adapter = JQueryAdapter
+}())
+;(function() {
+  'use strict'
+
+  var Waypoint = window.Waypoint
+
+  function createExtension(framework) {
+    return function() {
+      var waypoints = []
+      var overrides = arguments[0]
+
+      if (framework.isFunction(arguments[0])) {
+        overrides = framework.extend({}, arguments[1])
+        overrides.handler = arguments[0]
+      }
+
+      this.each(function() {
+        var options = framework.extend({}, overrides, {
+          element: this
+        })
+        if (typeof options.context === 'string') {
+          options.context = framework(this).closest(options.context)[0]
+        }
+        waypoints.push(new Waypoint(options))
+      })
+
+      return waypoints
+    }
+  }
+
+  if (window.jQuery) {
+    window.jQuery.fn.waypoint = createExtension(window.jQuery)
+  }
+  if (window.Zepto) {
+    window.Zepto.fn.waypoint = createExtension(window.Zepto)
+  }
+}())
+;
+/**
+ * jQuery Unveil
+ * A very lightweight jQuery plugin to lazy load images
+ * http://luis-almeida.github.com/unveil
+ *
+ * Licensed under the MIT license.
+ * Copyright 2013 Luís Almeida
+ * https://github.com/luis-almeida
+ */
+
+;(function($) {
+
+  $.fn.unveil = function(threshold, callback) {
+
+    var $w = $(window),
+        th = threshold || 0,
+        retina = window.devicePixelRatio > 1,
+        attrib = retina? "data-src-retina" : "data-src",
+        images = this,
+        loaded;
+
+    this.one("unveil", function() {
+      var source = this.getAttribute(attrib);
+      source = source || this.getAttribute("data-src");
+      if (source) {
+        this.setAttribute("src", source);
+        if (typeof callback === "function") callback.call(this);
+      }
+    });
+
+    function unveil() {
+      var inview = images.filter(function() {
+        var $e = $(this);
+        if ($e.is(":hidden")) return;
+
+        var wt = $w.scrollTop(),
+            wb = wt + $w.height(),
+            et = $e.offset().top,
+            eb = et + $e.height();
+
+        return eb >= wt - th && et <= wb + th;
+      });
+
+      loaded = inview.trigger("unveil");
+      images = images.not(loaded);
+    }
+
+    $w.scroll(unveil);
+    $w.resize(unveil);
+
+    unveil();
+
+    return this;
+
+  };
+
+})(window.jQuery || window.Zepto);
+
 /*
  * jQuery Easing v1.3 - http://gsgd.co.uk/sandbox/jquery/easing/
  *
@@ -13497,60 +13507,875 @@ jQuery.extend( jQuery.easing,
 	}
 })(this);
 
-/**
- * jQuery Unveil
- * A very lightweight jQuery plugin to lazy load images
- * http://luis-almeida.github.com/unveil
- *
- * Licensed under the MIT license.
- * Copyright 2013 Luís Almeida
- * https://github.com/luis-almeida
+/*!
+ * response.js 0.9.1+201410311050
+ * https://github.com/ryanve/response.js
+ * MIT License (c) 2014 Ryan Van Etten
  */
 
-;(function($) {
+!function(root, name, make) {
+  var $ = root['jQuery'] || root['Zepto'] || root['ender'] || root['elo'];
+  if (typeof module != 'undefined' && module['exports']) module['exports'] = make($);
+  else root[name] = make($);
+}(this, 'Response', function($) {
 
-  $.fn.unveil = function(threshold, callback) {
+  if (typeof $ != 'function') {
+    try {
+      return void console.warn('response.js aborted due to missing dependency');
+    } catch (e) {}
+  }
 
-    var $w = $(window),
-        th = threshold || 0,
-        retina = window.devicePixelRatio > 1,
-        attrib = retina? "data-src-retina" : "data-src",
-        images = this,
-        loaded;
-
-    this.one("unveil", function() {
-      var source = this.getAttribute(attrib);
-      source = source || this.getAttribute("data-src");
-      if (source) {
-        this.setAttribute("src", source);
-        if (typeof callback === "function") callback.call(this);
+  var Response
+    , Elemset
+    , root = this
+    , name = 'Response'
+    , old = root[name]
+    , initContentKey = 'init' + name
+    , win = window
+    , doc = document
+    , docElem = doc.documentElement
+    , ready = $.domReady || $
+    , $win = $(win)
+    , DMS = typeof DOMStringMap != 'undefined'
+    , AP = Array.prototype
+    , OP = Object.prototype
+    , push = AP.push
+    , concat = AP.concat
+    , toString = OP.toString
+    , owns = OP.hasOwnProperty
+    , isArray = Array.isArray || function(item) {
+        return '[object Array]' === toString.call(item);
       }
+    , defaultPoints = {
+          width: [0, 320, 481, 641, 961, 1025, 1281]
+        , height: [0, 481]
+        , ratio: [1, 1.5, 2] // device-pixel-ratio
+      }
+    , propTests = {}
+    , isCustom = {}
+    , sets = { all: [] }
+    , suid = 1
+    , screenW = screen.width   
+    , screenH = screen.height  
+    , screenMax = screenW > screenH ? screenW : screenH
+    , screenMin = screenW + screenH - screenMax
+    , deviceW = function() { return screenW; }
+    , deviceH = function() { return screenH; }
+    , regexFunkyPunc = /[^a-z0-9_\-\.]/gi
+    , regexTrimPunc = /^[\W\s]+|[\W\s]+$|/g
+    , regexCamels = /([a-z])([A-Z])/g
+    , regexDashB4 = /-(.)/g
+    , regexDataPrefix = /^data-(.+)$/
+
+    , procreate = Object.create || function(parent) {
+        /** @constructor */
+        function Type() {}
+        Type.prototype = parent;
+        return new Type;
+      }
+    , namespaceIt = function(eventName, customNamespace) {
+        customNamespace = customNamespace || name;
+        return eventName.replace(regexTrimPunc, '') + '.' + customNamespace.replace(regexTrimPunc, '');
+      }
+    , event = {
+          allLoaded: namespaceIt('allLoaded') // fires on lazy elemsets when all elems in a set have been loaded once
+          //, update: namespaceIt('update') // fires on each elem in a set each time that elem is updated
+        , crossover: namespaceIt('crossover') // fires on window each time dynamic breakpoint bands is crossed
+      }
+    
+      // normalized matchMedia
+    , matchMedia = win.matchMedia || win.msMatchMedia
+    , media = matchMedia ? bind(matchMedia, win) : function() {
+        return {}; 
+      }
+    , mq = matchMedia ? function(q) {
+        return !!matchMedia.call(win, q).matches;
+      } : function() {
+        return false;
+      }
+  
+      // http://ryanve.com/lab/dimensions
+      // http://github.com/ryanve/verge/issues/13
+    , viewportW = function() {
+        var a = docElem.clientWidth, b = win.innerWidth;
+        return a < b ? b : a;
+      }
+    , viewportH = function() {
+        var a = docElem.clientHeight, b = win.innerHeight;
+        return a < b ? b : a;
+      }
+
+    , band = bind(between, viewportW)
+    , wave = bind(between, viewportH)
+    , device = {
+          'band': bind(between, deviceW)
+        , 'wave': bind(between, deviceH)
+      };
+
+  function isNumber(item) {
+    return item === +item;
+  }
+  
+  /**
+   * @param {Function} fn
+   * @param {*=} scope
+   * @return {Function}
+   */
+  function bind(fn, scope) {
+    return function() {
+      return fn.apply(scope, arguments);
+    };
+  }
+
+  /**
+   * @this {Function}
+   * @param {number} min
+   * @param {number=} max
+   * @return {boolean}
+   */
+  function between(min, max) {
+    var point = this.call();
+    return point >= (min || 0) && (!max || point <= max);
+  }
+
+  /**
+   * @param {{length:number}} stack
+   * @param {Function} fn
+   * @param {*=} scope
+   * @return {Array}
+   */
+  function map(stack, fn, scope) {
+    for (var r = [], l = stack.length, i = 0; i < l;) r[i] = fn.call(scope, stack[i], i++, stack);
+    return r;
+  }
+
+  /**
+   * @param {string|{length:number}} list
+   * @return {Array} new and compact
+   */
+  function compact(list) {
+    return !list ? [] : sift(typeof list == 'string' ? list.split(' ') : list);
+  }
+
+  /**
+   * @since 0.4.0, supports scope and sparse-item iteration since 0.6.2
+   * @param {{length:number}} stack
+   * @param {Function} fn
+   * @param {*=} scope
+   */
+  function each(stack, fn, scope) {
+    if (null == stack) return stack;
+    for (var l = stack.length, i = 0; i < l;) fn.call(scope || stack[i], stack[i], i++, stack);
+    return stack;
+  }
+
+  /**
+   * @since 0.4.0 skips null|undefined since 0.6.2, adds `0` since 0.7.11
+   * @param {{length:number}} stack
+   * @param {(string|number)=} prefix
+   * @param {(string|number)=} suffix
+   * @return {Array} new array of affixed strings or added numbers
+   */
+  function affix(stack, prefix, suffix) {
+    if (null == prefix) prefix = '';
+    if (null == suffix) suffix = '';
+    for (var r = [], l = stack.length, i = 0; i < l; i++)
+      null == stack[i] || r.push(prefix + stack[i] + suffix);
+    return r;
+  }
+
+  /**
+   * @param {{length:number}} stack to iterate
+   * @param {(Function|string|*)=} fn callback or typestring
+   * @param {(Object|boolean|*)=} scope or inversion boolean
+   * @since 0.4.0, supports scope and typestrings since 0.6.2
+   * @example Response.sift([5, 0, 'str'], isFinite) // [5, 0]
+   * @example Response.sift([5, 0, 'str']) // [5, 'str']
+   */
+  function sift(stack, fn, scope) {
+    var fail, l, v, r = [], u = 0, i = 0, run = typeof fn == 'function', not = true === scope;
+    for (l = stack && stack.length, scope = not ? null : scope; i < l; i++) {
+      v = stack[i];
+      fail = run ? !fn.call(scope, v, i, stack) : fn ? typeof v !== fn : !v;
+      fail === not && (r[u++] = v);
+    }
+    return r;
+  }
+
+  /**
+   * @since 0.3.0
+   * @param {Object|Array|Function|*} r receiver
+   * @param {Object|Array|Function|*} s supplier Undefined values are ignored.
+   * @return {Object|Array|Function|*} receiver
+   */
+  function merge(r, s) {
+    if (null == r || null == s) return r;
+    if (typeof s == 'object' && isNumber(s.length)) push.apply(r, sift(s, 'undefined', true));
+    else for (var k in s) owns.call(s, k) && void 0 !== s[k] && (r[k] = s[k]);
+    return r;
+  }
+
+  /**
+   * @description Call `fn` on each stack value or directly on a non-stack item
+   * @since 0.3.0 scope support added in 0.6.2
+   * @param {*} item stack or non-stack item
+   * @param {Function} fn callback
+   * @param {*=} scope defaults to current item
+   */
+  function route(item, fn, scope) {
+    if (null == item) return item;
+    if (typeof item == 'object' && !item.nodeType && isNumber(item.length)) each(item, fn, scope);
+    else fn.call(scope || item, item);
+    return item;
+  }
+  
+  /**
+   * Response.dpr(decimal) Tests if a minimum device pixel ratio is active. 
+   * Or (version added in 0.3.0) returns the device-pixel-ratio
+   * @param {number} decimal is the integer or float to test.
+   * @return {boolean|number}
+   * @example Response.dpr() // get the device-pixel-ratio (or 0 if undetectable)
+   * @example Response.dpr(1.5) // true when device-pixel-ratio is 1.5+
+   * @example Response.dpr(2) // true when device-pixel-ratio is 2+
+   */
+  function dpr(decimal) {
+    // Consider: github.com/ryanve/res
+    var dPR = win.devicePixelRatio;
+    if (null == decimal) return dPR || (dpr(2) ? 2 : dpr(1.5) ? 1.5 : dpr(1) ? 1 : 0); // approx
+    if (!isFinite(decimal)) return false;
+
+    // Use window.devicePixelRatio if supported - supported by Webkit 
+    // (Safari/Chrome/Android) and Presto 2.8+ (Opera) browsers.     
+    if (dPR && dPR > 0) return dPR >= decimal; 
+
+    // Fallback to .matchMedia/.msMatchMedia. Supported by Gecko (FF6+) and more:
+    // @link developer.mozilla.org/en/DOM/window.matchMedia
+    // -webkit-min- and -o-min- omitted (Webkit/Opera supported above)
+    // The generic min-device-pixel-ratio is expected to be added to the W3 spec.
+    // Return false if neither method is available.
+    decimal = 'only all and (min--moz-device-pixel-ratio:' + decimal + ')';
+    if (mq(decimal)) return true;
+    return mq(decimal.replace('-moz-', ''));
+  }
+
+  /**
+   * Response.camelize
+   * @example Response.camelize('data-casa-blanca') // casaBlanca
+   */
+  function camelize(s) {
+    // Remove data- prefix and convert remaining dashed string to camelCase:
+    return s.replace(regexDataPrefix, '$1').replace(regexDashB4, function(m, m1) {
+      return m1.toUpperCase();
     });
+  }
 
-    function unveil() {
-      var inview = images.filter(function() {
-        var $e = $(this);
-        if ($e.is(":hidden")) return;
+  /**
+   * Response.datatize
+   * Converts pulpFiction (or data-pulpFiction) to data-pulp-fiction
+   * @example Response.datatize('casaBlanca')  // data-casa-blanca
+   */
+  function datatize(s) {
+    // Make sure there's no data- already in s for it to work right in IE8.
+    return 'data-' + (s ? s.replace(regexDataPrefix, '$1').replace(regexCamels, '$1-$2').toLowerCase() : s);
+  }
 
-        var wt = $w.scrollTop(),
-            wb = wt + $w.height(),
-            et = $e.offset().top,
-            eb = et + $e.height();
+  /**
+   * Convert stringified primitives back to JavaScript.
+   * @param {string|*} s String to parse into a JavaScript value.
+   * @return {*}
+   */
+  function parse(s) {
+    var n; // undefined, or becomes number
+    return typeof s != 'string' || !s ? s
+      : 'false' === s ? false
+      : 'true' === s ? true
+      : 'null' === s ? null
+      : 'undefined' === s || (n = (+s)) || 0 === n || 'NaN' === s ? n
+      : s;
+  }
+  
+  /**
+   * @param {Element|{length:number}} e
+   * @return {Element|*}
+   */
+  function first(e) {
+    return !e || e.nodeType ? e : e[0];
+  }
 
-        return eb >= wt - th && et <= wb + th;
+  /**
+   * internal-use function to iterate a node's attributes
+   * @param {Element} el
+   * @param {Function} fn
+   * @param {(boolean|*)=} exp
+   */
+  function eachAttr(el, fn, exp) {
+    var test, n, a, i, l;
+    if (!el.attributes) return;
+    test = typeof exp == 'boolean' ? /^data-/ : test;
+    for (i = 0, l = el.attributes.length; i < l;) {
+      if (a = el.attributes[i++]) {
+        n = '' + a.name;
+        test && test.test(n) !== exp || null == a.value || fn.call(el, a.value, n, a);
+      }
+    }
+  }
+
+  /**
+   * Get object containing an element's data attrs.
+   * @param {Element} el
+   * @return {DOMStringMap|Object|undefined}
+   */
+  function getDataset(el) {
+    var ob;
+    if (!el || 1 !== el.nodeType) return;  // undefined
+    if (ob = DMS && el.dataset) return ob; // native
+    ob = {}; // Fallback plain object cannot mutate the dataset via reference.
+    eachAttr(el, function(v, k) {
+      ob[camelize(k)] = '' + v;
+    }, true);
+    return ob;
+  }
+  
+  /**
+   * @param {Element} el
+   * @param {Object} ob
+   * @param {Function} fn
+   */
+  function setViaObject(el, ob, fn) {
+    for (var n in ob) owns.call(ob, n) && fn(el, n, ob[n]);
+  }
+  
+  /**
+   * @param {Object|Array|Function} el
+   * @param {(string|Object|*)=} k
+   * @param {*=} v
+   */  
+  function dataset(el, k, v) {
+    el = first(el);
+    if (!el || !el.setAttribute) return;
+    if (void 0 === k && v === k) return getDataset(el);
+    var exact = isArray(k) && datatize(k[0]);
+    if (typeof k == 'object' && !exact) {
+      k && setViaObject(el, k, dataset);
+    } else {
+      k = exact || datatize(k);
+      if (!k) return;
+      if (void 0 === v) {
+        k = el.getAttribute(k); // repurpose
+        return null == k ? v : exact ? parse(k) : '' + k; // normalize
+      }
+      el.setAttribute(k, v = '' + v);
+      return v; // current value
+    }
+  }
+
+  /**
+   * Response.deletes(elem, keys) Delete HTML5 data attributes (remove them from them DOM)
+   * @since 0.3.0
+   * @param {Element|{length:number}} elem is a DOM element or stack of them
+   * @param {string|Array} ssv data attribute key(s) in camelCase or lowercase to delete
+   */
+  function deletes(elem, ssv) {
+    ssv = compact(ssv);
+    route(elem, function(el) {
+      each(ssv, function(k) {
+        el.removeAttribute(datatize(k));
       });
+    });
+  }
 
-      loaded = inview.trigger("unveil");
-      images = images.not(loaded);
+  function sel(keys) {
+    // Convert an array of data keys into a selector string
+    // Converts ["a","b","c"] into "[data-a],[data-b],[data-c]"
+    // Double-slash escapes periods so that attrs like data-density-1.5 will work
+    // @link api.jquery.com/category/selectors/
+    // @link github.com/jquery/sizzle/issues/76
+    for (var k, r = [], i = 0, l = keys.length; i < l;)
+      (k = keys[i++]) && r.push('[' + datatize(k.replace(regexTrimPunc, '').replace('.', '\\.')) + ']');
+    return r.join();
+  }
+
+  /**
+   * Response.target() Get the corresponding data attributes for an array of data keys.
+   * @since 0.1.9
+   * @param {Array} keys is the array of data keys whose attributes you want to select.
+   * @return {Object} jQuery stack
+   * @example Response.target(['a', 'b', 'c']) //  $('[data-a],[data-b],[data-c]')
+   * @example Response.target('a b c']) //  $('[data-a],[data-b],[data-c]')
+   */
+  function target(keys) {
+    return $(sel(compact(keys)));  
+  }
+
+  /** 
+   * @since 0.3.0
+   * @return {number} like jQuery(window).scrollLeft()
+   */
+  function scrollX() {
+    return window.pageXOffset || docElem.scrollLeft; 
+  }
+
+  /** 
+   * @since 0.3.0
+   * @return {number} like $(window).scrollTop()
+   */
+  function scrollY() { 
+    return window.pageYOffset || docElem.scrollTop; 
+  }
+
+  /**
+   * area methods inX/inY/inViewport
+   * @since 0.3.0
+   */
+  function rectangle(el, verge) {
+    // Local handler for area methods:
+    // adapted from github.com/ryanve/dime
+    // The native object is read-only so we 
+    // have use a copy in order to modify it.
+    var r = el.getBoundingClientRect ? el.getBoundingClientRect() : {};
+    verge = typeof verge == 'number' ? verge || 0 : 0;
+    return {
+        top: (r.top || 0) - verge
+      , left: (r.left || 0) - verge
+      , bottom: (r.bottom || 0) + verge
+      , right: (r.right || 0) + verge
+    };
+  }
+     
+  // The verge is the amount of pixels to act as a cushion around the viewport. It can be any 
+  // integer. If verge is zero, then the inX/inY/inViewport methods are exact. If verge is set to 100, 
+  // then those methods return true when for elements that are are in the viewport *or* near it, 
+  // with *near* being defined as within 100 pixels outside the viewport edge. Elements immediately 
+  // outside the viewport are 'on the verge' of being scrolled to.
+
+  function inX(elem, verge) {
+    var r = rectangle(first(elem), verge);
+    return !!r && r.right >= 0 && r.left <= viewportW();
+  }
+
+  function inY(elem, verge) {
+    var r = rectangle(first(elem), verge);
+    return !!r && r.bottom >= 0 && r.top <= viewportH();
+  }
+
+  function inViewport(elem, verge) {
+    // equiv to: inX(elem, verge) && inY(elem, verge)
+    // But just manually do both to avoid calling rectangle() and first() twice.
+    // It actually gzips smaller this way too:
+    var r = rectangle(first(elem), verge);
+    return !!r && r.bottom >= 0 && r.top <= viewportH() && r.right >= 0 && r.left <= viewportW();
+  }
+  
+  /**
+   * @description Detect whether elem should act in src or markup mode.
+   * @param {Element} elem
+   * @return {number}
+   */
+  function detectMode(elem) {
+    // Normalize to lowercase to ensure compatibility across HTML/XHTML/XML.
+    // These are the elems that can use src attr per the W3 spec:
+    //dev.w3.org/html5/spec-author-view/index.html#attributes-1
+    //stackoverflow.com/q/8715689/770127
+    //stackoverflow.com/a/4878963/770127
+    var srcElems = { img:1, input:1, source:3, embed:3, track:3, iframe:5, audio:5, video:5, script:5 }
+      , modeID = srcElems[ elem.nodeName.toLowerCase() ] || -1;
+
+    // -5 => markup mode for video/audio/iframe w/o src attr.
+    // -1 => markup mode for any elem not in the array above.
+    //  1 => src mode  for img/input (empty content model). Images.
+    //  3 => src mode  for source/embed/track (empty content model). Media *or* time data.
+    //  5 => src mode  for audio/video/iframe/script *with* src attr.
+    //  If we at some point we need to differentiate <track> we'll use 4, but for now
+    //  it's grouped with the other non-image empty content elems that use src.
+    //  hasAttribute is not supported in IE7 so check elem.getAttribute('src')
+    return 4 > modeID ? modeID : null != elem.getAttribute('src') ? 5 : -5;
+  }
+
+  /**
+   * Response.store()
+   * Store a data value on each elem targeted by a jQuery selector. We use this for storing an 
+   * elem's orig (no-js) state. This gives us the ability to return the elem to its orig state.
+   * The data it stores is either the src attr or the innerHTML based on result of detectMode().
+   * @since 0.1.9
+   * @param {Object} $elems DOM element | jQuery object | nodeList | array of elements
+   * @param {string} key is the key to use to store the orig value w/ @link api.jquery.com/data/
+   * @param {string=} source  (@since 0.6.2) an optional attribute name to read data from
+   */
+  function store($elems, key, source) {
+    var valToStore;
+    if (!$elems || null == key) throw new TypeError('@store');
+    source = typeof source == 'string' && source;
+    route($elems, function(el) {
+      if (source) valToStore = el.getAttribute(source);
+      else if (0 < detectMode(el)) valToStore = el.getAttribute('src');
+      else valToStore = el.innerHTML;
+      null == valToStore ? deletes(el, key) : dataset(el, key, valToStore); 
+    });
+    return Response;
+  }
+
+  /**
+   * Response.access() Access data-* values for element from an array of data-* keys. 
+   * @since 0.1.9 added support for space-separated strings in 0.3.1
+   * @param {Object} elem is a native or jQuery element whose values to access.
+   * @param {Array|string} keys is an array or SSV string of data keys
+   * @return {Array} dataset values corresponding to each key. Since 0.4.0 if
+   *   the params are wrong then the return is an empty array.
+   */
+  function access(elem, keys) {
+    var ret = [];
+    elem && keys && each(compact(keys), function(k) {
+      ret.push(dataset(elem, k));
+    }, elem);
+    return ret;
+  }
+
+  function addTest(prop, fn) {
+    if (typeof prop == 'string' && typeof fn == 'function') {
+      propTests[prop] = fn;
+      isCustom[prop] = 1;
+    }
+    return Response;
+  }
+    
+  // Prototype object for element sets used in Response.create
+  // Each element in the set inherits this as well, so some of the 
+  // methods apply to the set, while others apply to single elements.
+  Elemset = (function() {
+    var crossover = event.crossover
+      //, update = event.update
+      , min = Math.min;
+
+    // Techically data attributes names can contain uppercase in HTML, but, The DOM lowercases 
+    // attributes, so they must be lowercase regardless when we target them in jQuery. Force them 
+    // lowercase here to prevent issues. Removing all punc marks except for dashes, underscores,
+    // and periods so that we don't have to worry about escaping anything crazy.
+    // Rules @link dev.w3.org/html5/spec/Overview.html#custom-data-attribute
+    // jQuery selectors @link api.jquery.com/category/selectors/ 
+    function sanitize(key) {
+      // Allow lowercase alphanumerics, dashes, underscores, and periods:
+      return typeof key == 'string' ? key.toLowerCase().replace(regexFunkyPunc, '') : '';
+    }
+    
+    function ascending(a, b) {
+      return a - b;
     }
 
-    $w.scroll(unveil);
-    $w.resize(unveil);
+    return {
+        $e: 0 // jQuery instance
+      , mode: 0 // integer  defined per element
+      , breakpoints: null // array, validated @ configure()
+      , prefix: null // string, validated @ configure()
+      , prop: 'width' // string, validated @ configure()
+      , keys: [] // array, defined @ configure()
+      , dynamic: null // boolean, defined @ configure()
+      , custom: 0 // boolean, see addTest()
+      , values: [] // array, available values
+      , fn: 0 // callback, the test fn, defined @ configure()
+      , verge: null // integer  uses default based on device size
+      , newValue: 0
+      , currValue: 1
+      , aka: null
+      , lazy: null
+      , i: 0  // integer, the index of the current highest active breakpoint min
+      , uid: null
 
-    unveil();
+      , reset: function() {
+          var subjects = this.breakpoints, i = subjects.length, tempIndex = 0;
+          while (!tempIndex && i--) this.fn(subjects[i]) && (tempIndex = i);
+          if (tempIndex !== this.i) {
+            // Crossover occurred. Fire the crossover events:
+            $win.trigger(crossover).trigger(this.prop + crossover);
+            this.i = tempIndex || 0;
+          }
+          return this;
+        }
 
-    return this;
+      , configure: function(options) {
+          merge(this, options);
+        
+          var i, points, prefix, aliases, aliasKeys, isNumeric = true, prop = this.prop;
+          this.uid = suid++;
+          if (null == this.verge) this.verge = min(screenMax, 500);
+          if (!(this.fn = propTests[prop])) throw new TypeError('@create');
 
+          // If we get to here then we know the prop is one one our supported props:
+          // 'width', 'height', 'device-width', 'device-height', 'device-pixel-ratio'
+          if (null == this.dynamic) this.dynamic = 'device' !== prop.slice(0, 6);
+          
+          this.custom = isCustom[prop];
+          prefix = this.prefix ? sift(map(compact(this.prefix), sanitize)) : ['min-' + prop + '-'];
+          aliases = 1 < prefix.length ? prefix.slice(1) : 0;
+          this.prefix = prefix[0];
+          points = this.breakpoints;
+          
+          // Sort and validate (#valid8) custom breakpoints if supplied.
+          // Must be done before keys are created so that the keys match:
+          if (isArray(points)) {
+            each(points, function(v) {
+              if (!v && v !== 0) throw 'invalid breakpoint';
+              isNumeric = isNumeric && isFinite(v);
+            });
+            
+            isNumeric && points.sort(ascending);
+            if (!points.length) throw new TypeError('.breakpoints');
+          } else {
+            // The default breakpoints are presorted.
+            points = defaultPoints[prop] || defaultPoints[prop.split('-').pop()];
+            if (!points) throw new TypeError('.prop');
+          }
+
+          this.breakpoints = points;
+          this.keys = affix(this.breakpoints, this.prefix); // Create array of data keys.
+          this.aka = null; // Reset just in case a value was merged in.
+
+          if (aliases) {
+            aliasKeys = [];
+            i = aliases.length;
+            while (i--) aliasKeys.push(affix(this.breakpoints, aliases[i]));
+            this.aka = aliasKeys; // this.aka is an array of arrays (one for each alias)
+            this.keys = concat.apply(this.keys, aliasKeys); // flatten aliases into this.keys
+          }
+
+          sets.all = sets.all.concat(sets[this.uid] = this.keys); // combined keys ===> sets.all
+          return this;
+        }
+
+      , target: function() {
+          this.$e = $(sel(sets[this.uid])); // Cache selection. DOM must be ready.
+          store(this.$e, initContentKey);  // Store original (no-js) value to data key.
+          this.keys.push(initContentKey);  // #keys now equals #breakpoints+1
+          return this;
+        }
+
+      // The rest of the methods are designed for use with single elements.
+      // They are for use in a cloned instances within a loop.
+      , decideValue: function() {
+          // Return the first value from the values array that passes the boolean
+          // test callback. If none pass the test, then return the fallback value.
+          // this.breakpoints.length === this.values.length + 1  
+          // The extra member in the values array is the initContentKey value.
+          var val = null, subjects = this.breakpoints, sL = subjects.length, i = sL;
+          while (val == null && i--) this.fn(subjects[i]) && (val = this.values[i]);
+          this.newValue = typeof val == 'string' ? val : this.values[sL];
+          return this; // chainable
+        }
+
+      , prepareData: function(elem) {
+          this.$e = $(elem);
+          this.mode = detectMode(elem);
+          this.values = access(this.$e, this.keys);
+          if (this.aka) {
+            // If there are alias keys then there may be alias values. Merge the values from 
+            // all the aliases into the values array. The merge method only merges in truthy values
+            // and prevents falsey values from overwriting truthy ones. (See Response.merge)
+            // Each of the this.aka arrays has the same length as the this.values
+            // array, so no new indexes will be added, just filled if there's truthy values.
+            var i = this.aka.length;
+            while (i--) this.values = merge(this.values, access(this.$e, this.aka[i]));
+          }
+          return this.decideValue();
+        }
+
+      , updateDOM: function() {
+          // Apply the method that performs the actual swap. When updateDOM called this.$e and this.e refer
+          // to single elements. Only update the DOM when the new value is different than the current value.
+          if (this.currValue === this.newValue) { return this; }
+          this.currValue = this.newValue;
+          if (0 < this.mode) { 
+            this.$e[0].setAttribute('src', this.newValue); 
+          } else if (null == this.newValue) { 
+            this.$e.empty && this.$e.empty(); 
+          } else {
+            if (this.$e.html) {
+              this.$e.html(this.newValue); 
+            } else {
+              this.$e.empty && this.$e.empty();
+              this.$e[0].innerHTML = this.newValue;
+            }
+          }
+          // this.$e.trigger(update); // may add this event in future
+          return this;
+        }
+    };
+  }());
+  
+  // The keys are the prop and the values are the method that tests that prop.
+  // The props with dashes in them are added via array notation below.
+  // Props marked as dynamic change when the viewport is resized:
+  propTests['width'] = band;   // dynamic
+  propTests['height'] = wave;  // dynamic
+  propTests['device-width'] = device.band;
+  propTests['device-height'] = device.wave;
+  propTests['device-pixel-ratio'] = dpr;
+
+  function resize(fn) {
+    $win.on('resize', fn);
+    return Response; // chain
+  }
+
+  function crossover(prop, fn) {
+    var temp, eventToFire, eventCrossover = event.crossover;
+    if (typeof prop == 'function') {// support args in reverse
+      temp = fn;
+      fn = prop;
+      prop = temp;
+    }
+    eventToFire = prop ? ('' + prop + eventCrossover) : eventCrossover;
+    $win.on(eventToFire, fn);
+    return Response; // chain
+  }
+
+  /**
+   * Response.action A facade for calling functions on both the ready and resize events.
+   * @link http://responsejs.com/#action
+   * @since 0.1.3
+   * @param {Function|Array} action is the callback name or array of callback names to call.
+   * @example Response.action(myFunc1) // call myFunc1() on ready/resize
+   * @example Response.action([myFunc1, myFunc2]) // call myFunc1(), myFunc2() ...
+   */
+  function action(fnOrArr) {
+    route(fnOrArr, function(fn) {
+      ready(fn);
+      resize(fn);
+    });
+    return Response;
+  }
+  
+  /**
+   * Create their own Response attribute sets, with custom breakpoints and data-* names.
+   * @since 0.1.9
+   * @param {Object|Array} args is an options object or an array of options objects.
+   * @link http://responsejs.com/#create
+   * @example Response.create(object) // single
+   * @example Response.create([object1, object2]) // bulk
+   */
+  function create(args) {
+    route(args, function(options) {
+      if (typeof options != 'object') throw new TypeError('@create');
+      var elemset = procreate(Elemset).configure(options)
+        , lowestNonZeroBP
+        , verge = elemset.verge
+        , breakpoints = elemset.breakpoints
+        , scrollName = namespaceIt('scroll')
+        , resizeName = namespaceIt('resize');
+
+      if (!breakpoints.length) return;
+
+      // Identify the lowest nonzero breakpoint. (They're already sorted low to high by now.)
+      lowestNonZeroBP = breakpoints[0] || breakpoints[1] || false;
+    
+      ready(function() {
+        var allLoaded = event.allLoaded, lazy = !!elemset.lazy;
+        
+        function resizeHandler() {
+          elemset.reset();
+          each(elemset.$e, function(el, i) {
+            elemset[i].decideValue().updateDOM();
+          }).trigger(allLoaded);
+        }
+        
+        function scrollHandler() {
+          each(elemset.$e, function(el, i) {
+            inViewport(elemset[i].$e, verge) && elemset[i].updateDOM();
+          });
+        }
+
+        // Target elements containing this set's Response data attributes and chain into the 
+        // loop that occurs on ready. The selector is cached to elemset.$e for later use.
+        each(elemset.target().$e, function(el, i) {
+          elemset[i] = procreate(elemset).prepareData(el);// Inherit from elemset
+          if (!lazy || inViewport(elemset[i].$e, verge)) {
+            // If not lazy update all the elems in the set. If
+            // lazy, only update elems in the current viewport.
+            elemset[i].updateDOM(); 
+          }
+        });
+
+        // device-* props are static and only need to be tested once. The others are
+        // dynamic, meaning they need to be tested on resize. Also if a device so small
+        // that it doesn't support the lowestNonZeroBP then we don't need to listen for 
+        // resize events b/c we know the device can't resize beyond that breakpoint.
+
+        if (elemset.dynamic && (elemset.custom || lowestNonZeroBP < screenMax)) {
+           resize(resizeHandler, resizeName);
+        }
+
+        // We don't have to re-decide the content on scrolls because neither the viewport or device
+        // properties change from a scroll. This setup minimizes the operations binded to the scroll 
+        // event. Once everything in the set has been swapped once, the scroll handler is deactivated
+        // through the use of a custom event.
+        if (!lazy) return;
+        
+        $win.on(scrollName, scrollHandler);
+        elemset.$e.one(allLoaded, function() {
+          $win.off(scrollName, scrollHandler);
+        });
+      });
+    });
+    return Response;
+  }
+  
+  function noConflict(callback) {
+    if (root[name] === Response) root[name] = old;
+    if (typeof callback == 'function') callback.call(root, Response);
+    return Response;
+  }
+  
+  // Many methods are @deprecated (see issue #51)
+  Response = {
+      deviceMin: function() { return screenMin; }
+    , deviceMax: function() { return screenMax; }
+    //, sets: function(prop) {// must be uid
+    //  return $(sel(sets[prop] || sets.all));
+    //}
+    , noConflict: noConflict
+    , create: create
+    , addTest: addTest
+    , datatize: datatize
+    , camelize: camelize
+    , render: parse
+    , store: store
+    , access: access
+    , target: target
+    , object: procreate
+    , crossover: crossover
+    , action: action
+    , resize: resize
+    , ready: ready
+    , affix: affix
+    , sift: sift
+    , dpr: dpr
+    , deletes: deletes
+    , scrollX: scrollX
+    , scrollY: scrollY
+    , deviceW: deviceW
+    , deviceH: deviceH
+    , device: device
+    , inX: inX
+    , inY: inY
+    , route: route
+    , merge: merge
+    , media: media
+    , mq: mq
+    , wave: wave
+    , band: band
+    , map: map
+    , each: each
+    , inViewport: inViewport
+    , dataset: dataset
+    , viewportH: viewportH
+    , viewportW: viewportW
   };
 
-})(window.jQuery || window.Zepto);
+  // Initialize
+  ready(function() {
+    var settings = dataset(doc.body, 'responsejs'), parse = win.JSON && JSON.parse || $.parseJSON;
+    settings = settings && parse ? parse(settings) : settings;
+    settings && settings.create && create(settings.create);
+    // Remove .no-responsejs and add .responsejs
+    docElem.className = docElem.className.replace(/(^|\s)(no-)?responsejs(\s|$)/, '$1$3') + ' responsejs ';
+  });
+
+  return Response;
+});

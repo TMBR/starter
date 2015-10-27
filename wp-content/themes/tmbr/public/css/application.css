@@ -1,4 +1,6 @@
 @charset "UTF-8";
+/* ======== CORE VARIABLES & MIXINS ======== */
+/* ======== RESET ======== */
 /*! normalize.css v3.0.1 | MIT License | git.io/normalize */
 html {
   font-family: sans-serif;
@@ -175,6 +177,7 @@ td,
 th {
   padding: 0; }
 
+/* ======== CORE CSS ======== */
 * {
   box-sizing: border-box; }
 
@@ -2095,6 +2098,7 @@ input[type="reset"].btn-block,
 input[type="button"].btn-block {
   width: 100%; }
 
+/* ======== BOOTSTRAP COMPONENTS ======== */
 .fade {
   opacity: 0;
   transition: opacity 0.15s linear; }
@@ -3503,6 +3507,13 @@ button.close {
   border: 0;
   -webkit-appearance: none; }
 
+/* ======== COMPONENTS WITH JAVASCRIPT ======== 
+
+@import "../vendor/twbs-bootstrap-sass/vendor/assets/stylesheets/bootstrap/_modals.scss";
+@import "../vendor/twbs-bootstrap-sass/vendor/assets/stylesheets/bootstrap/_tooltip.scss";
+@import "../vendor/twbs-bootstrap-sass/vendor/assets/stylesheets/bootstrap/_popovers.scss";
+@import "../vendor/twbs-bootstrap-sass/vendor/assets/stylesheets/bootstrap/_carousel.scss"; */
+/* ======== UTILITY CLASSES ======== */
 .clearfix:before,
 .clearfix:after {
   content: " ";
@@ -3709,6 +3720,7 @@ button.close {
   .hidden-print {
     display: none !important; } }
 
+/* ======== FONTS ======== */
 /*!
  *  Font Awesome 4.3.0 by @davegandy - http://fontawesome.io - @fontawesome
  *  License - http://fontawesome.io/license (Font: SIL OFL 1.1, CSS: MIT License)
@@ -5709,6 +5721,7 @@ button.close {
 .tmbricons-xmas:before {
   content: "\EA38"; }
 
+/* ======== VENDOR STYLES ======== */
 /*!
 Animate.css - http://daneden.me/animate
 Licensed under the MIT license - http://opensource.org/licenses/MIT
@@ -8336,6 +8349,9 @@ img.mfp-img {
   right: 0;
   padding-top: 0; }
 
+/* Video.js - #### have to rename file to sass - and copy font to public folder
+@import 'vendor/video-js'; */
+/* FlexSlider - #### have to rename file to sass - move fonts to public */
 /*
  * jQuery FlexSlider v2.3.0
  * http://www.woothemes.com/flexslider/
@@ -8581,6 +8597,9 @@ html[xmlns] .flexslider .slides {
     opacity: 1;
     right: 10px; } }
 
+/* Magnific Popup - #### have to rename file to sass
+@import '../vendor/magnific-popup/dist/magnific-popup'; */
+/* ======== THEME STYLES ======== */
 /* COLORS */
 /* FONT SIZES */
 /* FONT WEIGHTS */
@@ -8657,6 +8676,45 @@ Color
 
 body.mobile .wow {
   visibility: visible; }
+
+/* http://github.hubspot.com/pace/docs/welcome/ */
+.pace {
+  -webkit-pointer-events: none;
+  pointer-events: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  -webkit-transform: translate3d(0, -50px, 0);
+  transform: translate3d(0, -50px, 0);
+  transition: -webkit-transform 0.5s ease-out;
+  transition: transform 0.5s ease-out; }
+
+.pace.pace-active {
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0); }
+
+.pace .pace-progress {
+  display: block;
+  position: fixed;
+  z-index: 2000;
+  top: 0;
+  right: 100%;
+  width: 100%;
+  height: 10px;
+  background: #29d;
+  pointer-events: none; }
+
+/* ISOTOPE */
+.item {
+  width: 25%; }
+
+.item.w2 {
+  width: 50%; }
 
 /* GENERAL LAYOUT
 ================================= */
@@ -8829,38 +8887,6 @@ body.mobile .wow {
   margin-top: 51px;
   /* height of header */ }
 
-/* http://github.hubspot.com/pace/docs/welcome/ */
-.pace {
-  -webkit-pointer-events: none;
-  pointer-events: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  -webkit-transform: translate3d(0, -50px, 0);
-  transform: translate3d(0, -50px, 0);
-  transition: -webkit-transform 0.5s ease-out;
-  transition: transform 0.5s ease-out; }
-
-.pace.pace-active {
-  -webkit-transform: translate3d(0, 0, 0);
-  transform: translate3d(0, 0, 0); }
-
-.pace .pace-progress {
-  display: block;
-  position: fixed;
-  z-index: 2000;
-  top: 0;
-  right: 100%;
-  width: 100%;
-  height: 10px;
-  background: #29d;
-  pointer-events: none; }
-
 /* NAVIGATION */
 .navbar {
   margin-bottom: 0px; }
@@ -8981,3 +9007,21 @@ input[type=submit] {
 	@extend .btn;
 }
 ======================== */
+#preloader {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 99999;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: #FFF; }
+  #preloader .spinner {
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    width: 48px;
+    height: 48px;
+    background: url(../../public/images/page-loader.gif) no-repeat center center;
+    margin: -24px 0px 0px -24px; }
