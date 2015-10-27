@@ -50,23 +50,22 @@ _throttle = function(func, wait, options) {
 
 	'use strict';
 
-	var TmbrRun = {
+	var SiteApp = {
 
 
 
 		// Initialize the functions
 		init: function() {
 
-			TmbrRun.Mobiledetect(); 
-			TmbrRun.Smoothscroll(); 
-			TmbrRun.Throttle();
-			TmbrRun.Preloader();
-			TmbrRun.Slider();
-			//TmbrRun.Lightbox();
-			//TmbrRun.Animated();
+			SiteApp.Mobiledetect(); 
+			SiteApp.Smoothscroll(); 
+			SiteApp.Throttle();
+			SiteApp.Preloader();
+			SiteApp.Slider();
+			//SiteApp.Lightbox();
 
 			// Call this to show all animited items
-			// TmbrRun.ShowAnimated();
+			// SiteApp.ShowAnimated();
 		},
 
 
@@ -79,7 +78,7 @@ _throttle = function(func, wait, options) {
 			if(ismobile == true){
 				$('body').addClass('mobile');
 			} else {
-				// new WOW().init();
+				$('body').addClass('no-touch');
 			}
 
 		},
@@ -142,7 +141,7 @@ _throttle = function(func, wait, options) {
 						opacity: 1
 					}, 300);
 					$(this).parent().delay(300).fadeOut(500, function() {
-						TmbrRun.Animated();
+						SiteApp.Animated();
 					});
 				});
 			});
@@ -227,7 +226,7 @@ _throttle = function(func, wait, options) {
 
 	// Run the Main Function
 	$(function() {
-		TmbrRun.init(); 
+		SiteApp.init(); 
 	});
 
 
