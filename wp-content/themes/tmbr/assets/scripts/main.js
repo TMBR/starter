@@ -3,23 +3,23 @@
 
 	'use strict';
 
-	var TmbrRun = {
+	var SiteApp = {
 
 
 
 		// Initialize the functions
 		init: function() {
 
-			TmbrRun.Mobiledetect(); 
-			TmbrRun.Smoothscroll(); 
-			TmbrRun.Throttle();
-			TmbrRun.Preloader();
-			TmbrRun.Slider();
-			//TmbrRun.Lightbox();
-			//TmbrRun.Animated();
+			SiteApp.Mobiledetect(); 
+			SiteApp.Smoothscroll(); 
+			SiteApp.Throttle();
+			SiteApp.Preloader();
+			SiteApp.Slider();
+			//SiteApp.Lightbox();
+			//SiteApp.Animated();
 
 			// Call this to show all animited items
-			// TmbrRun.ShowAnimated();
+			// SiteApp.ShowAnimated();
 		},
 
 
@@ -95,7 +95,7 @@
 						opacity: 1
 					}, 300);
 					$(this).parent().delay(300).fadeOut(500, function() {
-						TmbrRun.Animated();
+						SiteApp.Animated();
 					});
 				});
 			});
@@ -180,7 +180,7 @@
 
 	// Run the Main Function
 	$(function() {
-		TmbrRun.init(); 
+		SiteApp.init(); 
 	});
 
 
