@@ -26,53 +26,40 @@
 
   var paths = {
     vendorScripts: [
-      // specify your vendor scripts in dependency order
+
+      // Specify your vendor scripts in dependency order
       'assets/vendor/modernizr/modernizr.js',
       'assets/vendor/jquery/dist/jquery.js',
 
       // Bootstrap JS files
       // 'assets/vendor/twbs-bootstrap-sass/vendor/assets/javascripts/bootstrap/affix.js',
-      'assets/vendor/twbs-bootstrap-sass/vendor/assets/javascripts/bootstrap/alert.js',
-      'assets/vendor/twbs-bootstrap-sass/vendor/assets/javascripts/bootstrap/button.js',
+      // 'assets/vendor/twbs-bootstrap-sass/vendor/assets/javascripts/bootstrap/alert.js',
+      // 'assets/vendor/twbs-bootstrap-sass/vendor/assets/javascripts/bootstrap/button.js',
       // 'assets/vendor/twbs-bootstrap-sass/vendor/assets/javascripts/bootstrap/carousel.js',
-      'assets/vendor/twbs-bootstrap-sass/vendor/assets/javascripts/bootstrap/collapse.js',
-      'assets/vendor/twbs-bootstrap-sass/vendor/assets/javascripts/bootstrap/dropdown.js',
-      'assets/vendor/twbs-bootstrap-sass/vendor/assets/javascripts/bootstrap/tab.js',
-      'assets/vendor/twbs-bootstrap-sass/vendor/assets/javascripts/bootstrap/transition.js',
+      // 'assets/vendor/twbs-bootstrap-sass/vendor/assets/javascripts/bootstrap/collapse.js',
+      // 'assets/vendor/twbs-bootstrap-sass/vendor/assets/javascripts/bootstrap/dropdown.js',
+      // 'assets/vendor/twbs-bootstrap-sass/vendor/assets/javascripts/bootstrap/tab.js',
+      // 'assets/vendor/twbs-bootstrap-sass/vendor/assets/javascripts/bootstrap/transition.js',
       // 'assets/vendor/twbs-bootstrap-sass/vendor/assets/javascripts/bootstrap/scrollspy.js',
       // 'assets/vendor/twbs-bootstrap-sass/vendor/assets/javascripts/bootstrap/modal.js',
       // 'assets/vendor/twbs-bootstrap-sass/vendor/assets/javascripts/bootstrap/tooltip.js',
       // 'assets/vendor/twbs-bootstrap-sass/vendor/assets/javascripts/bootstrap/popover.js',
 
-      // Flexslider things for video
-      'assets/vendor/flexslider/jquery.flexslider.js',
-
-      // Misc Vendor Libraries
-      'assets/vendor/jquery.easing/js/jquery.easing.js',
-
-      // Pace Loading animation
-      // 'assets/vendor/pace/pace.js',
-
-      // WOW depends on animate.css - animate asset loading
-      'assets/vendor/wow/dist/wow.js',
-
-      // Video .JS
-      // 'assets/vendor/videojs/dist/video-js/video.js',
-
-      // Isotope Grid
-      // 'assets/vendor/isotope/jquery.isotope.js',
-
-      // Magnificent popups
-      //'assets/vendor/magnific-popup/dist/jquery.magnific-popup.js'
-
-      // Parallax background images
-      // 'assets/vendor/jquery.stellar/jquery.stellar.js',
-
-      // RESPOND.JS
-      'assets/vendor/respond/src/respond.js',
       
-      // Lazy Load Assets unveil
-      'assets/vendor/jquery-unveil/jquery.unveil.js'
+      'assets/vendor/flexslider/jquery.flexslider.js',                  //  Flexslider (slideshow) - http://www.woothemes.com/flexslider/
+      // 'assets/vendor/isotope/jquery.isotope.js',                         Isotope (filter & sort layouts) - http://isotope.metafizzy.co/
+      'assets/vendor/jquery-unveil/jquery.unveil.js',                   //  jQuery Unveil (lazy load assets) - http://luis-almeida.github.io/unveil/
+      'assets/vendor/jquery.easing/js/jquery.easing.js',                //  jQuery Easing (advanced easing options) - http://gsgd.co.uk/sandbox/jquery/easing/
+      // 'assets/vendor/jquery.stellar/jquery.stellar.js',                  Stellar.js (parallax helper) - http://markdalgleish.com/projects/stellar.js/
+      // 'assets/vendor/magnific-popup/dist/jquery.magnific-popup.js',      Magnific Popup (responsive lightbox) - http://dimsemenov.com/plugins/magnific-popup/
+      // 'assets/vendor/pace/pace.js',                                      PACE (page load progress bar) - http://github.hubspot.com/pace/docs/welcome/
+      'assets/vendor/wow/dist/wow.js',                                  //  WOW.js (animate asset loading) *depends on animate.css - http://mynameismatthieu.com/WOW/
+      // 'assets/vendor/videojs/dist/video-js/video.js',                    Video.js (work with HTML5 video) - http://videojs.com/
+      'assets/vendor/respond/src/respond.js',                           //  Respond.js (media query helper for IE) - https://github.com/scottjehl/Respond
+      'assets/vendor/responsejs/response.js',                           //  Response.js (serve responsive content via HTML5) - http://responsejs.com/
+      'assets/vendor/waypoints/lib/jquery.waypoints.js'                 //  Waypoints (trigger function on scroll) - http://imakewebthings.com/waypoints/
+
+      
     ],
     appScripts: [
       // You can keep your JS tidy in its own file for a specific feature.
