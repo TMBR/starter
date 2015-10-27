@@ -16,10 +16,10 @@
 			TmbrRun.Preloader();
 			TmbrRun.Slider();
 			//TmbrRun.Lightbox();
-			TmbrRun.Animated();
+			//TmbrRun.Animated();
 
 			// Call this to show all animited items
-			TmbrRun.ShowAnimated();
+			// TmbrRun.ShowAnimated();
 		},
 
 
