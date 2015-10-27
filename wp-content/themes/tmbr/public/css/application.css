@@ -8823,6 +8823,12 @@ body.mobile .wow {
   .col-xxs-offset-12 {
     margin-left: 100%; } }
 
+/* PUSH BODY DOWN SO NOT BLOCKED BY FIXED HEADER
+================================================ */
+#page-main {
+  margin-top: 51px;
+  /* height of header */ }
+
 /* http://github.hubspot.com/pace/docs/welcome/ */
 .pace {
   -webkit-pointer-events: none;
@@ -8859,9 +8865,21 @@ body.mobile .wow {
 .navbar {
   margin-bottom: 0px; }
 
+html {
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased; }
+
+@media only screen and (-webkit-min-device-pixel-ratio: 1.25), only screen and (min-device-pixel-ratio: 1.25), only screen and (-webkit-min-device-pixel-ratio: 2.0833333333333335), only screen and (min-resolution: 200dpi), only screen and (min-resolution: 1.25dppx) {
+  -webkit-font-smoothing: subpixel-antialiased; }
+
 body {
   overflow-x: hidden; }
 
+/*
+.body {
+	@include opacity(0);
+}
+*/
 a {
   transition: all 0.2s ease-in; }
   a:hover,
@@ -8884,6 +8902,9 @@ a {
 
 ::-moz-focus-inner {
   border: 0; }
+
+h1, h2, h3, h4, h5, h6 {
+  margin-top: 0; }
 
 h1,
 .h1 {
