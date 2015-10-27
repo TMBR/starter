@@ -8901,11 +8901,10 @@ html {
 body {
   overflow-x: hidden; }
 
-/*
 .body {
-	@include opacity(0);
-}
-*/
+  opacity: 0;
+  filter: alpha(opacity=0); }
+
 a {
   transition: all 0.2s ease-in; }
   a:hover,
