@@ -47,7 +47,7 @@ get_template_part( 'inc/custom-img-size' );
 //get_template_part( 'inc/gravity-form-filters' );
 
 // HIDES ADMIN BAR FOR DEV PURPOSES - this can also be done via Dashboard in WP Engine options
-// add_filter( 'show_admin_bar', '__return_false' );
+ add_filter( 'show_admin_bar', '__return_false' );
 
 // ACF - Add Multiple Options Pages (you need to have the ACF Options Page Add-On installed
 get_template_part( 'inc/options-pages' );
