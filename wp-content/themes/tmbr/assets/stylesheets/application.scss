@@ -1,12 +1,18 @@
-// Core variables and mixins
+
+/* ======== CORE VARIABLES & MIXINS ======== */
+
 @import "../vendor/twbs-bootstrap-sass/vendor/assets/stylesheets/bootstrap/_variables.scss";
 @import "../vendor/twbs-bootstrap-sass/vendor/assets/stylesheets/bootstrap/_mixins.scss";
 
-// Reset
+
+/* ======== RESET ======== */
+
 @import "../vendor/twbs-bootstrap-sass/vendor/assets/stylesheets/bootstrap/_normalize.scss";
 // @import "../vendor/twbs-bootstrap-sass/vendor/assets/stylesheets/bootstrap/_print.scss";
 
-// Core CSS
+
+/* ======== CORE CSS ======== */
+
 @import "../vendor/twbs-bootstrap-sass/vendor/assets/stylesheets/bootstrap/_scaffolding.scss";
 @import "../vendor/twbs-bootstrap-sass/vendor/assets/stylesheets/bootstrap/_type.scss";
 @import "../vendor/twbs-bootstrap-sass/vendor/assets/stylesheets/bootstrap/_code.scss";
@@ -15,7 +21,9 @@
 @import "../vendor/twbs-bootstrap-sass/vendor/assets/stylesheets/bootstrap/_forms.scss";
 @import "../vendor/twbs-bootstrap-sass/vendor/assets/stylesheets/bootstrap/_buttons.scss";
 
-// Components
+
+/* ======== BOOTSTRAP COMPONENTS ======== */
+
 @import "../vendor/twbs-bootstrap-sass/vendor/assets/stylesheets/bootstrap/_component-animations.scss";
 // @import "../vendor/twbs-bootstrap-sass/vendor/assets/stylesheets/bootstrap/_glyphicons.scss";
 @import "../vendor/twbs-bootstrap-sass/vendor/assets/stylesheets/bootstrap/_dropdowns.scss";
@@ -38,46 +46,53 @@
 // @import "../vendor/twbs-bootstrap-sass/vendor/assets/stylesheets/bootstrap/_wells.scss";
 @import "../vendor/twbs-bootstrap-sass/vendor/assets/stylesheets/bootstrap/_close.scss";
 
-// Components w/ JavaScript
-// @import "../vendor/twbs-bootstrap-sass/vendor/assets/stylesheets/bootstrap/_modals.scss";
-// @import "../vendor/twbs-bootstrap-sass/vendor/assets/stylesheets/bootstrap/_tooltip.scss";
-// @import "../vendor/twbs-bootstrap-sass/vendor/assets/stylesheets/bootstrap/_popovers.scss";
-// @import "../vendor/twbs-bootstrap-sass/vendor/assets/stylesheets/bootstrap/_carousel.scss";
 
-// Utility classes
+/* ======== COMPONENTS WITH JAVASCRIPT ======== 
+
+@import "../vendor/twbs-bootstrap-sass/vendor/assets/stylesheets/bootstrap/_modals.scss";
+@import "../vendor/twbs-bootstrap-sass/vendor/assets/stylesheets/bootstrap/_tooltip.scss";
+@import "../vendor/twbs-bootstrap-sass/vendor/assets/stylesheets/bootstrap/_popovers.scss";
+@import "../vendor/twbs-bootstrap-sass/vendor/assets/stylesheets/bootstrap/_carousel.scss"; */
+
+
+/* ======== UTILITY CLASSES ======== */
+
 @import "../vendor/twbs-bootstrap-sass/vendor/assets/stylesheets/bootstrap/_utilities.scss";
 @import "../vendor/twbs-bootstrap-sass/vendor/assets/stylesheets/bootstrap/_responsive-utilities.scss";
 
-// FONTS
+
+
+
+/* ======== FONTS ======== */
+
 @import '../vendor/font-awesome/scss/font-awesome'; // #### have to copy fonts to public folder
 @import 'tmbricons.scss'; // This is built by the `iconfont` gulp task
 
-// Animate CSS
-@import 'vendor/animate.scss';
 
-// Magnificent pop up
+/* ======== VENDOR STYLES ======== */
+
+@import 'vendor/animate.scss';
 @import '../vendor/magnific-popup/src/css/main';
 
-// Video JS - #### have to rename file to sass - and copy font to public folder
-// @import 'vendor/video-js';
+/* Video.js - #### have to rename file to sass - and copy font to public folder
+@import 'vendor/video-js'; */
 
-// Flex Slider #### have to rename file to sass - move fonts to public
-@import 'vendor/flexslider';
+/* FlexSlider - #### have to rename file to sass - move fonts to public */
+@import 'vendor/flexslider'; 
 
-// magnific-popup #### have to rename file to sass
-// @import '../vendor/magnific-popup/dist/magnific-popup';
+/* Magnific Popup - #### have to rename file to sass
+@import '../vendor/magnific-popup/dist/magnific-popup'; */
 
 
-// Themestyle
+
+
+/* ======== THEME STYLES ======== */
+
 @import "variables";
 @import "mixins";
-
 @import "vendor-fix";
 
 @import "layout";
-
-
-
 @import "slider";
 @import "header";
 @import "main";
