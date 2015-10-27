@@ -6,12 +6,12 @@
 
 get_header(); ?>
 
-<div id="primary" class="content-area">
+
 	<div class="container">
 		<div class="row">
-			<main id="main" class="site-main" role="main">
+			
 				<div class="col-sm-8">
-
+<article role="article">
 				<?php if ( have_posts() ) : ?>
 
 					<header class="page-header">
@@ -39,14 +39,15 @@ get_header(); ?>
 					<?php get_template_part( 'partials/loops/nocontent-loop' ); ?>
 
 				<?php endif; ?>
+				</article>
 				</div>
-			</main>
+			
 
 			<?php get_sidebar(); ?>
 
 		</div><!-- /row -->
 	</div><!-- /container -->
-</div><!-- #primary -->
+
 
 <?php get_sidebar(); ?>
 <?php get_footer(); ?>

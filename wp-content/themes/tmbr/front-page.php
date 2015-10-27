@@ -4,11 +4,11 @@
 // Hero Slider
 get_template_part( 'partials/slider/home-hero' ); ?>
 
-<div id="primary" class="content-area">
+
 	<div class="container">
 
 		<div class="row">
-			<main id="main" class="site-main" role="main">
+		
 				<div class="col-sm-8">
 
 					<?php while ( have_posts() ) : the_post(); ?>
@@ -36,13 +36,13 @@ get_template_part( 'partials/slider/home-hero' ); ?>
 
 					<h2>ICON FONT TEST <i class="tmbricons tmbricons-xmas"></i></h2>
 				</div><!-- /col -->
-			</main>
+		
 
 
 			<?php get_sidebar(); ?>
 
 		</div><!-- /row -->
 	</div><!-- /container -->
-</div><!-- #primary -->
+
 
 <?php get_footer();
