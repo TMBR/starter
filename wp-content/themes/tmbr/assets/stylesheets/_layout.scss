@@ -76,3 +76,9 @@
 @media only screen and (max-width: 600px) {
 	 @include make-grid(xxs);
 }
+
+/* PUSH BODY DOWN SO NOT BLOCKED BY FIXED HEADER
+================================================ */
+#page-main {
+	margin-top: 51px; /* height of header */
+}
