@@ -13,18 +13,7 @@
 	@include border-radius(0);
 }
 
-/* 
-	WOW.JS - Required Classes
-	http://mynameismatthieu.com/WOW/docs.html 
-=============================================== */
 
-/*.wow {
-	visibility: hidden;
-}
-
-body.mobile{
-	.wow {visibility: visible;}
-}*/
 
 /* http://github.hubspot.com/pace/docs/welcome/ */
 /*
@@ -70,4 +59,4 @@ body.mobile{
 
 /* NECESSARY TO GET FADE IN CLASSES WORKING */
 .animation { visibility:hidden; }
-.animated, .ie .animation, .ie9 .animation { visibility:visible; }
+.animated, .ie .animation, .ie9 .animation, .mobile .animation { visibility:visible; }
