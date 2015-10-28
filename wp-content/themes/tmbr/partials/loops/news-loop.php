@@ -9,8 +9,8 @@
 	</div><!-- /col -->
 
 	<div class="col-sm-8">
-		<h3><a href="<?php the_permalink(); ?>" title="<?php the_title_attribute(); ?>" rel="bookmark"><?php the_title(); ?></a></h3>
-		<p><small>By <?php the_author_posts_link(); ?> on <?php the_time('F j, Y') ?> | Posted in: <?php the_category(', '); ?></small></p>
+		<h3 class="animation" data-animation="animation-fade-in-down"><a href="<?php the_permalink(); ?>" title="<?php the_title_attribute(); ?>" rel="bookmark"><?php the_title(); ?></a></h3>
+		<p class="animation" data-animation="animation-fade-in-up"><small>By <?php the_author_posts_link(); ?> on <?php the_time('F j, Y') ?> | Posted in: <?php the_category(', '); ?></small></p>
 		<?php echo tmbr_excerpt(55); ?>
 		<p><a href="<?php the_permalink();?>">Read More.</a></p>
 	</div>

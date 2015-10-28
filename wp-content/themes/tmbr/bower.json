@@ -31,10 +31,12 @@
     "isotope": "*",
     "jquery-unveil": "*",
     "jquery.stellar": "*",
-    "animate-css": "~3.2.3",
-    "FlexSlider": "git://github.com/woothemes/FlexSlider.git#version/2.3.0",
     "magnific-popup": "*",
-    "respond": "~1.4.2"
+    "respond": "~1.4.2",
+    "waypoints": "~4.0.0",
+    "responsejs": "~0.9.1",
+    "animate.css": "animate-css#~3.4.0",
+    "flexslider": "~2.5.0"
   },
   "resolutions": {
     "jquery": "~2.1.0"

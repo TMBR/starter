@@ -6,10 +6,10 @@
 
 get_header(); ?>
 
-<div id="primary" class="content-area">
+
 	<div class="container">
 		<div class="row">
-			<main id="main" class="site-main" role="main">
+		
 				<div class="col-sm-8">
 
 					<section class="error-404 not-found">
@@ -17,7 +17,7 @@ get_header(); ?>
 							<h1 class="page-title"><?php _e( 'Oops! That page can&rsquo;t be found.', '_s' ); ?></h1>
 						</header><!-- .page-header -->
 
-						<div class="page-content">
+						<article role="article" class="page-content">
 							<p><?php _e( 'It looks like nothing was found at this location. Maybe try one of the links below or a search?', '_s' ); ?></p>
 
 							<?php get_search_form(); ?>
@@ -49,16 +49,16 @@ get_header(); ?>
 
 							<?php the_widget( 'WP_Widget_Tag_Cloud' ); ?>
 
-						</div><!-- .page-content -->
+						</article><!-- .page-content -->
 					</section><!-- .error-404 -->
 
 				</div><!-- /col -->
-			</main>
+		
 
 			<?php get_sidebar(); ?>
 
 		</div><!-- /row -->
 	</div><!-- /container -->
-</div><!-- #primary -->
+
 
 <?php get_footer();

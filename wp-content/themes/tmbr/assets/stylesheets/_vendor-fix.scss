@@ -13,17 +13,50 @@
 	@include border-radius(0);
 }
 
-/* 
-	WOW.JS - Required Classes
-	http://mynameismatthieu.com/WOW/docs.html 
-=============================================== */
 
-.wow {
-	visibility: hidden;
+
+/* http://github.hubspot.com/pace/docs/welcome/ */
+/*
+.pace {
+  -webkit-pointer-events: none;
+  pointer-events: none;
+
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  @include fixed($t:0,$l:0);
+ 
+  width: 100%;
+  @include transform(translate3d(0, -50px, 0));
+ 
+
+  -webkit-transition: -webkit-transform .5s ease-out;
+  -ms-transition: -webkit-transform .5s ease-out;
+  transition: transform .5s ease-out;
 }
 
-body.mobile{
-	.wow {visibility: visible;}
+.pace.pace-active {
+  @include transform(translate3d(0,0,0));
 }
 
+.pace .pace-progress {
+  display: block;
+  @include fixed($t:0,$r:100%, $z:2000);
 
+  width: 100%;
+  height: 10px;
+  background: #29d;
+
+  pointer-events: none;
+}*/
+
+
+/* ISOTOPE */
+.item { width: 25%; }
+.item.w2 { width: 50%; }
+
+
+
+/* NECESSARY TO GET FADE IN CLASSES WORKING */
+.animation { visibility:hidden; }
+.animated, .ie .animation, .ie9 .animation, .mobile .animation { visibility:visible; }
