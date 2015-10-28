@@ -8507,17 +8507,6 @@ Color
   background-clip: padding-box;
   /* stops bg color from leaking outside the border: */ }
 
-/* 
-	WOW.JS - Required Classes
-	http://mynameismatthieu.com/WOW/docs.html 
-=============================================== */
-/*.wow {
-	visibility: hidden;
-}
-
-body.mobile{
-	.wow {visibility: visible;}
-}*/
 /* http://github.hubspot.com/pace/docs/welcome/ */
 /*
 .pace {
@@ -8563,7 +8552,7 @@ body.mobile{
 .animation {
   visibility: hidden; }
 
-.animated, .ie .animation, .ie9 .animation {
+.animated, .ie .animation, .ie9 .animation, .mobile .animation {
   visibility: visible; }
 
 /* GENERAL LAYOUT
