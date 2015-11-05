@@ -222,3 +222,35 @@ Color
     }
   }
 }
+
+/*
+Inline Gravity Form
+#gform_wrapper_ID {
+  @include inline-gform; 
+}
+--------------------- */
+@mixin inline-gform {
+  &.gform_wrapper {
+    width: 100%;
+  }
+
+  &.gform_wrapper,
+  &.gform_wrapper .gform_body,
+  &.gform_wrapper .gform_footer {
+    float: left;
+  }
+
+  &.gform_wrapper .gform_body {
+    width: 75%;
+  }
+
+  &.gform_wrapper .gform_footer {
+    clear: none;
+    padding: 0;
+  }
+
+  &.gform_wrapper .gform_footer.left_label {
+    margin-left: 0;
+    width: auto;
+  }
+}
