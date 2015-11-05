@@ -8493,6 +8493,12 @@ Animation
 Color
 @include color(white, $white);
 --------------------- */
+/*
+Inline Gravity Form
+#gform_wrapper_ID {
+  @include inline-gform; 
+}
+--------------------- */
 /* VENDOR OVERRIDES & REQUIRED STYLES
 ========================================= */
 /* 
