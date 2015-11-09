@@ -19,6 +19,15 @@ opacity filter with x-browser fallback
 }
 
 /*
+letter-spacing to match PSD
+@include spacing(99);
+--------------------- */
+@mixin spacing($ls) {
+  letter-spacing: $ls*0.001em;
+}
+
+
+/*
 Truncate text
 --------------------- */
 @mixin text-truncate {
