@@ -170,9 +170,9 @@ Firefox hack for images with opacity changes
 @include ff-hack;
 --------------------- */
 @mixin ff-hack {
-  background-color: $black; 
-  -moz-backface-visibility: hidden; 
-  -webkit-transform: translateZ(0px); 
+  background-color: $black;
+  -moz-backface-visibility: hidden;
+  -webkit-transform: translateZ(0px);
 }
 
 /*
@@ -184,15 +184,15 @@ Placeholder
   }
 
   &:-moz-placeholder { /* Firefox 18- */
-    @content  
+    @content
   }
 
   &::-moz-placeholder {  /* Firefox 19+ */
-    @content  
+    @content
   }
 
-  &:-ms-input-placeholder {  
-    @content  
+  &:-ms-input-placeholder {
+    @content
   }
 }
 
@@ -254,7 +254,7 @@ Color
 /*
 Inline Gravity Form
 #gform_wrapper_ID {
-  @include inline-gform; 
+  @include inline-gform;
 }
 --------------------- */
 @mixin inline-gform {
