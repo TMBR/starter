@@ -10,8 +10,8 @@
 		// Initialize the functions
 		init: function() {
 
-			SiteApp.Mobiledetect(); 
-			SiteApp.Smoothscroll(); 
+			SiteApp.Mobiledetect();
+			SiteApp.Smoothscroll();
 			SiteApp.Throttle();
 			SiteApp.Preloader();
 			SiteApp.Slider();
@@ -22,9 +22,8 @@
 		},
 
 
-
 		// Mobile Device Detection
-		Mobiledetect: function() { 
+		Mobiledetect: function() {
 
 			var ismobile = (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent));
 
@@ -43,11 +42,11 @@
 
 			$('a[href*=#]:not([href=#])').on('click','', function( e ) {
 				e.preventDefault();
-			
+
 				if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') || location.hostname == this.hostname) {
 					var target = $(this.hash);
 					target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
-			
+
 					if (target.length) {
 						$('html,body').animate(
 							{ scrollTop: target.offset().top },
@@ -122,7 +121,7 @@
 			});
 
 		},
-		
+
 
 
 		// Lightbox Gallery
@@ -173,13 +172,13 @@
 
 
 
-	}; 
+	};
 
 
 
 	// Run the Main Function
 	$(function() {
-		SiteApp.init(); 
+		SiteApp.init();
 	});
 
 
