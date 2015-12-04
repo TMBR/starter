@@ -1,0 +1,12 @@
+/* INPUTS
+.gf_wrapper input[type=text] {
+  @extend %input;
+}
+======================== */
+%input {
+  color: $white;
+  @include placeholder{
+    color: $white;
+    background: $black;
+  }
+}
