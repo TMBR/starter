@@ -286,13 +286,13 @@ Inline Gravity Form
 /*
 Style Links & Visited in one
 a.link {
-  @include a-visited {
+  @include a-link {
     color: $white;
     background: $black;
   }
 }
 --------------------- */
-@mixin a-visited {
+@mixin a-link {
   &, &:visited {
     @content
   }
