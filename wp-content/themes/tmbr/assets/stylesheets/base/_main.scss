@@ -43,7 +43,7 @@ a {
 	border: 0;
 }
 
-h1,h2,h3,h4,h5,h6 { 
+h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6 {
 	margin-top: 0;
 }
 
@@ -82,22 +82,5 @@ h5,
 	@include respond-to($screen-xs) { font-size: $p; }
 }
 
-/* INPUTS 
-.gf_wrapper input[type=text] {
-	@extend %input;
-}
-======================== */
-%input {
-	color: $white;
-	@include placeholder{
-		color: $white;
-		background: $black;
-	}
-}
 
-/* GLOBAL BUTTONS
-input[type=submit] {
-	@extend .btn;
-}
-======================== */
-.btn { }
+

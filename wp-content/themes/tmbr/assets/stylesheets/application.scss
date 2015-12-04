@@ -71,30 +71,62 @@
 
 /* ======== VENDOR STYLES ======== */
 
-@import 'vendor/animate.scss';
+
 @import '../vendor/magnific-popup/src/css/main';
 
-/* Video.js - #### have to rename file to sass - and copy font to public folder
-@import 'vendor/video-js'; */
 
-/* FlexSlider - #### have to rename file to sass - move fonts to public */
-@import 'vendor/flexslider';
+/* ======== VENDOR STYLES - Copied & Pasted (scss not provided) ======== */
 
-/* Magnific Popup - #### have to rename file to sass
-@import '../vendor/magnific-popup/dist/magnific-popup'; */
+@import "vendor/video-js";
+@import "vendor/animate";
+@import "vendor/flexslider"; /* #### have to rename file to sass - move fonts to public */
 
 
+/**
+* =========== THEME STYLES ==============
+*
+*
+*   # GLOBAL
+*   - variables
+*   - mixins
+*   - keyframes
+*
+*   # BASE
+*   - reset / vendor fix
+*   - main (body / typography / color classes)
+*   - layout (align / margin classes)
+*
+*   # COMPONENTS
+*   - buttons / form elements
+*   - preloader
+*
+*   # LAYOUT
+*   - header / footer
+*
+*
+*/
 
 
-/* ======== THEME STYLES ======== */
+/* Global */
+@import "global/variables";
+@import "global/mixins";
+@import "global/keyframes";
 
-@import "variables";
-@import "mixins";
-@import "vendor-fix";
+/* Base */
+@import "base/reset";
+@import "base/vendor-fix";
+@import "base/main";
+@import "base/layout";
 
-@import "layout";
-@import "slider";
-@import "header";
-@import "main";
-@import "modules";
-@import "footer";
+/* Components */
+@import "components/buttons";
+@import "components/forms";
+@import "components/preloader";
+
+/* Layout */
+@import "layout/header";
+@import "layout/footer";
+
+
+
+
