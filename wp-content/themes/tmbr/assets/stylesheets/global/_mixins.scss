@@ -282,3 +282,54 @@ Inline Gravity Form
     width: auto;
   }
 }
+
+/*
+Style Links & Visited in one
+a.link {
+  @include a-visited {
+    color: $white;
+    background: $black;
+  }
+}
+--------------------- */
+@mixin a-visited {
+  &, &:visited {
+    @content
+  }
+}
+
+/*
+Style All Active Psuedo States
+a.link {
+  @include a-hover {
+    color: $red;
+    background: $white;
+  }
+}
+--------------------- */
+@mixin a-hover {
+  &:hover,
+  &:active,
+  &:focus {
+    @content
+  }
+}
+
+/*
+Style Hover State only on no-touch
+a.link {
+  @include no-touch {
+    color: $red;
+    background: $white;
+  }
+}
+--------------------- */
+@mixin no-touch {
+  html.no-touch &:hover,
+  html.no-touch &:active,
+  html.no-touch &:focus {
+    @content
+  }
+}
+
+
