@@ -3,7 +3,7 @@
 		<a href="<?php the_permalink();?>">
 			<?php if ( has_post_thumbnail() ) :?><?php the_post_thumbnail(); ?>
 			<?php else : ?>
-				<img src="<?php bloginfo( 'template_url' ); ?>/assets/img/tmbr-logo.png" class="post-thumbnail" alt=""/>
+				<img src="<?php echo get_template_directory_uri(); ?>/public/images/tmbr_icon_large.png" class="post-thumbnail" alt=""/>
 			<?php endif; ?>
 		</a>
 	</div><!-- /col -->
