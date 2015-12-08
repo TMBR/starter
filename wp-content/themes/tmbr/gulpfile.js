@@ -1,5 +1,6 @@
 (function() {
   try {
+    var beep = require('beepbeep');
     var gulp = require('gulp');
     var gutil = require('gulp-util');
     var concat = require('gulp-concat');
@@ -111,6 +112,7 @@
   var errorHandler = function(msg, task) {
     var chalk = gutil.colors
     gutil.log(chalk.bgRed('There was an issue', chalk.bold(msg)))
+    beep()
     task.emit('end')
   }
 
