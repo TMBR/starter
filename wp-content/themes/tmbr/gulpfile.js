@@ -109,11 +109,11 @@
     del(['public/fonts/'], cb);
   });
 
-  var errorHandler = function(msg, task) {
+  var errorHandler = function(msg, error) {
     var chalk = gutil.colors
     gutil.log(chalk.bgRed('There was an issue', chalk.bold(msg)))
     beep()
-    task.emit('end')
+    error.emit('end')
   }
 
   gulp.task('scripts:vendor', function(){
