@@ -1,11 +1,13 @@
 (function() {
   try {
+    var beep = require('beepbeep');
     var gulp = require('gulp');
     var gutil = require('gulp-util');
     var concat = require('gulp-concat');
     var uglify = require('gulp-uglify');
     var uglifycss = require('gulp-uglifycss');
     var imagemin = require('gulp-imagemin');
+    var plumber = require('gulp-plumber');
     var sourcemaps = require('gulp-sourcemaps');
     var del = require('del');
     var expect = require('gulp-expect-file');
@@ -45,7 +47,7 @@
       // 'assets/vendor/twbs-bootstrap-sass/vendor/assets/javascripts/bootstrap/tooltip.js',
       // 'assets/vendor/twbs-bootstrap-sass/vendor/assets/javascripts/bootstrap/popover.js',
 
-      
+
       'assets/vendor/flexslider/jquery.flexslider.js',                  //  Flexslider (slideshow) - http://www.woothemes.com/flexslider/
       // 'assets/vendor/isotope/jquery.isotope.js',                         Isotope (filter & sort layouts) - http://isotope.metafizzy.co/
       'assets/vendor/waypoints/lib/jquery.waypoints.js',                //  Waypoints (trigger function on scroll) - http://imakewebthings.com/waypoints/
@@ -59,7 +61,7 @@
       'assets/vendor/respond/src/respond.js',                           //  Respond.js (media query helper for IE) - https://github.com/scottjehl/Respond
       'assets/vendor/responsejs/response.js'                            //  Response.js (serve responsive content via HTML5) - http://responsejs.com/
 
-      
+
     ],
     appScripts: [
       // You can keep your JS tidy in its own file for a specific feature.
@@ -107,30 +109,52 @@
     del(['public/fonts/'], cb);
   });
 
+  var errorHandler = function(msg, error) {
+    var chalk = gutil.colors
+    gutil.log(chalk.bgRed('There was an issue', chalk.bold(msg)))
+    beep()
+    error.emit('end')
+  }
 
   gulp.task('scripts:vendor', function(){
     return gulp.src(paths.vendorScripts)
+      .pipe(plumber(function () {
+          errorHandler(
+            'building the Vendor Scripts',
+            this
+          )
+      }))
       .pipe(expect(paths.vendorScripts))
       .pipe(concat('vendor.js'))
       .pipe(gulp.dest('public/js'))
       .pipe(uglify())
       .pipe(rename('vendor.min.js'))
       .pipe(gulp.dest('public/js'))
-      .on('error', gutil.log);
   });
 
   gulp.task('scripts:app', function(){
     return gulp.src(paths.appScripts)
+      .pipe(plumber(function () {
+          errorHandler(
+            'building the App Scripts',
+            this
+          )
+      }))
       .pipe(expect(paths.appScripts))
       .pipe(concat('application.js'))
       .pipe(gulp.dest('public/js'))
       .pipe(uglify())
       .pipe(rename('application.min.js'))
       .pipe(gulp.dest('public/js'))
-      .on('error', gutil.log);
   });
   gulp.task('styles', function(){
     return gulp.src(paths.styles)
+      .pipe(plumber(function () {
+          errorHandler(
+            'building the styles',
+            this
+          )
+      }))
       .pipe(sass({
         precision: 10
       }))
@@ -143,20 +167,29 @@
       .pipe(uglifycss())
       .pipe(gulp.dest('public/css'))
       .pipe(livereload())
-      .on('error', gutil.log);
   });
 
   gulp.task('images', function(){
     return gulp.src(paths.images)
+      .pipe(plumber(function () {
+          errorHandler(
+            'optimizing the images',
+            this
+          )
+      }))
       .pipe(imagemin())
       .pipe(gulp.dest('public/images'))
-      .on('error', gutil.log);
   });
 
   gulp.task('fonts', function(){
     return gulp.src(paths.fonts)
+      .pipe(plumber(function () {
+          errorHandler(
+            'moving the fonts',
+            this
+          )
+      }))
       .pipe(gulp.dest('public/fonts'))
-      .on('error', gutil.log);
   });
 
   gulp.task('startwatch', function(){
@@ -196,6 +229,12 @@
       {
         base: 'public'
       })
+      .pipe(plumber(function () {
+          errorHandler(
+            'versioning assets',
+            this
+          )
+      }))
       .pipe(gulp.dest('public'))
       .pipe(rev())
       .pipe(gulp.dest('public'))
