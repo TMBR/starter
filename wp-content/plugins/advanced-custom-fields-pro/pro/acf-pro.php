@@ -29,29 +29,25 @@ class acf_pro {
 		acf_include('pro/api/api-options-page.php');
 		
 		
+		// updates
+		acf_include('pro/core/updates.php');
+			
+			
 		// admin
 		if( is_admin() ) {
 			
 			// options page
 			acf_include('pro/admin/options-page.php');
 			
-			// connect (update)
-			acf_include('pro/admin/connect.php');
-				
 			// settings
 			acf_include('pro/admin/settings-updates.php');
 			
 		}
 		
 		
-		// fields
-		acf_include('pro/fields/repeater.php');
-		acf_include('pro/fields/flexible-content.php');
-		acf_include('pro/fields/gallery.php');
-		
-		
 		// actions
-		add_action('init',										array($this, 'wp_init'));
+		add_action('init',										array($this, 'register_assets'));
+		add_action('acf/include_field_types',					array($this, 'include_field_types'), 5);
 		add_action('acf/input/admin_enqueue_scripts',			array($this, 'input_admin_enqueue_scripts'));
 		add_action('acf/field_group/admin_enqueue_scripts',		array($this, 'field_group_admin_enqueue_scripts'));
 		add_action('acf/field_group/admin_l10n',				array($this, 'field_group_admin_l10n'));
@@ -62,6 +58,28 @@ class acf_pro {
 		add_filter('acf/update_field',							array($this, 'update_field'), 1, 1);
 		add_filter('acf/prepare_field_for_export', 				array($this, 'prepare_field_for_export'));
 		add_filter('acf/prepare_field_for_import', 				array($this, 'prepare_field_for_import'));
+		
+	}
+	
+	
+	/*
+	*  include_field_types
+	*
+	*  description
+	*
+	*  @type	function
+	*  @date	21/10/2015
+	*  @since	5.2.3
+	*
+	*  @param	$post_id (int)
+	*  @return	$post_id (int)
+	*/
+	
+	function include_field_types() {
+		
+		acf_include('pro/fields/repeater.php');
+		acf_include('pro/fields/flexible-content.php');
+		acf_include('pro/fields/gallery.php');
 		
 	}
 	
@@ -99,7 +117,7 @@ class acf_pro {
 	
 	
 	/*
-	*  wp_init
+	*  register_assets
 	*
 	*  description
 	*
@@ -111,7 +129,7 @@ class acf_pro {
 	*  @return	$post_id (int)
 	*/
 	
-	function wp_init() {
+	function register_assets() {
 		
 		// min
 		$min = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
@@ -221,12 +239,13 @@ class acf_pro {
 	function update_field( $field ) {
 		
 		// bail ealry if not relevant
-		if( !$field['parent'] || !acf_is_field_key($field['parent']) ) {
+		if( is_numeric($field['parent']) ) {
 			
 			return $field;
 				
 		}
-			
+		
+		
 		// vars
 		$ref = 0;
 		
@@ -296,13 +315,13 @@ class acf_pro {
 		acf_extract_var( $field, 'parent_layout');
 		
 		
-		// sub fields
+		// repeater
 		if( $field['type'] == 'repeater' ) {
 			
 			$field['sub_fields'] = acf_prepare_fields_for_export( $field['sub_fields'] );
-			
-		}
-		elseif( $field['type'] == 'flexible_content' ) {
+		
+		// flexible content
+		} elseif( $field['type'] == 'flexible_content' ) {
 			
 			foreach( $field['layouts'] as $l => $layout ) {
 				

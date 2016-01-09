@@ -4,9 +4,9 @@
  */
 
 /**
- * class WPSEO_Import
+ * Class WPSEO_Import
  *
- * Class with functionality to import the WP SEO settings
+ * Class with functionality to import the Yoast SEO settings
  */
 class WPSEO_Import {
 
@@ -69,7 +69,7 @@ class WPSEO_Import {
 	 * @return boolean
 	 */
 	private function handle_upload() {
-		$overrides  = array( 'mimes' => array( 'zip' => 'application/zip' ) ); // explicitly allow zip in multisite
+		$overrides  = array( 'mimes' => array( 'zip' => 'application/zip' ) ); // Explicitly allow zip in multisite.
 		$this->file = wp_handle_upload( $_FILES['settings_import_file'], $overrides );
 
 		if ( is_wp_error( $this->file ) ) {
@@ -155,16 +155,16 @@ class WPSEO_Import {
 	/**
 	 * Parse the option group and import it
 	 *
-	 * @param string $name
-	 * @param array  $opt_group
-	 * @param array  $options
+	 * @param string $name      Name string.
+	 * @param array  $opt_group Option group data.
+	 * @param array  $options   Options data.
 	 */
 	private function parse_option_group( $name, $opt_group, $options ) {
 		if ( $name === 'wpseo_taxonomy_meta' ) {
 			$opt_group = json_decode( urldecode( $opt_group['wpseo_taxonomy_meta'] ), true );
 		}
 
-		// Make sure that the imported options are cleaned/converted on import
+		// Make sure that the imported options are cleaned/converted on import.
 		$option_instance = WPSEO_Options::get_option_instance( $name );
 		if ( is_object( $option_instance ) && method_exists( $option_instance, 'import' ) ) {
 			$option_instance->import( $opt_group, $this->old_wpseo_version, $options );
@@ -188,5 +188,4 @@ class WPSEO_Import {
 			rmdir( $this->path );
 		}
 	}
-
 }

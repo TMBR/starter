@@ -144,22 +144,22 @@ class GF_Field_Address extends GF_Field {
 
 		//labels
 		$address_street_sub_label  = rgar( $address_street_field_input, 'customLabel' ) != '' ? $address_street_field_input['customLabel'] : esc_html__( 'Street Address', 'gravityforms' );
-		$address_street_sub_label  = apply_filters( 'gform_address_street_{$form_id}', apply_filters( 'gform_address_street', $address_street_sub_label, $form_id ), $form_id );
+		$address_street_sub_label  = gf_apply_filters( array( 'gform_address_street', $form_id, $this->id ), $address_street_sub_label, $form_id );
 		$address_street_sub_label  = esc_html( $address_street_sub_label );
 		$address_street2_sub_label = rgar( $address_street2_field_input, 'customLabel' ) != '' ? $address_street2_field_input['customLabel'] : esc_html__( 'Address Line 2', 'gravityforms' );
-		$address_street2_sub_label = apply_filters( "gform_address_street2_{$form_id}", apply_filters( 'gform_address_street2', $address_street2_sub_label, $form_id ), $form_id );
+		$address_street2_sub_label = gf_apply_filters( array( 'gform_address_street2', $form_id, $this->id ), $address_street2_sub_label, $form_id );
 		$address_street2_sub_label = esc_html( $address_street2_sub_label );
 		$address_zip_sub_label     = rgar( $address_zip_field_input, 'customLabel' ) != '' ? $address_zip_field_input['customLabel'] : $zip_label;
-		$address_zip_sub_label     = apply_filters( "gform_address_zip_{$form_id}", apply_filters( 'gform_address_zip', $address_zip_sub_label, $form_id ), $form_id );
+		$address_zip_sub_label     = gf_apply_filters( array( 'gform_address_zip', $form_id, $this->id ), $address_zip_sub_label, $form_id );
 		$address_zip_sub_label     = esc_html( $address_zip_sub_label );
 		$address_city_sub_label    = rgar( $address_city_field_input, 'customLabel' ) != '' ? $address_city_field_input['customLabel'] : esc_html__( 'City', 'gravityforms' );
-		$address_city_sub_label    = apply_filters( "gform_address_city_{$form_id}", apply_filters( 'gform_address_city', $address_city_sub_label, $form_id ), $form_id );
+		$address_city_sub_label    = gf_apply_filters( array( 'gform_address_city', $form_id, $this->id ), $address_city_sub_label, $form_id );
 		$address_city_sub_label    = esc_html( $address_city_sub_label );
 		$address_state_sub_label   = rgar( $address_state_field_input, 'customLabel' ) != '' ? $address_state_field_input['customLabel'] : $state_label;
-		$address_state_sub_label   = apply_filters( "gform_address_state_{$form_id}", apply_filters( 'gform_address_state', $address_state_sub_label, $form_id ), $form_id );
+		$address_state_sub_label   = gf_apply_filters( array( 'gform_address_state', $form_id, $this->id ), $address_state_sub_label, $form_id );
 		$address_state_sub_label   = esc_html( $address_state_sub_label );
 		$address_country_sub_label = rgar( $address_country_field_input, 'customLabel' ) != '' ? $address_country_field_input['customLabel'] : esc_html__( 'Country', 'gravityforms' );
-		$address_country_sub_label = apply_filters( "gform_address_country_{$form_id}", apply_filters( 'gform_address_country', $address_country_sub_label, $form_id ), $form_id );
+		$address_country_sub_label = gf_apply_filters( array( 'gform_address_country', $form_id, $this->id ), $address_country_sub_label, $form_id );
 		$address_country_sub_label = esc_html( $address_country_sub_label );
 
 		//address field
@@ -384,18 +384,35 @@ class GF_Field_Address extends GF_Field {
 			$css_class .= 'has_country ';
 		}
 
+		$css_class .= 'ginput_container_address';
+
 		return trim( $css_class );
 	}
 
 	public function get_address_types( $form_id ) {
 
 		$addressTypes = array(
-			'international' => array( 'label' => esc_html__( 'International', 'gravityforms' ), 'zip_label' => apply_filters( "gform_address_zip_{$form_id}", apply_filters( 'gform_address_zip', esc_html__( 'ZIP / Postal Code', 'gravityforms' ), $form_id ), $form_id ), 'state_label' => apply_filters( "gform_address_state_{$form_id}", apply_filters( 'gform_address_state', esc_html__( 'State / Province / Region', 'gravityforms' ), $form_id ), $form_id ) ),
-			'us'            => array( 'label' => esc_html__( 'United States', 'gravityforms' ), 'zip_label' => apply_filters( "gform_address_zip_{$form_id}", apply_filters( 'gform_address_zip', esc_html__( 'ZIP Code', 'gravityforms' ), $form_id ), $form_id ), 'state_label' => apply_filters( "gform_address_state_{$form_id}", apply_filters( 'gform_address_state', esc_html__( 'State', 'gravityforms' ), $form_id ), $form_id ), 'country' => 'United States', 'states' => array_merge( array( '' ), $this->get_us_states() ) ),
-			'canadian'      => array( 'label' => esc_html__( 'Canadian', 'gravityforms' ), 'zip_label' => apply_filters( "gform_address_zip_{$form_id}", apply_filters( 'gform_address_zip', esc_html__( 'Postal Code', 'gravityforms' ), $form_id ), $form_id ), 'state_label' => apply_filters( "gform_address_state_{$form_id}", apply_filters( 'gform_address_state', esc_html__( 'Province', 'gravityforms' ), $form_id ), $form_id ), 'country' => 'Canada', 'states' => array_merge( array( '' ), $this->get_canadian_provinces() ) )
+			'international' => array( 'label'       => esc_html__( 'International', 'gravityforms' ),
+			                          'zip_label'   => gf_apply_filters( array( 'gform_address_zip', $form_id ), esc_html__( 'ZIP / Postal Code', 'gravityforms' ), $form_id ),
+			                          'state_label' => gf_apply_filters( array( 'gform_address_state', $form_id ), esc_html__( 'State / Province / Region', 'gravityforms' ), $form_id )
+			),
+			'us'            => array(
+				'label'       => esc_html__( 'United States', 'gravityforms' ),
+				'zip_label'   => gf_apply_filters( array( 'gform_address_zip', $form_id ), esc_html__( 'ZIP Code', 'gravityforms' ), $form_id ),
+				'state_label' => gf_apply_filters( array( 'gform_address_state', $form_id ), esc_html__( 'State', 'gravityforms' ), $form_id ),
+				'country'     => 'United States',
+				'states'      => array_merge( array( '' ), $this->get_us_states() )
+			),
+			'canadian'      => array(
+				'label'       => esc_html__( 'Canadian', 'gravityforms' ),
+				'zip_label'   => gf_apply_filters( array( 'gform_address_zip', $form_id ), esc_html__( 'Postal Code', 'gravityforms' ), $form_id ),
+				'state_label' => gf_apply_filters( array( 'gform_address_state', $form_id ), esc_html__( 'Province', 'gravityforms' ), $form_id ),
+				'country'     => 'Canada',
+				'states'      => array_merge( array( '' ), $this->get_canadian_provinces() )
+			)
 		);
 
-		return apply_filters( "gform_address_types_{$form_id}", apply_filters( 'gform_address_types', $addressTypes, $form_id ), $form_id );
+		return gf_apply_filters( array( 'gform_address_types', $form_id ), $addressTypes, $form_id );
 	}
 
 	public function get_state_field( $id, $field_id, $state_value, $disabled_text, $form_id ) {
@@ -464,7 +481,7 @@ class GF_Field_Address extends GF_Field {
 	public function get_country_code( $country_name ) {
 		$codes = $this->get_country_codes();
 
-		return rgar( $codes, strtoupper( $country_name ) );
+		return rgar( $codes, GFCommon::safe_strtoupper( $country_name ) );
 	}
 
 	public function get_country_codes() {
@@ -707,63 +724,64 @@ class GF_Field_Address extends GF_Field {
 
 	public function get_us_state_code( $state_name ) {
 		$states = array(
-			strtoupper( esc_html__( 'Alabama', 'gravityforms' ) )               => 'AL',
-			strtoupper( esc_html__( 'Alaska', 'gravityforms' ) )                => 'AK',
-			strtoupper( esc_html__( 'Arizona', 'gravityforms' ) )               => 'AZ',
-			strtoupper( esc_html__( 'Arkansas', 'gravityforms' ) )              => 'AR',
-			strtoupper( esc_html__( 'California', 'gravityforms' ) )            => 'CA',
-			strtoupper( esc_html__( 'Colorado', 'gravityforms' ) )              => 'CO',
-			strtoupper( esc_html__( 'Connecticut', 'gravityforms' ) )           => 'CT',
-			strtoupper( esc_html__( 'Delaware', 'gravityforms' ) )              => 'DE',
-			strtoupper( esc_html__( 'District of Columbia', 'gravityforms' ) )  => 'DC',
-			strtoupper( esc_html__( 'Florida', 'gravityforms' ) )               => 'FL',
-			strtoupper( _x( 'Georgia', 'US State', 'gravityforms' ) )   => 'GA',
-			strtoupper( esc_html__( 'Hawaii', 'gravityforms' ) )                => 'HI',
-			strtoupper( esc_html__( 'Idaho', 'gravityforms' ) )                 => 'ID',
-			strtoupper( esc_html__( 'Illinois', 'gravityforms' ) )              => 'IL',
-			strtoupper( esc_html__( 'Indiana', 'gravityforms' ) )               => 'IN',
-			strtoupper( esc_html__( 'Iowa', 'gravityforms' ) )                  => 'IA',
-			strtoupper( esc_html__( 'Kansas', 'gravityforms' ) )                => 'KS',
-			strtoupper( esc_html__( 'Kentucky', 'gravityforms' ) )              => 'KY',
-			strtoupper( esc_html__( 'Louisiana', 'gravityforms' ) )             => 'LA',
-			strtoupper( esc_html__( 'Maine', 'gravityforms' ) )                 => 'ME',
-			strtoupper( esc_html__( 'Maryland', 'gravityforms' ) )              => 'MD',
-			strtoupper( esc_html__( 'Massachusetts', 'gravityforms' ) )         => 'MA',
-			strtoupper( esc_html__( 'Michigan', 'gravityforms' ) )              => 'MI',
-			strtoupper( esc_html__( 'Minnesota', 'gravityforms' ) )             => 'MN',
-			strtoupper( esc_html__( 'Mississippi', 'gravityforms' ) )           => 'MS',
-			strtoupper( esc_html__( 'Missouri', 'gravityforms' ) )              => 'MO',
-			strtoupper( esc_html__( 'Montana', 'gravityforms' ) )               => 'MT',
-			strtoupper( esc_html__( 'Nebraska', 'gravityforms' ) )              => 'NE',
-			strtoupper( esc_html__( 'Nevada', 'gravityforms' ) )                => 'NV',
-			strtoupper( esc_html__( 'New Hampshire', 'gravityforms' ) )         => 'NH',
-			strtoupper( esc_html__( 'New Jersey', 'gravityforms' ) )            => 'NJ',
-			strtoupper( esc_html__( 'New Mexico', 'gravityforms' ) )            => 'NM',
-			strtoupper( esc_html__( 'New York', 'gravityforms' ) )              => 'NY',
-			strtoupper( esc_html__( 'North Carolina', 'gravityforms' ) )        => 'NC',
-			strtoupper( esc_html__( 'North Dakota', 'gravityforms' ) )          => 'ND',
-			strtoupper( esc_html__( 'Ohio', 'gravityforms' ) )                  => 'OH',
-			strtoupper( esc_html__( 'Oklahoma', 'gravityforms' ) )              => 'OK',
-			strtoupper( esc_html__( 'Oregon', 'gravityforms' ) )                => 'OR',
-			strtoupper( esc_html__( 'Pennsylvania', 'gravityforms' ) )          => 'PA',
-			strtoupper( esc_html__( 'Rhode Island', 'gravityforms' ) )          => 'RI',
-			strtoupper( esc_html__( 'South Carolina', 'gravityforms' ) )        => 'SC',
-			strtoupper( esc_html__( 'South Dakota', 'gravityforms' ) )          => 'SD',
-			strtoupper( esc_html__( 'Tennessee', 'gravityforms' ) )             => 'TN',
-			strtoupper( esc_html__( 'Texas', 'gravityforms' ) )                 => 'TX',
-			strtoupper( esc_html__( 'Utah', 'gravityforms' ) )                  => 'UT',
-			strtoupper( esc_html__( 'Vermont', 'gravityforms' ) )               => 'VT',
-			strtoupper( esc_html__( 'Virginia', 'gravityforms' ) )              => 'VA',
-			strtoupper( esc_html__( 'Washington', 'gravityforms' ) )            => 'WA',
-			strtoupper( esc_html__( 'West Virginia', 'gravityforms' ) )         => 'WV',
-			strtoupper( esc_html__( 'Wisconsin', 'gravityforms' ) )             => 'WI',
-			strtoupper( esc_html__( 'Wyoming', 'gravityforms' ) )               => 'WY',
-			strtoupper( esc_html__( 'Armed Forces Americas', 'gravityforms' ) ) => 'AA',
-			strtoupper( esc_html__( 'Armed Forces Europe', 'gravityforms' ) )   => 'AE',
-			strtoupper( esc_html__( 'Armed Forces Pacific', 'gravityforms' ) )  => 'AP',
+			GFCommon::safe_strtoupper( esc_html__( 'Alabama', 'gravityforms' ) )               => 'AL',
+			GFCommon::safe_strtoupper( esc_html__( 'Alaska', 'gravityforms' ) )                => 'AK',
+			GFCommon::safe_strtoupper( esc_html__( 'Arizona', 'gravityforms' ) )               => 'AZ',
+			GFCommon::safe_strtoupper( esc_html__( 'Arkansas', 'gravityforms' ) )              => 'AR',
+			GFCommon::safe_strtoupper( esc_html__( 'California', 'gravityforms' ) )            => 'CA',
+			GFCommon::safe_strtoupper( esc_html__( 'Colorado', 'gravityforms' ) )              => 'CO',
+			GFCommon::safe_strtoupper( esc_html__( 'Connecticut', 'gravityforms' ) )           => 'CT',
+			GFCommon::safe_strtoupper( esc_html__( 'Delaware', 'gravityforms' ) )              => 'DE',
+			GFCommon::safe_strtoupper( esc_html__( 'District of Columbia', 'gravityforms' ) )  => 'DC',
+			GFCommon::safe_strtoupper( esc_html__( 'Florida', 'gravityforms' ) )               => 'FL',
+			GFCommon::safe_strtoupper( _x( 'Georgia', 'US State', 'gravityforms' ) )           => 'GA',
+			GFCommon::safe_strtoupper( esc_html__( 'Hawaii', 'gravityforms' ) )                => 'HI',
+			GFCommon::safe_strtoupper( esc_html__( 'Idaho', 'gravityforms' ) )                 => 'ID',
+			GFCommon::safe_strtoupper( esc_html__( 'Illinois', 'gravityforms' ) )              => 'IL',
+			GFCommon::safe_strtoupper( esc_html__( 'Indiana', 'gravityforms' ) )               => 'IN',
+			GFCommon::safe_strtoupper( esc_html__( 'Iowa', 'gravityforms' ) )                  => 'IA',
+			GFCommon::safe_strtoupper( esc_html__( 'Kansas', 'gravityforms' ) )                => 'KS',
+			GFCommon::safe_strtoupper( esc_html__( 'Kentucky', 'gravityforms' ) )              => 'KY',
+			GFCommon::safe_strtoupper( esc_html__( 'Louisiana', 'gravityforms' ) )             => 'LA',
+			GFCommon::safe_strtoupper( esc_html__( 'Maine', 'gravityforms' ) )                 => 'ME',
+			GFCommon::safe_strtoupper( esc_html__( 'Maryland', 'gravityforms' ) )              => 'MD',
+			GFCommon::safe_strtoupper( esc_html__( 'Massachusetts', 'gravityforms' ) )         => 'MA',
+			GFCommon::safe_strtoupper( esc_html__( 'Michigan', 'gravityforms' ) )              => 'MI',
+			GFCommon::safe_strtoupper( esc_html__( 'Minnesota', 'gravityforms' ) )             => 'MN',
+			GFCommon::safe_strtoupper( esc_html__( 'Mississippi', 'gravityforms' ) )           => 'MS',
+			GFCommon::safe_strtoupper( esc_html__( 'Missouri', 'gravityforms' ) )              => 'MO',
+			GFCommon::safe_strtoupper( esc_html__( 'Montana', 'gravityforms' ) )               => 'MT',
+			GFCommon::safe_strtoupper( esc_html__( 'Nebraska', 'gravityforms' ) )              => 'NE',
+			GFCommon::safe_strtoupper( esc_html__( 'Nevada', 'gravityforms' ) )                => 'NV',
+			GFCommon::safe_strtoupper( esc_html__( 'New Hampshire', 'gravityforms' ) )         => 'NH',
+			GFCommon::safe_strtoupper( esc_html__( 'New Jersey', 'gravityforms' ) )            => 'NJ',
+			GFCommon::safe_strtoupper( esc_html__( 'New Mexico', 'gravityforms' ) )            => 'NM',
+			GFCommon::safe_strtoupper( esc_html__( 'New York', 'gravityforms' ) )              => 'NY',
+			GFCommon::safe_strtoupper( esc_html__( 'North Carolina', 'gravityforms' ) )        => 'NC',
+			GFCommon::safe_strtoupper( esc_html__( 'North Dakota', 'gravityforms' ) )          => 'ND',
+			GFCommon::safe_strtoupper( esc_html__( 'Ohio', 'gravityforms' ) )                  => 'OH',
+			GFCommon::safe_strtoupper( esc_html__( 'Oklahoma', 'gravityforms' ) )              => 'OK',
+			GFCommon::safe_strtoupper( esc_html__( 'Oregon', 'gravityforms' ) )                => 'OR',
+			GFCommon::safe_strtoupper( esc_html__( 'Pennsylvania', 'gravityforms' ) )          => 'PA',
+			GFCommon::safe_strtoupper( esc_html__( 'Rhode Island', 'gravityforms' ) )          => 'RI',
+			GFCommon::safe_strtoupper( esc_html__( 'South Carolina', 'gravityforms' ) )        => 'SC',
+			GFCommon::safe_strtoupper( esc_html__( 'South Dakota', 'gravityforms' ) )          => 'SD',
+			GFCommon::safe_strtoupper( esc_html__( 'Tennessee', 'gravityforms' ) )             => 'TN',
+			GFCommon::safe_strtoupper( esc_html__( 'Texas', 'gravityforms' ) )                 => 'TX',
+			GFCommon::safe_strtoupper( esc_html__( 'Utah', 'gravityforms' ) )                  => 'UT',
+			GFCommon::safe_strtoupper( esc_html__( 'Vermont', 'gravityforms' ) )               => 'VT',
+			GFCommon::safe_strtoupper( esc_html__( 'Virginia', 'gravityforms' ) )              => 'VA',
+			GFCommon::safe_strtoupper( esc_html__( 'Washington', 'gravityforms' ) )            => 'WA',
+			GFCommon::safe_strtoupper( esc_html__( 'West Virginia', 'gravityforms' ) )         => 'WV',
+			GFCommon::safe_strtoupper( esc_html__( 'Wisconsin', 'gravityforms' ) )             => 'WI',
+			GFCommon::safe_strtoupper( esc_html__( 'Wyoming', 'gravityforms' ) )               => 'WY',
+			GFCommon::safe_strtoupper( esc_html__( 'Armed Forces Americas', 'gravityforms' ) ) => 'AA',
+			GFCommon::safe_strtoupper( esc_html__( 'Armed Forces Europe', 'gravityforms' ) )   => 'AE',
+			GFCommon::safe_strtoupper( esc_html__( 'Armed Forces Pacific', 'gravityforms' ) )  => 'AP',
 		);
 
-		$code = isset( $states[ strtoupper( $state_name ) ] ) ? $states[ strtoupper( $state_name ) ] : strtoupper( $state_name );
+		$state_name = GFCommon::safe_strtoupper( $state_name );
+		$code       = isset( $states[ $state_name ] ) ? $states[ $state_name ] : $state_name;
 
 		return $code;
 	}
@@ -919,6 +937,34 @@ class GF_Field_Address extends GF_Field {
 		}
 
 	}
+
+	public function get_value_export( $entry, $input_id = '', $use_text = false, $is_csv = false ) {
+		if ( empty( $input_id ) ) {
+			$input_id = $this->id;
+		}
+
+		if ( absint( $input_id ) == $input_id ) {
+			$street_value  = str_replace( '  ', ' ', trim( rgar( $entry, $input_id . '.1' ) ) );
+			$street2_value = str_replace( '  ', ' ', trim( rgar( $entry, $input_id . '.2' ) ) );
+			$city_value    = str_replace( '  ', ' ', trim( rgar( $entry, $input_id . '.3' ) ) );
+			$state_value   = str_replace( '  ', ' ', trim( rgar( $entry, $input_id . '.4' ) ) );
+			$zip_value     = trim( rgar( $entry, $input_id . '.5' ) );
+			$country_value = $this->get_country_code( trim( rgar( $entry, $input_id . '.6' ) ) );
+
+			$address = $street_value;
+			$address .= ! empty( $address ) && ! empty( $street2_value ) ? "  $street2_value" : $street2_value;
+			$address .= ! empty( $address ) && ( ! empty( $city_value ) || ! empty( $state_value ) ) ? ", $city_value," : $city_value;
+			$address .= ! empty( $address ) && ! empty( $city_value ) && ! empty( $state_value ) ? "  $state_value" : $state_value;
+			$address .= ! empty( $address ) && ! empty( $zip_value ) ? "  $zip_value," : $zip_value;
+			$address .= ! empty( $address ) && ! empty( $country_value ) ? "  $country_value" : $country_value;
+
+			return $address;
+		} else {
+
+			return rgar( $entry, $input_id );
+		}
+	}
+
 }
 
 GF_Fields::register( new GF_Field_Address() );

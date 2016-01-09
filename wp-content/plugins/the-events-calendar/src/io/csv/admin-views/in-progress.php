@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 require_once 'header.php';
 ?>
 
-<h3>Importing Data</h3>
+<h2>Importing Data</h2>
 
 <ul>
 	<?php foreach ( $messages as $message ): ?>
@@ -25,4 +25,4 @@ require_once 'header.php';
 <?php
 require_once 'footer.php';
 ?>
-<script>window.location.href = '<?php echo esc_url_raw( add_query_arg( array('action'=>'continue') ) ); ?>';</script>
+<script>window.location.href = '<?php echo esc_url_raw( add_query_arg( array( 'action' => 'continue' ) ) ); ?>';</script>

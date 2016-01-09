@@ -13,7 +13,7 @@ if ( ! function_exists( 'add_filter' ) ) {
  * @internal Nobody should be able to overrule the real version number as this can cause serious issues
  * with the options, so no if ( ! defined() )
  */
-define( 'WPSEO_VERSION', '2.2.1' );
+define( 'WPSEO_VERSION', '3.0.7' );
 
 if ( ! defined( 'WPSEO_PATH' ) ) {
 	define( 'WPSEO_PATH', plugin_dir_path( WPSEO_FILE ) );
@@ -33,7 +33,7 @@ if ( ! defined( 'WPSEO_CSSJS_SUFFIX' ) ) {
 /**
  * Auto load our class files
  *
- * @param string $class Class name
+ * @param string $class Class name.
  *
  * @return void
  */
@@ -58,7 +58,7 @@ function wpseo_auto_load( $class ) {
 if ( file_exists( WPSEO_PATH . '/vendor/autoload_52.php' ) ) {
 	require WPSEO_PATH . '/vendor/autoload_52.php';
 }
-elseif ( ! class_exists( 'WPSEO_Options' ) ) { // still checking since might be site-level autoload R.
+elseif ( ! class_exists( 'WPSEO_Options' ) ) { // Still checking since might be site-level autoload R.
 	add_action( 'admin_init', 'yoast_wpseo_missing_autoload', 1 );
 	return;
 }
@@ -73,7 +73,7 @@ if ( function_exists( 'spl_autoload_register' ) ) {
 /**
  * Run single site / network-wide activation of the plugin.
  *
- * @param bool $networkwide Whether the plugin is being activated network-wide
+ * @param bool $networkwide Whether the plugin is being activated network-wide.
  */
 function wpseo_activate( $networkwide = false ) {
 	if ( ! is_multisite() || ! $networkwide ) {
@@ -88,7 +88,7 @@ function wpseo_activate( $networkwide = false ) {
 /**
  * Run single site / network-wide de-activation of the plugin.
  *
- * @param bool $networkwide Whether the plugin is being de-activated network-wide
+ * @param bool $networkwide Whether the plugin is being de-activated network-wide.
  */
 function wpseo_deactivate( $networkwide = false ) {
 	if ( ! is_multisite() || ! $networkwide ) {
@@ -103,12 +103,11 @@ function wpseo_deactivate( $networkwide = false ) {
 /**
  * Run network-wide (de-)activation of the plugin
  *
- * @param bool $activate True for plugin activation, false for de-activation
+ * @param bool $activate True for plugin activation, false for de-activation.
  */
 function wpseo_network_activate_deactivate( $activate = true ) {
 	global $wpdb;
 
-	$original_blog_id = get_current_blog_id(); // alternatively use: $wpdb->blogid
 	$all_blogs        = $wpdb->get_col( "SELECT blog_id FROM $wpdb->blogs" );
 
 	if ( is_array( $all_blogs ) && $all_blogs !== array() ) {
@@ -121,9 +120,9 @@ function wpseo_network_activate_deactivate( $activate = true ) {
 			else {
 				_wpseo_deactivate();
 			}
+
+			restore_current_blog();
 		}
-		// Restore back to original blog
-		switch_to_blog( $original_blog_id );
 	}
 }
 
@@ -133,7 +132,7 @@ function wpseo_network_activate_deactivate( $activate = true ) {
 function _wpseo_activate() {
 	require_once( WPSEO_PATH . 'inc/wpseo-functions.php' );
 
-	wpseo_load_textdomain(); // Make sure we have our translations available for the defaults
+	wpseo_load_textdomain(); // Make sure we have our translations available for the defaults.
 	WPSEO_Options::get_instance();
 	if ( ! is_multisite() ) {
 		WPSEO_Options::initialize();
@@ -143,7 +142,12 @@ function _wpseo_activate() {
 	}
 	WPSEO_Options::ensure_options_exist();
 
-	add_action( 'shutdown', 'flush_rewrite_rules' );
+	if ( is_multisite() && ms_is_switched() ) {
+		delete_option( 'rewrite_rules' );
+	}
+	else {
+		add_action( 'shutdown', 'flush_rewrite_rules' );
+	}
 
 	wpseo_add_capabilities();
 
@@ -159,7 +163,12 @@ function _wpseo_activate() {
 function _wpseo_deactivate() {
 	require_once( WPSEO_PATH . 'inc/wpseo-functions.php' );
 
-	add_action( 'shutdown', 'flush_rewrite_rules' );
+	if ( is_multisite() && ms_is_switched() ) {
+		delete_option( 'rewrite_rules' );
+	}
+	else {
+		add_action( 'shutdown', 'flush_rewrite_rules' );
+	}
 
 	wpseo_remove_capabilities();
 
@@ -174,10 +183,11 @@ function _wpseo_deactivate() {
  * network-wide.
  *
  * Will only be called by multisite actions.
+ *
  * @internal Unfortunately will fail if the plugin is in the must-use directory
  * @see      https://core.trac.wordpress.org/ticket/24205
  *
- * @param int $blog_id
+ * @param int $blog_id Blog ID.
  */
 function wpseo_on_activate_blog( $blog_id ) {
 	if ( ! function_exists( 'is_plugin_active_for_network' ) ) {
@@ -218,14 +228,14 @@ add_action( 'init', 'wpseo_load_textdomain', 1 );
 function wpseo_init() {
 	require_once( WPSEO_PATH . 'inc/wpseo-functions.php' );
 
-	// Make sure our option and meta value validation routines and default values are always registered and available
+	// Make sure our option and meta value validation routines and default values are always registered and available.
 	WPSEO_Options::get_instance();
 	WPSEO_Meta::init();
 
 	$options = WPSEO_Options::get_all();
 	if ( version_compare( $options['version'], WPSEO_VERSION, '<' ) ) {
 		new WPSEO_Upgrade();
-		// get a cleaned up version of the $options
+		// Get a cleaned up version of the $options.
 		$options = WPSEO_Options::get_all();
 	}
 
@@ -240,6 +250,9 @@ function wpseo_init() {
 	if ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) {
 		require_once( WPSEO_PATH . 'inc/wpseo-non-ajax-functions.php' );
 	}
+
+	// Init it here because the filter must be present on the frontend as well or it won't work in the customizer.
+	new WPSEO_Customizer();
 }
 
 /**
@@ -276,7 +289,7 @@ function wpseo_frontend_head_init() {
 		$GLOBALS['wpseo_og'] = new WPSEO_OpenGraph;
 	}
 
-	if ( $options['googleplus'] === true && is_singular() ) {
+	if ( $options['googleplus'] === true && ( is_singular() || ( is_category() || is_tax() || is_tag() ) ) ) {
 		add_action( 'wpseo_head', array( 'WPSEO_GooglePlus', 'get_instance' ), 35 );
 	}
 }
@@ -307,6 +320,16 @@ if ( ( ! defined( 'WP_INSTALLING' ) || WP_INSTALLING === false ) && ( $spl_autol
 	if ( is_admin() ) {
 		if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
 			require_once( WPSEO_PATH . 'admin/ajax.php' );
+
+			// Crawl Issue Manager AJAX hooks.
+			new WPSEO_GSC_Ajax;
+
+			// Plugin conflict ajax hooks.
+			new Yoast_Plugin_Conflict_Ajax();
+
+			if ( filter_input( INPUT_POST, 'action' ) === 'inline-save' ) {
+				add_action( 'plugins_loaded', 'wpseo_admin_init', 15 );
+			}
 		}
 		else {
 			add_action( 'plugins_loaded', 'wpseo_admin_init', 15 );
@@ -319,18 +342,21 @@ if ( ( ! defined( 'WP_INSTALLING' ) || WP_INSTALLING === false ) && ( $spl_autol
 	add_action( 'admin_init', 'load_yoast_notifications' );
 }
 
-// Activation and deactivation hook
+// Activation and deactivation hook.
 register_activation_hook( WPSEO_FILE, 'wpseo_activate' );
 register_activation_hook( WPSEO_FILE, array( 'WPSEO_Plugin_Conflict', 'hook_check_for_plugin_conflicts' ) );
 register_deactivation_hook( WPSEO_FILE, 'wpseo_deactivate' );
 add_action( 'wpmu_new_blog', 'wpseo_on_activate_blog' );
 add_action( 'activate_blog', 'wpseo_on_activate_blog' );
 
+// Loading OnPage integration.
+new WPSEO_OnPage();
+
 /**
  * Wraps for notifications center class.
  */
 function load_yoast_notifications() {
-	// Init Yoast_Notification_Center class
+	// Init Yoast_Notification_Center class.
 	Yoast_Notification_Center::get();
 }
 
@@ -375,9 +401,9 @@ function yoast_wpseo_missing_autoload() {
  * Returns the notice in case of missing Composer autoload
  */
 function yoast_wpseo_missing_autoload_notice() {
-	/* translators: %1$s / %2$s: links to the installation manual in the Readme for the WordPress SEO by Yoast code repository on GitHub */
-	$message = esc_html__( 'The WordPress SEO plugin installation is incomplete. Please refer to %1$sinstallation instructions%2$s.', 'wordpress-seo' );
-	$message = sprintf( $message, '<a href="https://github.com/Yoast/wordpress-seo#installation">', '</a>' );
+	/* translators: %1$s expands to Yoast SEO, %2$s / %3$s: links to the installation manual in the Readme for the Yoast SEO code repository on GitHub */
+	$message = esc_html__( 'The %1$s plugin installation is incomplete. Please refer to %2$sinstallation instructions%3$s.', 'wordpress-seo' );
+	$message = sprintf( $message, 'Yoast SEO', '<a href="https://github.com/Yoast/wordpress-seo#installation">', '</a>' );
 	yoast_wpseo_activation_failed_notice( $message );
 }
 
@@ -407,7 +433,7 @@ function yoast_wpseo_missing_filter_notice() {
 /**
  * Echo's the Activation failed notice with any given message.
  *
- * @param string $message
+ * @param string $message Message string.
  */
 function yoast_wpseo_activation_failed_notice( $message ) {
 	echo '<div class="error"><p>' . __( 'Activation failed:', 'wordpress-seo' ) . ' ' . $message . '</p></div>';

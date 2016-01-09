@@ -16,14 +16,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 if ( ! class_exists( 'Tribe__Events__Meta_Factory' ) ) {
 	class Tribe__Events__Meta_Factory {
 
-		var $meta = array();
-		var $meta_group = array();
+		public $meta = array();
+		public $meta_group = array();
 
 		const META_IDS = 'meta_ids';
-
-		function __construct() {
-
-		}
 
 		/**
 		 * register meta or meta_groups
@@ -43,11 +39,11 @@ if ( ! class_exists( 'Tribe__Events__Meta_Factory' ) ) {
 					'label_after'    => '</label>',
 					'meta_before'    => '<div class="%s">',
 					'meta_separator' => '',
-					'meta_after'     => '</div>'
+					'meta_after'     => '</div>',
 				),
 				'classes'            => array(
 					'before'      => array( 'tribe-meta' ),
-					'meta_before' => array( 'tribe-meta-value' )
+					'meta_before' => array( 'tribe-meta-value' ),
 				),
 				'register_type'      => 'meta',
 				'register_overwrite' => false,
@@ -59,7 +55,7 @@ if ( ! class_exists( 'Tribe__Events__Meta_Factory' ) ) {
 				// if label is not set then use humanized form of meta_group_id
 				'show_on_meta'       => true,
 				// bool for automatically displaying meta within "the meta area" of a specific display
-				'priority'           => 100
+				'priority'           => 100,
 			);
 			// before we merge args and defaults lets play nice with the template
 			if ( ! empty( $args['wrap'] ) ) {
@@ -68,23 +64,23 @@ if ( ! class_exists( 'Tribe__Events__Meta_Factory' ) ) {
 			$args = wp_parse_args( $args, $defaults );
 
 			// setup default meta ids placeholder for meta_group registration
-			if ( $args['register_type'] == 'meta_group' && empty( $args[self::META_IDS] ) ) {
-				$args[self::META_IDS] = array();
+			if ( $args['register_type'] == 'meta_group' && empty( $args[ self::META_IDS ] ) ) {
+				$args[ self::META_IDS ] = array();
 			}
 
 			do_action( 'tribe_meta_factory_register', $meta_id, $args );
 
 			// check if we should overwrite the existing registration args if set
-			if ( isset( $_tribe_meta_factory->{$args['register_type']}[$meta_id] ) && ! $args['register_overwrite'] ) {
+			if ( isset( $_tribe_meta_factory->{$args['register_type']}[ $meta_id ] ) && ! $args['register_overwrite'] ) {
 				return false;
 				// otherwise merge existing args with new args and reregister
 			} else {
-				if ( isset( $_tribe_meta_factory->{$args['register_type']}[$meta_id] ) ) {
-					$args = wp_parse_args( $args, $_tribe_meta_factory->{$args['register_type']}[$meta_id] );
+				if ( isset( $_tribe_meta_factory->{$args['register_type']}[ $meta_id ] ) ) {
+					$args = wp_parse_args( $args, $_tribe_meta_factory->{$args['register_type']}[ $meta_id ] );
 				}
 			}
 
-			$_tribe_meta_factory->{$args['register_type']}[$meta_id] = $args;
+			$_tribe_meta_factory->{$args['register_type']}[ $meta_id ] = $args;
 
 			// associate a meta item to a meta group(s) isset
 			if ( $args['register_type'] == 'meta' && ! empty( $args['group'] ) ) {
@@ -93,10 +89,10 @@ if ( ! class_exists( 'Tribe__Events__Meta_Factory' ) ) {
 					if ( ! self::check_exists( $group, 'meta_group' ) ) {
 						tribe_register_meta_group( $group );
 						// if the meta_id has already been added to the group move onto the next one
-					} elseif ( in_array( $meta_id, $_tribe_meta_factory->meta_group[$group][self::META_IDS] ) ) {
+					} elseif ( in_array( $meta_id, $_tribe_meta_factory->meta_group[ $group ][ self::META_IDS ] ) ) {
 						continue;
 					}
-					$_tribe_meta_factory->meta_group[$group][self::META_IDS][] = $meta_id;
+					$_tribe_meta_factory->meta_group[ $group ][ self::META_IDS ][] = $meta_id;
 				}
 			}
 
@@ -114,7 +110,7 @@ if ( ! class_exists( 'Tribe__Events__Meta_Factory' ) ) {
 		 */
 		public static function check_exists( $meta_id, $type = 'meta' ) {
 			global $_tribe_meta_factory;
-			$status = isset( $_tribe_meta_factory->{$type}[$meta_id] ) ? true : false;
+			$status = isset( $_tribe_meta_factory->{$type}[ $meta_id ] ) ? true : false;
 
 			return apply_filters( 'tribe_meta_factory_check_exists', $status );
 		}
@@ -129,7 +125,7 @@ if ( ! class_exists( 'Tribe__Events__Meta_Factory' ) ) {
 		 */
 		public static function get_args( $meta_id, $type = 'meta' ) {
 			global $_tribe_meta_factory;
-			$args = self::check_exists( $meta_id, $type ) ? $_tribe_meta_factory->{$type}[$meta_id] : array();
+			$args = self::check_exists( $meta_id, $type ) ? $_tribe_meta_factory->{$type}[ $meta_id ] : array();
 
 			return apply_filters( 'tribe_meta_factory_get_args', $args );
 		}
@@ -148,14 +144,14 @@ if ( ! class_exists( 'Tribe__Events__Meta_Factory' ) ) {
 			$ordered_group = array();
 
 			if ( self::check_exists( $meta_id, 'meta_group' ) ) {
-				foreach ( $_tribe_meta_factory->meta_group[$meta_id][self::META_IDS] as $key ) {
+				foreach ( $_tribe_meta_factory->meta_group[ $meta_id ][ self::META_IDS ] as $key ) {
 					if ( $item = self::get_args( $key ) ) {
-						$ordered_group[$item['priority']][] = $key;
+						$ordered_group[ $item['priority'] ][] = $key;
 					}
 				}
 			} else {
 				foreach ( $_tribe_meta_factory->meta_group as $key => $item ) {
-					$ordered_group[$item['priority']][] = $key;
+					$ordered_group[ $item['priority'] ][] = $key;
 				}
 			}
 
@@ -174,7 +170,7 @@ if ( ! class_exists( 'Tribe__Events__Meta_Factory' ) ) {
 		public static function set_visibility( $meta_id, $type = 'meta', $status = true ) {
 			global $_tribe_meta_factory;
 			if ( self::check_exists( $meta_id, $type ) ) {
-				$_tribe_meta_factory->{$type}[$meta_id]['show_on_meta'] = $status;
+				$_tribe_meta_factory->{$type}[ $meta_id ]['show_on_meta'] = $status;
 			}
 		}
 
@@ -192,15 +188,15 @@ if ( ! class_exists( 'Tribe__Events__Meta_Factory' ) ) {
 				// loop through the available class to template associations
 				foreach ( $classes as $key => $class_list ) {
 					if ( ! empty( $class_list ) &&
-						 ! empty( $template[$key] ) &&
-						 ( strpos( $template[$key], '%s' ) !== false || strpos( $template[$key], '%d' ) !== false )
+						 ! empty( $template[ $key ] ) &&
+						 ( strpos( $template[ $key ], '%s' ) !== false || strpos( $template[ $key ], '%d' ) !== false )
 					) {
 
 						// if we're passed an array lets implode it
 						$class_list = is_array( $class_list ) ? implode( ' ', $class_list ) : $class_list;
 
 						// process the template string with all classes
-						$template[$key] = vsprintf( $template[$key], $class_list );
+						$template[ $key ] = vsprintf( $template[ $key ], $class_list );
 
 					}
 				}
@@ -223,8 +219,8 @@ if ( ! class_exists( 'Tribe__Events__Meta_Factory' ) ) {
 		public static function template( $label, $meta, $meta_id, $type = 'meta' ) {
 			global $_tribe_meta_factory;
 			$template = self::embed_classes(
-							$_tribe_meta_factory->{$type}[$meta_id]['wrap'],
-							$_tribe_meta_factory->{$type}[$meta_id]['classes']
+							$_tribe_meta_factory->{$type}[ $meta_id ]['wrap'],
+							$_tribe_meta_factory->{$type}[ $meta_id ]['classes']
 			);
 			$html     = sprintf(
 				'%s%s%s%s',

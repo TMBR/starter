@@ -35,9 +35,12 @@ class acf_form_widget {
 		add_action('in_widget_form', 			array($this, 'edit_widget'), 10, 3);
 		
 		
+		// filters
+		add_filter('widget_update_callback', 	array($this, 'widget_update_callback'), 10, 4);
+		
+		
 		// ajax
-		add_action('wp_ajax_save-widget', 		array($this, 'save_widget'), 0, 1);
-		add_action('wp_ajax_update-widget', 	array($this, 'save_widget'), 0, 1);
+		add_action('wp_ajax_update-widget', 	array($this, 'ajax_update_widget'), 0, 1);
 		
 	}
 	
@@ -75,7 +78,7 @@ class acf_form_widget {
 		
 		
 		// actions
-		add_action('acf/input/admin_footer', array($this, 'admin_footer'));
+		add_action('acf/input/admin_footer', array($this, 'admin_footer'), 1);
 
 	}
 	
@@ -150,17 +153,21 @@ class acf_form_widget {
 	/*
 	*  save_widget
 	*
-	*  This function will save the widget form data
+	*  This function will hook in before 'widget_update_callback' and save values to bypass customizer validation issues
 	*
 	*  @type	function
 	*  @date	11/06/2014
 	*  @since	5.0.0
 	*
-	*  @param	$post_id (int)
-	*  @return	$post_id (int)
+	*  @param	n/a
+	*  @return	n/a
 	*/
 	
-	function save_widget() {
+	function ajax_update_widget() {
+		
+		// remove default save filter
+		remove_filter('widget_update_callback', array($this, 'widget_update_callback'), 10, 4);
+		
 		
 		// bail early if no nonce
 		if( !acf_verify_nonce('widget') ) {
@@ -180,6 +187,47 @@ class acf_form_widget {
 			acf_save_post( "widget_{$id}" );		
 		
 		}
+		
+	}
+
+	
+	
+	/*
+	*  widget_update_callback
+	*
+	*  This function will hook into the widget update filter and save ACF data
+	*
+	*  @type	function
+	*  @date	27/05/2015
+	*  @since	5.2.3
+	*
+	*  @param	$instance (array) widget settings
+	*  @param	$new_instance (array) widget settings
+	*  @param	$old_instance (array) widget settings
+	*  @param	$widget (object) widget info
+	*  @return	$instance
+	*/
+	
+	function widget_update_callback( $instance, $new_instance, $old_instance, $widget ) {
+		
+		// bail early if no nonce
+		if( !acf_verify_nonce('widget') ) {
+		
+			return $instance;
+			
+		}
+		
+		
+	    // save
+	    if( acf_validate_save_post() ) {
+	    	
+			acf_save_post( "widget_{$widget->id}" );		
+		
+		}
+		
+		
+		// return
+		return $instance;
 		
 	}
 	
@@ -205,61 +253,68 @@ class acf_form_widget {
 	
 	 acf.add_filter('get_fields', function( $fields ){
 	 	
-	 	return $fields.not('#available-widgets .acf-field');
-
+	 	// widgets
+	 	$fields = $fields.not('#available-widgets .acf-field');
+	 	
+	 	
+	 	// customizer
+	 	$fields = $fields.not('.widget-tpl .acf-field');
+	 	
+	 	
+	 	// return
+	 	return $fields;
+	 	
     });
-		
-	acf.add_action('ready', function(){
-		
-		$('#widgets-right').on('click', '.widget-control-save', function( e ){
-		
-			// vars
-			var $form = $(this).closest('form');
-			
-			
-			// bail early if this form does not contain ACF data
-			if( ! $form.find('#acf-form-data').exists() ) {
-			
-				return true;
-			
-			}
-			
-			
-			// ignore this submit?
-			if( acf.validation.ignore == 1 ) {
-			
-				acf.validation.ignore = 0;
-				return true;
-			
-			}
-			
 	
-			// bail early if disabled
-			if( acf.validation.active == 0 ) {
-			
-				return true;
-			
-			}
 	
+	$('#widgets-right').on('click', '.widget-control-save', function( e ){
+		
+		// vars
+		var $form = $(this).closest('form');
+		
+		
+		// bail early if not active
+		if( !acf.validation.active ) {
+		
+			return true;
 			
-			// stop WP JS validation
-			e.stopImmediatePropagation();
+		}
+		
+		
+		// ignore validation (only ignore once)
+		if( acf.validation.ignore ) {
+		
+			acf.validation.ignore = 0;
+			return true;
 			
-			
-			// store submit trigger so it will be clicked if validation is passed
-			acf.validation.$trigger = $(this);
-			
-			
-			// run validation
-			acf.validation.fetch( $form );
-			
-			
-			// stop all other click events on this input
-			return false;
-			
-		});
+		}
+		
+		
+		// bail early if this form does not contain ACF data
+		if( !$form.find('#acf-form-data').exists() ) {
+		
+			return true;
+		
+		}
+
+		
+		// stop WP JS validation
+		e.stopImmediatePropagation();
+		
+		
+		// store submit trigger so it will be clicked if validation is passed
+		acf.validation.$trigger = $(this);
+		
+		
+		// run validation
+		acf.validation.fetch( $form );
+		
+		
+		// stop all other click events on this input
+		return false;
 		
 	});
+	
 	
 	$(document).on('click', '.widget-top', function(){
 		
@@ -274,7 +329,6 @@ class acf_form_widget {
 			});
 			
 		}, 250);
-		
 				
 	});
 	
@@ -284,8 +338,13 @@ class acf_form_widget {
 		
 	});
 	
-	$(document).on('widget-saved', function( e, $widget ){
+	$(document).on('widget-saved widget-updated', function( e, $widget ){
 		
+		// unlock form
+		acf.validation.toggle( $widget, 'unlock' );
+		
+		
+		// submit
 		acf.do_action('submit', $widget );
 		
 	});

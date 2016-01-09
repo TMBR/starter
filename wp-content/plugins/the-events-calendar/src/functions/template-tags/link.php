@@ -19,7 +19,6 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 *
 	 * @param bool|string $anchor link text. Use %title% to place the post title in your string.
 	 *
-	 * @return void
 	 * @see tribe_get_prev_event_link()
 	 */
 	function tribe_the_prev_event_link( $anchor = false ) {
@@ -112,10 +111,9 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @return string URL
 	 */
 	function tribe_get_events_link() {
-		$tribe_ecp = Tribe__Events__Main::instance();
-		$output    = $tribe_ecp->getLink( 'home' );
+		$plugin = Tribe__Events__Main::instance();
 
-		return apply_filters( 'tribe_get_events_link', $output );
+		return apply_filters( 'tribe_get_events_link', $plugin->getLink( 'home' ) );
 	}
 
 	/**
@@ -168,17 +166,92 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	}
 
 	/**
-	 * Single Event Link (Display)
+	 * Link to a nearby List View page
 	 *
-	 * Display link to a single event
+	 * Returns a link to the next/previous list view page
 	 *
-	 * @param null|int $post Optional post ID
+	 * @param string $direction 'next' or 'prev'
+	 * @param int|null $term Term ID
+	 * @param string $currently_displaying Type of listview page that is currently being displayed ('past' or 'list')
+	 * @param int $page Current page number being displayed
 	 *
-	 * @return string Link html
+	 * @return string URL
 	 */
-	function tribe_event_link( $post = null ) {
-		// pass in whole post object to retain start date
-		echo apply_filters( 'tribe_event_link', tribe_get_event_link( $post ) );
+	function tribe_get_listview_dir_link( $direction = 'next', $term = null, $currently_displaying = null, $page = null ) {
+		$link = tribe_get_listview_link( $term );
+
+		// if a page isn't passed in, attempt to fetch it from a get var
+		if ( ! $page ) {
+			if ( ! empty( $_POST['tribe_paged'] ) ) {
+				$page = absint( $_POST['tribe_paged'] );
+			} elseif ( ! empty( $_GET['tribe_paged'] ) ) {
+				$page = absint( $_GET['tribe_paged'] );
+			} else {
+				$page = 1;
+			}
+		}
+
+		// if what we are currently displaying is not passed in, let's set a default and check $_GET
+		if ( ! $currently_displaying ) {
+			$currently_displaying = 'list';
+			if (
+				( ! empty( $_GET['tribe_event_display'] ) && 'past' === $_GET['tribe_event_display'] )
+				|| ( ! empty( $_POST['tribe_event_display'] ) && 'past' === $_POST['tribe_event_display'] )
+			) {
+				$currently_displaying = 'past';
+			}
+		}
+
+		// assume we want to display what we're currently displaying (until we discover otherwise)
+		$display = $currently_displaying;
+
+		if (
+			( 'next' === $direction && 'list' === $currently_displaying )
+			|| ( 'prev' === $direction && 'past' === $currently_displaying )
+		) {
+			$page++;
+		} elseif ( 'list' === $currently_displaying && 1 === $page ) {
+			$display = 'past';
+		} elseif ( 'past' === $currently_displaying && 1 === $page ) {
+			$display = 'list';
+		} else {
+			$page--;
+		}
+
+		$link = add_query_arg( array(
+			'tribe_event_display' => $display,
+			'tribe_paged' => $page,
+		), $link );
+
+		return apply_filters( 'tribe_get_listview_dir_link', $link, $term );
+	}
+
+	/**
+	 * Link to prev List View
+	 *
+	 * Returns a link to the previous list view page
+	 *
+	 * @param int|null $term Term ID
+	 *
+	 * @return string URL
+	 */
+	function tribe_get_listview_prev_link( $term = null ) {
+		$link = tribe_get_listview_dir_link( 'prev', $term );
+		return apply_filters( 'tribe_get_listview_prev_link', $link, $term );
+	}
+
+	/**
+	 * Link to next List View
+	 *
+	 * Returns a link to the next list view page
+	 *
+	 * @param int|null $term Term ID
+	 *
+	 * @return string URL
+	 */
+	function tribe_get_listview_next_link( $term = null ) {
+		$link = tribe_get_listview_dir_link( 'next', $term );
+		return apply_filters( 'tribe_get_listview_next_link', $link, $term );
 	}
 
 	/**
@@ -186,16 +259,27 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 *
 	 * Get link to a single event
 	 *
-	 * @param int $event Optional post ID
+	 * @param int $postId Optional post ID
+	 * @param bool $full_link If true outputs a complete HTML <a> link, otherwise only the URL is output
 	 *
 	 * @return string
 	 */
-	function tribe_get_event_link( $event = null ) {
-		if ( '' == get_option( 'permalink_structure' ) ) {
-			return apply_filters( 'tribe_get_event_link', Tribe__Events__Main::instance()->getLink( 'single', $event ), $event );
+	function tribe_get_event_link( $postId = null, $full_link = false ) {
+
+		$url = Tribe__Events__Main::instance()->getLink( 'single', $postId );
+
+		if ( '' != get_option( 'permalink_structure' ) ) $url = trailingslashit( $url );
+
+		if ( $full_link ) {
+			$title_args = array( 'post' => $postId, 'echo' => false );
+			$name = the_title( $title_args );
+			$attr_title = the_title_attribute( $title_args );
+			$link = ! empty( $url ) && ! empty( $name ) ? '<a href="' . esc_url( $url ) . '" title="'.$attr_title.'"">' . $name . '</a>' : false;
 		} else {
-			return trailingslashit( apply_filters( 'tribe_get_event_link', Tribe__Events__Main::instance()->getLink( 'single', $event ), $event ) );
+			$link = $url;
 		}
+
+		return apply_filters( 'tribe_get_event_link', $link, $postId, $full_link, $url );
 	}
 
 	/**
@@ -213,7 +297,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			$html  = sprintf(
 				'<a href="%s" target="%s">%s</a>',
 				esc_url( $url ),
-				apply_filters( 'tribe_get_event_website_link_target', 'self' ),
+				apply_filters( 'tribe_get_event_website_link_target', '_self' ),
 				apply_filters( 'tribe_get_event_website_link_label', $label )
 			);
 		} else {
@@ -246,4 +330,3 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	}
 
 }
-?>

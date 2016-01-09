@@ -60,8 +60,8 @@ class WPSEO_OpenGraph {
 	/**
 	 * Internal function to output FB tags. This also adds an output filter to each bit of output based on the property.
 	 *
-	 * @param string $property
-	 * @param string $content
+	 * @param string $property Property attribute value.
+	 * @param string $content  Content attribute value.
 	 *
 	 * @return boolean
 	 */
@@ -131,7 +131,7 @@ class WPSEO_OpenGraph {
 		}
 
 		/**
-		 * Filter: 'wpseo_opengraph_author_facebook' - Allow developers to filter the WP SEO post authors facebook profile URL
+		 * Filter: 'wpseo_opengraph_author_facebook' - Allow developers to filter the Yoast SEO post authors facebook profile URL
 		 *
 		 * @api bool|string $unsigned The Facebook author URL, return false to disable
 		 */
@@ -155,7 +155,7 @@ class WPSEO_OpenGraph {
 	 */
 	public function website_facebook() {
 
-		if ( isset( $this->options['facebook_site'] ) && $this->options['facebook_site'] !== '' ) {
+		if ( 'article' === $this->type( false ) && ! empty( $this->options['facebook_site'] ) ) {
 			$this->og_tag( 'article:publisher', $this->options['facebook_site'] );
 
 			return true;
@@ -179,13 +179,18 @@ class WPSEO_OpenGraph {
 		else if ( isset( $this->options['fb_admins'] ) && is_array( $this->options['fb_admins'] ) && $this->options['fb_admins'] !== array() ) {
 			$adminstr = implode( ',', array_keys( $this->options['fb_admins'] ) );
 			/**
-			 * Filter: 'wpseo_opengraph_admin' - Allow developer to filter the fb:admins string put out by WP SEO
+			 * Filter: 'wpseo_opengraph_admin' - Allow developer to filter the fb:admins string put out by Yoast SEO
 			 *
 			 * @api string $adminstr The admin string
 			 */
 			$adminstr = apply_filters( 'wpseo_opengraph_admin', $adminstr );
 			if ( is_string( $adminstr ) && $adminstr !== '' ) {
-				$this->og_tag( 'fb:admins', $adminstr );
+
+				$admins = explode( ',', $adminstr );
+
+				foreach ( $admins as $admin_id ) {
+					$this->og_tag( 'fb:admins', $admin_id );
+				}
 
 				return true;
 			}
@@ -218,12 +223,22 @@ class WPSEO_OpenGraph {
 				$title = $frontend->title( '' );
 			}
 			else {
-				// Replace WP SEO Variables
+				// Replace Yoast SEO Variables.
 				$title = wpseo_replace_vars( $title, $post );
 			}
 		}
 		else if ( is_front_page() ) {
 			$title = ( isset( $this->options['og_frontpage_title'] ) && $this->options['og_frontpage_title'] !== '' ) ? $this->options['og_frontpage_title'] : $frontend->title( '' );
+		}
+		elseif ( is_category() || is_tax() || is_tag() ) {
+			$title = WPSEO_Taxonomy_Meta::get_meta_without_term( 'opengraph-title' );
+			if ( $title === '' ) {
+				$title = $frontend->get_taxonomy_title( '' );
+			}
+			else {
+				// Replace Yoast SEO Variables.
+				$title = wpseo_replace_vars( $title, $GLOBALS['wp_query']->get_queried_object() );
+			}
 		}
 		else {
 			$title = $frontend->title( '' );
@@ -278,11 +293,12 @@ class WPSEO_OpenGraph {
 	 * Output the locale, doing some conversions to make sure the proper Facebook locale is outputted.
 	 *
 	 * Last update/compare with FB list done on 2015-03-16 by Rarst
+	 *
 	 * @see  http://www.facebook.com/translations/FacebookLocales.xml for the list of supported locales
 	 *
 	 * @link https://developers.facebook.com/docs/reference/opengraph/object-type/article/
 	 *
-	 * @param bool $echo Whether to echo or return the locale
+	 * @param bool $echo Whether to echo or return the locale.
 	 *
 	 * @return string $locale
 	 */
@@ -294,7 +310,7 @@ class WPSEO_OpenGraph {
 		 */
 		$locale = apply_filters( 'wpseo_locale', get_locale() );
 
-		// catch some weird locales served out by WP that are not easily doubled up.
+		// Catch some weird locales served out by WP that are not easily doubled up.
 		$fix_locales = array(
 			'ca' => 'ca_ES',
 			'en' => 'en_US',
@@ -311,106 +327,106 @@ class WPSEO_OpenGraph {
 			$locale = $fix_locales[ $locale ];
 		}
 
-		// convert locales like "es" to "es_ES", in case that works for the given locale (sometimes it does)
+		// Convert locales like "es" to "es_ES", in case that works for the given locale (sometimes it does).
 		if ( strlen( $locale ) == 2 ) {
 			$locale = strtolower( $locale ) . '_' . strtoupper( $locale );
 		}
 
-		// These are the locales FB supports
+		// These are the locales FB supports.
 		$fb_valid_fb_locales = array(
-			'af_ZA', // Afrikaans
-			'ar_AR', // Arabic
-			'az_AZ', // Azerbaijani
-			'be_BY', // Belarusian
-			'bg_BG', // Bulgarian
-			'bn_IN', // Bengali
-			'bs_BA', // Bosnian
-			'ca_ES', // Catalan
-			'cs_CZ', // Czech
-			'cx_PH', // Cebuano
-			'cy_GB', // Welsh
-			'da_DK', // Danish
-			'de_DE', // German
-			'el_GR', // Greek
-			'en_GB', // English (UK)
-			'en_PI', // English (Pirate)
-			'en_UD', // English (Upside Down)
-			'en_US', // English (US)
-			'eo_EO', // Esperanto
-			'es_ES', // Spanish (Spain)
-			'es_LA', // Spanish
-			'et_EE', // Estonian
-			'eu_ES', // Basque
-			'fa_IR', // Persian
-			'fb_LT', // Leet Speak
-			'fi_FI', // Finnish
-			'fo_FO', // Faroese
-			'fr_CA', // French (Canada)
-			'fr_FR', // French (France)
-			'fy_NL', // Frisian
-			'ga_IE', // Irish
-			'gl_ES', // Galician
-			'gn_PY', // Guarani
-			'gu_IN', // Gujarati
-			'he_IL', // Hebrew
-			'hi_IN', // Hindi
-			'hr_HR', // Croatian
-			'hu_HU', // Hungarian
-			'hy_AM', // Armenian
-			'id_ID', // Indonesian
-			'is_IS', // Icelandic
-			'it_IT', // Italian
-			'ja_JP', // Japanese
-			'ja_KS', // Japanese (Kansai)
-			'jv_ID', // Javanese
-			'ka_GE', // Georgian
-			'kk_KZ', // Kazakh
-			'km_KH', // Khmer
-			'kn_IN', // Kannada
-			'ko_KR', // Korean
-			'ku_TR', // Kurdish
-			'la_VA', // Latin
-			'lt_LT', // Lithuanian
-			'lv_LV', // Latvian
-			'mk_MK', // Macedonian
-			'ml_IN', // Malayalam
-			'mn_MN', // Mongolian
-			'mr_IN', // Marathi
-			'ms_MY', // Malay
-			'nb_NO', // Norwegian (bokmal)
-			'ne_NP', // Nepali
-			'nl_NL', // Dutch
-			'nn_NO', // Norwegian (nynorsk)
-			'pa_IN', // Punjabi
-			'pl_PL', // Polish
-			'ps_AF', // Pashto
-			'pt_BR', // Portuguese (Brazil)
-			'pt_PT', // Portuguese (Portugal)
-			'ro_RO', // Romanian
-			'ru_RU', // Russian
-			'si_LK', // Sinhala
-			'sk_SK', // Slovak
-			'sl_SI', // Slovenian
-			'sq_AL', // Albanian
-			'sr_RS', // Serbian
-			'sv_SE', // Swedish
-			'sw_KE', // Swahili
-			'ta_IN', // Tamil
-			'te_IN', // Telugu
-			'tg_TJ', // Tajik
-			'th_TH', // Thai
-			'tl_PH', // Filipino
-			'tr_TR', // Turkish
-			'uk_UA', // Ukrainian
-			'ur_PK', // Urdu
-			'uz_UZ', // Uzbek
-			'vi_VN', // Vietnamese
-			'zh_CN', // Simplified Chinese (China)
-			'zh_HK', // Traditional Chinese (Hong Kong)
-			'zh_TW', // Traditional Chinese (Taiwan)
+			'af_ZA', // Afrikaans.
+			'ar_AR', // Arabic.
+			'az_AZ', // Azerbaijani.
+			'be_BY', // Belarusian.
+			'bg_BG', // Bulgarian.
+			'bn_IN', // Bengali.
+			'bs_BA', // Bosnian.
+			'ca_ES', // Catalan.
+			'cs_CZ', // Czech.
+			'cx_PH', // Cebuano.
+			'cy_GB', // Welsh.
+			'da_DK', // Danish.
+			'de_DE', // German.
+			'el_GR', // Greek.
+			'en_GB', // English (UK).
+			'en_PI', // English (Pirate).
+			'en_UD', // English (Upside Down).
+			'en_US', // English (US).
+			'eo_EO', // Esperanto.
+			'es_ES', // Spanish (Spain).
+			'es_LA', // Spanish.
+			'et_EE', // Estonian.
+			'eu_ES', // Basque.
+			'fa_IR', // Persian.
+			'fb_LT', // Leet Speak.
+			'fi_FI', // Finnish.
+			'fo_FO', // Faroese.
+			'fr_CA', // French (Canada).
+			'fr_FR', // French (France).
+			'fy_NL', // Frisian.
+			'ga_IE', // Irish.
+			'gl_ES', // Galician.
+			'gn_PY', // Guarani.
+			'gu_IN', // Gujarati.
+			'he_IL', // Hebrew.
+			'hi_IN', // Hindi.
+			'hr_HR', // Croatian.
+			'hu_HU', // Hungarian.
+			'hy_AM', // Armenian.
+			'id_ID', // Indonesian.
+			'is_IS', // Icelandic.
+			'it_IT', // Italian.
+			'ja_JP', // Japanese.
+			'ja_KS', // Japanese (Kansai).
+			'jv_ID', // Javanese.
+			'ka_GE', // Georgian.
+			'kk_KZ', // Kazakh.
+			'km_KH', // Khmer.
+			'kn_IN', // Kannada.
+			'ko_KR', // Korean.
+			'ku_TR', // Kurdish.
+			'la_VA', // Latin.
+			'lt_LT', // Lithuanian.
+			'lv_LV', // Latvian.
+			'mk_MK', // Macedonian.
+			'ml_IN', // Malayalam.
+			'mn_MN', // Mongolian.
+			'mr_IN', // Marathi.
+			'ms_MY', // Malay.
+			'nb_NO', // Norwegian (bokmal).
+			'ne_NP', // Nepali.
+			'nl_NL', // Dutch.
+			'nn_NO', // Norwegian (nynorsk).
+			'pa_IN', // Punjabi.
+			'pl_PL', // Polish.
+			'ps_AF', // Pashto.
+			'pt_BR', // Portuguese (Brazil).
+			'pt_PT', // Portuguese (Portugal).
+			'ro_RO', // Romanian.
+			'ru_RU', // Russian.
+			'si_LK', // Sinhala.
+			'sk_SK', // Slovak.
+			'sl_SI', // Slovenian.
+			'sq_AL', // Albanian.
+			'sr_RS', // Serbian.
+			'sv_SE', // Swedish.
+			'sw_KE', // Swahili.
+			'ta_IN', // Tamil.
+			'te_IN', // Telugu.
+			'tg_TJ', // Tajik.
+			'th_TH', // Thai.
+			'tl_PH', // Filipino.
+			'tr_TR', // Turkish.
+			'uk_UA', // Ukrainian.
+			'ur_PK', // Urdu.
+			'uz_UZ', // Uzbek.
+			'vi_VN', // Vietnamese.
+			'zh_CN', // Simplified Chinese (China).
+			'zh_HK', // Traditional Chinese (Hong Kong).
+			'zh_TW', // Traditional Chinese (Taiwan).
 		);
 
-		// check to see if the locale is a valid FB one, if not, use en_US as a fallback
+		// Check to see if the locale is a valid FB one, if not, use en_US as a fallback.
 		if ( ! in_array( $locale, $fb_valid_fb_locales ) ) {
 			$locale = strtolower( substr( $locale, 0, 2 ) ) . '_' . strtoupper( substr( $locale, 0, 2 ) );
 			if ( ! in_array( $locale, $fb_valid_fb_locales ) ) {
@@ -428,7 +444,7 @@ class WPSEO_OpenGraph {
 	/**
 	 * Output the OpenGraph type.
 	 *
-	 * @param boolean $echo Whether to echo or return the type
+	 * @param boolean $echo Whether to echo or return the type.
 	 *
 	 * @link https://developers.facebook.com/docs/reference/opengraph/object-type/object/
 	 *
@@ -449,7 +465,7 @@ class WPSEO_OpenGraph {
 			}
 		}
 		else {
-			// We use "object" for archives etc. as article doesn't apply there
+			// We use "object" for archives etc. as article doesn't apply there.
 			$type = 'object';
 		}
 
@@ -475,7 +491,7 @@ class WPSEO_OpenGraph {
 	/**
 	 * Create new WPSEO_OpenGraph_Image class and get the images to set the og:image
 	 *
-	 * @param mixed $image
+	 * @param string|boolean $image Optional image URL.
 	 */
 	public function image( $image = false ) {
 		$opengraph_images = new WPSEO_OpenGraph_Image( $this->options, $image );
@@ -488,7 +504,7 @@ class WPSEO_OpenGraph {
 	/**
 	 * Fallback method for plugins using image_output
 	 *
-	 * @param string $image
+	 * @param string $image Image URL.
 	 */
 	public function image_output( $image ) {
 		$this->image( $image );
@@ -497,7 +513,7 @@ class WPSEO_OpenGraph {
 	/**
 	 * Output the OpenGraph description, specific OG description first, if not, grab the meta description.
 	 *
-	 * @param bool $echo Whether to echo or return the description
+	 * @param bool $echo Whether to echo or return the description.
 	 *
 	 * @return string $ogdesc
 	 */
@@ -521,35 +537,36 @@ class WPSEO_OpenGraph {
 			$post    = get_post( $post_id );
 			$ogdesc  = WPSEO_Meta::get_value( 'opengraph-description', $post_id );
 
-			// Replace WP SEO Variables
+			// Replace Yoast SEO Variables.
 			$ogdesc = wpseo_replace_vars( $ogdesc, $post );
 
-			// Use metadesc if $ogdesc is empty
+			// Use metadesc if $ogdesc is empty.
 			if ( $ogdesc === '' ) {
 				$ogdesc = $frontend->metadesc( false );
 			}
 
-			// og:description is still blank so grab it from get_the_excerpt()
+			// Tag og:description is still blank so grab it from get_the_excerpt().
 			if ( ! is_string( $ogdesc ) || ( is_string( $ogdesc ) && $ogdesc === '' ) ) {
 				$ogdesc = str_replace( '[&hellip;]', '&hellip;', strip_tags( get_the_excerpt() ) );
 			}
 		}
 
 		if ( is_category() || is_tag() || is_tax() ) {
+			$ogdesc = WPSEO_Taxonomy_Meta::get_meta_without_term( 'opengraph-description' );
+			if ( $ogdesc === '' ) {
+				$ogdesc = $frontend->metadesc( false );
+			}
 
-			$ogdesc = $frontend->metadesc( false );
-
-			if ( '' == $ogdesc ) {
+			if ( $ogdesc === '' ) {
 				$ogdesc = trim( strip_tags( term_description() ) );
 			}
 
-			if ( '' == $ogdesc ) {
-				$term   = $GLOBALS['wp_query']->get_queried_object();
-				$ogdesc = WPSEO_Taxonomy_Meta::get_term_meta( $term, $term->taxonomy, 'desc' );
+			if ( $ogdesc === '' ) {
+				$ogdesc = WPSEO_Taxonomy_Meta::get_meta_without_term( 'desc' );
 			}
 		}
 
-		// Strip shortcodes if any
+		// Strip shortcodes if any.
 		$ogdesc = strip_shortcodes( $ogdesc );
 
 		/**
@@ -641,9 +658,13 @@ class WPSEO_OpenGraph {
 	public function publish_date() {
 
 		if ( ! is_singular( 'post' ) ) {
-			/* Filter: 'wpseo_opengraph_show_publish_date' - Allow showing publication date for other post types */
-			/* @api bool $unsigned Whether or not to show publish date */
-			/* @param string $post_type The current URL's post type. */
+			/**
+			 * Filter: 'wpseo_opengraph_show_publish_date' - Allow showing publication date for other post types
+			 *
+			 * @api bool $unsigned Whether or not to show publish date
+			 *
+			 * @param string $post_type The current URL's post type.
+			 */
 			if ( false === apply_filters( 'wpseo_opengraph_show_publish_date', false, get_post_type() ) ) {
 				return false;
 			}
@@ -681,8 +702,8 @@ class WPSEO_OpenGraph_Image {
 	/**
 	 * Constructor
 	 *
-	 * @param array      $options
-	 * @param bool|mixed $image
+	 * @param array          $options Options set.
+	 * @param string|boolean $image   Optional image URL.
 	 */
 	public function __construct( $options, $image = false ) {
 		$this->options = $options;
@@ -714,6 +735,10 @@ class WPSEO_OpenGraph_Image {
 			$this->get_singular_image();
 		}
 
+		if ( is_category() || is_tax() || is_tag() ) {
+			$this->get_opengraph_image_taxonomy();
+		}
+
 		$this->get_default_image();
 	}
 
@@ -732,7 +757,7 @@ class WPSEO_OpenGraph_Image {
 	private function get_singular_image() {
 		global $post;
 
-		if ( $this->get_opengraph_image() ) {
+		if ( $this->get_opengraph_image_post() ) {
 			return;
 		}
 
@@ -757,19 +782,30 @@ class WPSEO_OpenGraph_Image {
 	 *
 	 * @return bool
 	 */
-	private function get_opengraph_image() {
+	private function get_opengraph_image_post() {
 		$ogimg = WPSEO_Meta::get_value( 'opengraph-image' );
 		if ( $ogimg !== '' ) {
 			$this->add_image( $ogimg );
 
 			return true;
 		}
+
+		return false;
+	}
+
+	/**
+	 * Check if taxonomy has an image and add this image
+	 */
+	private function get_opengraph_image_taxonomy() {
+		if ( ( $ogimg = WPSEO_Taxonomy_Meta::get_meta_without_term( 'opengraph-image' ) ) !== '' ) {
+			$this->add_image( $ogimg );
+		}
 	}
 
 	/**
 	 * If there is a featured image, check image size. If image size is correct, call add_image and return true
 	 *
-	 * @param int $post_id the post id
+	 * @param int $post_id The post ID.
 	 *
 	 * @return bool
 	 */
@@ -786,6 +822,8 @@ class WPSEO_OpenGraph_Image {
 				return $this->add_image( $thumb[0] );
 			}
 		}
+
+		return false;
 	}
 
 	/**
@@ -810,11 +848,16 @@ class WPSEO_OpenGraph_Image {
 	/**
 	 * Check size of featured image. If image is too small, return false, else return true
 	 *
-	 * @param array $img_data wp_get_attachment_image_src: url, width, height, icon
+	 * @param array $img_data wp_get_attachment_image_src: url, width, height, icon.
 	 *
 	 * @return bool
 	 */
 	private function check_featured_image_size( $img_data ) {
+
+		if ( ! is_array( $img_data ) ) {
+			return false;
+		}
+
 		// Get the width and height of the image.
 		if ( $img_data[1] < 200 || $img_data[2] < 200 ) {
 			return false;
@@ -826,12 +869,12 @@ class WPSEO_OpenGraph_Image {
 	/**
 	 * Display an OpenGraph image tag
 	 *
-	 * @param string $img - Source URL to the image
+	 * @param string $img - Source URL to the image.
 	 *
 	 * @return bool
 	 */
 	private function add_image( $img ) {
-		// Filter: 'wpseo_opengraph_image' - Allow changing the OpenGraph image */
+		// Filter: 'wpseo_opengraph_image' - Allow changing the OpenGraph image.
 		$img = trim( apply_filters( 'wpseo_opengraph_image', $img ) );
 
 		if ( empty( $img ) ) {
@@ -852,7 +895,8 @@ class WPSEO_OpenGraph_Image {
 
 	/**
 	 * Get the relative path of the image
-	 * @param array $img
+	 *
+	 * @param array $img Image data array.
 	 *
 	 * @return bool|string
 	 */

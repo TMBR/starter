@@ -99,19 +99,10 @@ class acf_field_page_link extends acf_field {
 		}
 		
 		
-		// WPML
-		if( $options['lang'] ) {
-		
-			global $sitepress;
-			$sitepress->switch_lang( $options['lang'] );
-			
-		}
-		
-		
 		// update $args
 		if( !empty($field['post_type']) ) {
 		
-			$args['post_type'] = acf_force_type_array( $field['post_type'] );
+			$args['post_type'] = acf_get_array( $field['post_type'] );
 			
 		} else {
 			
@@ -212,7 +203,6 @@ class acf_field_page_link extends acf_field {
 		}
 		
 		
-		
 		// get posts grouped by post type
 		$groups = acf_get_grouped_posts( $args );
 		
@@ -289,7 +279,7 @@ class acf_field_page_link extends acf_field {
 	function ajax_query() {
 		
 		// validate
-		if( empty($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'acf_nonce') ) {
+		if( !acf_verify_ajax() ) {
 		
 			die();
 			
@@ -378,25 +368,21 @@ class acf_field_page_link extends acf_field {
 	*  @return	$value
 	*/
 	
-	function get_posts( $value ) {
+	function get_posts( $value, $field ) {
 		
 		// force value to array
-		$value = acf_force_type_array( $value );
+		$value = acf_get_array( $value );
 		
 		
 		// get selected post ID's
 		$post__in = array();
 		
-		foreach( array_keys($value) as $k ) {
+		foreach( $value as $k => $v ) {
 			
-			if( is_numeric($value[ $k ]) ) {
-				
-				// convert to int
-				$value[ $k ] = intval($value[ $k ]);
-				
+			if( is_numeric($v) ) {
 				
 				// append to $post__in
-				$post__in[] = $value[ $k ];
+				$post__in[] = (int) $v;
 				
 			}
 			
@@ -414,6 +400,7 @@ class acf_field_page_link extends acf_field {
 		// get posts
 		$posts = acf_get_posts(array(
 			'post__in' => $post__in,
+			'post_type'	=> $field['post_type']
 		));
 		
 		
@@ -426,15 +413,14 @@ class acf_field_page_link extends acf_field {
 			
 			if( is_numeric($v) ) {
 				
-				// find matching $post
-				foreach( $posts as $post ) {
+				// extract first post
+				$post = array_shift( $posts );
+				
+				
+				// append
+				if( $post ) {
 					
-					if( $post->ID == $v ) {
-						
-						$return[] = $post;
-						break;
-						
-					}
+					$return[] = $post;
 					
 				}
 				
@@ -478,7 +464,7 @@ class acf_field_page_link extends acf_field {
 		if( !empty($field['value']) ) {
 			
 			// get posts
-			$posts = $this->get_posts( $field['value'] );
+			$posts = $this->get_posts( $field['value'], $field );
 			
 			
 			// set choices
@@ -622,7 +608,7 @@ class acf_field_page_link extends acf_field {
 		
 		
 		// get posts
-		$value = $this->get_posts( $value );
+		$value = $this->get_posts( $value, $field );
 		
 		
 		// set choices

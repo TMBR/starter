@@ -14,11 +14,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 } ?>
 
 <?php
+global $post;
 global $more;
 $more = false;
 ?>
 
-<div class="tribe-events-loop vcalendar">
+<div class="tribe-events-loop">
 
 	<?php while ( have_posts() ) : the_post(); ?>
 		<?php do_action( 'tribe_events_inside_before_loop' ); ?>
@@ -27,9 +28,15 @@ $more = false;
 		<?php tribe_events_list_the_date_headers(); ?>
 
 		<!-- Event  -->
-		<div id="post-<?php the_ID() ?>" class="<?php tribe_events_event_classes() ?>">
+		<?php
+		$post_parent = '';
+		if ( $post->post_parent ) {
+			$post_parent = ' data-parent-post-id="' . absint( $post->post_parent ) . '"';
+		}
+		?>
+		<div id="post-<?php the_ID() ?>" class="<?php tribe_events_event_classes() ?>" <?php echo $post_parent; ?>>
 			<?php tribe_get_template_part( 'list/single', 'event' ) ?>
-		</div><!-- .hentry .vevent -->
+		</div>
 
 
 		<?php do_action( 'tribe_events_inside_after_loop' ); ?>

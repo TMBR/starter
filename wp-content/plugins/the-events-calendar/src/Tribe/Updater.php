@@ -8,6 +8,7 @@ class Tribe__Events__Updater {
 	protected $version_option = 'schema-version';
 	protected $reset_version = '3.9'; // when a reset() is called, go to this version
 	protected $current_version = 0;
+	public $capabilities;
 
 	public function __construct( $current_version ) {
 		$this->current_version = $current_version;
@@ -19,7 +20,6 @@ class Tribe__Events__Updater {
 	 * alloptions caches getting out of sync with the DB,
 	 * forcing an eternal update cycle
 	 *
-	 * @return void
 	 */
 	protected function clear_option_caches() {
 		wp_cache_delete( 'notoptions', 'options' );
@@ -29,25 +29,43 @@ class Tribe__Events__Updater {
 	public function do_updates() {
 		$this->clear_option_caches();
 		$updates = $this->get_updates();
-		uksort($updates, 'version_compare');
+		uksort( $updates, 'version_compare' );
+
 		try {
 			foreach ( $updates as $version => $callback ) {
-				if ( version_compare( $version, $this->current_version, '<=' ) && $this->is_version_in_db_less_than( $version ) ) {
+
+				if ( ! $this->is_new_install() && version_compare( $version, $this->current_version, '<=' ) && $this->is_version_in_db_less_than( $version ) ) {
 					call_user_func( $callback );
 				}
 			}
+
 			foreach ( $this->constant_updates() as $callback )  {
 				call_user_func( $callback );
 			}
+
 			$this->update_version_option( $this->current_version );
 		} catch ( Exception $e ) {
 			// fail silently, but it should try again next time
 		}
 	}
 
-	protected function update_version_option( $new_version ) {
-		$tec = Tribe__Events__Main::instance();
-		$tec->setOption( $this->version_option, $new_version );
+	public function update_version_option( $new_version ) {
+		Tribe__Settings_Manager::set_option( $this->version_option, $new_version );
+	}
+
+	/**
+	 * Returns an array of callbacks with version strings as keys.
+	 * Any key higher than the version recorded in the DB
+	 * and lower than $this->current_version will have its
+	 * callback called.
+	 *
+	 * This method has been deprecated in favor of a more testable public function
+	 *
+	 * @return array
+	 * @deprecated 4.0
+	 */
+	protected function get_updates() {
+		return $this->get_update_callbacks();
 	}
 
 	/**
@@ -58,13 +76,26 @@ class Tribe__Events__Updater {
 	 *
 	 * @return array
 	 */
-	protected function get_updates() {
+	public function get_update_callbacks() {
 		return array(
-			'2.0.1' => array( $this, 'migrate_from_sp_events' ),
-			'2.0.6' => array( $this, 'migrate_from_sp_options' ),
-			'3.10a4'  => array( $this, 'set_enabled_views' ),
-			'3.10a5'  => array( $this, 'remove_30_min_eod_cutoffs' ),
+			'2.0.1'  => array( $this, 'migrate_from_sp_events' ),
+			'2.0.6'  => array( $this, 'migrate_from_sp_options' ),
+			'3.10a4' => array( $this, 'set_enabled_views' ),
+			'3.10a5' => array( $this, 'remove_30_min_eod_cutoffs' ),
 		);
+	}
+
+	/**
+	 * Returns an array of callbacks that should be called
+	 * every time the version is updated
+	 *
+	 * This method has been deprecated in favor of a more testable public function
+	 *
+	 * @return array
+	 * @deprecated 4.0
+	 */
+	protected function constant_updates() {
+		return $this->get_constant_update_callbacks();
 	}
 
 	/**
@@ -73,35 +104,56 @@ class Tribe__Events__Updater {
 	 *
 	 * @return array
 	 */
-	protected function constant_updates() {
+	public function get_constant_update_callbacks() {
 		return array(
 			array( $this, 'flush_rewrites' ),
 			array( $this, 'set_capabilities' ),
 		);
 	}
 
-	protected function is_version_in_db_less_than( $version ) {
-		$tec = Tribe__Events__Main::instance();
-		$version_in_db = $tec->getOption( $this->version_option );
-
-		if ( version_compare( $version, $version_in_db ) > 0 ) {
-			return TRUE;
-		}
-		return FALSE;
+	public function get_version_from_db() {
+		return Tribe__Settings_Manager::get_option( $this->version_option );
 	}
 
+	/**
+	 * Returns true if the version in the DB is less than the provided version
+	 *
+	 * @return boolean
+	 */
+	public function is_version_in_db_less_than( $version ) {
+		$version_in_db = $this->get_version_from_db();
+
+		return ( version_compare( $version, $version_in_db ) > 0 );
+	}
+
+	/**
+	 * Returns true if this is a new install
+	 *
+	 * @return boolean
+	 */
+	public function is_new_install() {
+		$version_in_db = $this->get_version_from_db();
+
+		return empty( $version_in_db );
+	}
+
+	/**
+	 * Returns true if an update is required
+	 *
+	 * @return boolean
+	 */
 	public function update_required() {
 		return $this->is_version_in_db_less_than( $this->current_version );
 	}
 
-	protected function migrate_from_sp_events() {
+	public function migrate_from_sp_events() {
 		$legacy_option = get_option( 'sp_events_calendar_options' );
 		if ( empty( $legacy_option ) ) {
 			return;
 		}
 
 		$new_option = get_option( Tribe__Events__Main::OPTIONNAME );
-		if ( !$new_option ) {
+		if ( ! $new_option ) {
 			update_option( Tribe__Events__Main::OPTIONNAME, $legacy_option );
 		}
 		delete_option( 'sp_events_calendar_options' );
@@ -109,7 +161,7 @@ class Tribe__Events__Updater {
 		/** @var wpdb $wpdb */
 		global $wpdb;
 		$count = $wpdb->get_var( "SELECT COUNT(*) FROM {$wpdb->posts} WHERE post_type IN ( 'sp_events', 'sp_venue', 'sp_organizer' )" );
-		if ( !$count ) {
+		if ( ! $count ) {
 			return;
 		}
 
@@ -123,21 +175,20 @@ class Tribe__Events__Updater {
 		wp_cache_flush();
 	}
 
-	protected function migrate_from_sp_options() {
-		$tec = Tribe__Events__Main::instance();
-		$tec_options = Tribe__Events__Main::getOptions();
+	public function migrate_from_sp_options() {
+		$tec_options = Tribe__Settings_Manager::get_options();
 		$option_names     = array(
 			'spEventsTemplate'   => 'tribeEventsTemplate',
 			'spEventsBeforeHTML' => 'tribeEventsBeforeHTML',
 			'spEventsAfterHTML'  => 'tribeEventsAfterHTML',
 		);
 		foreach ( $option_names as $old_name => $new_name ) {
-			if ( isset( $tec_options[$old_name] ) && empty( $tec_options[$new_name] ) ) {
-				$tec_options[$new_name] = $tec_options[$old_name];
-				unset( $tec_options[$old_name] );
+			if ( isset( $tec_options[ $old_name ] ) && empty( $tec_options[ $new_name ] ) ) {
+				$tec_options[ $new_name ] = $tec_options[ $old_name ];
+				unset( $tec_options[ $old_name ] );
 			}
 		}
-		$tec->setOptions( $tec_options );
+		Tribe__Settings_Manager::set_options( $tec_options );
 	}
 
 	public function flush_rewrites() {
@@ -146,22 +197,20 @@ class Tribe__Events__Updater {
 	}
 
 	public function set_capabilities() {
-		require_once( dirname( __FILE__ ) . '/Capabilities.php' );
-		$capabilities = new Tribe__Events__Capabilities();
-		add_action( 'wp_loaded', array( $capabilities, 'set_initial_caps' ) );
+		$this->capabilities = new Tribe__Events__Capabilities();
+		add_action( 'wp_loaded', array( $this->capabilities, 'set_initial_caps' ) );
 		add_action( 'wp_loaded', array( $this, 'reload_current_user' ), 11, 0 );
 	}
 
 	/**
 	 * Reset the $current_user global after capabilities have been changed
 	 *
-	 * @return void
 	 */
 	public function reload_current_user() {
 		global $current_user;
 		if ( isset( $current_user ) && ( $current_user instanceof WP_User ) ) {
 			$id = $current_user->ID;
-			$current_user = NULL;
+			$current_user = null;
 			wp_set_current_user( $id );
 		}
 	}
@@ -170,7 +219,6 @@ class Tribe__Events__Updater {
 	 * Reset update flags. All updates past $this->reset_version will
 	 * run again on the next page load
 	 *
-	 * @return void
 	 */
 	public function reset() {
 		$this->update_version_option( $this->reset_version );
@@ -179,7 +227,6 @@ class Tribe__Events__Updater {
 	/**
 	 * Make sure the tribeEnableViews option is always set
 	 *
-	 * @return void
 	 */
 	public function set_enabled_views() {
 		$enabled_views = tribe_get_option( 'tribeEnableViews', null );
@@ -192,11 +239,10 @@ class Tribe__Events__Updater {
 	/**
 	 * Bump the :30 min EOD cutoff option to the next full hour
 	 *
-	 * @return void
 	 */
 	public function remove_30_min_eod_cutoffs() {
-		$eod_cutoff = tribe_event_end_of_day();
-		if ( Tribe__Events__Date_Utils::minutesOnly( $eod_cutoff ) == '29' ) {
+		$eod_cutoff = tribe_end_of_day();
+		if ( Tribe__Date_Utils::minutes_only( $eod_cutoff ) == '29' ) {
 			$eod_cutoff = date_create( '@' . ( strtotime( $eod_cutoff ) + 1 ) );
 			$eod_cutoff->modify( '+30 minutes' );
 			tribe_update_option( 'multiDayCutoff', $eod_cutoff->format( 'h:i' ) );

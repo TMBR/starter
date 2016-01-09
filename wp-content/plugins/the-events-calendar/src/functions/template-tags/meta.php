@@ -78,13 +78,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			foreach ( $meta_id_group as $meta_id ) {
 				$meta_pos_int ++;
 
-				// if we should have a meta divider let's add it!
-				if ( ! empty( $group_html ) && $meta_pos_int <= $total_meta_items ) {
-					$group_html .= $meta_group['wrap']['meta_separator'];
-				}
-
-				$group_html .= tribe_get_meta( $meta_id, $is_the_meta );
-
+				$group_html = tribe_separated_field( $group_html, $meta_group['wrap']['meta_separator'], tribe_get_meta( $meta_id, $is_the_meta ) );
 			}
 		}
 
@@ -166,8 +160,8 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		$args = Tribe__Events__Meta_Factory::get_args( $meta_id, $type );
 
 		// check if the arg exists
-		if ( isset( $args[$arg_key] ) ) {
-			return $args[$arg_key];
+		if ( isset( $args[ $arg_key ] ) ) {
+			return $args[ $arg_key ];
 		} else {
 			return false;
 		}
@@ -191,8 +185,8 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 
 		$template = tribe_get_meta_arg( $meta_id, 'wrap', $type );
 
-		if ( isset( $template[$template_key] ) ) {
-			return $template[$template_key];
+		if ( isset( $template[ $template_key ] ) ) {
+			return $template[ $template_key ];
 		} else {
 			return false;
 		}
@@ -232,7 +226,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			}
 
 			if ( ! empty( $template ) ) {
-				$_tribe_meta_factory->{$type}[$meta_id]['wrap'] = wp_parse_args( $template, $_tribe_meta_factory->{$type}[$meta_id]['wrap'] );
+				$_tribe_meta_factory->{$type}[ $meta_id ]['wrap'] = wp_parse_args( $template, $_tribe_meta_factory->{$type}[ $meta_id ]['wrap'] );
 			}
 		}
 
@@ -261,7 +255,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			}
 
 			if ( ! empty( $priority ) ) {
-				$_tribe_meta_factory->{$type}[$meta_id]['priority'] = $priority;
+				$_tribe_meta_factory->{$type}[ $meta_id ]['priority'] = $priority;
 			}
 		}
 	}
@@ -289,7 +283,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 				return false;
 			}
 
-			$_tribe_meta_factory->{$type}[$meta_id][$value_type] = $value;
+			$_tribe_meta_factory->{$type}[ $meta_id ][ $value_type ] = $value;
 		}
 	}
 
@@ -315,7 +309,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 				return false;
 			}
 
-			$_tribe_meta_factory->{$type}[$meta_id]['label'] = $label;
+			$_tribe_meta_factory->{$type}[ $meta_id ]['label'] = $label;
 		}
 	}
 
@@ -372,80 +366,17 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	}
 
 	/**
-	 * Return the single event meta
+	 * Utility function to compile separated lists.
 	 *
-	 * @deprecated since 3.6
-	 * @todo       remove in 3.9
+	 * @param string $body
+	 * @param string $separator
+	 * @param string $field
+	 *
 	 * @return string
-	 **/
-	function tribe_events_single_event_meta() {
-		// Use the new template driven approach to rendering meta data unless the user opts to use the old system
-		if ( ! apply_filters( 'tribe_events_single_event_meta_legacy_mode', false ) ) {
-			tribe_get_template_part( 'modules/meta' );
+	 */
+	function tribe_separated_field( $body, $separator, $field ) {
+		$body_and_separator = $body ? $body . $separator : $body;
 
-			return '';
-		}
-
-		// For users using the meta factory ("legacy mode")...
-		$event_id      = get_the_ID();
-		$skeleton_mode = apply_filters( 'tribe_events_single_event_the_meta_skeleton', false, $event_id );
-		$group_venue   = apply_filters( 'tribe_events_single_event_the_meta_group_venue', false, $event_id );
-		$html          = '';
-
-		if ( $skeleton_mode ) {
-
-			// show all visible meta_groups in skeleton view
-			$html .= tribe_get_the_event_meta();
-
-		} else {
-			$html .= '<div class="tribe-events-single-section tribe-events-event-meta tribe-clearfix">';
-			// Event Details
-			$html .= tribe_get_meta_group( 'tribe_event_details' );
-
-			// When there is no map show the venue info up top
-			if ( ! $group_venue && ! tribe_embed_google_map( $event_id ) ) {
-				// Venue Details
-				$html .= tribe_get_meta_group( 'tribe_event_venue' );
-				$group_venue = false;
-			} else {
-				if ( ! $group_venue && ! tribe_has_organizer( $event_id ) && tribe_address_exists( $event_id ) && tribe_embed_google_map( $event_id ) ) {
-					$html .= sprintf(
-						'%s<div class="tribe-events-meta-group tribe-events-meta-group-gmap">%s</div>',
-						tribe_get_meta_group( 'tribe_event_venue' ),
-						tribe_get_meta( 'tribe_venue_map' )
-					);
-					$group_venue = false;
-				} else {
-					$group_venue = true;
-				}
-			}
-
-			// Organizer Details
-			if ( tribe_has_organizer( $event_id ) ) {
-				$html .= tribe_get_meta_group( 'tribe_event_organizer' );
-			}
-
-			$html .= apply_filters( 'tribe_events_single_event_the_meta_addon', '', $event_id );
-			$html .= '</div>';
-
-		}
-
-		if ( ! $skeleton_mode && $group_venue ) {
-			// If there's a venue map and custom fields or organizer, show venue details in this seperate section
-			$venue_details = tribe_get_meta_group( 'tribe_event_venue' ) .
-							 tribe_get_meta( 'tribe_venue_map' );
-
-			if ( ! empty( $venue_details ) ) {
-				$html .= apply_filters(
-					'tribe_events_single_event_the_meta_venue_row', sprintf(
-						'<div class="tribe-events-single-section tribe-events-event-meta tribe-clearfix">%s</div>',
-						$venue_details
-					)
-				);
-			}
-		}
-
-		return apply_filters( 'tribe_events_single_event_meta', $html );
+		return $field ? $body_and_separator . $field : $body;
 	}
 }
-?>

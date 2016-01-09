@@ -38,7 +38,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @return string
 	 */
 	function tribe_get_venue_label_singular() {
-		return apply_filters( 'tribe_venue_label_singular', __( 'Venue', 'tribe-events-calendar' ) );
+		return apply_filters( 'tribe_venue_label_singular', esc_html__( 'Venue', 'the-events-calendar' ) );
 	}
 
 	/**
@@ -49,7 +49,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @return string
 	 */
 	function tribe_get_venue_label_plural() {
-		return apply_filters( 'tribe_venue_label_plural', __( 'Venues', 'tribe-events-calendar' ) );
+		return apply_filters( 'tribe_venue_label_plural', esc_html__( 'Venues', 'the-events-calendar' ) );
 	}
 
 	/**
@@ -89,31 +89,24 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * Returns or display the event Venue Name with a link to the venue
 	 *
 	 * @param int  $postId  Can supply either event id or venue id, if none specified, current post is used
-	 * @param bool $display If true displays full html links around venue's name, if false returns just the link without displaying it
+	 * @param bool $full_link If true outputs a complete HTML <a> link, otherwise only the URL is output
 	 *
 	 * @return string Venue if $display is set to false, void if it's set to true.
 	 */
-	function tribe_get_venue_link( $postId = null, $display = true ) {
+	function tribe_get_venue_link( $postId = null, $full_link = true ) {
 
-		$url = '';
+		$ven_id = tribe_get_venue_id( $postId );
+		$url = esc_url_raw( get_permalink( $ven_id ) );
 
-		if ( $venue_id = tribe_get_venue_id( $postId ) ) {
-			$url = esc_url_raw( get_permalink( $venue_id ) );
-		}
-
-		if ( $display && $url != '' ) {
-			$venue_name = tribe_get_venue( $postId );
-			$link       = '<a href="' . esc_url( $url ) . '">' . $venue_name . '</a>';
+		if ( $full_link ) {
+			$name = tribe_get_venue( $ven_id );
+			$attr_title = the_title_attribute( array( 'post' => $ven_id, 'echo' => false ) );
+			$link = ! empty( $url ) && ! empty( $name ) ? '<a href="' . esc_url( $url ) . '" title="'.$attr_title.'"">' . $name . '</a>' : false;
 		} else {
 			$link = $url;
 		}
-		$link = apply_filters( 'tribe_get_venue_link', $link, $postId, $display, $url );
 
-		if ( $display ) {
-			echo $link;
-		} else {
-			return $link;
-		}
+		return apply_filters( 'tribe_get_venue_link', $link, $postId, $full_link, $url );
 	}
 
 	/**
@@ -269,7 +262,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		if ( tribe_get_event_meta( $postId, '_VenueStateProvince', true ) ) {
 			$region = tribe_get_event_meta( $postId, '_VenueStateProvince', true );
 		} else {
-			if ( tribe_get_country( $postId ) == __( 'United States', 'tribe-events-calendar' ) ) {
+			if ( tribe_get_country( $postId ) == esc_html__( 'United States', 'the-events-calendar' ) ) {
 				$region = tribe_get_state( $postId );
 			} else {
 				$region = tribe_get_province();
@@ -304,10 +297,10 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 */
 	function tribe_get_full_region( $event_id ) {
 		$province = tribe_get_event_meta( $event_id, '_VenueStateProvince', true );
-		$states = Tribe__Events__View_Helpers::loadStates();
-		
+		$states = Tribe__View_Helpers::loadStates();
+
 		$full_region = isset( $states[ $province ] ) ? $states[ $province ] : $province;
-		
+
 		return apply_filters( 'tribe_get_full_region', $full_region );
 	}
 
@@ -323,13 +316,13 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 */
 	function tribe_get_coordinates( $postId = null ) {
 		$postId = tribe_get_venue_id( $postId );
-		if( class_exists( 'Tribe__Events__Pro__Geo_Loc' ) ){
+		if ( class_exists( 'Tribe__Events__Pro__Geo_Loc' ) ) {
 			$output[ 'lat' ] = (float) get_post_meta( $postId, Tribe__Events__Pro__Geo_Loc::LAT, true );
 			$output[ 'lng' ] = (float) get_post_meta( $postId, Tribe__Events__Pro__Geo_Loc::LNG, true );
 		} else {
 			$output = array(
-				'lat' => (float)'',
-				'lng' => (float)''
+				'lat' => 0,
+				'lng' => 0,
 			);
 		}
 
@@ -349,10 +342,10 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	function tribe_is_venue_overwrite( $postId = null ) {
 		$postId = tribe_get_venue_id( $postId );
 
-		if( class_exists( 'Tribe__Events__Pro__Geo_Loc' ) ){
+		if ( class_exists( 'Tribe__Events__Pro__Geo_Loc' ) ) {
 			$output = (int) get_post_meta( $postId, Tribe__Events__Pro__Geo_Loc::OVERWRITE, true );
 		} else{
-			$output = (int)'';
+			$output = 0;
 		}
 
 		return apply_filters( 'tribe_is_venue_overwrite', (bool) $output );
@@ -385,9 +378,11 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @return array An array of venue post objects.
 	 */
 	function tribe_get_venues( $only_with_upcoming = false, $posts_per_page = -1, $suppress_filters = true ) {
-		$venues = get_posts( array( 'post_type'        => Tribe__Events__Main::VENUE_POST_TYPE,
-									'posts_per_page'   => $posts_per_page,
-									'suppress_filters' => $suppress_filters
+		$venues = get_posts(
+			array(
+				'post_type' => Tribe__Events__Main::VENUE_POST_TYPE,
+				'posts_per_page'   => $posts_per_page,
+				'suppress_filters' => $suppress_filters,
 			)
 		);
 
@@ -416,7 +411,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			$html = sprintf(
 				'<a href="%s" target="%s">%s</a>',
 				esc_url( $url ),
-				apply_filters( 'tribe_get_venue_website_link_target', 'self' ),
+				apply_filters( 'tribe_get_venue_website_link_target', '_self' ),
 				apply_filters( 'tribe_get_venue_website_link_label', $label )
 			);
 		} else {
@@ -434,17 +429,17 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	* @return array The venue name and venue address.
 	*/
 	function tribe_get_venue_details() {
-	
+
 		$venue_details = array();
-		
+
 		if ( $venue_name = tribe_get_meta( 'tribe_event_venue_name' ) ) {
 			$venue_details['name'] = $venue_name;
 		}
-		
+
 		if ( $venue_address = tribe_get_meta( 'tribe_event_venue_address' ) ) {
 			$venue_details['address'] = $venue_address;
 		}
-		
+
 		return apply_filters( 'tribe_get_venue_details', $venue_details );
 	}
 

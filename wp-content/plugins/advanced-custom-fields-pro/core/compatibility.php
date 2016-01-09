@@ -27,6 +27,7 @@ class acf_compatibility {
 		add_filter('acf/get_valid_field/type=file',			array($this, 'get_valid_image_field'), 20, 1);
 		add_filter('acf/get_valid_field/type=wysiwyg',		array($this, 'get_valid_wysiwyg_field'), 20, 1);
 		add_filter('acf/get_valid_field/type=date_picker',	array($this, 'get_valid_date_picker_field'), 20, 1);
+		add_filter('acf/get_valid_field/type=taxonomy',		array($this, 'get_valid_taxonomy_field'), 20, 1);
 		
 		
 		// field groups
@@ -34,12 +35,12 @@ class acf_compatibility {
 		
 		
 		// settings
-		add_action('after_setup_theme',						array($this, 'after_setup_theme'), 20);
+		add_action('acf/init',								array($this, 'init'), 20);
 	}
 	
 	
 	/*
-	*  after_setup_theme
+	*  init
 	*
 	*  description
 	*
@@ -51,14 +52,15 @@ class acf_compatibility {
 	*  @return	$post_id (int)
 	*/
 	
-	function after_setup_theme() {
+	function init() {
 		
+		// ACF_LITE
 		if( defined('ACF_LITE') && ACF_LITE ) {
 			
 			acf_update_setting('show_admin', false);
 			
 		}
-			
+		
 	}
 	
 	
@@ -150,6 +152,11 @@ class acf_compatibility {
 	*/
 	
 	function get_valid_relationship_field( $field ) {
+		
+		// force array
+		$field['post_type'] = acf_get_array($field['post_type']);
+		$field['taxonomy'] = acf_get_array($field['taxonomy']);
+		
 		
 		// remove 'all' from post_type
 		if( acf_in_array('all', $field['post_type']) ) {
@@ -316,6 +323,36 @@ class acf_compatibility {
 		
 		// return
 		return $field;
+		
+	}
+	
+	
+	/*
+	*  get_valid_taxonomy_field
+	*
+	*  This function will provide compatibility with ACF4 fields
+	*
+	*  @type	function
+	*  @date	23/04/2014
+	*  @since	5.0.0
+	*
+	*  @param	$field (array)
+	*  @return	$field
+	*/
+	
+	function get_valid_taxonomy_field( $field ) {
+		
+		// 5.2.7
+		if( isset($field['load_save_terms']) ) {
+			
+			$field['save_terms'] = $field['load_save_terms'];
+			
+		}
+		
+		
+		// return
+		return $field;
+		
 	}
 	
 	

@@ -107,7 +107,8 @@ class acf_form_comment {
 		
 		
 		// actions
-		add_action( 'add_meta_boxes_comment', array($this, 'edit_comment'), 10, 1 );
+		add_action('admin_footer',				array($this, 'admin_footer'), 10, 1);
+		add_action('add_meta_boxes_comment', 	array($this, 'edit_comment'), 10, 1);
 
 	}
 	
@@ -152,15 +153,26 @@ class acf_form_comment {
 				// load fields
 				$fields = acf_get_fields( $field_group );
 				
+				
+				// vars
+				$o = array(
+					'id'			=> 'acf-' . $field_group['ID'],
+					'key'			=> $field_group['key'],
+					'label'			=> $field_group['label_placement']
+				);
+				
 				?>
-				<div id="acf-<?php echo $field_group['ID']; ?>" class="stuffbox editcomment">
-					<h3><?php echo $field_group['title']; ?></h3>
+				<div id="acf-<?php echo $field_group['ID']; ?>" class="stuffbox">
+					<h3 class="hndle"><?php echo $field_group['title']; ?></h3>
 					<div class="inside">
-						<table class="form-table">
-							<tbody>
-								<?php acf_render_fields( $post_id, $fields, 'tr', 'field' ); ?>
-							</tbody>
-						</table>
+						<?php acf_render_fields( $post_id, $fields, 'div', $field_group['instruction_placement'] ); ?>
+						<script type="text/javascript">
+						if( typeof acf !== 'undefined' ) {
+								
+							acf.postbox.render(<?php echo json_encode($o); ?>);
+						
+						}
+						</script>
 					</div>
 				</div>
 				<?php
@@ -211,11 +223,9 @@ class acf_form_comment {
 				$fields = acf_get_fields( $field_group );
 				
 				?>
-				<table class="form-table">
-					<tbody>
-						<?php acf_render_fields( $post_id, $fields, 'tr', 'field' ); ?>
-					</tbody>
-				</table>
+				<div class="acf-fields -<?php echo $field_group['label_placement']; ?>">
+					<?php acf_render_fields( $post_id, $fields, 'div', $field_group['instruction_placement'] ); ?>
+				</div>
 				<?php
 				
 			}
@@ -255,6 +265,48 @@ class acf_form_comment {
 			
 		}
 				
+	}
+	
+	
+	/*
+	*  admin_footer
+	*
+	*  description
+	*
+	*  @type	function
+	*  @date	27/03/2015
+	*  @since	5.1.5
+	*
+	*  @param	$post_id (int)
+	*  @return	$post_id (int)
+	*/
+	
+	function admin_footer() {
+		
+?>
+<script type="text/javascript">
+(function($) {
+	
+	// vars
+	var $spinner = $('#publishing-action .spinner');
+	
+	
+	// create spinner if not exists (may exist in future WP versions)
+	if( !$spinner.exists() ) {
+		
+		// create spinner
+		$spinner = $('<span class="spinner"></span>');
+		
+		
+		// append
+		$('#publishing-action').prepend( $spinner );
+		
+	}
+	
+})(jQuery);	
+</script>
+<?php
+		
 	}
 			
 }

@@ -1,8 +1,8 @@
 === Advanced Custom Fields Pro ===
 Contributors: elliotcondon
-Tags: custom, field, custom field, advanced, simple fields, magic fields, more fields, repeater, matrix, post, type, text, textarea, file, image, edit, admin
-Requires at least: 3.5.0
-Tested up to: 4.1
+Tags: acf, advanced, custom, field, fields, custom field, custom fields, simple fields, magic fields, more fields, repeater, edit
+Requires at least: 3.6.0
+Tested up to: 4.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -10,7 +10,7 @@ Customise WordPress with powerful, professional and intuitive fields
 
 == Description ==
 
-Advanced Custom Fields is the perfect solution for any wordpress website which needs more flexible data like other Content Management Systems. 
+Advanced Custom Fields is the perfect solution for any WordPress website which needs more flexible data like other Content Management Systems. 
 
 * Visually create your Fields
 * Select from multiple input types (text, textarea, wysiwyg, image, file, page link, post object, relationship, select, checkbox, radio buttons, date picker, true / false, repeater, flexible content, gallery and more to come!)
@@ -25,7 +25,7 @@ Advanced Custom Fields is the perfect solution for any wordpress website which n
 * Number (type number, api returns integer)
 * Email (type email, api returns text)
 * Password (type password, api returns text)
-* WYSIWYG (a wordpress wysiwyg editor, api returns html)
+* WYSIWYG (a WordPress wysiwyg editor, api returns html)
 * Image (upload an image, api returns the url)
 * File (upload a file, api returns the url)
 * Select (drop down list of choices, api returns chosen item)
@@ -106,6 +106,144 @@ http://support.advancedcustomfields.com/
 
 == Changelog ==
 
+= 5.3.2.2 =
+* Core: Fixed PHP error when registering a local field missing one of more settings
+* Core: Fixed incorrect json load_path setting when WPML is active
+* Language: Updated Polish translation - thanks to Michal Lepiarz
+
+= 5.3.2.1 =
+* Core: Fixed bug causing issues when loading values from an options page, widget or taxonomy term
+
+= 5.3.2 =
+* Repeater field: Added new setting and icon to collapse row
+* Google Maps: Improved google API loading for better theme compatibility
+* Taxonomy field: Fixed bug where 'Add new term' popup only showed 20 parent terms
+* Core: Added new setting 'export_translate' to customise which field settings should be wrapped in __()
+* Core: Improved efficiency of AJAX call when finding new field groups when editing a post
+* API: Added new functions add_row(), update_row() and delete_row()
+* Language: Updated German translation - thanks to Ralf Koller
+* Language: Updated Italian translation - thanks to Davide Pantè
+* Language: Updated Dutch translation - thanks to Derk Oosterveld
+* Language: Updated Portuguese translation - thanks to Augusto Simão
+
+= 5.3.1 =
+* Flexible Content field: added toggle icons to show layout open/close state
+* Gallery field: Fixed bug where images could not save a blank title value
+* Taxonomy field: Added pagination when rendered as a Select2 element
+* Relationship field: Changed validation to better edit values when a minimum is set
+* Google map field: Fixed minor autocomplete bugs and added search icon
+* Message field: Added new_lines setting
+* Core: Added '*' to required fields when editing a field group
+* Core: Prevented updates to .json file when syncing
+* Core: Fields now render as div (instead of table) when labels are left aligned
+* Core: Minor fixes and improvements
+* Language: Updated .po headers - thanks to Ralf Koller
+
+= 5.3.0 =
+* WYSIWYG field: Fixed 'Visual/Text' toggle bug with WP 4.3
+* Select field: Fixed Select2 bug hiding selected choices
+
+= 5.2.9 =
+* Field group: Added new 'status' setting to enable/disable
+* Field group: Added new 'description' setting shown to developers when viewing the field group list
+* Field group: Moved 'Show field keys' Screen Option within existing 'Show on Screen' checkboxes
+* Tab field: Fixed missing min-height to left aligned tab wrapper
+* Relationship field: Added timeout to reduce AJAX requests whilst typing in search
+* Flexible Content field: Fixed minor JS bug where removing a layout would not update the order numbers
+* Core: Fixed bug validating uppercase file extensions
+* Core: Renamed menu items
+* Core: Replace sprite icons with font
+* Core: Added new setting 'export_textdomain' to add __() to generated export code
+* Core: Fixed conflict with Post Type Order plugin causing issues when querying posts
+* Core: Fixed conflict with WPML causing issues when querying posts
+* Core: Added compatibility for WP 4.3
+* Core: Minor fixes and improvements
+* Language: Updated German translation - thanks to Ralf Koller
+* Language: Updated Italian translation - thanks to Davide Pantè
+
+= 5.2.8 =
+* Image field: Added selection restrictions in media popup (width, height, size, type)
+* File field: Same as above
+* Gallery field: Same as above
+* Tab field: Added new 'endpoint' setting - allows multiple tab groups
+* Tab field: Improved CSS/JS to allow individual tab groups to use different alignments (left/top)
+* Repeater field: Added logic to delete nested sub field values (grand children)
+* Options page: Added new 'autoload' setting
+* Core: Added new filter 'acf/prepare_field'
+* Core: Added upload validation logic to ignore filetype case sensitivity
+* Core: Fixed upload issue when filesize restriction contained a decimal place
+* Core: Improved validation/save JS compatibility with 3rd party plugins
+* Core: Updated Select2 library to v3.5.2
+* Core: Fixed bug hiding Select2 choices when multiple found with the same label
+* Core: Minor fixes and improvements
+* Language: Updated Italian translation - thanks to Davide Pantè & Francesco Mazzola
+* Language: Updated German translation - thanks to Ralf Koller
+* Language: Updating Finnish translation - thanks to Sauli Rajala
+
+= 5.2.7 =
+* Taxonomy field: Split setting 'load_save_terms' into 'load_terms' and 'save_terms'
+* Select field: Fixed bug causing values containing ',' to fail
+* Checkbox field: Fixed bug causing values containing ',' to fail
+* Checkbox field: Added new 'toggle all' setting
+* User field: Added new filters 'acf/fields/user/result' and 'acf/fields/user/search_columns'
+* Gallery field: Added logic to increase sidebar width when space is available
+* Options page: Added new 'post_id' setting to customise where values are loaded and saved
+* API: Improved `get_field()` to better handle no value
+* API: Optimised asset loading when using the `acf_form()` function
+* API: Added new function `delete_sub_field()`
+* Core: Added new `acf/init` action when ACF has loaded all functionality
+* Core: Added compatibility with Select2 language translations
+* Core: Changed compatibility filter default to false
+* Core: Minor fixes and improvements
+* Language: Updated German translation - thanks to Thomas Meyer
+* Language: Updated French Translation - thanks to Maxime Bernard-Jacquet
+* Language: Updated Persian translation - thanks to Kamel
+
+= 5.2.6 =
+* Core: Improved validation logic to display HTML5 validation messages
+* Core: Improved conditional logic performance for large field groups
+* Core: Removed updates menu item when not activated as a plugin (included within theme)
+* Core: Fixed various JS performance issues
+* Core: Minor fixes and improvements
+* Core: Added compatibility for saving widget in 'accessibility mode'
+* Language: Added Finnish translation - thanks to Sauli Rajala
+
+= 5.2.5 =
+* Core: Fixed JS error preventing changes to large field groups
+* Language: Added Romanian translation - thanks to Eduard Ungureanu
+
+= 5.2.4 =
+* WYSIWYG field: Fixed bug where new editor is not focused when adding media
+* Core: Added new 'uploader' setting to `acf_form()` options for basic upload inputs
+* Core: Fixed Multisite loop when WordPress MU Domain Mapping plugin is active
+* Core: Improved CSS when editing taxonomy terms and users
+* Core: Fixed validation bugs when clicking save or preview 
+* Core: Added compatibility with WPML translations when field group is not set as a translatable post type
+* Core: Many minor fixes and improvements
+
+= 5.2.3 =
+* Taxonomy field: Added button and popup to create new terms
+* Taxonomy field: Added new 'Create Terms' setting to prevent popup
+* Core: Added network database upgrade admin page and functionality
+* Core: Increased required WP version from 3.5 to 3.6
+* Core: Fixed Select2 dependancy conflict with WooCommerce
+* Core: Fixed WPML bug where field group translation information is lost
+* Core: Fixed conditional logic bug where showing a parent field would override sub field conditional logic
+* Core: Minor fixes and improvements
+* Language: Updated Persian translation - thanks to Kamel
+
+= 5.2.2 =
+* Image field: Fixed UI bug when image has been removed via media library
+* Relationship field: Added new minimum selection setting
+* Select field: Fixed bug when searching for a numeric value
+* Tab field: Fixed conditional logic bug
+* Field group: Added compatibility for custom status in 'Post Status' location rule
+* Core: Added new `show_updates` setting to prevent plugin updates
+* Core: Added compatibility for 3rd party update management websites
+* Core: Added spinner when saving taxonomy term, user and front end form
+* Core: Minor fixes and improvements
+* Language: Updated Slovak translation - thanks to Ján Fajčák
+ 
 = 5.2.1 =
 * Core: Fixed bug where 'Taxonomy' field group location rule would change to 'Post Taxonomy'
 * Core: Fixed bug where field group postboxes would disappear from post edit screen
@@ -1208,6 +1346,9 @@ http://support.advancedcustomfields.com/
 
 
 == Upgrade Notice ==
+
+= 5.2.7 =
+* Field class names have changed slightly in v5.2.7 from `field_type-{$type}` to `acf-field-{$type}`. This change was introduced to better optimise JS performance. The previous class names can be added back in with the following filter: http://www.advancedcustomfields.com/resources/acfcompatibility/
 
 = 3.0.0 =
 * Editor is broken in WordPress 3.3

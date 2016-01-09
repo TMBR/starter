@@ -95,17 +95,29 @@ class acf_field_select extends acf_field {
 		
 		// vars
 		$r = array();
+		$s = false;
 		
 		
-		// strip slashes
-		$options['s'] = wp_unslash($options['s']);
+		// search
+		if( $options['s'] !== '' ) {
+			
+			// search may be integer
+			$s = strval($options['s']);
+			
+			
+			// strip slashes
+			$s = wp_unslash($s);
+			
+		}		
 		
+		
+		// loop through choices
 		if( !empty($field['choices']) ) {
 		
 			foreach( $field['choices'] as $k => $v ) {
 				
-				// search
-				if( $options['s'] && stripos($v, $options['s']) === false ) {
+				// if searching, but doesn't exist
+				if( $s !== false && stripos($v, $s) === false ) {
 				
 					continue;
 					
@@ -117,7 +129,9 @@ class acf_field_select extends acf_field {
 					'id'	=> $k,
 					'text'	=> strval( $v )
 				);
+				
 			}
+			
 		}
 		
 		
@@ -143,7 +157,7 @@ class acf_field_select extends acf_field {
 	function render_field( $field ) {
 
 		// convert value to array
-		$field['value'] = acf_force_type_array($field['value']);
+		$field['value'] = acf_get_array($field['value'], false);
 		
 		
 		// add empty value (allows '' to be selected)
@@ -209,10 +223,10 @@ class acf_field_select extends acf_field {
 		$els = array();
 		$choices = array();
 		
-		
+			
 		// loop through values and add them as options
 		if( !empty($field['choices']) ) {
-		
+			
 			foreach( $field['choices'] as $k => $v ) {
 				
 				if( is_array($v) ){
@@ -225,8 +239,8 @@ class acf_field_select extends acf_field {
 						foreach( $v as $k2 => $v2 ) {
 							
 							$els[] = array( 'type' => 'option', 'value' => $k2, 'label' => $v2, 'selected' => in_array($k2, $field['value']) );
-							
 							$choices[] = $k2;
+							
 						}
 						
 					}
@@ -236,7 +250,6 @@ class acf_field_select extends acf_field {
 				} else {
 					
 					$els[] = array( 'type' => 'option', 'value' => $k, 'label' => $v, 'selected' => in_array($k, $field['value']) );
-					
 					$choices[] = $k;
 					
 				}
@@ -246,48 +259,35 @@ class acf_field_select extends acf_field {
 		}
 		
 		
-		// prepende orphans
-		/*
-		if( !empty($field['value']) ) {
-			
-			foreach( $field['value'] as $v ) {
-				
-				if( empty($v) ) {
-					
-					continue;
-					
-				}
-				
-				if( !in_array($v, $choices) ) {
-					
-					array_unshift( $els, array( 'type' => 'option', 'value' => $v, 'label' => $v, 'selected' => true ) );
-					
-				}
-				
-			}
-			
-		}
-		*/
-		
-		
 		// hidden input
 		if( $field['ui'] ) {
 			
-			// find real value based on $choices and $field['value']
-			$real_value = array_intersect($field['value'], $choices);
-		
+			// restirct value
+			$v = array_intersect($field['value'], $choices);
+			
+			if( $field['multiple'] ) {
+				
+				$v = implode('||', $v);
+				
+			} else {
+				
+				$v = acf_maybe_get($v, 0, '');
+				
+			}
+			
 			acf_hidden_input(array(
 				'type'	=> 'hidden',
-				'id'	=> $field['id'],
+				'id'	=> $field['id'] . '-input',
 				'name'	=> $field['name'],
-				'value'	=> implode(',', $real_value)
+				'value'	=> $v
 			));
 			
 		} elseif( $field['multiple'] ) {
 			
 			acf_hidden_input(array(
 				'type'	=> 'hidden',
-				'name'	=> $field['name'],
+				'id'	=> $field['id'] . '-input',
+				'name'	=> $field['name']
 			));
 			
 		}
@@ -362,7 +362,6 @@ class acf_field_select extends acf_field {
 	*/
 	
 	function render_field_settings( $field ) {
-		
 		
 		// encode choices (convert from array)
 		$field['choices'] = acf_encode_choices($field['choices']);

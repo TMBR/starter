@@ -26,7 +26,6 @@ class Tribe__Events__Amalgamator {
 	/**
 	 * Merge all duplicate event-related posts
 	 *
-	 * @return void
 	 */
 	public function merge_duplicates() {
 		$this->merge_identical_organizers();
@@ -40,7 +39,6 @@ class Tribe__Events__Amalgamator {
 	/**
 	 * Merge identical organizers
 	 *
-	 * @return void
 	 */
 	public function merge_identical_organizers() {
 		$titles  = $this->get_redundant_titles( Tribe__Events__Main::ORGANIZER_POST_TYPE );
@@ -58,15 +56,15 @@ class Tribe__Events__Amalgamator {
 					'_OrganizerEmail'   => get_post_meta( $id, '_OrganizerEmail', true ),
 				);
 				$hash = md5( serialize( $data ) );
-				if ( ! isset( $buckets[$hash] ) ) {
-					$buckets[$hash] = array();
+				if ( ! isset( $buckets[ $hash ] ) ) {
+					$buckets[ $hash ] = array();
 				}
 				// prioritize organizers with an eventbrite id
 				$eventbrite = get_post_meta( $id, '_OrganizerEventBriteID', true );
 				if ( empty( $eventbrite ) ) {
-					array_push( $buckets[$hash], $id );
+					array_push( $buckets[ $hash ], $id );
 				} else {
-					array_unshift( $buckets[$hash], $id );
+					array_unshift( $buckets[ $hash ], $id );
 				}
 			}
 		}
@@ -78,7 +76,6 @@ class Tribe__Events__Amalgamator {
 	/**
 	 * Merge identical venues
 	 *
-	 * @return void
 	 */
 	public function merge_identical_venues() {
 		$titles  = $this->get_redundant_titles( Tribe__Events__Main::VENUE_POST_TYPE );
@@ -101,15 +98,15 @@ class Tribe__Events__Amalgamator {
 					'_VenueURL'      => get_post_meta( $id, '_VenueURL', true ),
 				);
 				$hash = md5( serialize( $data ) );
-				if ( ! isset( $buckets[$hash] ) ) {
-					$buckets[$hash] = array();
+				if ( ! isset( $buckets[ $hash ] ) ) {
+					$buckets[ $hash ] = array();
 				}
 				// prioritize venues with an eventbrite id
 				$eventbrite = get_post_meta( $id, '_VenueEventBriteId', true );
 				if ( empty( $eventbrite ) ) {
-					array_push( $buckets[$hash], $id );
+					array_push( $buckets[ $hash ], $id );
 				} else {
-					array_unshift( $buckets[$hash], $id );
+					array_unshift( $buckets[ $hash ], $id );
 				}
 			}
 		}
@@ -156,7 +153,6 @@ class Tribe__Events__Amalgamator {
 	 *
 	 * @param array $venue_ids
 	 *
-	 * @return void
 	 */
 	private function amalgamate_venues( $venue_ids ) {
 		if ( empty( $venue_ids ) || count( $venue_ids ) < 2 ) {
@@ -179,7 +175,6 @@ class Tribe__Events__Amalgamator {
 	 *
 	 * @param array $organizer_ids
 	 *
-	 * @return void
 	 */
 	public function amalgamate_organizers( $organizer_ids ) {
 		if ( empty( $organizer_ids ) || count( $organizer_ids ) < 2 ) {
@@ -203,7 +198,6 @@ class Tribe__Events__Amalgamator {
 	 * @param int   $keep
 	 * @param array $replace
 	 *
-	 * @return void
 	 */
 	private function update_default_venues( $keep, array $replace ) {
 		if ( $this->default_venue && in_array( $this->default_venue, $replace ) ) {
@@ -224,7 +218,6 @@ class Tribe__Events__Amalgamator {
 	 * @param int   $keep
 	 * @param array $replace
 	 *
-	 * @return void
 	 */
 	private function update_default_organizers( $keep, array $replace ) {
 		if ( $this->default_organizer && in_array( $this->default_organizer, $replace ) ) {
@@ -257,29 +250,28 @@ class Tribe__Events__Amalgamator {
 	 * @return string
 	 */
 	public static function migration_button( $text = '' ) {
-		$text     = $text ? $text : __( 'Merge Duplicates', 'tribe-events-calendar' );
-		$html     = '<a href="%s" class="button">%s</a>';
-		$settings = Tribe__Events__Settings::instance();
+		$text     = $text ? $text : __( 'Merge Duplicates', 'the-events-calendar' );
+		$settings = Tribe__Settings::instance();
+
 		// get the base settings page url
 		$url  = apply_filters(
 			'tribe_settings_url', add_query_arg(
 				array(
 					'post_type' => Tribe__Events__Main::POSTTYPE,
-					'page'      => $settings->adminSlug
+					'page'      => $settings->adminSlug,
 				), admin_url( 'edit.php' )
 			)
 		);
-		$url  = esc_url( add_query_arg( array( 'amalgamate' => '1' ), $url ) );
-		$url  = wp_nonce_url( $url, 'amalgamate_duplicates' );
-		$html = sprintf( $html, $url, $text );
 
-		return $html;
+		$url  = add_query_arg( array( 'amalgamate' => '1' ), $url );
+		$url  = wp_nonce_url( $url, 'amalgamate_duplicates' );
+
+		return sprintf( '<a href="%s" class="button">%s</a>', $url, $text );
 	}
 
 	/**
 	 * If the migration button is clicked, start working
 	 *
-	 * @return void
 	 */
 	public static function listen_for_migration_button() {
 		if ( empty( $_REQUEST['amalgamate'] ) || ! wp_verify_nonce( $_REQUEST['_wpnonce'], 'amalgamate_duplicates' ) ) {
@@ -290,12 +282,12 @@ class Tribe__Events__Amalgamator {
 		$amalgamator->merge_duplicates();
 
 		// redirect to base settings page
-		$settings = Tribe__Events__Settings::instance();
+		$settings = Tribe__Settings::instance();
 		$url      = apply_filters(
 			'tribe_settings_url', add_query_arg(
 				array(
 					'post_type' => Tribe__Events__Main::POSTTYPE,
-					'page'      => $settings->adminSlug
+					'page'      => $settings->adminSlug,
 				), admin_url( 'edit.php' )
 			)
 		);

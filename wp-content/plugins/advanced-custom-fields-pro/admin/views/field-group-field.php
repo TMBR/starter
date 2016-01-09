@@ -1,15 +1,18 @@
 <?php 
 
+// global
 global $post;
 
 
-// get vars ($field)
+// extract args
 extract( $args );
 
 
 // add prefix
 $field['prefix'] = "acf_fields[{$field['ID']}]";
 
+
+// vars
 $atts = array(
 	'class' => "acf-field-object acf-field-object-{$field['type']}",
 	'data-id'	=> $field['ID'],
@@ -43,12 +46,13 @@ $atts['class'] = str_replace('_', '-', $atts['class']);
 	<div class="handle">
 		<ul class="acf-hl acf-tbody">
 			<li class="li-field-order">
-				<span class="acf-icon large"><?php echo ($i + 1); ?></span>
+				<span class="acf-icon acf-sortable-handle"><?php echo ($i + 1); ?></span>
 				<pre class="pre-field-key"><?php echo $field['key']; ?></pre>
 			</li>
 			<li class="li-field-label">
 				<strong>
 					<a class="edit-field" title="<?php _e("Edit field",'acf'); ?>" href="#"><?php echo $field['label']; ?></a>
+					<?php if( $field['required'] ): ?><span class="acf-required">*</span><?php endif; ?>
 				</strong>
 				<div class="row-options">
 					<a class="edit-field" title="<?php _e("Edit field",'acf'); ?>" href="#"><?php _e("Edit",'acf'); ?></a>
@@ -82,6 +86,7 @@ $atts['class'] = str_replace('_', '-', $atts['class']);
 					'name'			=> 'label',
 					'prefix'		=> $field['prefix'],
 					'value'			=> $field['label'],
+					'class'			=> 'field-label'
 				), 'tr');
 				
 				
@@ -94,6 +99,7 @@ $atts['class'] = str_replace('_', '-', $atts['class']);
 					'name'			=> 'name',
 					'prefix'		=> $field['prefix'],
 					'value'			=> $field['name'],
+					'class'			=> 'field-name'
 				), 'tr');
 				
 				
@@ -107,6 +113,7 @@ $atts['class'] = str_replace('_', '-', $atts['class']);
 					'prefix'		=> $field['prefix'],
 					'value'			=> $field['type'],
 					'choices' 		=> acf_get_field_types(),
+					'class'			=> 'field-type'
 				), 'tr');
 				
 				
@@ -135,14 +142,19 @@ $atts['class'] = str_replace('_', '-', $atts['class']);
 						0				=> __("No",'acf'),
 					),
 					'layout'		=> 'horizontal',
+					'class'			=> 'field-required'
 				), 'tr');
 				
 				
-				// custom field options
-				acf_render_field_settings( $field );
+				// type specific settings
+				do_action("acf/render_field_settings/type={$field['type']}", $field);
 				
 				
-				// load view
+				// 3rd party settings
+				do_action('acf/render_field_settings', $field);
+				
+				
+				// conditional logic
 				acf_get_view('field-group-field-conditional-logic', array( 'field' => $field ));
 				
 				
