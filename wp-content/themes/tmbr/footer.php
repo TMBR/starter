@@ -3,7 +3,7 @@
 <!-- #page-main -->
 
 
-<footer id="footer" role="footer">
+<footer id="footer" role="contentinfo" itemscope="itemscope" itemtype="http://schema.org/WPFooter">
 	<div class="container">
 		<div class="row">
 			<div class="col-xs-6">
