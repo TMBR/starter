@@ -1,11 +1,8 @@
 <?php
-	$image = get_sub_field('left_image');
+	$image = get_sub_field('right_image');
+	debug($image);
 ?>
-<div class="flex-img-block -img-left">
-
-  	<div class="img-wrapper col-md-5">
-  		<img class="img" src="<?php echo $image['sizes']['lg_thumb']?>" />
-	</div>
+<div class="flex-img-block -img-right">
 
     <div class="text-wrapper col-md-7">
 		<h2 class="title"><?php echo get_sub_field('sub_title'); ?></h2>
@@ -21,4 +18,8 @@
 		<?php } ?>
 	</div>
 
-</div><!-- /end left image w text -->
+  	<div class="img-wrapper col-md-5">
+  		<img class="img" src="<?php echo $image['sizes']['lg_thumb']?>" />
+	</div>
+
+</div><!-- /end right image w text -->

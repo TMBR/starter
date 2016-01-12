@@ -14,26 +14,25 @@
 	     // loop through the rows of data
 	    while ( have_rows('content') ) : the_row();
 
-	        if( get_row_layout() == 'contest' ):
-
-	        	// Contest 50 / 50
-				get_template_part( 'partials/flexiblecontent/contest-50-50' );
-
-	        elseif( get_row_layout() == 'section_wipe' ):
-
+	        if( get_row_layout() == 'section_wipe' ):
 				// Section Wipe
 				get_template_part( 'partials/flexiblecontent/section-wipe' );
 
 	        elseif( get_row_layout() == 'center_text' ):
-
-				// Section Wipe
+				// center text
 				get_template_part( 'partials/flexiblecontent/center-text' );
 
 	        elseif( get_row_layout() == 'left-img-w-text' ):
-
 				// left image w/ text
 				get_template_part( 'partials/flexiblecontent/left-img-w-text' );
 
+	        elseif( get_row_layout() == 'right-img-w-text' ):
+				// right image w/ text
+				get_template_part( 'partials/flexiblecontent/right-img-w-text' );
+
+	        elseif( get_row_layout() == 'image_gallery' ):
+				// img gallery
+				get_template_part( 'partials/flexiblecontent/img-gallery' );
 
 	        endif;
 
