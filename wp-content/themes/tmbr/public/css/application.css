@@ -9763,6 +9763,7 @@ h5,
   margin-bottom: 1.5rem; }
 
 p {
+  line-height: 1.8rem;
   margin-bottom: 2rem; }
 
 /* GENERAL LAYOUT
@@ -9797,14 +9798,17 @@ p {
     padding-left: 0 !important;
     padding-right: 0 !important; }
 
-.no-gutter.container-fluid, .no-gutter.container {
+.no-gutter {
+  margin: 0;
   padding: 0; }
-  .no-gutter.container-fluid .row, .no-gutter.container .row {
-    margin-left: 0;
-    margin-right: 0; }
-    .no-gutter.container-fluid .row [class*='col-'], .no-gutter.container-fluid .row [class*='col-']:not(:first-child), .no-gutter.container-fluid .row [class*='col-']:not(:last-child), .no-gutter.container .row [class*='col-'], .no-gutter.container .row [class*='col-']:not(:first-child), .no-gutter.container .row [class*='col-']:not(:last-child) {
-      padding-left: 0;
-      padding-right: 0; }
+  .no-gutter.container-fluid, .no-gutter.container {
+    padding: 0; }
+    .no-gutter.container-fluid .row, .no-gutter.container .row {
+      margin-left: 0;
+      margin-right: 0; }
+      .no-gutter.container-fluid .row [class*='col-'], .no-gutter.container-fluid .row [class*='col-']:not(:first-child), .no-gutter.container-fluid .row [class*='col-']:not(:last-child), .no-gutter.container .row [class*='col-'], .no-gutter.container .row [class*='col-']:not(:first-child), .no-gutter.container .row [class*='col-']:not(:last-child) {
+        padding-left: 0;
+        padding-right: 0; }
 
 .post-edit-link {
   text-align: center;
@@ -9970,6 +9974,39 @@ input[type=submit] {
 
 .center-text {
   text-align: center; }
+
+.flex-img-block > .img-wrapper {
+  max-height: 400px;
+  overflow: hidden; }
+  .flex-img-block > .img-wrapper > .img {
+    width: 100%; }
+
+.flex-img-block > .text-wrapper {
+  padding: 5rem 0;
+  text-align: center; }
+
+.sec-wipe {
+  min-height: 400px; }
+
+.flex-img-gallery .image-wrap {
+  width: 25%;
+  float: left;
+  position: relative; }
+  .flex-img-gallery .image-wrap .img {
+    width: 100%; }
+  .flex-img-gallery .image-wrap .overlay {
+    opacity: 0;
+    transition: all 0.3s ease-in; }
+
+body.no-touch .flex-img-gallery .image-wrap:hover .overlay {
+  opacity: 1;
+  display: block;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0px;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 10; }
 
 /* Layout */
 /* NAVIGATION */
