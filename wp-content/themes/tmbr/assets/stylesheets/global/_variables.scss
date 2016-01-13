@@ -4,14 +4,30 @@ $transition: all .2s ease-in;
 /* COLORS */
 $white: #FFF;
 $black : #000;
+$action-color : rgba(239,76,35,0.8);
 
 /* FONT SIZES */
-$h1: 4em;
-$h2: 3em;
-$h3: 2.5em;
-$h4: 2em;
-$h5: 1.5em;
-$p: 1em;
+$h1: 4rem;
+$h2: 3rem;
+$h3: 2.5rem;
+$h4: 2rem;
+$h5: 1.5rem;
+$p: 1rem;
+
+/* FONT FAMILIES */
+@import url(https://fonts.googleapis.com/css?family=Montserrat:400,700);
+@mixin heading-font($weight: 400) {
+	font-family: 'Montserrat', sans-serif;
+	font-style: normal;
+	font-weight: $weight;
+}
+
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,300,700);
+@mixin copy-font($weight: 400) {
+	font-family: 'Open Sans', sans-serif;
+	font-style: normal;
+	font-weight: $weight;
+}
 
 /* FONT WEIGHTS */
 $fw-light: 300;
