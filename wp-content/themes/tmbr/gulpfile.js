@@ -109,19 +109,21 @@
     del(['public/fonts/'], cb);
   });
 
-  var errorHandler = function(msg, error) {
+  var errorHandler = function(msg, error, errormessage) {
     var chalk = gutil.colors
     gutil.log(chalk.bgRed('There was an issue', chalk.bold(msg)))
+    gutil.log(chalk.bgYellow(errormessage))
     beep()
     error.emit('end')
   }
 
   gulp.task('scripts:vendor', function(){
     return gulp.src(paths.vendorScripts)
-      .pipe(plumber(function () {
+      .pipe(plumber(function (error) {
           errorHandler(
             'building the Vendor Scripts',
-            this
+            this,
+            error.message
           )
       }))
       .pipe(expect(paths.vendorScripts))
@@ -134,10 +136,11 @@
 
   gulp.task('scripts:app', function(){
     return gulp.src(paths.appScripts)
-      .pipe(plumber(function () {
+      .pipe(plumber(function (error) {
           errorHandler(
             'building the App Scripts',
-            this
+            this,
+            error.message
           )
       }))
       .pipe(expect(paths.appScripts))
@@ -149,10 +152,11 @@
   });
   gulp.task('styles', function(){
     return gulp.src(paths.styles)
-      .pipe(plumber(function () {
+      .pipe(plumber(function (error) {
           errorHandler(
             'building the styles',
-            this
+            this,
+            error.message
           )
       }))
       .pipe(sass({
@@ -171,10 +175,11 @@
 
   gulp.task('images', function(){
     return gulp.src(paths.images)
-      .pipe(plumber(function () {
+      .pipe(plumber(function (error) {
           errorHandler(
             'optimizing the images',
-            this
+            this,
+            error.message
           )
       }))
       .pipe(imagemin())
@@ -183,10 +188,11 @@
 
   gulp.task('fonts', function(){
     return gulp.src(paths.fonts)
-      .pipe(plumber(function () {
+      .pipe(plumber(function (error) {
           errorHandler(
             'moving the fonts',
-            this
+            this,
+            error.message
           )
       }))
       .pipe(gulp.dest('public/fonts'))
@@ -229,10 +235,11 @@
       {
         base: 'public'
       })
-      .pipe(plumber(function () {
+      .pipe(plumber(function (error) {
           errorHandler(
             'versioning assets',
-            this
+            this,
+            error.message
           )
       }))
       .pipe(gulp.dest('public'))
