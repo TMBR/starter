@@ -62,7 +62,7 @@ _throttle = function(func, wait, options) {
 			SiteApp.Throttle();
 			SiteApp.Preloader();
 			SiteApp.Slider();
-			//SiteApp.Lightbox();
+			SiteApp.Lightbox();
 
 			// Call this to show all animited items
 			// SiteApp.ShowAnimated();
@@ -175,6 +175,14 @@ _throttle = function(func, wait, options) {
 		Lightbox: function() {
 
 			$('.imagepop').magnificPopup({type:'image'});
+
+			// Flex Content image gallery with modal
+			$('.js-flex-gallery-img').magnificPopup({
+			  type: 'image',
+			  gallery:{
+			    enabled:true
+			  }
+			});
 
 		},
 
