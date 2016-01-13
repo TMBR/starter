@@ -41,6 +41,8 @@
 }
 
 .no-gutter {
+	margin : 0;
+	padding: 0;
 	&.container-fluid,
 	&.container {
 		padding: 0;

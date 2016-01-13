@@ -1,0 +1,28 @@
+.flex-img-gallery{
+	.image-wrap {
+		width: 25%;
+		float: left;
+		position: relative;
+
+		.img { width: 100%;}
+		.overlay{
+			opacity: 0;
+			@include transition($transition300)
+		}
+	}
+}
+
+body.no-touch .flex-img-gallery {
+	.image-wrap:hover {
+		.overlay {
+			opacity: 1;
+			display: block;
+			height: 100%;
+			width: 100%;
+			position: absolute;
+			top: 0px;
+			background-color: rgba(0,0,0,0.6);
+			z-index: 10;
+		}
+	}
+}

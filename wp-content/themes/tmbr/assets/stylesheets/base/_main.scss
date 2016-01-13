@@ -20,7 +20,7 @@ body {
 }
 
 a {
-	@include transition($transition);
+	@include transition($transition200);
 	&:hover,
 	&:focus,
 	&:active {
@@ -83,6 +83,9 @@ h5,
 	margin-bottom: 1.5rem;
 }
 
-p { margin-bottom: 2rem;}
+p {
+	line-height: 1.8rem;
+	margin-bottom: 2rem;
+}
 
 

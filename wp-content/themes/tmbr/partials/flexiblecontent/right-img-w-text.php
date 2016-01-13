@@ -1,6 +1,5 @@
 <?php
 	$image = get_sub_field('right_image');
-	debug($image);
 ?>
 <div class="flex-img-block -img-right">
 
@@ -18,8 +17,8 @@
 		<?php } ?>
 	</div>
 
-  	<div class="img-wrapper col-md-5">
+  	<div class="img-wrapper no-gutter col-md-5">
   		<img class="img" src="<?php echo $image['sizes']['lg_thumb']?>" />
 	</div>
-
+	<div class="clear"></div>
 </div><!-- /end right image w text -->

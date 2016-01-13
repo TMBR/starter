@@ -3,7 +3,7 @@
 ?>
 <div class="flex-img-block -img-left">
 
-  	<div class="img-wrapper col-md-5">
+  	<div class="img-wrapper no-gutter col-md-5">
   		<img class="img" src="<?php echo $image['sizes']['lg_thumb']?>" />
 	</div>
 
@@ -20,5 +20,5 @@
 		</a>
 		<?php } ?>
 	</div>
-
+	<div class="clear"></div>
 </div><!-- /end left image w text -->

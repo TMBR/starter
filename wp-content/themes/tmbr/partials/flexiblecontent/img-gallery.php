@@ -3,14 +3,21 @@
 $images = get_sub_field('image_gallery');
 
 if( $images ): ?>
+
+<div class="flex-img-gallery">
     <ul>
         <?php foreach( $images as $image ): ?>
-            <li>
+            <li class="image-wrap">
                 <a class="js-flex-gallery-img" href="<?php echo $image['sizes']['full_screen']; ?>">
-                     <img src="<?php echo $image['sizes']['thumbnail']; ?>" alt="<?php echo $image['alt']; ?>" />
+                    <img class="img" src="<?php echo $image['sizes']['lg_thumb']; ?>" alt="<?php echo $image['alt']; ?>" />
+
+                    <div class="overlay">
+                        <p><?php echo $image['caption']; ?></p>
+                    </div>
                 </a>
-                <p><?php echo $image['caption']; ?></p>
             </li>
         <?php endforeach; ?>
     </ul>
+</div>
+
 <?php endif; ?>

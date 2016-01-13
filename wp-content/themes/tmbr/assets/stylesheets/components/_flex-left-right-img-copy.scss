@@ -1,0 +1,14 @@
+.flex-img-block{
+	> .img-wrapper {
+		max-height: $section-height;
+		overflow: hidden;
+		> .img {
+			width: 100%;
+		}
+	}
+
+	> .text-wrapper {
+		padding: 5rem 0;
+		text-align: center;
+	}
+}
