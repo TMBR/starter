@@ -27,7 +27,7 @@ get_template_part( 'partials/slider/home-hero' ); ?>
 							<?php if ( $blogposts->have_posts() ) : while ( $blogposts->have_posts() ) : $blogposts->the_post(); ?>
 								<?php
 								// large News Item
-								get_template_part( 'partials/loops/news-loop' ); ?>
+								get_template_part( 'partials/loops/article-loop' ); ?>
 
 							<?php  endwhile; endif; ?>
 							<?php  wp_reset_postdata(); ?>

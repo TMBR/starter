@@ -20,12 +20,15 @@ body {
 }
 
 a {
+	color: $link-color;
+
 	@include transition($transition200);
 	&:hover,
 	&:focus,
 	&:active {
 		text-decoration: none;
 		outline: none;
+		color: $link-color;
 	}
 }
 
@@ -44,9 +47,14 @@ a {
 	color: $white;
 }
 
-::-moz-focus-inner {
+::-moz-focus-inner,
+a::-moz-focus-inner,
+button::-moz-focus-inner {
 	border: 0;
 }
+
+:focus {outline:none !important;}
+::-moz-focus-inner {border:0;}
 
 h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6 {
 	margin-top: 0;

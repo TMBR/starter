@@ -127,10 +127,13 @@
 @import "components/flex-left-right-img-copy";
 @import "components/flex-sectionwipe";
 @import "components/flex-img-gallery";
+@import "components/post-item";
+@import "components/comments";
 
 /* Layout */
 @import "layout/header";
 @import "layout/footer";
+@import "layout/forms";
 
 /* Templates */
 @import "templates/home";
