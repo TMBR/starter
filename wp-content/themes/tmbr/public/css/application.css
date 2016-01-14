@@ -1453,35 +1453,71 @@ input[type="month"] {
   line-height: 1.428571429 \0; }
   input[type="date"].input-sm, .input-group-sm > input[type="date"].form-control,
   .input-group-sm > input[type="date"].input-group-addon,
-  .input-group-sm > .input-group-btn > input[type="date"].btn,
+  .input-group-sm > .input-group-btn > input[type="date"].btn, .post-item
+  .input-group-sm > .input-group-btn > input[type="date"].read-more, .comments-area
+  .input-group-sm > .input-group-btn > input[type="date"].comment-reply-link,
+  .input-group-sm > .form-submit.input-group-btn > input[type="date"].submit,
   input[type="time"].input-sm,
   .input-group-sm > input[type="time"].form-control,
   .input-group-sm > input[type="time"].input-group-addon,
   .input-group-sm > .input-group-btn > input[type="time"].btn,
+  .post-item
+  .input-group-sm > .input-group-btn > input[type="time"].read-more,
+  .comments-area
+  .input-group-sm > .input-group-btn > input[type="time"].comment-reply-link,
+  .input-group-sm > .form-submit.input-group-btn > input[type="time"].submit,
   input[type="datetime-local"].input-sm,
   .input-group-sm > input[type="datetime-local"].form-control,
   .input-group-sm > input[type="datetime-local"].input-group-addon,
   .input-group-sm > .input-group-btn > input[type="datetime-local"].btn,
+  .post-item
+  .input-group-sm > .input-group-btn > input[type="datetime-local"].read-more,
+  .comments-area
+  .input-group-sm > .input-group-btn > input[type="datetime-local"].comment-reply-link,
+  .input-group-sm > .form-submit.input-group-btn > input[type="datetime-local"].submit,
   input[type="month"].input-sm,
   .input-group-sm > input[type="month"].form-control,
   .input-group-sm > input[type="month"].input-group-addon,
-  .input-group-sm > .input-group-btn > input[type="month"].btn {
+  .input-group-sm > .input-group-btn > input[type="month"].btn,
+  .post-item
+  .input-group-sm > .input-group-btn > input[type="month"].read-more,
+  .comments-area
+  .input-group-sm > .input-group-btn > input[type="month"].comment-reply-link,
+  .input-group-sm > .form-submit.input-group-btn > input[type="month"].submit {
     line-height: 30px; }
   input[type="date"].input-lg, .input-group-lg > input[type="date"].form-control,
   .input-group-lg > input[type="date"].input-group-addon,
-  .input-group-lg > .input-group-btn > input[type="date"].btn,
+  .input-group-lg > .input-group-btn > input[type="date"].btn, .post-item
+  .input-group-lg > .input-group-btn > input[type="date"].read-more, .comments-area
+  .input-group-lg > .input-group-btn > input[type="date"].comment-reply-link,
+  .input-group-lg > .form-submit.input-group-btn > input[type="date"].submit,
   input[type="time"].input-lg,
   .input-group-lg > input[type="time"].form-control,
   .input-group-lg > input[type="time"].input-group-addon,
   .input-group-lg > .input-group-btn > input[type="time"].btn,
+  .post-item
+  .input-group-lg > .input-group-btn > input[type="time"].read-more,
+  .comments-area
+  .input-group-lg > .input-group-btn > input[type="time"].comment-reply-link,
+  .input-group-lg > .form-submit.input-group-btn > input[type="time"].submit,
   input[type="datetime-local"].input-lg,
   .input-group-lg > input[type="datetime-local"].form-control,
   .input-group-lg > input[type="datetime-local"].input-group-addon,
   .input-group-lg > .input-group-btn > input[type="datetime-local"].btn,
+  .post-item
+  .input-group-lg > .input-group-btn > input[type="datetime-local"].read-more,
+  .comments-area
+  .input-group-lg > .input-group-btn > input[type="datetime-local"].comment-reply-link,
+  .input-group-lg > .form-submit.input-group-btn > input[type="datetime-local"].submit,
   input[type="month"].input-lg,
   .input-group-lg > input[type="month"].form-control,
   .input-group-lg > input[type="month"].input-group-addon,
-  .input-group-lg > .input-group-btn > input[type="month"].btn {
+  .input-group-lg > .input-group-btn > input[type="month"].btn,
+  .post-item
+  .input-group-lg > .input-group-btn > input[type="month"].read-more,
+  .comments-area
+  .input-group-lg > .input-group-btn > input[type="month"].comment-reply-link,
+  .input-group-lg > .form-submit.input-group-btn > input[type="month"].submit {
     line-height: 46px; }
 
 .form-group {
@@ -1546,7 +1582,10 @@ fieldset[disabled]
 
 .input-sm, .input-group-sm > .form-control,
 .input-group-sm > .input-group-addon,
-.input-group-sm > .input-group-btn > .btn {
+.input-group-sm > .input-group-btn > .btn, .post-item
+.input-group-sm > .input-group-btn > .read-more, .comments-area
+.input-group-sm > .input-group-btn > .comment-reply-link,
+.input-group-sm > .form-submit.input-group-btn > .submit {
   height: 30px;
   padding: 5px 10px;
   font-size: 12px;
@@ -1555,22 +1594,36 @@ fieldset[disabled]
 
 select.input-sm, .input-group-sm > select.form-control,
 .input-group-sm > select.input-group-addon,
-.input-group-sm > .input-group-btn > select.btn {
+.input-group-sm > .input-group-btn > select.btn, .post-item
+.input-group-sm > .input-group-btn > select.read-more, .comments-area
+.input-group-sm > .input-group-btn > select.comment-reply-link,
+.input-group-sm > .form-submit.input-group-btn > select.submit {
   height: 30px;
   line-height: 30px; }
 
 textarea.input-sm, .input-group-sm > textarea.form-control,
 .input-group-sm > textarea.input-group-addon,
-.input-group-sm > .input-group-btn > textarea.btn,
+.input-group-sm > .input-group-btn > textarea.btn, .post-item
+.input-group-sm > .input-group-btn > textarea.read-more, .comments-area
+.input-group-sm > .input-group-btn > textarea.comment-reply-link,
+.input-group-sm > .form-submit.input-group-btn > textarea.submit,
 select[multiple].input-sm,
 .input-group-sm > select[multiple].form-control,
 .input-group-sm > select[multiple].input-group-addon,
-.input-group-sm > .input-group-btn > select[multiple].btn {
+.input-group-sm > .input-group-btn > select[multiple].btn,
+.post-item
+.input-group-sm > .input-group-btn > select[multiple].read-more,
+.comments-area
+.input-group-sm > .input-group-btn > select[multiple].comment-reply-link,
+.input-group-sm > .form-submit.input-group-btn > select[multiple].submit {
   height: auto; }
 
 .input-lg, .input-group-lg > .form-control,
 .input-group-lg > .input-group-addon,
-.input-group-lg > .input-group-btn > .btn {
+.input-group-lg > .input-group-btn > .btn, .post-item
+.input-group-lg > .input-group-btn > .read-more, .comments-area
+.input-group-lg > .input-group-btn > .comment-reply-link,
+.input-group-lg > .form-submit.input-group-btn > .submit {
   height: 46px;
   padding: 10px 16px;
   font-size: 18px;
@@ -1579,17 +1632,28 @@ select[multiple].input-sm,
 
 select.input-lg, .input-group-lg > select.form-control,
 .input-group-lg > select.input-group-addon,
-.input-group-lg > .input-group-btn > select.btn {
+.input-group-lg > .input-group-btn > select.btn, .post-item
+.input-group-lg > .input-group-btn > select.read-more, .comments-area
+.input-group-lg > .input-group-btn > select.comment-reply-link,
+.input-group-lg > .form-submit.input-group-btn > select.submit {
   height: 46px;
   line-height: 46px; }
 
 textarea.input-lg, .input-group-lg > textarea.form-control,
 .input-group-lg > textarea.input-group-addon,
-.input-group-lg > .input-group-btn > textarea.btn,
+.input-group-lg > .input-group-btn > textarea.btn, .post-item
+.input-group-lg > .input-group-btn > textarea.read-more, .comments-area
+.input-group-lg > .input-group-btn > textarea.comment-reply-link,
+.input-group-lg > .form-submit.input-group-btn > textarea.submit,
 select[multiple].input-lg,
 .input-group-lg > select[multiple].form-control,
 .input-group-lg > select[multiple].input-group-addon,
-.input-group-lg > .input-group-btn > select[multiple].btn {
+.input-group-lg > .input-group-btn > select[multiple].btn,
+.post-item
+.input-group-lg > .input-group-btn > select[multiple].read-more,
+.comments-area
+.input-group-lg > .input-group-btn > select[multiple].comment-reply-link,
+.input-group-lg > .form-submit.input-group-btn > select[multiple].submit {
   height: auto; }
 
 .has-feedback {
@@ -1610,14 +1674,20 @@ select[multiple].input-lg,
 
 .input-lg + .form-control-feedback, .input-group-lg > .form-control + .form-control-feedback,
 .input-group-lg > .input-group-addon + .form-control-feedback,
-.input-group-lg > .input-group-btn > .btn + .form-control-feedback {
+.input-group-lg > .input-group-btn > .btn + .form-control-feedback, .post-item
+.input-group-lg > .input-group-btn > .read-more + .form-control-feedback, .comments-area
+.input-group-lg > .input-group-btn > .comment-reply-link + .form-control-feedback,
+.input-group-lg > .form-submit.input-group-btn > .submit + .form-control-feedback {
   width: 46px;
   height: 46px;
   line-height: 46px; }
 
 .input-sm + .form-control-feedback, .input-group-sm > .form-control + .form-control-feedback,
 .input-group-sm > .input-group-addon + .form-control-feedback,
-.input-group-sm > .input-group-btn > .btn + .form-control-feedback {
+.input-group-sm > .input-group-btn > .btn + .form-control-feedback, .post-item
+.input-group-sm > .input-group-btn > .read-more + .form-control-feedback, .comments-area
+.input-group-sm > .input-group-btn > .comment-reply-link + .form-control-feedback,
+.input-group-sm > .form-submit.input-group-btn > .submit + .form-control-feedback {
   width: 30px;
   height: 30px;
   line-height: 30px; }
@@ -1770,7 +1840,7 @@ select[multiple].input-lg,
   top: 0;
   right: 15px; }
 
-.btn {
+.btn, .post-item .read-more, .comments-area .comment-reply-link, .form-submit > .submit {
   display: inline-block;
   margin-bottom: 0;
   font-weight: normal;
@@ -1788,19 +1858,24 @@ select[multiple].input-lg,
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none; }
-  .btn:focus, .btn:active:focus, .btn.active:focus {
+  .btn:focus, .post-item .read-more:focus, .comments-area .comment-reply-link:focus, .form-submit > .submit:focus, .btn:active:focus, .post-item .read-more:active:focus, .comments-area .comment-reply-link:active:focus, .form-submit > .submit:active:focus, .btn.active:focus, .post-item .active.read-more:focus, .comments-area .active.comment-reply-link:focus, .form-submit > .active.submit:focus {
     outline: thin dotted;
     outline: 5px auto -webkit-focus-ring-color;
     outline-offset: -2px; }
-  .btn:hover, .btn:focus {
+  .btn:hover, .post-item .read-more:hover, .comments-area .comment-reply-link:hover, .form-submit > .submit:hover, .btn:focus, .post-item .read-more:focus, .comments-area .comment-reply-link:focus, .form-submit > .submit:focus {
     color: #333;
     text-decoration: none; }
-  .btn:active, .btn.active {
+  .btn:active, .post-item .read-more:active, .comments-area .comment-reply-link:active, .form-submit > .submit:active, .btn.active, .post-item .active.read-more, .comments-area .active.comment-reply-link, .form-submit > .active.submit {
     outline: 0;
     background-image: none;
     box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125); }
-  .btn.disabled, .btn[disabled],
-  fieldset[disabled] .btn {
+  .btn.disabled, .post-item .disabled.read-more, .comments-area .disabled.comment-reply-link, .form-submit > .disabled.submit, .btn[disabled], .post-item [disabled].read-more, .comments-area [disabled].comment-reply-link, .form-submit > [disabled].submit,
+  fieldset[disabled] .btn,
+  fieldset[disabled] .post-item .read-more, .post-item
+  fieldset[disabled] .read-more,
+  fieldset[disabled] .comments-area .comment-reply-link, .comments-area
+  fieldset[disabled] .comment-reply-link,
+  fieldset[disabled] .form-submit > .submit {
     cursor: not-allowed;
     pointer-events: none;
     opacity: 0.65;
@@ -1972,19 +2047,19 @@ select[multiple].input-lg,
     color: #999999;
     text-decoration: none; }
 
-.btn-lg, .btn-group-lg > .btn {
+.btn-lg, .btn-group-lg > .btn, .post-item .btn-group-lg > .read-more, .comments-area .btn-group-lg > .comment-reply-link, .form-submit.btn-group-lg > .submit {
   padding: 10px 16px;
   font-size: 18px;
   line-height: 1.33;
   border-radius: 6px; }
 
-.btn-sm, .btn-group-sm > .btn {
+.btn-sm, .btn-group-sm > .btn, .post-item .btn-group-sm > .read-more, .comments-area .btn-group-sm > .comment-reply-link, .form-submit.btn-group-sm > .submit {
   padding: 5px 10px;
   font-size: 12px;
   line-height: 1.5;
   border-radius: 3px; }
 
-.btn-xs, .btn-group-xs > .btn {
+.btn-xs, .btn-group-xs > .btn, .post-item .btn-group-xs > .read-more, .comments-area .btn-group-xs > .comment-reply-link, .form-submit.btn-group-xs > .submit {
   padding: 1px 5px;
   font-size: 12px;
   line-height: 1.5;
@@ -2159,23 +2234,51 @@ tbody.collapse.in {
   position: relative;
   display: inline-block;
   vertical-align: middle; }
-  .btn-group > .btn,
-  .btn-group-vertical > .btn {
+  .btn-group > .btn, .post-item .btn-group > .read-more, .comments-area .btn-group > .comment-reply-link, .form-submit.btn-group > .submit,
+  .btn-group-vertical > .btn, .post-item
+  .btn-group-vertical > .read-more, .comments-area
+  .btn-group-vertical > .comment-reply-link,
+  .form-submit.btn-group-vertical > .submit {
     position: relative;
     float: left; }
-    .btn-group > .btn:hover, .btn-group > .btn:focus, .btn-group > .btn:active, .btn-group > .btn.active,
-    .btn-group-vertical > .btn:hover,
-    .btn-group-vertical > .btn:focus,
-    .btn-group-vertical > .btn:active,
-    .btn-group-vertical > .btn.active {
+    .btn-group > .btn:hover, .post-item .btn-group > .read-more:hover, .comments-area .btn-group > .comment-reply-link:hover, .form-submit.btn-group > .submit:hover, .btn-group > .btn:focus, .post-item .btn-group > .read-more:focus, .comments-area .btn-group > .comment-reply-link:focus, .form-submit.btn-group > .submit:focus, .btn-group > .btn:active, .post-item .btn-group > .read-more:active, .comments-area .btn-group > .comment-reply-link:active, .form-submit.btn-group > .submit:active, .btn-group > .btn.active, .post-item .btn-group > .active.read-more, .comments-area .btn-group > .active.comment-reply-link, .form-submit.btn-group > .active.submit,
+    .btn-group-vertical > .btn:hover, .post-item
+    .btn-group-vertical > .read-more:hover, .comments-area
+    .btn-group-vertical > .comment-reply-link:hover,
+    .form-submit.btn-group-vertical > .submit:hover,
+    .btn-group-vertical > .btn:focus, .post-item
+    .btn-group-vertical > .read-more:focus, .comments-area
+    .btn-group-vertical > .comment-reply-link:focus,
+    .form-submit.btn-group-vertical > .submit:focus,
+    .btn-group-vertical > .btn:active, .post-item
+    .btn-group-vertical > .read-more:active, .comments-area
+    .btn-group-vertical > .comment-reply-link:active,
+    .form-submit.btn-group-vertical > .submit:active,
+    .btn-group-vertical > .btn.active, .post-item
+    .btn-group-vertical > .active.read-more, .comments-area
+    .btn-group-vertical > .active.comment-reply-link,
+    .form-submit.btn-group-vertical > .active.submit {
       z-index: 2; }
-    .btn-group > .btn:focus,
-    .btn-group-vertical > .btn:focus {
+    .btn-group > .btn:focus, .post-item .btn-group > .read-more:focus, .comments-area .btn-group > .comment-reply-link:focus, .form-submit.btn-group > .submit:focus,
+    .btn-group-vertical > .btn:focus, .post-item
+    .btn-group-vertical > .read-more:focus, .comments-area
+    .btn-group-vertical > .comment-reply-link:focus,
+    .form-submit.btn-group-vertical > .submit:focus {
       outline: 0; }
 
-.btn-group .btn + .btn,
+.btn-group .btn + .btn, .btn-group .post-item .read-more + .btn, .post-item .btn-group .read-more + .btn, .btn-group .comments-area .comment-reply-link + .btn, .comments-area .btn-group .comment-reply-link + .btn, .btn-group .form-submit > .submit + .btn, .btn-group .post-item .btn + .read-more, .post-item .btn-group .btn + .read-more, .btn-group .post-item .read-more + .read-more, .post-item .btn-group .read-more + .read-more, .btn-group .comments-area .post-item .comment-reply-link + .read-more, .post-item .btn-group .comments-area .comment-reply-link + .read-more, .comments-area .btn-group .post-item .comment-reply-link + .read-more, .post-item .comments-area .btn-group .comment-reply-link + .read-more, .btn-group .post-item .form-submit > .submit + .read-more, .post-item .btn-group .form-submit > .submit + .read-more, .btn-group .comments-area .btn + .comment-reply-link, .comments-area .btn-group .btn + .comment-reply-link, .btn-group .post-item .comments-area .read-more + .comment-reply-link, .comments-area .btn-group .post-item .read-more + .comment-reply-link, .post-item .btn-group .comments-area .read-more + .comment-reply-link, .comments-area .post-item .btn-group .read-more + .comment-reply-link, .btn-group .comments-area .comment-reply-link + .comment-reply-link, .comments-area .btn-group .comment-reply-link + .comment-reply-link, .btn-group .comments-area .form-submit > .submit + .comment-reply-link, .comments-area .btn-group .form-submit > .submit + .comment-reply-link, .btn-group .form-submit > .btn + .submit, .btn-group .post-item .form-submit > .read-more + .submit, .post-item .btn-group .form-submit > .read-more + .submit, .btn-group .comments-area .form-submit > .comment-reply-link + .submit, .comments-area .btn-group .form-submit > .comment-reply-link + .submit, .btn-group .form-submit > .submit + .submit,
 .btn-group .btn + .btn-group,
+.btn-group .post-item .read-more + .btn-group, .post-item
+.btn-group .read-more + .btn-group,
+.btn-group .comments-area .comment-reply-link + .btn-group, .comments-area
+.btn-group .comment-reply-link + .btn-group,
+.btn-group .form-submit > .submit + .btn-group,
 .btn-group .btn-group + .btn,
+.btn-group .post-item .btn-group + .read-more, .post-item
+.btn-group .btn-group + .read-more,
+.btn-group .comments-area .btn-group + .comment-reply-link, .comments-area
+.btn-group .btn-group + .comment-reply-link,
+.btn-group .form-submit > .btn-group + .submit,
 .btn-group .btn-group + .btn-group {
   margin-left: -1px; }
 
@@ -2189,21 +2292,21 @@ tbody.collapse.in {
   .btn-toolbar .btn-group,
   .btn-toolbar .input-group {
     float: left; }
-  .btn-toolbar > .btn,
+  .btn-toolbar > .btn, .post-item .btn-toolbar > .read-more, .comments-area .btn-toolbar > .comment-reply-link, .form-submit.btn-toolbar > .submit,
   .btn-toolbar > .btn-group,
   .btn-toolbar > .input-group {
     margin-left: 5px; }
 
-.btn-group > .btn:not(:first-child):not(:last-child):not(.dropdown-toggle) {
+.btn-group > .btn:not(:first-child):not(:last-child):not(.dropdown-toggle), .post-item .btn-group > .read-more:not(:first-child):not(:last-child):not(.dropdown-toggle), .comments-area .btn-group > .comment-reply-link:not(:first-child):not(:last-child):not(.dropdown-toggle), .form-submit.btn-group > .submit:not(:first-child):not(:last-child):not(.dropdown-toggle) {
   border-radius: 0; }
 
-.btn-group > .btn:first-child {
+.btn-group > .btn:first-child, .post-item .btn-group > .read-more:first-child, .comments-area .btn-group > .comment-reply-link:first-child, .form-submit.btn-group > .submit:first-child {
   margin-left: 0; }
-  .btn-group > .btn:first-child:not(:last-child):not(.dropdown-toggle) {
+  .btn-group > .btn:first-child:not(:last-child):not(.dropdown-toggle), .post-item .btn-group > .read-more:first-child:not(:last-child):not(.dropdown-toggle), .comments-area .btn-group > .comment-reply-link:first-child:not(:last-child):not(.dropdown-toggle), .form-submit.btn-group > .submit:first-child:not(:last-child):not(.dropdown-toggle) {
     border-bottom-right-radius: 0;
     border-top-right-radius: 0; }
 
-.btn-group > .btn:last-child:not(:first-child),
+.btn-group > .btn:last-child:not(:first-child), .post-item .btn-group > .read-more:last-child:not(:first-child), .comments-area .btn-group > .comment-reply-link:last-child:not(:first-child), .form-submit.btn-group > .submit:last-child:not(:first-child),
 .btn-group > .dropdown-toggle:not(:first-child) {
   border-bottom-left-radius: 0;
   border-top-left-radius: 0; }
@@ -2211,15 +2314,15 @@ tbody.collapse.in {
 .btn-group > .btn-group {
   float: left; }
 
-.btn-group > .btn-group:not(:first-child):not(:last-child) > .btn {
+.btn-group > .btn-group:not(:first-child):not(:last-child) > .btn, .post-item .btn-group > .btn-group:not(:first-child):not(:last-child) > .read-more, .comments-area .btn-group > .btn-group:not(:first-child):not(:last-child) > .comment-reply-link, .btn-group > .form-submit.btn-group:not(:first-child):not(:last-child) > .submit {
   border-radius: 0; }
 
-.btn-group > .btn-group:first-child > .btn:last-child,
+.btn-group > .btn-group:first-child > .btn:last-child, .post-item .btn-group > .btn-group:first-child > .read-more:last-child, .comments-area .btn-group > .btn-group:first-child > .comment-reply-link:last-child, .btn-group > .form-submit.btn-group:first-child > .submit:last-child,
 .btn-group > .btn-group:first-child > .dropdown-toggle {
   border-bottom-right-radius: 0;
   border-top-right-radius: 0; }
 
-.btn-group > .btn-group:last-child > .btn:first-child {
+.btn-group > .btn-group:last-child > .btn:first-child, .post-item .btn-group > .btn-group:last-child > .read-more:first-child, .comments-area .btn-group > .btn-group:last-child > .comment-reply-link:first-child, .btn-group > .form-submit.btn-group:last-child > .submit:first-child {
   border-bottom-left-radius: 0;
   border-top-left-radius: 0; }
 
@@ -2227,11 +2330,11 @@ tbody.collapse.in {
 .btn-group.open .dropdown-toggle {
   outline: 0; }
 
-.btn-group > .btn + .dropdown-toggle {
+.btn-group > .btn + .dropdown-toggle, .post-item .btn-group > .read-more + .dropdown-toggle, .comments-area .btn-group > .comment-reply-link + .dropdown-toggle, .form-submit.btn-group > .submit + .dropdown-toggle {
   padding-left: 8px;
   padding-right: 8px; }
 
-.btn-group > .btn-lg + .dropdown-toggle, .btn-group-lg.btn-group > .btn + .dropdown-toggle {
+.btn-group > .btn-lg + .dropdown-toggle, .btn-group-lg.btn-group > .btn + .dropdown-toggle, .post-item .btn-group-lg.btn-group > .read-more + .dropdown-toggle, .comments-area .btn-group-lg.btn-group > .comment-reply-link + .dropdown-toggle, .form-submit.btn-group-lg.btn-group > .submit + .dropdown-toggle {
   padding-left: 12px;
   padding-right: 12px; }
 
@@ -2240,19 +2343,22 @@ tbody.collapse.in {
   .btn-group.open .dropdown-toggle.btn-link {
     box-shadow: none; }
 
-.btn .caret {
+.btn .caret, .post-item .read-more .caret, .comments-area .comment-reply-link .caret, .form-submit > .submit .caret {
   margin-left: 0; }
 
-.btn-lg .caret, .btn-group-lg > .btn .caret {
+.btn-lg .caret, .btn-group-lg > .btn .caret, .post-item .btn-group-lg > .read-more .caret, .comments-area .btn-group-lg > .comment-reply-link .caret, .form-submit.btn-group-lg > .submit .caret {
   border-width: 5px 5px 0;
   border-bottom-width: 0; }
 
-.dropup .btn-lg .caret, .dropup .btn-group-lg > .btn .caret {
+.dropup .btn-lg .caret, .dropup .btn-group-lg > .btn .caret, .dropup .post-item .btn-group-lg > .read-more .caret, .post-item .dropup .btn-group-lg > .read-more .caret, .dropup .comments-area .btn-group-lg > .comment-reply-link .caret, .comments-area .dropup .btn-group-lg > .comment-reply-link .caret, .dropup .form-submit.btn-group-lg > .submit .caret {
   border-width: 0 5px 5px; }
 
-.btn-group-vertical > .btn,
+.btn-group-vertical > .btn, .post-item .btn-group-vertical > .read-more, .comments-area .btn-group-vertical > .comment-reply-link, .form-submit.btn-group-vertical > .submit,
 .btn-group-vertical > .btn-group,
-.btn-group-vertical > .btn-group > .btn {
+.btn-group-vertical > .btn-group > .btn, .post-item
+.btn-group-vertical > .btn-group > .read-more, .comments-area
+.btn-group-vertical > .btn-group > .comment-reply-link,
+.btn-group-vertical > .form-submit.btn-group > .submit {
   display: block;
   float: none;
   width: 100%;
@@ -2265,38 +2371,44 @@ tbody.collapse.in {
 .btn-group-vertical > .btn-group:after {
   clear: both; }
 
-.btn-group-vertical > .btn-group > .btn {
+.btn-group-vertical > .btn-group > .btn, .post-item .btn-group-vertical > .btn-group > .read-more, .comments-area .btn-group-vertical > .btn-group > .comment-reply-link, .btn-group-vertical > .form-submit.btn-group > .submit {
   float: none; }
 
-.btn-group-vertical > .btn + .btn,
-.btn-group-vertical > .btn + .btn-group,
-.btn-group-vertical > .btn-group + .btn,
+.btn-group-vertical > .btn + .btn, .post-item .btn-group-vertical > .read-more + .btn, .comments-area .btn-group-vertical > .comment-reply-link + .btn, .form-submit.btn-group-vertical > .submit + .btn, .post-item .btn-group-vertical > .btn + .read-more, .post-item .btn-group-vertical > .read-more + .read-more, .comments-area .post-item .btn-group-vertical > .comment-reply-link + .read-more, .post-item .comments-area .btn-group-vertical > .comment-reply-link + .read-more, .post-item .form-submit.btn-group-vertical > .submit + .read-more, .comments-area .btn-group-vertical > .btn + .comment-reply-link, .post-item .comments-area .btn-group-vertical > .read-more + .comment-reply-link, .comments-area .post-item .btn-group-vertical > .read-more + .comment-reply-link, .comments-area .btn-group-vertical > .comment-reply-link + .comment-reply-link, .comments-area .form-submit.btn-group-vertical > .submit + .comment-reply-link, .form-submit.btn-group-vertical > .btn + .submit, .post-item .form-submit.btn-group-vertical > .read-more + .submit, .comments-area .form-submit.btn-group-vertical > .comment-reply-link + .submit, .form-submit.btn-group-vertical > .submit + .submit,
+.btn-group-vertical > .btn + .btn-group, .post-item
+.btn-group-vertical > .read-more + .btn-group, .comments-area
+.btn-group-vertical > .comment-reply-link + .btn-group,
+.form-submit.btn-group-vertical > .submit + .btn-group,
+.btn-group-vertical > .btn-group + .btn, .post-item
+.btn-group-vertical > .btn-group + .read-more, .comments-area
+.btn-group-vertical > .btn-group + .comment-reply-link,
+.form-submit.btn-group-vertical > .btn-group + .submit,
 .btn-group-vertical > .btn-group + .btn-group {
   margin-top: -1px;
   margin-left: 0; }
 
-.btn-group-vertical > .btn:not(:first-child):not(:last-child) {
+.btn-group-vertical > .btn:not(:first-child):not(:last-child), .post-item .btn-group-vertical > .read-more:not(:first-child):not(:last-child), .comments-area .btn-group-vertical > .comment-reply-link:not(:first-child):not(:last-child), .form-submit.btn-group-vertical > .submit:not(:first-child):not(:last-child) {
   border-radius: 0; }
 
-.btn-group-vertical > .btn:first-child:not(:last-child) {
+.btn-group-vertical > .btn:first-child:not(:last-child), .post-item .btn-group-vertical > .read-more:first-child:not(:last-child), .comments-area .btn-group-vertical > .comment-reply-link:first-child:not(:last-child), .form-submit.btn-group-vertical > .submit:first-child:not(:last-child) {
   border-top-right-radius: 4px;
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0; }
 
-.btn-group-vertical > .btn:last-child:not(:first-child) {
+.btn-group-vertical > .btn:last-child:not(:first-child), .post-item .btn-group-vertical > .read-more:last-child:not(:first-child), .comments-area .btn-group-vertical > .comment-reply-link:last-child:not(:first-child), .form-submit.btn-group-vertical > .submit:last-child:not(:first-child) {
   border-bottom-left-radius: 4px;
   border-top-right-radius: 0;
   border-top-left-radius: 0; }
 
-.btn-group-vertical > .btn-group:not(:first-child):not(:last-child) > .btn {
+.btn-group-vertical > .btn-group:not(:first-child):not(:last-child) > .btn, .post-item .btn-group-vertical > .btn-group:not(:first-child):not(:last-child) > .read-more, .comments-area .btn-group-vertical > .btn-group:not(:first-child):not(:last-child) > .comment-reply-link, .btn-group-vertical > .form-submit.btn-group:not(:first-child):not(:last-child) > .submit {
   border-radius: 0; }
 
-.btn-group-vertical > .btn-group:first-child:not(:last-child) > .btn:last-child,
+.btn-group-vertical > .btn-group:first-child:not(:last-child) > .btn:last-child, .post-item .btn-group-vertical > .btn-group:first-child:not(:last-child) > .read-more:last-child, .comments-area .btn-group-vertical > .btn-group:first-child:not(:last-child) > .comment-reply-link:last-child, .btn-group-vertical > .form-submit.btn-group:first-child:not(:last-child) > .submit:last-child,
 .btn-group-vertical > .btn-group:first-child:not(:last-child) > .dropdown-toggle {
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0; }
 
-.btn-group-vertical > .btn-group:last-child:not(:first-child) > .btn:first-child {
+.btn-group-vertical > .btn-group:last-child:not(:first-child) > .btn:first-child, .post-item .btn-group-vertical > .btn-group:last-child:not(:first-child) > .read-more:first-child, .comments-area .btn-group-vertical > .btn-group:last-child:not(:first-child) > .comment-reply-link:first-child, .btn-group-vertical > .form-submit.btn-group:last-child:not(:first-child) > .submit:first-child {
   border-top-right-radius: 0;
   border-top-left-radius: 0; }
 
@@ -2305,16 +2417,19 @@ tbody.collapse.in {
   width: 100%;
   table-layout: fixed;
   border-collapse: separate; }
-  .btn-group-justified > .btn,
+  .btn-group-justified > .btn, .post-item .btn-group-justified > .read-more, .comments-area .btn-group-justified > .comment-reply-link, .form-submit.btn-group-justified > .submit,
   .btn-group-justified > .btn-group {
     float: none;
     display: table-cell;
     width: 1%; }
-  .btn-group-justified > .btn-group .btn {
+  .btn-group-justified > .btn-group .btn, .btn-group-justified > .btn-group .post-item .read-more, .post-item .btn-group-justified > .btn-group .read-more, .btn-group-justified > .btn-group .comments-area .comment-reply-link, .comments-area .btn-group-justified > .btn-group .comment-reply-link, .btn-group-justified > .btn-group .form-submit > .submit {
     width: 100%; }
 
-[data-toggle="buttons"] > .btn > input[type="radio"],
-[data-toggle="buttons"] > .btn > input[type="checkbox"] {
+[data-toggle="buttons"] > .btn > input[type="radio"], .post-item [data-toggle="buttons"] > .read-more > input[type="radio"], .comments-area [data-toggle="buttons"] > .comment-reply-link > input[type="radio"], .form-submit[data-toggle="buttons"] > .submit > input[type="radio"],
+[data-toggle="buttons"] > .btn > input[type="checkbox"], .post-item
+[data-toggle="buttons"] > .read-more > input[type="checkbox"], .comments-area
+[data-toggle="buttons"] > .comment-reply-link > input[type="checkbox"],
+.form-submit[data-toggle="buttons"] > .submit > input[type="checkbox"] {
   position: absolute;
   z-index: -1;
   opacity: 0; }
@@ -2361,13 +2476,19 @@ tbody.collapse.in {
   border-radius: 4px; }
   .input-group-addon.input-sm,
   .input-group-sm > .input-group-addon,
-  .input-group-sm > .input-group-btn > .input-group-addon.btn {
+  .input-group-sm > .input-group-btn > .input-group-addon.btn, .post-item
+  .input-group-sm > .input-group-btn > .input-group-addon.read-more, .comments-area
+  .input-group-sm > .input-group-btn > .input-group-addon.comment-reply-link,
+  .input-group-sm > .form-submit.input-group-btn > .input-group-addon.submit {
     padding: 5px 10px;
     font-size: 12px;
     border-radius: 3px; }
   .input-group-addon.input-lg,
   .input-group-lg > .input-group-addon,
-  .input-group-lg > .input-group-btn > .input-group-addon.btn {
+  .input-group-lg > .input-group-btn > .input-group-addon.btn, .post-item
+  .input-group-lg > .input-group-btn > .input-group-addon.read-more, .comments-area
+  .input-group-lg > .input-group-btn > .input-group-addon.comment-reply-link,
+  .input-group-lg > .form-submit.input-group-btn > .input-group-addon.submit {
     padding: 10px 16px;
     font-size: 18px;
     border-radius: 6px; }
@@ -2377,11 +2498,23 @@ tbody.collapse.in {
 
 .input-group .form-control:first-child,
 .input-group-addon:first-child,
-.input-group-btn:first-child > .btn,
-.input-group-btn:first-child > .btn-group > .btn,
+.input-group-btn:first-child > .btn, .post-item
+.input-group-btn:first-child > .read-more, .comments-area
+.input-group-btn:first-child > .comment-reply-link,
+.form-submit.input-group-btn:first-child > .submit,
+.input-group-btn:first-child > .btn-group > .btn, .post-item
+.input-group-btn:first-child > .btn-group > .read-more, .comments-area
+.input-group-btn:first-child > .btn-group > .comment-reply-link,
+.input-group-btn:first-child > .form-submit.btn-group > .submit,
 .input-group-btn:first-child > .dropdown-toggle,
-.input-group-btn:last-child > .btn:not(:last-child):not(.dropdown-toggle),
-.input-group-btn:last-child > .btn-group:not(:last-child) > .btn {
+.input-group-btn:last-child > .btn:not(:last-child):not(.dropdown-toggle), .post-item
+.input-group-btn:last-child > .read-more:not(:last-child):not(.dropdown-toggle), .comments-area
+.input-group-btn:last-child > .comment-reply-link:not(:last-child):not(.dropdown-toggle),
+.form-submit.input-group-btn:last-child > .submit:not(:last-child):not(.dropdown-toggle),
+.input-group-btn:last-child > .btn-group:not(:last-child) > .btn, .post-item
+.input-group-btn:last-child > .btn-group:not(:last-child) > .read-more, .comments-area
+.input-group-btn:last-child > .btn-group:not(:last-child) > .comment-reply-link,
+.input-group-btn:last-child > .form-submit.btn-group:not(:last-child) > .submit {
   border-bottom-right-radius: 0;
   border-top-right-radius: 0; }
 
@@ -2390,11 +2523,23 @@ tbody.collapse.in {
 
 .input-group .form-control:last-child,
 .input-group-addon:last-child,
-.input-group-btn:last-child > .btn,
-.input-group-btn:last-child > .btn-group > .btn,
+.input-group-btn:last-child > .btn, .post-item
+.input-group-btn:last-child > .read-more, .comments-area
+.input-group-btn:last-child > .comment-reply-link,
+.form-submit.input-group-btn:last-child > .submit,
+.input-group-btn:last-child > .btn-group > .btn, .post-item
+.input-group-btn:last-child > .btn-group > .read-more, .comments-area
+.input-group-btn:last-child > .btn-group > .comment-reply-link,
+.input-group-btn:last-child > .form-submit.btn-group > .submit,
 .input-group-btn:last-child > .dropdown-toggle,
-.input-group-btn:first-child > .btn:not(:first-child),
-.input-group-btn:first-child > .btn-group:not(:first-child) > .btn {
+.input-group-btn:first-child > .btn:not(:first-child), .post-item
+.input-group-btn:first-child > .read-more:not(:first-child), .comments-area
+.input-group-btn:first-child > .comment-reply-link:not(:first-child),
+.form-submit.input-group-btn:first-child > .submit:not(:first-child),
+.input-group-btn:first-child > .btn-group:not(:first-child) > .btn, .post-item
+.input-group-btn:first-child > .btn-group:not(:first-child) > .read-more, .comments-area
+.input-group-btn:first-child > .btn-group:not(:first-child) > .comment-reply-link,
+.input-group-btn:first-child > .form-submit.btn-group:not(:first-child) > .submit {
   border-bottom-left-radius: 0;
   border-top-left-radius: 0; }
 
@@ -2405,16 +2550,16 @@ tbody.collapse.in {
   position: relative;
   font-size: 0;
   white-space: nowrap; }
-  .input-group-btn > .btn {
+  .input-group-btn > .btn, .post-item .input-group-btn > .read-more, .comments-area .input-group-btn > .comment-reply-link, .form-submit.input-group-btn > .submit {
     position: relative; }
-    .input-group-btn > .btn + .btn {
+    .input-group-btn > .btn + .btn, .post-item .input-group-btn > .read-more + .btn, .comments-area .input-group-btn > .comment-reply-link + .btn, .form-submit.input-group-btn > .submit + .btn, .post-item .input-group-btn > .btn + .read-more, .post-item .input-group-btn > .read-more + .read-more, .comments-area .post-item .input-group-btn > .comment-reply-link + .read-more, .post-item .comments-area .input-group-btn > .comment-reply-link + .read-more, .post-item .form-submit.input-group-btn > .submit + .read-more, .comments-area .input-group-btn > .btn + .comment-reply-link, .post-item .comments-area .input-group-btn > .read-more + .comment-reply-link, .comments-area .post-item .input-group-btn > .read-more + .comment-reply-link, .comments-area .input-group-btn > .comment-reply-link + .comment-reply-link, .comments-area .form-submit.input-group-btn > .submit + .comment-reply-link, .form-submit.input-group-btn > .btn + .submit, .post-item .form-submit.input-group-btn > .read-more + .submit, .comments-area .form-submit.input-group-btn > .comment-reply-link + .submit, .form-submit.input-group-btn > .submit + .submit {
       margin-left: -1px; }
-    .input-group-btn > .btn:hover, .input-group-btn > .btn:focus, .input-group-btn > .btn:active {
+    .input-group-btn > .btn:hover, .post-item .input-group-btn > .read-more:hover, .comments-area .input-group-btn > .comment-reply-link:hover, .form-submit.input-group-btn > .submit:hover, .input-group-btn > .btn:focus, .post-item .input-group-btn > .read-more:focus, .comments-area .input-group-btn > .comment-reply-link:focus, .form-submit.input-group-btn > .submit:focus, .input-group-btn > .btn:active, .post-item .input-group-btn > .read-more:active, .comments-area .input-group-btn > .comment-reply-link:active, .form-submit.input-group-btn > .submit:active {
       z-index: 2; }
-  .input-group-btn:first-child > .btn,
+  .input-group-btn:first-child > .btn, .post-item .input-group-btn:first-child > .read-more, .comments-area .input-group-btn:first-child > .comment-reply-link, .form-submit.input-group-btn:first-child > .submit,
   .input-group-btn:first-child > .btn-group {
     margin-right: -1px; }
-  .input-group-btn:last-child > .btn,
+  .input-group-btn:last-child > .btn, .post-item .input-group-btn:last-child > .read-more, .comments-area .input-group-btn:last-child > .comment-reply-link, .form-submit.input-group-btn:last-child > .submit,
   .input-group-btn:last-child > .btn-group {
     margin-left: -1px; }
 
@@ -2755,10 +2900,10 @@ tbody.collapse.in {
 .navbar-btn {
   margin-top: 8px;
   margin-bottom: 8px; }
-  .navbar-btn.btn-sm, .btn-group-sm > .navbar-btn.btn {
+  .navbar-btn.btn-sm, .btn-group-sm > .navbar-btn.btn, .post-item .btn-group-sm > .navbar-btn.read-more, .comments-area .btn-group-sm > .navbar-btn.comment-reply-link, .form-submit.btn-group-sm > .navbar-btn.submit {
     margin-top: 10px;
     margin-bottom: 10px; }
-  .navbar-btn.btn-xs, .btn-group-xs > .navbar-btn.btn {
+  .navbar-btn.btn-xs, .btn-group-xs > .navbar-btn.btn, .post-item .btn-group-xs > .navbar-btn.read-more, .comments-area .btn-group-xs > .navbar-btn.comment-reply-link, .form-submit.btn-group-xs > .navbar-btn.submit {
     margin-top: 14px;
     margin-bottom: 14px; }
 
@@ -3041,7 +3186,7 @@ tbody.collapse.in {
   border-radius: .25em; }
   .label:empty {
     display: none; }
-  .btn .label {
+  .btn .label, .post-item .read-more .label, .comments-area .comment-reply-link .label, .form-submit > .submit .label {
     position: relative;
     top: -1px; }
 
@@ -3095,10 +3240,10 @@ a.label:hover, a.label:focus {
   border-radius: 10px; }
   .badge:empty {
     display: none; }
-  .btn .badge {
+  .btn .badge, .post-item .read-more .badge, .comments-area .comment-reply-link .badge, .form-submit > .submit .badge {
     position: relative;
     top: -1px; }
-  .btn-xs .badge, .btn-group-xs > .btn .badge {
+  .btn-xs .badge, .btn-group-xs > .btn .badge, .post-item .btn-group-xs > .read-more .badge, .comments-area .btn-group-xs > .comment-reply-link .badge, .form-submit.btn-group-xs > .submit .badge {
     top: 0;
     padding: 1px 5px; }
   a.list-group-item.active > .badge,
@@ -9706,10 +9851,12 @@ body {
   filter: alpha(opacity=0); }
 
 a {
+  color: #4A96AD;
   transition: all 0.2s ease-in; }
   a:hover, a:focus, a:active {
     text-decoration: none;
-    outline: none; }
+    outline: none;
+    color: #4A96AD; }
 
 :active,
 :focus {
@@ -9722,6 +9869,14 @@ a {
 ::selection {
   background: #000;
   color: #FFF; }
+
+::-moz-focus-inner,
+a::-moz-focus-inner,
+button::-moz-focus-inner {
+  border: 0; }
+
+:focus {
+  outline: none !important; }
 
 ::-moz-focus-inner {
   border: 0; }
@@ -9817,8 +9972,8 @@ p {
   position: fixed;
   bottom: 0px;
   left: 50%;
-  margin-left: -50px;
-  width: 100px;
+  margin-left: -75px;
+  width: 150px;
   display: inline-block;
   background-color: rgba(239, 76, 35, 0.8);
   z-index: 10000;
@@ -9939,12 +10094,144 @@ p {
   margin-top: 51px;
   /* height of header */ }
 
+/* Margin Helpers */
+.m1 {
+  margin: 15px; }
+
+.m2 {
+  margin: 30px; }
+
+.m3 {
+  margin: 45px; }
+
+.m4 {
+  margin: 60px; }
+
+.m1t {
+  margin-top: 15px; }
+
+.m1r {
+  margin-right: 15px; }
+
+.m1b {
+  margin-bottom: 15px; }
+
+.m1l {
+  margin-left: 15px; }
+
+.m2t {
+  margin-top: 30px; }
+
+.m2r {
+  margin-right: 30px; }
+
+.m2b {
+  margin-bottom: 30px; }
+
+.m2l {
+  margin-left: 30px; }
+
+.m3t {
+  margin-top: 45px; }
+
+.m3r {
+  margin-right: 45px; }
+
+.m3b {
+  margin-bottom: 45px; }
+
+.m3l {
+  margin-left: 45px; }
+
+.m4t {
+  margin-top: 60px; }
+
+.m4r {
+  margin-right: 60px; }
+
+.m4b {
+  margin-bottom: 60px; }
+
+.m4l {
+  margin-left: 60px; }
+
+/* Padding Helpers */
+.p1 {
+  padding: 15px; }
+
+.p2 {
+  padding: 30px; }
+
+.p3 {
+  padding: 45px; }
+
+.p4 {
+  padding: 60px; }
+
+.p1t {
+  padding-top: 15px; }
+
+.p1r {
+  padding-right: 15px; }
+
+.p1b {
+  padding-bottom: 15px; }
+
+.p1l {
+  padding-left: 15px; }
+
+.p2t {
+  padding-top: 30px; }
+
+.p2r {
+  padding-right: 30px; }
+
+.p2b {
+  padding-bottom: 30px; }
+
+.p2l {
+  padding-left: 30px; }
+
+.p3t {
+  padding-top: 45px; }
+
+.p3r {
+  padding-right: 45px; }
+
+.p3b {
+  padding-bottom: 45px; }
+
+.p3l {
+  padding-left: 45px; }
+
+.p4t {
+  padding-top: 60px; }
+
+.p4r {
+  padding-right: 60px; }
+
+.p4b {
+  padding-bottom: 60px; }
+
+.p4l {
+  padding-left: 60px; }
+
 /* Components */
 /* GLOBAL BUTTONS
 input[type=submit] {
   @extend .btn;
 }
 ======================== */
+.btn, .post-item .read-more, .comments-area .comment-reply-link, .form-submit > .submit {
+  background-color: rgba(239, 76, 35, 0.8);
+  display: inline-block;
+  padding: 7px 20px;
+  font-weight: bold;
+  color: #FFF;
+  border-radius: 0;
+  background-clip: padding-box;
+  /* stops bg color from leaking outside the border: */ }
+
 /* INPUTS
 .gf_wrapper input[type=text] {
   @extend %input;
@@ -10008,9 +10295,50 @@ body.no-touch .flex-img-gallery .image-wrap:hover .overlay {
   background-color: rgba(0, 0, 0, 0.6);
   z-index: 10; }
 
+.post-item .wp-post-image {
+  width: 100%;
+  height: auto; }
+
+.post-item .post-title {
+  margin-bottom: 0px; }
+
+.post-item .post-meta {
+  font-size: .8rem;
+  margin-bottom: .5rem; }
+
+.comments-area > .comments-title {
+  font-size: 1.5rem;
+  margin-bottom: 15px; }
+
+.comments-area .comment-body {
+  padding: 15px 0;
+  border-bottom: 1px solid #ccc; }
+
+.comments-area .comment-meta {
+  font-size: .8rem; }
+
+.comments-area .comment-author .avatar {
+  margin-right: 15px;
+  float: left; }
+
+.comments-area .comment-author .fn {
+  line-height: 32px;
+  float: left; }
+
+.comments-area .comment-metadata {
+  clear: both;
+  padding: 15px 0; }
+
 /* Layout */
 /* NAVIGATION */
 .navbar {
   margin-bottom: 0; }
+
+.comment-form textarea,
+.comment-form input {
+  border: 1px solid #ccc; }
+
+.comment-form label {
+  width: 100%; }
 
 /* Templates */
