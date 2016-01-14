@@ -6,10 +6,11 @@
 
 get_header(); ?>
 
+<main id="page-main" role="main">
 
 	<div class="container">
 		<div class="row">
-		
+
 				<div class="col-sm-8">
 
 					<section class="error-404 not-found">
@@ -53,12 +54,13 @@ get_header(); ?>
 					</section><!-- .error-404 -->
 
 				</div><!-- /col -->
-		
+
 
 			<?php get_sidebar(); ?>
 
 		</div><!-- /row -->
 	</div><!-- /container -->
-
+</main>
+<!-- #page-main -->
 
 <?php get_footer();

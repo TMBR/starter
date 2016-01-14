@@ -3,6 +3,8 @@
 ?>
 <?php get_header(); ?>
 
+<main id="page-main" role="main">
+
 	<?php if ( have_posts() ) while ( have_posts() ) : the_post(); ?>
 
 	<div id="primary" class="content-area">
@@ -21,5 +23,7 @@
 	</div><!-- #primary -->
 
 	<?php endwhile; // end of the loop. ?>
+</main>
+<!-- #page-main -->
 
 <?php get_footer(); ?>

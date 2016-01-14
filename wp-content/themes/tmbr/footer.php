@@ -1,8 +1,3 @@
-
-</main>
-<!-- #page-main -->
-
-
 <footer id="footer" role="contentinfo" itemscope="itemscope" itemtype="http://schema.org/WPFooter">
 	<div class="container">
 		<div class="row">

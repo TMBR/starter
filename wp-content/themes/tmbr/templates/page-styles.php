@@ -4,17 +4,20 @@ Template Name: x-Style Guide-x
 */
 
 get_header(); ?>
+<main id="page-main" role="main">
+
+
 <?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
 
 
 <?php get_template_part('/partials/global/child-nav'); ?>
 
 <div id="page-wrap">
-		
+
 	<div class="container">
 		<div class="row">
-		
-			<div class="col-lg-10 col-lg-offset-1 col-xs-12">		
+
+			<div class="col-lg-10 col-lg-offset-1 col-xs-12">
 				<h1 class="text-center"><?php the_title(); ?></h1>
 				<h2 class="fw-black uppercase">Headers</h2>
 				<div class="row">
@@ -43,10 +46,10 @@ get_header(); ?>
 				</div><!-- /row -->
 				<hr/>
 				<h2 class="fw-black uppercase">Typography</h2>
-				
+
 				<p><code>&lt;h4 class="emphasis&gt;Header with Underline&lt;/h4&gt;</code></p>
 				<h4 class="emphasis">Header with Underline</h4>
-				
+
 				<hr>
 				<div class="row">
 					<div class="col-xs-4"><code>&lt;p class="lead"&gt;...&lt;/p&gt;</code></div><!-- /col -->
@@ -89,8 +92,8 @@ get_header(); ?>
 					<div class="col-md-12" style="margin-top: 15px;">
 					<a href="http://www.climbwyoming.org" class="btn btn-blue btn-block">Full Width Button</a>
 					</div><!-- /col -->
-					
-					
+
+
 				</div><!-- /row -->
 				<hr/>
 				<h4><strong>Example 3:</strong> A button that opens the link in a new tab</h4>
@@ -99,7 +102,7 @@ get_header(); ?>
 				<br/>
 				<p><strong>The only value available for target is:</strong> <code>blank</code>.</p>
 				<hr/>
-			
+
 				<h2 class="fw-black uppercase">Colors</h2>
 				<p class="lead">Set the color of text with the following classes:</p>
 				<div class="row">
@@ -114,15 +117,18 @@ get_header(); ?>
 					<div class="col-xs-3"><code>&lt;p class="gray"&gt;...&lt;/p&gt;</code></div><!-- /col -->
 					<div class="col-xs-9"><p class="gray">This text is gray</p></div><!-- /col -->
 				</div><!-- /row -->
-				
+
 				<br/>
-				
+
 			</div><!-- /col -->
-		
+
 		</div><!-- /row -->
-		
+
 	</div><!-- /container -->
 </div><!-- #page-wrap -->
 
 <?php endwhile; endif; ?>
+</main>
+<!-- #page-main -->
+
 <?php get_footer(); ?>

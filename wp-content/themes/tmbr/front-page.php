@@ -4,7 +4,7 @@
 // Hero Slider
 get_template_part( 'partials/slider/home-hero' ); ?>
 
-
+<main id="page-main" role="main">
 	<div class="container">
 
 		<div class="row">
@@ -43,6 +43,7 @@ get_template_part( 'partials/slider/home-hero' ); ?>
 
 		</div><!-- /row -->
 	</div><!-- /container -->
-
+</main>
+<!-- #page-main -->
 
 <?php get_footer();

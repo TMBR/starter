@@ -42,5 +42,3 @@
       <?php get_template_part( 'partials/header/fixed-nav' ); ?>
     </header>
     <!-- #header -->
-
-    <main id="page-main" role="main">
