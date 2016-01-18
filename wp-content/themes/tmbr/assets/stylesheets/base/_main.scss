@@ -59,6 +59,7 @@ button::-moz-focus-inner {
 h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6 {
 	margin-top: 0;
 	@include heading-font();
+	color : $heading-color;
 }
 
 h1,
@@ -96,4 +97,5 @@ p {
 	margin-bottom: 2rem;
 }
 
-
+ul { margin: 0; padding: 0px;}
+li {margin: 0px; padding: 0px; list-style: none;}

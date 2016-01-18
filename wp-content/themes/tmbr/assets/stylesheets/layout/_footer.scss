@@ -1,0 +1,44 @@
+#footer {
+	padding: 3rem 0;
+	background-color: $heading-color;
+	color: $white;
+
+	a {color: $white}
+
+	.copyright {
+		text-align: center;
+		font-size: .8rem;
+		color: $border-color;
+		margin: 4rem 0 0 0;
+	}
+
+	.list-title{
+		@extend .widgettitle;
+		color: $white;
+	}
+}
+
+
+
+#footer .menu {
+
+	> li a {
+		font-size: .8rem;
+		display: block;
+		padding: .4rem 0;
+	}
+
+	@include respond-to($screen-xs) {
+		margin-bottom: 3rem;
+		text-align: center;
+		> li a {
+			font-size: 1rem;
+		}
+	}
+}
+
+body.no-touch {
+	#footer {
+		a:hover { color: $border-color}
+	}
+}
