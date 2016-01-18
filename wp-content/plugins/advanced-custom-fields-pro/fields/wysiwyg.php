@@ -275,6 +275,14 @@ class acf_field_wysiwyg extends acf_field {
 		}
 		
 		
+		// must be logged in tp upload
+		if( !current_user_can('upload_files') ) {
+			
+			$field['media_upload'] = 0;
+			
+		}
+		
+		
 		// mode
 		$switch_class = ($default_editor === 'html') ? 'html-active' : 'tmce-active';
 		

@@ -106,6 +106,10 @@ http://support.advancedcustomfields.com/
 
 == Changelog ==
 
+= 5.3.3.1 =
+* Tab field: Fixed bug causing issues with conditional logic
+* WYSIWYG field: Fixed PHP error on front end form
+
 = 5.3.3 =
 * Google Maps field: Fixed bug where pasting value did not trigger auto complete
 * Select field: Improved Select2 search matching for special characters
@@ -115,7 +119,7 @@ http://support.advancedcustomfields.com/
 * oEmbed field: Added compatibility for custom oEmbed handlers
 * Flexible Content field: Fixed bug causing sub fields to move when duplicating layouts
 * Core: Added new translation settings 'l10n', 'l10n_textdomain', 'l10n_field' and 'l10n_field_group'
-* core: Improved Export to PHP feature which now uses the above translation settings
+* Core: Improved Export to PHP feature which now uses the above translation settings
 * Core: Fixed PHP error preventing new field groups from loading when editing a post
 * Core: Added hierarchy to taxonomy terms shown in drop down elements
 * Core: Improved update logic to ignore plugin when included within a theme / plugin

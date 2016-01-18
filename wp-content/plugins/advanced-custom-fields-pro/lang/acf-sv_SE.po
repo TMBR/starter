@@ -37,7 +37,7 @@ msgstr "Fältgrupp"
 #: acf.php:268 acf.php:300 admin/admin.php:62
 #: pro/fields/flexible-content.php:505
 msgid "Add New"
-msgstr "Nytt fält"
+msgstr "Lägg till ny"
 
 #: acf.php:269
 msgid "Add New Field Group"
@@ -469,7 +469,7 @@ msgstr "Importfilen är tom"
 #: admin/settings-tools.php:323
 #, php-format
 msgid "<b>Success</b>. Import tool added %s field groups: %s"
-msgstr "<b>Framgång</b>. Importverktyg tillagt %s fältgrupper: %s"
+msgstr "<b>Framgång</b>. Importverktyg lade till %s fältgrupper: %s"
 
 #: admin/settings-tools.php:332
 #, php-format
@@ -531,12 +531,12 @@ msgstr "Visa detta fält när"
 #: admin/views/field-group-field-conditional-logic.php:111
 #: admin/views/field-group-locations.php:34
 msgid "is equal to"
-msgstr "är lika med"
+msgstr "är"
 
 #: admin/views/field-group-field-conditional-logic.php:112
 #: admin/views/field-group-locations.php:35
 msgid "is not equal to"
-msgstr "inte är lika med"
+msgstr "inte är"
 
 #: admin/views/field-group-field-conditional-logic.php:149
 #: admin/views/field-group-locations.php:122

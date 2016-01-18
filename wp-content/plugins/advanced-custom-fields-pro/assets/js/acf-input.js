@@ -2317,71 +2317,71 @@ var acf;
 		},
 		
 		// sortstart
-		_sortstart: function( $el ){
+		_sortstart: function( $el, $placeholder ){
 		
 			acf.get_fields('', $el).each(function(){
 				
-				acf.do_action('sortstart_field', $(this));
+				acf.do_action('sortstart_field', $(this), $placeholder);
 				
 			});
 			
 		},
 		
-		_sortstart_field: function( $el ){
+		_sortstart_field: function( $el, $placeholder ){
 		
-			acf.do_action('sortstart_field/type=' + acf.get_field_type($el), $el);
+			acf.do_action('sortstart_field/type=' + acf.get_field_type($el), $el, $placeholder);
 			
 		},
 		
 		// sortstop
-		_sortstop: function( $el ){
+		_sortstop: function( $el, $placeholder ){
 		
 			acf.get_fields('', $el).each(function(){
 				
-				acf.do_action('sortstop_field', $(this));
+				acf.do_action('sortstop_field', $(this), $placeholder);
 				
 			});
 			
 		},
 		
-		_sortstop_field: function( $el ){
+		_sortstop_field: function( $el, $placeholder ){
 		
-			acf.do_action('sortstop_field/type=' + acf.get_field_type($el), $el);
+			acf.do_action('sortstop_field/type=' + acf.get_field_type($el), $el, $placeholder);
 			
 		},
 		
 		
 		// hide
-		_hide: function( $el ){
+		_hide: function( $el, context ){
 		
 			acf.get_fields('', $el).each(function(){
 				
-				acf.do_action('hide_field', $(this));
+				acf.do_action('hide_field', $(this), context);
 				
 			});
 			
 		},
 		
-		_hide_field: function( $el ){
+		_hide_field: function( $el, context ){
 		
-			acf.do_action('hide_field/type=' + acf.get_field_type($el), $el);
+			acf.do_action('hide_field/type=' + acf.get_field_type($el), $el, context);
 			
 		},
 		
 		// show
-		_show: function( $el ){
+		_show: function( $el, context ){
 		
 			acf.get_fields('', $el).each(function(){
 				
-				acf.do_action('show_field', $(this));
+				acf.do_action('show_field', $(this), context);
 				
 			});
 			
 		},
 		
-		_show_field: function( $el ){
+		_show_field: function( $el, context ){
 		
-			acf.do_action('show_field/type=' + acf.get_field_type($el), $el);
+			acf.do_action('show_field/type=' + acf.get_field_type($el), $el, context);
 			
 		}
 		
