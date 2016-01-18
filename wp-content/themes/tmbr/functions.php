@@ -20,7 +20,7 @@ get_template_part( 'inc/options-pages' );
 
 // get_template_part( 'inc/register-post-type' );
 // get_template_part( 'inc/register-taxonomy' );
-// get_template_part( 'inc/register-sidebars' );
+get_template_part( 'inc/register-sidebars' );
 get_template_part( 'inc/register-menus' );
 get_template_part( 'inc/custom-img-size' );
 

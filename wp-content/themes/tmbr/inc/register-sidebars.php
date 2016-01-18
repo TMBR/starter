@@ -13,6 +13,12 @@ if (function_exists('register_sidebar')) {
 		'before_title'  => '<h4>',
 		'after_title'   => '</h4>'
 	));
-	}
+}
 
-?>
+if (function_exists('register_sidebars')) {
+	register_sidebars(4, array(
+		'name'=>'Footer %d',
+		'before_title'  => '<h4 class="list-title">',
+		'after_title'   => '</h4>'
+	));
+}
