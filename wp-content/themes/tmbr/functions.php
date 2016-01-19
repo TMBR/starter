@@ -18,6 +18,8 @@ get_template_part( 'inc/options-pages' );
 
 // Customization
 
+// Navigation walker for bootstrap nav
+require_once('inc/wp_bootstrap_navwalker.php' );
 // get_template_part( 'inc/register-post-type' );
 // get_template_part( 'inc/register-taxonomy' );
 get_template_part( 'inc/register-sidebars' );

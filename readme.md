@@ -13,3 +13,6 @@ Sample local wp conf - https://gist.github.com/bmodena/34fec09f4d92dbd034f6
 2.
 3.
 4.
+
+## Resources
+- WP Nav Crawler http://twittem.github.io/wp-bootstrap-navwalker/
