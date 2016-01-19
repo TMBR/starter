@@ -119,10 +119,16 @@
 @import "base/layout";
 @import "base/helpers";
 
+/* Layout */
+@import "layout/header";
+@import "layout/footer";
+@import "layout/forms";
+@import "layout/widgets";
+@import "layout/comments";
+
 /* Components */
 @import "components/buttons";
 @import "components/forms";
-@import "components/widgets";
 @import "components/preloader";
 @import "components/flex-center-text";
 @import "components/flex-left-right-img-copy";
@@ -131,10 +137,7 @@
 @import "components/post-item";
 @import "components/comments";
 
-/* Layout */
-@import "layout/header";
-@import "layout/footer";
-@import "layout/forms";
+
 
 /* Templates */
 @import "templates/home";

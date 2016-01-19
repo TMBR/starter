@@ -38,16 +38,13 @@
   <?php } } else { ?>
 
     <li>
-      <img src="http://placehold.it/800x400/e2e2e2/FFFFFF" />
+      <img src="http://placehold.it/1680x945/e2e2e2/FFFFFF" />
     </li>
     <li>
-      <img src="http://placehold.it/800x400/e2e2e2/FFFFFF" />
+      <img src="http://placehold.it/1680x945/e4e4e4/FFFFFF" />
     </li>
     <li>
-      <img src="http://placehold.it/800x400/e2e2e2/FFFFFF" />
-    </li>
-    <li>
-      <img src="http://placehold.it/800x400/e2e2e2/FFFFFF" />
+      <img src="http://placehold.it/1680x945/e8e8e8/FFFFFF" />
     </li>
 
   <?php } ?>
