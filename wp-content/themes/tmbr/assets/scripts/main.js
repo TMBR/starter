@@ -88,14 +88,14 @@
 		Preloader: function() {
 
 			$(window).load(function() {
-				$('#preloader .spinner').delay(100).fadeOut(300, function() {
-					$('.body').animate({
+				setTimeout(function() {
+					$('.js-sitewrap').animate({
 						opacity: 1
-					}, 300);
-					$(this).parent().delay(300).fadeOut(500, function() {
+					}, 1500);
+					$('#preloader').fadeOut(1800, function() {
 						SiteApp.Animated();
 					});
-				});
+				}, 3000); // delay 100 ms
 			});
 
 		},
