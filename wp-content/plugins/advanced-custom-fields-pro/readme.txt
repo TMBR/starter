@@ -106,6 +106,11 @@ http://support.advancedcustomfields.com/
 
 == Changelog ==
 
+= 5.3.3.2 =
+* Core: Fixed bug preventing new translation settings 'l10n_field' and 'l10n_field_group'
+* Core: Fixed bug preventing plugin updates when included within theme
+* Core: Added `esc_html()` to field label
+
 = 5.3.3.1 =
 * Tab field: Fixed bug causing issues with conditional logic
 * WYSIWYG field: Fixed PHP error on front end form

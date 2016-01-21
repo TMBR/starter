@@ -178,7 +178,7 @@ function acf_get_valid_field( $field = false ) {
 	
 	
 	// translate
-	acf_translate_keys( $field, acf_get_setting('l10n_field') );
+	$field = acf_translate_keys( $field, acf_get_setting('l10n_field') );
 	
 	
 	// field specific defaults
@@ -300,7 +300,7 @@ function acf_is_sub_field( $field ) {
 function acf_get_field_label( $field ) {
 	
 	// vars
-	$label = $field['label'];
+	$label = esc_html($field['label']);
 	
 	
 	if( $field['required'] ) {
