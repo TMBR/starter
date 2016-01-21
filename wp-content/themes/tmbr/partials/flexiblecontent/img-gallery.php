@@ -17,6 +17,7 @@ if( $images ): ?>
                 </a>
             </li>
         <?php endforeach; ?>
+        <div class="clear"></div>
     </ul>
 </div>
 

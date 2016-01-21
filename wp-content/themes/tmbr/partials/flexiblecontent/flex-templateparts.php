@@ -34,6 +34,10 @@
 				// img gallery
 				get_template_part( 'partials/flexiblecontent/img-gallery' );
 
+	        elseif( get_row_layout() == 'events_group' ):
+				// img gallery
+				get_template_part( 'partials/flexiblecontent/events-lists' );
+
 	        endif;
 
 	    endwhile;

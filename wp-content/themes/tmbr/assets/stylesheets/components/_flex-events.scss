@@ -1,0 +1,10 @@
+.homepage-events {
+	.event-card{
+		width: 25%;
+		float: left;
+	}
+}
+
+.event-card{
+	> .event-image {max-width: 100%}
+}

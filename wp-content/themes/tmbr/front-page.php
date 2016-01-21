@@ -11,6 +11,10 @@ get_template_part( 'partials/slider/home-hero' ); ?>
 
 				<div class="col-sm-8">
 
+					<div class="homepage-events">
+						<?php get_template_part( 'partials/flexiblecontent/events-lists' ); ?>
+					</div>
+
 					<?php while ( have_posts() ) : the_post(); ?>
 							<?php get_template_part( 'partials/loops/page-loop' ); ?>
 					<?php endwhile; // end of the loop. ?>

@@ -91,11 +91,11 @@
 				setTimeout(function() {
 					$('.js-sitewrap').animate({
 						opacity: 1
-					}, 1500);
-					$('#preloader').fadeOut(1800, function() {
+					}, 300);
+					$('#preloader').fadeOut(300, function() {
 						SiteApp.Animated();
 					});
-				}, 3000); // delay 100 ms
+				}, 300); // delay 300 ms
 			});
 
 		},

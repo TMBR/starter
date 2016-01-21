@@ -31,6 +31,8 @@ get_template_part( 'inc/custom-img-size' );
 // get_template_part( 'inc/is-tree' ); // is tree relation
 // get_template_part( 'inc/shortcodes' );
 
+// Valid constant names
+define("DEFAULTIMAGE", "http://placehold.it/500x500/e2e2e2/FFFFFF");
 
 
 
