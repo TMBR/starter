@@ -12,7 +12,11 @@ get_template_part( 'partials/slider/home-hero' ); ?>
 				<div class="col-sm-8">
 
 					<div class="homepage-events">
-						<?php get_template_part( 'partials/flexiblecontent/events-lists' ); ?>
+						<?php
+						global $sectiontitle;
+						$sectiontitle = "Events";
+
+						get_template_part( 'partials/flexiblecontent/events-lists' ); ?>
 					</div>
 
 					<?php while ( have_posts() ) : the_post(); ?>
