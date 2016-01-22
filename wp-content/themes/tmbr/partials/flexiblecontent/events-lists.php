@@ -12,8 +12,14 @@ if( class_exists( 'Tribe__Events__Main' ) ) { ?>
 <div class="flex-events">
 
 	<?php
-	if( get_sub_field('section_title') ){ ?>
-		<h2 class="subtitle"><?php echo get_sub_field('section_title'); ?></h2>
+
+	// Set up Section title
+	global $sectiontitle;
+	if( get_sub_field('section_title') ){
+		$sectiontitle = get_sub_field('section_title');
+	}
+	if ($sectiontitle) { ?>
+		<h2 class="subtitle"><?php echo esc_html($sectiontitle) ?></h2>
 	<?php }
 
 	if( get_sub_field('event_taxonomy') ){
@@ -26,8 +32,10 @@ if( class_exists( 'Tribe__Events__Main' ) ) { ?>
 
 	if (!isset($numberevents)) { $numberevents = 4;}
 
+	global $post;
+
 	if (isset($eventtaxonomy)) {
-		$posts = tribe_get_events(array(
+		$events = tribe_get_events(array(
 			'eventDisplay' => 'list',
 			'posts_per_page' => $numberevents,
 			'tax_query' => array(
@@ -39,13 +47,13 @@ if( class_exists( 'Tribe__Events__Main' ) ) { ?>
 			)
 		));
 	} else {
-		$posts = tribe_get_events(array(
+		$events = tribe_get_events(array(
 			'eventDisplay' => 'list',
 			'posts_per_page' => $numberevents
 		));
 	}
 
-	foreach ( $posts as $post ) {
+	foreach ( $events as $post ) :
 
 		setup_postdata( $post );
 		$date = $post->EventStartDate;
@@ -59,17 +67,22 @@ if( class_exists( 'Tribe__Events__Main' ) ) { ?>
 		?>
 
 		<div class="event-card">
-		    <img class="event-image" src="<?php echo $url; ?>" alt=""/>
 			<a class="event-link" href="<?php the_permalink(); ?>">
-				<h3 class="event-title"><?php the_title();?></h3>
-				<p class="event-date"><?php echo $formatted_date; ?></p>
-				<p class="event-excerpt"><?php echo TMBR_excerpt(34); ?></p>
+				<div class="img-wrap">
+			    	<img class="event-image" src="<?php echo $url; ?>" alt=""/>
+				</div>
+				<div class="copy-wrap">
+					<h4 class="event-title"><?php the_title();?></h4>
+					<p class="event-date"><?php echo $formatted_date; ?></p>
+					<p class="event-excerpt"><?php echo TMBR_excerpt(34); ?></p>
+				</div>
 			</a>
 		</div><!-- / event card -->
 
-	<?php }
+	<?php endforeach;
 
 	wp_reset_postdata(); ?>
+	<div class="clear"></div>
 </div>
 
 <?php } else {
