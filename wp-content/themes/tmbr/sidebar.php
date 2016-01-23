@@ -15,21 +15,21 @@
 
 			<li class="widget">
 				<ul class="menu">
-					<h2 class="list-title">Pages</h2>
+					<h4 class="list-title">Pages</h4>
 					<?php wp_list_pages('title_li='); ?>
 				</ul>
 			</li>
 
 			<li class="widget">
 				<ul class="menu">
-					<h2 class="list-title">Categories</h2>
+					<h4 class="list-title">Categories</h4>
 			        <?php wp_list_categories('show_count=0&title_li='); ?>
 				</ul>
 			</li>
 
 			<li class="widget">
 				<ul class="menu">
-					<h2 class="list-title">Articles by month</h2>
+					<h4 class="list-title">Articles by month</h4>
 			        <?php wp_get_archives('title_li=&type=monthly'); ?>
 				</ul>
 			</li>

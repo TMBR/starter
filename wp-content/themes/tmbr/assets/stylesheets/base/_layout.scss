@@ -85,6 +85,20 @@
 	 @include make-grid(xxs);
 }
 
+/* set Cols to equal height
+http://stackoverflow.com/questions/31800298/how-to-make-bootstrap-columns-the-same-height-in-a-row
+
+==================================== */
+.row-eq-height{
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+}
+.row-eq-height [class*="col-"]{
+  padding: 0;
+}
+
 /* PUSH BODY DOWN SO NOT BLOCKED BY FIXED HEADER
 ================================================ */
 #page-main {
