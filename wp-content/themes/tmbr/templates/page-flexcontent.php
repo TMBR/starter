@@ -14,7 +14,7 @@
 
 					<?php
 					// Get Flex Template partials
-					get_template_part( 'partials/flexiblecontent/flex-templateparts' );
+					get_template_part( 'partials/flex/get-layouts' );
 					?>
 
 				</main>
