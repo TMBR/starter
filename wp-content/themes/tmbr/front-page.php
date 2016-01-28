@@ -16,7 +16,7 @@ get_template_part( 'partials/slider/home-hero' ); ?>
 						global $sectiontitle;
 						$sectiontitle = "Events";
 
-						get_template_part( 'partials/flexiblecontent/events-lists' ); ?>
+						get_template_part( 'partials/flex/layout/events-lists' ); ?>
 					</div>
 
 					<?php while ( have_posts() ) : the_post(); ?>
