@@ -1,5 +1,6 @@
 	<?php
-
+	// Q? this should live in a seperate partial 
+	
 	// If content in page editor - display standard content
 	if( get_the_content() != '' && get_field('hide_main_content') === false ){
 		// page intro
