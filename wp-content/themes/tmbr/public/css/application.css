@@ -9846,7 +9846,7 @@ body {
   font-style: normal;
   font-weight: 400; }
 
-.body {
+.site-wrap {
   opacity: 0;
   filter: alpha(opacity=0); }
 
@@ -10098,10 +10098,22 @@ li {
   .col-xxs-offset-12 {
     margin-left: 100%; } }
 
+/* set Cols to equal height
+http://stackoverflow.com/questions/31800298/how-to-make-bootstrap-columns-the-same-height-in-a-row
+
+==================================== */
+.row-eq-height {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex; }
+
+.row-eq-height [class*="col-"] {
+  padding: 0; }
+
 /* PUSH BODY DOWN SO NOT BLOCKED BY FIXED HEADER
 ================================================ */
 #page-main {
-  margin-top: 51px;
+  margin-top: 50px;
   /* height of header */ }
 
 .verticalcenter {
@@ -10434,6 +10446,32 @@ body.no-touch .flex-img-gallery .image-wrap:hover .overlay {
   top: 0px;
   background-color: rgba(0, 0, 0, 0.6);
   z-index: 10; }
+
+.homepage-events .event-card {
+  width: 23%;
+  padding: 1%;
+  float: left; }
+
+.event-card {
+  position: relative; }
+  .event-card .img-wrap {
+    position: relative; }
+    .event-card .img-wrap .event-image {
+      max-width: 100%; }
+  .event-card .copy-wrap {
+    position: relative;
+    text-align: center;
+    padding: .25rem;
+    overflow: hidden; }
+    .event-card .copy-wrap > .event-title {
+      font-size: 1.5rem;
+      margin: 0; }
+    .event-card .copy-wrap > .event-date {
+      color: #333333;
+      font-size: .8rem;
+      margin: 0; }
+    .event-card .copy-wrap > .event-excerpt {
+      color: #333333; }
 
 .post-item .wp-post-image {
   width: 100%;

@@ -135,14 +135,14 @@ _throttle = function(func, wait, options) {
 		Preloader: function() {
 
 			$(window).load(function() {
-				$('#preloader .spinner').delay(100).fadeOut(300, function() {
-					$('.body').animate({
+				setTimeout(function() {
+					$('.js-sitewrap').animate({
 						opacity: 1
 					}, 300);
-					$(this).parent().delay(300).fadeOut(500, function() {
+					$('#preloader').fadeOut(300, function() {
 						SiteApp.Animated();
 					});
-				});
+				}, 300); // delay 300 ms
 			});
 
 		},
@@ -207,7 +207,7 @@ _throttle = function(func, wait, options) {
 					}
 					delay = 0;
 				}, {
-					offset: '70%'
+					offset: '80%'
 				});
 
 			});
