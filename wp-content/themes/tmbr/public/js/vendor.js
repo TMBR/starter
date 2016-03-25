@@ -1406,7 +1406,7 @@ window.Modernizr = (function( window, document, undefined ) {
 })(this, this.document);
 
 /*!
- * jQuery JavaScript Library v2.1.4
+ * jQuery JavaScript Library v2.1.3
  * http://jquery.com/
  *
  * Includes Sizzle.js
@@ -1416,7 +1416,7 @@ window.Modernizr = (function( window, document, undefined ) {
  * Released under the MIT license
  * http://jquery.org/license
  *
- * Date: 2015-04-28T16:01Z
+ * Date: 2014-12-18T15:11Z
  */
 
 (function( global, factory ) {
@@ -1474,7 +1474,7 @@ var
 	// Use the correct document accordingly with window argument (sandbox)
 	document = window.document,
 
-	version = "2.1.4",
+	version = "2.1.3",
 
 	// Define a local copy of jQuery
 	jQuery = function( selector, context ) {
@@ -1938,12 +1938,7 @@ jQuery.each("Boolean Number String Function Array Date RegExp Object Error".spli
 });
 
 function isArraylike( obj ) {
-
-	// Support: iOS 8.2 (not reproducible in simulator)
-	// `in` check used to prevent JIT error (gh-2145)
-	// hasOwn isn't used here due to false negatives
-	// regarding Nodelist length in IE
-	var length = "length" in obj && obj.length,
+	var length = obj.length,
 		type = jQuery.type( obj );
 
 	if ( type === "function" || jQuery.isWindow( obj ) ) {
@@ -13045,9 +13040,9 @@ jQuery.extend( jQuery.easing,
  * OF THE POSSIBILITY OF SUCH DAMAGE. 
  *
  */
-/*! Magnific Popup - v1.0.1 - 2015-12-30
+/*! Magnific Popup - v1.0.0 - 2014-12-12
 * http://dimsemenov.com/plugins/magnific-popup/
-* Copyright (c) 2015 Dmitry Semenov; */
+* Copyright (c) 2014 Dmitry Semenov; */
 ;(function (factory) { 
 if (typeof define === 'function' && define.amd) { 
  // AMD. Register as an anonymous module. 
@@ -13089,12 +13084,12 @@ var CLOSE_EVENT = 'Close',
 /**
  * Private vars 
  */
-/*jshint -W079 */
 var mfp, // As we have only one instance of MagnificPopup object, we define it locally to not to use 'this'
 	MagnificPopup = function(){},
 	_isJQ = !!(window.jQuery),
 	_prevStatus,
 	_window = $(window),
+	_body,
 	_document,
 	_prevContentType,
 	_wrapClasses,
@@ -13144,7 +13139,6 @@ var _mfpOn = function(name, f) {
 	// Initialize Magnific Popup only when called at least once
 	_checkInstance = function() {
 		if(!$.magnificPopup.instance) {
-			/*jshint -W020 */
 			mfp = new MagnificPopup();
 			mfp.init();
 			$.magnificPopup.instance = mfp;
@@ -13203,6 +13197,10 @@ MagnificPopup.prototype = {
 	 * @param  data [description]
 	 */
 	open: function(data) {
+
+		if(!_body) {
+			_body = $(document.body);
+		}
 
 		var i;
 
@@ -13402,7 +13400,7 @@ MagnificPopup.prototype = {
 		$('html').css(windowStyles);
 		
 		// add everything to DOM
-		mfp.bgOverlay.add(mfp.wrap).prependTo( mfp.st.prependTo || $(document.body) );
+		mfp.bgOverlay.add(mfp.wrap).prependTo( mfp.st.prependTo || _body );
 
 		// Save last focused element
 		mfp._lastFocusedEl = document.activeElement;
@@ -13493,7 +13491,7 @@ MagnificPopup.prototype = {
 		}
 
 
-		if(mfp.st.autoFocusLast && mfp._lastFocusedEl) {
+		if(mfp._lastFocusedEl) {
 			$(mfp._lastFocusedEl).focus(); // put tab focus back
 		}
 		mfp.currItem = null;	
@@ -13689,7 +13687,7 @@ MagnificPopup.prototype = {
 		var midClick = options.midClick !== undefined ? options.midClick : $.magnificPopup.defaults.midClick;
 
 
-		if(!midClick && ( e.which === 2 || e.ctrlKey || e.metaKey || e.altKey || e.shiftKey ) ) {
+		if(!midClick && ( e.which === 2 || e.ctrlKey || e.metaKey ) ) {
 			return;
 		}
 
@@ -13950,13 +13948,11 @@ $.magnificPopup = {
 
 		overflowY: 'auto',
 
-		closeMarkup: '<button title="%title%" type="button" class="mfp-close">&#215;</button>',
+		closeMarkup: '<button title="%title%" type="button" class="mfp-close">&times;</button>',
 
 		tClose: 'Close (Esc)',
 
-		tLoading: 'Loading...',
-
-		autoFocusLast: true
+		tLoading: 'Loading...'
 
 	}
 };
@@ -14109,7 +14105,7 @@ var AJAX_NS = 'ajax',
 	_ajaxCur,
 	_removeAjaxCursor = function() {
 		if(_ajaxCur) {
-			$(document.body).removeClass(_ajaxCur);
+			_body.removeClass(_ajaxCur);
 		}
 	},
 	_destroyAjaxRequest = function() {
@@ -14137,9 +14133,8 @@ $.magnificPopup.registerModule(AJAX_NS, {
 		},
 		getAjax: function(item) {
 
-			if(_ajaxCur) {
-				$(document.body).addClass(_ajaxCur);
-			}
+			if(_ajaxCur)
+				_body.addClass(_ajaxCur);
 
 			mfp.updateStatus('loading');
 
@@ -14239,13 +14234,13 @@ $.magnificPopup.registerModule('image', {
 
 			_mfpOn(OPEN_EVENT+ns, function() {
 				if(mfp.currItem.type === 'image' && imgSt.cursor) {
-					$(document.body).addClass(imgSt.cursor);
+					_body.addClass(imgSt.cursor);
 				}
 			});
 
 			_mfpOn(CLOSE_EVENT+ns, function() {
 				if(imgSt.cursor) {
-					$(document.body).removeClass(imgSt.cursor);
+					_body.removeClass(imgSt.cursor);
 				}
 				_window.off('resize' + EVENT_NS);
 			});
