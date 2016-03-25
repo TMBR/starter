@@ -90,11 +90,32 @@ http://stackoverflow.com/questions/31800298/how-to-make-bootstrap-columns-the-sa
 
 ==================================== */
 .row-eq-height{
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  &.-auto-md {
+  	@include respond-to($screen-md) {
+			display: block;
+		}
+  }
+  &.-auto-sm {
+  	@include respond-to($screen-sm) {
+			display: block;
+		}
+  }
+  &.-auto-xs {
+  	@include respond-to($screen-xs) {
+			display: block;
+		}
+  }
+  &.-auto-xxs {
+  	@include respond-to($screen-xxs) {
+			display: block;
+		}
+  }
 }
+
 .row-eq-height [class*="col-"]{
   padding: 0;
 }
