@@ -3,6 +3,8 @@
 // TMBR Helpers - always include this first, so other files can rely on it
 get_template_part( 'inc/helpers' );
 
+get_template_part( 'inc/load-template' );
+
 // Theme Setup & Enqueue
 get_template_part( 'inc/theme-setup' );
 get_template_part( 'inc/load-scripts' );
