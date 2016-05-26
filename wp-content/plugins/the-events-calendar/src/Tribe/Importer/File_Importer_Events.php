@@ -14,10 +14,11 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 
 		// Base query - only the meta query will be different
 		$query_args = array(
-			'post_type'      => Tribe__Events__Main::POSTTYPE,
-			'post_title'     => $this->get_value_by_key( $record, 'event_name' ),
-			'fields'         => 'ids',
-			'posts_per_page' => 1,
+			'post_type'        => Tribe__Events__Main::POSTTYPE,
+			'post_title'       => $this->get_value_by_key( $record, 'event_name' ),
+			'fields'           => 'ids',
+			'posts_per_page'   => 1,
+			'suppress_filters' => false,
 		);
 
 		// When trying to find matches for all day events, the comparison should only be against the date
@@ -57,7 +58,7 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 
 		add_filter( 'posts_search', array( $this, 'filter_query_for_title_search' ), 10, 2 );
 		$matches = get_posts( $query_args );
-		remove_filter( 'posts_search', array( $this, 'filter_query_for_title_search' ), 10, 2 );
+		remove_filter( 'posts_search', array( $this, 'filter_query_for_title_search' ), 10 );
 
 		if ( empty( $matches ) ) {
 			return 0;
@@ -67,13 +68,13 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 	}
 
 	protected function update_post( $post_id, array $record ) {
-		$event = $this->build_event_array( $record );
+		$event = $this->build_event_array( $post_id, $record );
 		Tribe__Events__API::updateEvent( $post_id, $event );
 	}
 
 
 	protected function create_post( array $record ) {
-		$event = $this->build_event_array( $record );
+		$event = $this->build_event_array( false, $record );
 		$id    = Tribe__Events__API::createEvent( $event );
 
 		return $id;
@@ -123,11 +124,13 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 		return $value;
 	}
 
-	private function build_event_array( array $record ) {
+	private function build_event_array( $event_id, array $record ) {
 		$start_date = strtotime( $this->get_event_start_date( $record ) );
 		$end_date   = strtotime( $this->get_event_end_date( $record ) );
 
-		$event = array(
+		$featured_image_content = $this->get_value_by_key( $record, 'featured_image' );
+		$featured_image         = $event_id ? '' === get_post_meta( $event_id, '_wp_attached_file', true ) : $this->featured_image_uploader( $featured_image_content )->upload_and_get_attachment();
+		$event                  = array(
 			'post_type'             => Tribe__Events__Main::POSTTYPE,
 			'post_title'            => $this->get_value_by_key( $record, 'event_name' ),
 			'post_status'           => Tribe__Events__Importer__Options::get_default_post_status( 'csv' ),
@@ -148,6 +151,7 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 			'EventURL'              => $this->get_value_by_key( $record, 'event_website' ),
 			'EventCurrencySymbol'   => $this->get_value_by_key( $record, 'event_currency_symbol' ),
 			'EventCurrencyPosition' => $this->get_value_by_key( $record, 'event_currency_position' ),
+			'FeaturedImage'         => $featured_image,
 		);
 
 		if ( $organizer_id = $this->find_matching_organizer_id( $record ) ) {

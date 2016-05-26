@@ -6,7 +6,7 @@
  * tribe-events-pro.css in the tribe-events/pro/ directory of your theme.
  * Your new stylesheet will be loaded after our own stylesheet.
  *
- * To replace our stylsheet altogether, you can use the 'tribe_events_pro_stylesheet_url' filter.
+ * To replace our stylesheet altogether, you can use the 'tribe_events_pro_stylesheet_url' filter.
  *
  * @package TribeEventsCalendarPro
  *
@@ -389,12 +389,15 @@
 
 #tribe-events-photo-events {
 	margin: 18px -4.5% 18px 0;
-	opacity: 0;
 	-webkit-transition-property: height, width;
 	   -moz-transition-property: height, width;
 	    -ms-transition-property: height, width;
 	     -o-transition-property: height, width;
 	        transition-property: height, width;
+}
+
+#tribe-events-photo-events.isotope {
+	opacity: 0;
 }
 
 #tribe-events-photo-events .isotope-item {
@@ -426,6 +429,16 @@
 
 #tribe-events-photo-events.photo-hidden {
 	opacity: 0 !important;
+}
+
+/**
+ * This prevents Isotope conflicting not showing events
+ * We need to use !important here because we have no control over how Isotope
+ * creates the opacity on their script, which requires the usage of !important.
+ */
+.tribe-mobile #tribe-events-photo-events,
+.tribe-mobile #tribe-events-photo-events.photo-hidden {
+	opacity: 1 !important;
 }
 
 .photo-loader {

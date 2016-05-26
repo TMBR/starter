@@ -116,7 +116,7 @@
 			var $target = $( '.tribe-mobile-day[data-day="' + date + '"]' ),
 				$cell = $( '.tribe-events-calendar td[data-day="' + date + '"]' ),
 				$more = $cell.find( '.tribe-events-viewmore' ),
-				$events = $cell.find( '.hentry' );
+				$events = $cell.find( '.type-tribe_events' );
 
 			if ( $events.length ) {
 				$events
@@ -500,6 +500,7 @@
 							}
 
 							$( te ).trigger( 'tribe_ev_ajaxSuccess' ).trigger( 'tribe_ev_monthView_ajaxSuccess' );
+							$( te ).trigger( 'ajax-success.tribe' ).trigger( 'tribe_ev_monthView_ajaxSuccess' );
 
 							// @ifdef DEBUG
 							dbug && debug.timeEnd( 'Month View Ajax Timer' );

@@ -72,12 +72,33 @@ if ( ! class_exists( 'Tribe__Tickets__Ticket_Object' ) ) {
 		public $provider_class;
 
 		/**
+		 * @var Tribe__Tickets__Tickets
+		 */
+		protected $provider;
+
+		/**
 		 * Amount of tickets of this kind in stock
 		 * Use $this->stock( value ) to set manage and get the value
 		 *
 		 * @var mixed
 		 */
 		protected $stock = 0;
+
+		/**
+		 * The mode of stock handling to be used for the ticket when global stock
+		 * is enabled for the event.
+		 *
+		 * @var string
+		 */
+		protected $global_stock_mode = Tribe__Tickets__Global_Stock::OWN_STOCK_MODE;
+
+		/**
+		 * The maximum permitted number of sales for this ticket when global stock
+		 * is enabled for the event and CAPPED_STOCK_MODE is in effect.
+		 *
+		 * @var int
+		 */
+		protected $global_stock_cap = 0;
 
 		/**
 		 * Amount of tickets of this kind sold
@@ -227,6 +248,11 @@ if ( ! class_exists( 'Tribe__Tickets__Ticket_Object' ) ) {
 			// Do the math!
 			$remaining = $this->original_stock() - $this->qty_sold() - $this->qty_pending();
 
+			// Adjust if using global stock with a sales cap
+			if ( Tribe__Tickets__Global_Stock::CAPPED_STOCK_MODE === $this->global_stock_mode() ) {
+				$remaining = min( $remaining, $this->global_stock_cap() );
+			}
+
 			// Prevents Negative
 			return max( $remaining, 0 );
 		}
@@ -272,6 +298,43 @@ if ( ! class_exists( 'Tribe__Tickets__Ticket_Object' ) ) {
 		}
 
 		/**
+		 * Sets or gets the current global stock mode in effect for the ticket.
+		 *
+		 * Typically this is one of the constants provided by Tribe__Tickets__Global_Stock:
+		 *
+		 *     GLOBAL_STOCK_MODE if it should draw on the global stock
+		 *     CAPPED_STOCK_MODE as above but with a limit on the total number of allowed sales
+		 *     OWN_STOCK_MODE if it should behave as if global stock is not in effect
+		 *
+		 * @param string $mode
+		 *
+		 * @return string
+		 */
+		public function global_stock_mode( $mode = null ) {
+			if ( is_string( $mode ) ) {
+				$this->global_stock_mode = $mode;
+			}
+
+			return $this->global_stock_mode;
+		}
+
+		/**
+		 * Sets or gets any cap on sales that might be in effect for this ticket when global stock
+		 * mode is in effect.
+		 *
+		 * @param int $cap
+		 *
+		 * @return int
+		 */
+		public function global_stock_cap( $cap = null ) {
+			if ( is_numeric( $cap ) ) {
+				$this->global_stock_cap = (int) $cap;
+			}
+
+			return (int) $this->global_stock_cap;
+		}
+
+		/**
 		 * Method to manage the protected `qty_sold` propriety of the Object
 		 * Prevents setting `qty_sold` lower then zero
 		 *
@@ -279,16 +342,7 @@ if ( ! class_exists( 'Tribe__Tickets__Ticket_Object' ) ) {
 		 * @return int
 		 */
 		public function qty_sold( $value = null ) {
-			// If the Value was passed as numeric value overwrite
-			if ( is_numeric( $value ) ){
-				$this->qty_sold = $value;
-			}
-
-			// Prevents qty_sold from going negative
-			$this->qty_sold = max( (int) $this->qty_sold, 0 );
-
-			// return the new Qty Sold
-			return $this->qty_sold;
+			return $this->qty_getter_setter( $this->qty_sold, $value );
 		}
 
 		/**
@@ -299,16 +353,27 @@ if ( ! class_exists( 'Tribe__Tickets__Ticket_Object' ) ) {
 		 * @return int
 		 */
 		public function qty_pending( $value = null ) {
-			// If the Value was passed as numeric value overwrite
-			if ( is_numeric( $value ) ){
-				$this->qty_pending = $value;
+			return $this->qty_getter_setter( $this->qty_pending, $value );
+		}
+
+		/**
+		 * Method to get/set protected quantity properties, disallowing illegal
+		 * things such as setting a negative value.
+		 *
+		 * @param int      &$property
+		 * @param int|null $value
+		 *
+		 * @return int
+		 */
+		protected function qty_getter_setter( &$property, $value = null ) {
+			if ( is_numeric( $value ) ) {
+				$property = (int) $value;
 			}
 
-			// Prevents qty_pending from going negative
-			$this->qty_pending = max( (int) $this->qty_pending, 0 );
+			// Disallow negative values (and force to zero if one is passed)
+			$property = max( (int) $property, 0 );
 
-			// return the new Qty Pending
-			return $this->qty_pending;
+			return $property;
 		}
 
 		/**
@@ -380,6 +445,41 @@ if ( ! class_exists( 'Tribe__Tickets__Ticket_Object' ) ) {
 			// return the new Qty Cancelled
 			return $this->qty_cancelled;
 		}
-	}
 
+		/**
+		 * Returns an instance of the provider class.
+		 *
+		 * @return Tribe__Tickets__Tickets|null
+		 */
+		public function get_provider() {
+			if ( empty( $this->provider ) ) {
+				if ( empty( $this->provider_class ) || ! class_exists( $this->provider_class ) ) {
+					return null;
+				}
+
+				if ( method_exists( $this->provider_class, 'get_instance' ) ) {
+					$this->provider = call_user_func( array( $this->provider_class, 'get_instance' ) );
+				} else {
+					$this->provider = new $this->provider_class;
+				}
+			}
+
+			return $this->provider;
+		}
+
+		/**
+		 * Returns the ID of the event post this ticket belongs to.
+		 *
+		 * @return WP_Post|null
+		 */
+		public function get_event() {
+			$provider = $this->get_provider();
+
+			if ( null !== $provider ) {
+				return $provider->get_event_for_ticket( $this->ID );
+			}
+
+			return null;
+		}
+	}
 }

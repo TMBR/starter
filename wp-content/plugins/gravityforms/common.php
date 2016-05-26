@@ -898,6 +898,12 @@ class GFCommon {
 		$wp_email = get_bloginfo( 'admin_email' );
 		$text     = str_replace( '{admin_email}', $url_encode ? urlencode( $wp_email ) : $wp_email, $text );
 
+		//admin url
+		$text = str_replace( '{admin_url}', $url_encode ? urlencode( admin_url() ) : admin_url(), $text );
+
+		//logout url
+		$text = str_replace( '{logout_url}', $url_encode ? urlencode( wp_logout_url() ) : wp_logout_url(), $text );
+
 		//post edit url
 		$post_url = get_bloginfo( 'wpurl' ) . '/wp-admin/post.php?action=edit&post=' . rgar( $lead, 'post_id' );
 		$text     = str_replace( '{post_edit_url}', $url_encode ? urlencode( $post_url ) : $post_url, $text );
@@ -1111,7 +1117,7 @@ class GFCommon {
 
 				case 'section' :
 
-					if ( GFFormsModel::is_field_hidden( $form, $field, array(), $lead ) ){
+					if ( GFFormsModel::is_field_hidden( $form, $field, array(), $lead ) ) {
 						continue;
 					}
 
@@ -1171,6 +1177,8 @@ class GFCommon {
 					if ( ! $display_field ) {
 						$field_value = false;
 					}
+
+					$field_value = self::encode_shortcodes( $field_value );
 
 					$field_value = apply_filters( 'gform_merge_tag_filter', $field_value, $merge_tag, $options, $field, $raw_field_value );
 
@@ -1664,8 +1672,13 @@ class GFCommon {
 
 			/**
 			 * Fires when an email from Gravity Forms has failed to send
+             *
+             * @since 1.8.10
 			 *
-			 * @param string $error The Error message returned after the email fails to send
+			 * @param string $error   The Error message returned after the email fails to send
+             * @param array  $details The details of the message that failed
+             * @param array  $entry   The Entry object
+             *
 			 */
 			do_action( 'gform_send_email_failed', $error, compact( 'from', 'to', 'bcc', 'reply_to', 'subject', 'message', 'from_name', 'message_format', 'attachments' ), $entry );
 
@@ -1717,7 +1730,23 @@ class GFCommon {
 
 		self::add_emails_sent();
 
-
+        /**
+         * Fires after an email is sent
+         *
+         * @param bool   $is_success     True is successfully sent.  False if failed
+         * @param string $to             Recipient address
+         * @param string $subject        Subject line
+         * @param string $message        Message body
+         * @param string $headers        Email headers
+         * @param string $attachments    Email attachments
+         * @param string $message_format Format of the email.  Ex: text, html
+         * @param string $from           Address of the sender
+         * @param string $from_name      Displayed name of the sender
+         * @param string $bcc            BCC recipients
+         * @param string $reply_to       Reply-to address
+         * @param array  $entry          Entry object associated with the sent email
+         *
+         */
 		do_action( 'gform_after_email', $is_success, $to, $subject, $message, $headers, $attachments, $message_format, $from, $from_name, $bcc, $reply_to, $entry );
 	}
 
@@ -1997,7 +2026,7 @@ class GFCommon {
 
 	public static function ensure_wp_version() {
 		if ( ! GF_SUPPORTED_WP_VERSION ) {
-			echo "<div class='error' style='padding:10px;'>" . sprintf( esc_html__( 'Gravity Forms require WordPress %s or greater. You must upgrade WordPress in order to use Gravity Forms' , 'gravityforms' ), GF_MIN_WP_VERSION ) . '</div>';
+			echo "<div class='error' style='padding:10px;'>" . sprintf( esc_html__( 'Gravity Forms requires WordPress %s or greater. You must upgrade WordPress in order to use Gravity Forms' , 'gravityforms' ), GF_MIN_WP_VERSION ) . '</div>';
 
 			return false;
 		}
@@ -2652,7 +2681,7 @@ class GFCommon {
 
 	public static function get_disallowed_file_extensions() {
 
-		$extensions = array( 'php', 'asp', 'aspx', 'cmd', 'csh', 'bat', 'html', 'hta', 'jar', 'exe', 'com', 'js', 'lnk', 'htaccess', 'phtml', 'ps1', 'ps2', 'php3', 'php4', 'php5', 'php6', 'py', 'rb', 'tmp' );
+		$extensions = array( 'php', 'asp', 'aspx', 'cmd', 'csh', 'bat', 'html', 'htm', 'hta', 'jar', 'exe', 'com', 'js', 'lnk', 'htaccess', 'phtml', 'ps1', 'ps2', 'php3', 'php4', 'php5', 'php6', 'py', 'rb', 'tmp' );
 
 		// Intended for internal use - not to be included in the documentation.
 		$extensions = apply_filters( 'gform_disallowed_file_extensions', $extensions );
@@ -3989,6 +4018,18 @@ class GFCommon {
 						'text'  => 'Cancelled',
 						'value' => 'Cancelled',
 					),
+					array(
+						'text'  => 'Pending',
+						'value' => 'Pending',
+					),
+					array(
+						'text'  => 'Refunded',
+						'value' => 'Refunded',
+					),
+					array(
+						'text'  => 'Voided',
+						'value' => 'Voided',
+					),
 				)
 			),
 			'payment_date'   => array(
@@ -4370,6 +4411,10 @@ class GFCommon {
 
 		$value = $field->get_value_merge_tag( $value, $input_id, $lead, $form, $modifier, $raw_value, $url_encode, $esc_html, $format, $nl2br );
 
+		if ( ! in_array( $field->type, array( 'html', 'section', 'signature' ) ) ) {
+			$value = self::encode_shortcodes( $value );
+		};
+
 		if ( $esc_attr ) {
 			$value = esc_attr( $value );
 		}
@@ -4404,6 +4449,13 @@ class GFCommon {
 		$text = str_replace( $match[0], $value, $text );
 
 		return $text;
+	}
+
+	public static function encode_shortcodes( $string ) {
+		$find = array( '[', ']' );
+		$replace = array( '&#91;', '&#93;' );
+		$string = str_replace( $find, $replace, $string );
+		return $string;
 	}
 }
 
@@ -4481,7 +4533,7 @@ class GFCache {
 
 		$data = self::get_transient( $key );
 
-		if ( false === ( $data ) ) {
+		if ( false === $data ) {
 			$found = false;
 
 			return false;
@@ -4564,6 +4616,9 @@ class GFCache {
 	}
 
 	private static function delete_transient( $key ) {
+		if ( ! function_exists( 'wp_hash' ) ) {
+			return false;
+		}
 		$key = self::$_transient_prefix . wp_hash( $key );
 		if ( is_multisite() ) {
 			$success = delete_site_transient( $key );
@@ -4575,6 +4630,9 @@ class GFCache {
 	}
 
 	private static function set_transient( $key, $data, $expiration ) {
+		if ( ! function_exists( 'wp_hash' ) ) {
+			return false;
+		}
 		$key = self::$_transient_prefix . wp_hash( $key );
 		if ( is_multisite() ) {
 			$success = set_site_transient( $key, $data, $expiration );
@@ -4586,6 +4644,9 @@ class GFCache {
 	}
 
 	private static function get_transient( $key ) {
+		if ( ! function_exists( 'wp_hash' ) ) {
+			return false;
+		}
 		$key = self::$_transient_prefix . wp_hash( $key );
 		if ( is_multisite() ) {
 			$data = get_site_transient( $key );

@@ -3,7 +3,7 @@
 Plugin Name: Gravity Forms
 Plugin URI: http://www.gravityforms.com
 Description: Easily create web forms and manage form entries within the WordPress admin.
-Version: 1.9.16
+Version: 1.9.19
 Author: rocketgenius
 Author URI: http://www.rocketgenius.com
 Text Domain: gravityforms
@@ -69,6 +69,8 @@ if ( ! defined( 'IS_ADMIN' ) ) {
 define( 'RG_CURRENT_VIEW', RGForms::get( 'view' ) );
 define( 'GF_MIN_WP_VERSION', '3.7' );
 define( 'GF_SUPPORTED_WP_VERSION', version_compare( get_bloginfo( 'version' ), GF_MIN_WP_VERSION, '>=' ) );
+define( 'GF_MIN_WP_VERSION_SUPPORT_TERMS', '4.3' );
+
 
 if ( ! defined( 'GRAVITY_MANAGER_URL' ) ) {
 	define( 'GRAVITY_MANAGER_URL', 'https://www.gravityhelp.com/wp-content/plugins/gravitymanager' );
@@ -114,7 +116,7 @@ register_deactivation_hook( __FILE__, array( 'GFForms', 'deactivation_hook' ) );
 
 class GFForms {
 
-	public static $version = '1.9.16';
+	public static $version = '1.9.19';
 
 	public static function loaded() {
 
@@ -154,7 +156,6 @@ class GFForms {
 		add_filter( 'site_transient_update_plugins', array( 'GFForms', 'check_update' ) );
 
 		add_filter( 'auto_update_plugin', array( 'GFForms', 'maybe_auto_update' ), 10, 2 );
-
 
 		if ( IS_ADMIN ) {
 
@@ -198,14 +199,9 @@ class GFForms {
 					// Support modifying the admin page title for settings
 					add_filter( 'admin_title', array( __class__, 'modify_admin_title' ), 10, 2 );
 
-					//Adding "embed form" button
-					add_action( 'media_buttons', array( 'RGForms', 'add_form_button' ), 20 );
+
 
 					require_once( GFCommon::get_base_path() . '/includes/locking/locking.php' );
-
-					if ( self::page_supports_add_form_button() ) {
-						add_action( 'admin_footer', array( 'RGForms', 'add_mce_popup' ) );
-					}
 
 					if ( self::is_gravity_page() ) {
 						require_once( GFCommon::get_base_path() . '/tooltips.php' );
@@ -283,6 +279,14 @@ class GFForms {
 
 		// Push Gravity Forms to the top of the list of plugins to make sure it's loaded before any add-ons
 		add_action( 'activated_plugin', array( 'GFForms', 'load_first' ) );
+
+		// Add the "Add Form" button to the editor. The customizer doesn't run in the admin context.
+		if ( GFForms::page_supports_add_form_button() ) {
+			// Adding "embed form" button to the editor
+			add_action( 'media_buttons', array( 'GFForms', 'add_form_button' ), 20 );
+			// Adding the modal
+			add_action( 'admin_print_footer_scripts', array( 'GFForms', 'add_mce_popup' ) );
+		}
 	}
 
 	public static function load_first() {
@@ -488,6 +492,7 @@ class GFForms {
               ip char(15),
               count mediumint(8) unsigned not null default 1,
               PRIMARY KEY  (id),
+              KEY date_created (date_created),
               KEY form_id (form_id)
             ) $charset_collate;";
 		dbDelta( $sql );
@@ -1349,11 +1354,13 @@ class GFForms {
 			$tabindex = isset( $tabindex ) ? absint( $tabindex ) : 1;
 			require_once( GFCommon::get_base_path() . '/form_display.php' );
 
-			$form_id = absint( $form_id );
-			$display_title = (bool) $title;
+			$form_id             = absint( $form_id );
+			$display_title       = (bool) $title;
 			$display_description = (bool) $description;
 
-			$result = GFFormDisplay::get_form( $form_id, $display_title, $display_description, false, $_POST['gform_field_values'], true, $tabindex );
+			parse_str( $_POST['gform_field_values'], $field_values );
+
+			$result = GFFormDisplay::get_form( $form_id, $display_title, $display_description, false, $field_values, true, $tabindex );
 			die( $result );
 		}
 	}
@@ -1362,7 +1369,7 @@ class GFForms {
 	//------------- PAGE/POST EDIT PAGE ---------------------
 
 	public static function page_supports_add_form_button() {
-		$is_post_edit_page = in_array( RG_CURRENT_PAGE, array( 'post.php', 'page.php', 'page-new.php', 'post-new.php' ) );
+		$is_post_edit_page = in_array( RG_CURRENT_PAGE, array( 'post.php', 'page.php', 'page-new.php', 'post-new.php', 'customize.php' ) );
 
 		$display_add_form_button = apply_filters( 'gform_display_add_form_button', $is_post_edit_page );
 
@@ -3059,7 +3066,7 @@ class GFForms {
 		$forms             = RGFormsModel::get_forms( 1, 'title' );
 		$forms_options[''] = __( 'Select a Form', 'gravityforms' );
 		foreach ( $forms as $form ) {
-			$forms_options[ absint( $form->id ) ] = esc_html( $form->title );
+			$forms_options[ absint( $form->id ) ] = $form->title;
 		}
 
 		$default_attrs = array(

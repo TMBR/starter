@@ -88,6 +88,9 @@ tribe_events_pro_admin.recurrence = {
 		$( '.recurrence_end, #EventStartDate, #EventEndDate' ).datepicker( 'option', 'onClose', this.event.datepicker_updated );
 
 		this.set_recurrence_end_min_date();
+
+		// Trigger the required events after everything is done
+		$( '.eventForm' ).find( '[data-field="type"]' ).trigger( 'change' );
 	};
 
 	/**
@@ -617,6 +620,9 @@ tribe_events_pro_admin.recurrence = {
 		}
 
 		switch ( key ) {
+			case 'simple-date-on':
+				text = text.replace( '%1$s', end );
+				break;
 			case 'simple-every-day-on':
 			case 'simple-every-week-on':
 			case 'simple-every-month-on':
@@ -888,7 +894,9 @@ tribe_events_pro_admin.recurrence = {
 	my.event.submit_validation = function() {
 		if ( ! tribe_events_pro_admin.validate_recurrence() ) {
 			e.preventDefault();
+			e.stopPropagation();
 			tribe_events_pro_admin.reset_submit_button();
+			return false;
 		}
 	};
 

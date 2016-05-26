@@ -16,23 +16,7 @@ class Tribe__Events__Pro__Single_Event_Meta {
 	 * Setup filters to link the organizer/venue names to their respective single post pages.
 	 */
 	public function filter_fields() {
-		add_filter( 'tribe_get_organizer', array( $this, 'link_organizer' ), 10, 2 );
 		add_filter( 'tribe_get_venue', array( $this, 'link_venue' ) );
-	}
-
-	/**
-	 * Test to see if the organizer name has already been formed as a link - if it has
-	 * not, transform it into an HTML link.
-	 *
-	 * @param string $name Name/Link of organizer
-	 * @param int $organizer_id ID of organizer post
-	 *
-	 * @return string
-	 */
-	public function link_organizer( $name, $organizer_id ) {
-		$contains_link = ( false !== strpos( $name, 'href="' ) );
-
-		return $contains_link ? '' : '<a href="' . esc_url( tribe_get_organizer_link( $organizer_id, false ) ) . '">' . $name . '</a>';
 	}
 
 	/**
@@ -74,7 +58,7 @@ class Tribe__Events__Pro__Single_Event_Meta {
 	public static function custom_recurrence_description( $meta_id ) {
 		global $_tribe_meta_factory;
 		$post_id                = get_the_ID();
-		$recurrence_meta        = Tribe__Events__Pro__Recurrence_Meta::getRecurrenceMeta( $post_id );
+		$recurrence_meta        = Tribe__Events__Pro__Recurrence__Meta::getRecurrenceMeta( $post_id );
 		$recurrence_description = ! empty( $recurrence_meta['recCustomRecurrenceDescription'] ) ? $recurrence_meta['recCustomRecurrenceDescription'] : tribe_get_recurrence_text( $post_id );
 		$html                   = tribe_is_recurring_event( $post_id ) ? Tribe__Events__Meta_Factory::template(
 			$_tribe_meta_factory->meta[ $meta_id ]['label'],

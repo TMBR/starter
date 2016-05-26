@@ -9,14 +9,17 @@ $post_type_object = get_post_type_object( $event->post_type );
 $checkedin = Tribe__Tickets__Tickets::get_event_checkedin_attendees_count( $event_id );
 $total_sold = 0;
 $total_pending = 0;
+$total_deleted = 0;
 $total_completed = 0;
 
 foreach ( $tickets as $ticket ) {
-	$total_sold += $ticket->qty_sold() + $ticket->qty_pending();
+	$total_sold += $ticket->qty_sold();
 	$total_pending += $ticket->qty_pending();
 }
-$total_completed = $total_sold - $total_pending;
 
+$total_completed = $total_sold - $total_pending;
+$total_attendees = Tribe__Tickets__Tickets::get_event_attendees_count( $event_id );
+$total_deleted   = Tribe__Tickets__Attendance::instance( $event_id )->get_deleted_attendees_count();
 ?>
 
 <div class="wrap tribe-attendees-page">
@@ -91,6 +94,13 @@ $total_completed = $total_sold - $total_pending;
 							<strong><?php esc_html_e( 'Checked in:', 'event-tickets' ); ?></strong>
 							<span id="total_checkedin"><?php echo esc_html( $checkedin ); ?></span>
 						</li>
+
+						<?php if ( $total_deleted > 0 ): ?>
+							<li>
+								<strong><?php esc_html_e( 'Deleted:', 'event-tickets' ); ?></strong>
+								<span id="total_deleted"><?php echo esc_html( $total_deleted ); ?></span>
+							</li>
+						<?php endif; ?>
 					</ul>
 					<?php do_action( 'tribe_events_tickets_attendees_totals_bottom', $event_id ); ?>
 				</div>
