@@ -1,28 +1,29 @@
 .flex-img-gallery{
+	ul > *:nth-child(4n+5) {
+		clear: left;
+	}
+	@include respond-to($screen-xs) {
+		ul > *:nth-child(2n+3) {
+			clear: left;
+		}
+	}
+
 	.image-wrap {
-		width: 25%;
+		width: 23%;
+		margin: 1%;
+		height: auto;
 		float: left;
 		position: relative;
 
-		.img { width: 100%;}
-		.overlay{
-			opacity: 0;
-			@include transition($transition300)
+		@include respond-to($screen-xs) {
+			width: 48%;
 		}
-	}
-}
 
-body.no-touch .flex-img-gallery {
-	.image-wrap:hover {
-		.overlay {
-			opacity: 1;
-			display: block;
-			height: 100%;
+
+		.img {
 			width: 100%;
-			position: absolute;
-			top: 0px;
-			background-color: rgba(0,0,0,0.6);
-			z-index: 10;
+			height: auto;
+			display: block;
 		}
 	}
 }

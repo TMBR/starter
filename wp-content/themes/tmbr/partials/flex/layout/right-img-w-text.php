@@ -1,13 +1,13 @@
 <?php
 	$image = get_sub_field('right_image');
 ?>
-<div class="flex-img-block -img-right">
+<div class="flex-img-block -img-right flex-section">
 
     <div class="text-wrapper col-md-7">
 		<h2 class="title"><?php echo get_sub_field('sub_title'); ?></h2>
 		<p class="copy"><?php echo get_sub_field('copy'); ?></p>
 		<?php if(get_sub_field('button_link')) { ?>
-		<a class="button" href="<?php echo get_sub_field('button_link'); ?>">
+		<a class="btn" href="<?php echo get_sub_field('button_link'); ?>">
 			<?php if(get_sub_field('button_text')) {
 				echo get_sub_field('button_text');
 			} else {

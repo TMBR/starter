@@ -1,0 +1,79 @@
+#page-main {
+
+	&.-no-hero{
+		margin-top: $menu-height;
+		@include respond-to($screen-sm) {
+			margin-top: $mobile-menu-height;
+		}
+	}
+
+}
+.page-header {
+	text-align: center;
+	border: none;
+}
+.page-background {
+	background: url('../images/page_bg.jpg') no-repeat top center;
+	background-size: 100% auto;
+}
+
+#page-main {
+	padding: $gutter * 9 0 $gutter * 3;
+
+	@include respond-to($screen-sm) {
+		padding: $gutter * 3 0;
+	}
+	img {
+		max-width: 100%;
+		height: auto;
+	}
+
+	.entry-header{
+		.entry-title{
+			font-size: 3rem;
+		}
+	}
+}
+
+.gallery {
+  margin: $gutter auto;
+  &:after{
+  	content: "";
+  	display: table;
+  	clear: both;
+  }
+  .gallery-item {
+	  float: left;
+	  margin : $gutter / 2;
+	  text-align: center;
+	}
+}
+
+
+
+.gallery img {
+  border: 2px solid #cfcfcf;
+}
+
+.gallery .gallery-caption {
+  margin-left: 0;
+}
+
+.alignright {
+	float: right;
+	margin: $gutter 0 $gutter $gutter;
+}
+.alignleft {
+	float: left;
+	margin: $gutter $gutter $gutter 0;
+}
+
+hr {
+	border: 0;
+	height: 1px;
+	background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0));
+	display: inline-block;
+	width: 50%;
+	padding: 0 25%;
+	margin: 30px auto;
+}

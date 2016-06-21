@@ -37,7 +37,12 @@ get_header(); ?>
 
 						<?php endwhile; ?>
 
-						<?php the_posts_navigation(); ?>
+
+						<?php
+						  if ( function_exists('wp_bootstrap_pagination') )
+						    wp_bootstrap_pagination();
+						?>
+
 
 					<?php else : ?>
 

@@ -16,6 +16,8 @@
 			SiteApp.Preloader();
 			SiteApp.Slider();
 			SiteApp.Lightbox();
+			SiteApp.FitVids();
+			SiteApp.NavtoSelectlist();
 
 			// Call this to show all animited items
 			// SiteApp.ShowAnimated();
@@ -35,7 +37,30 @@
 
 		},
 
+		// set content videos to full width
+		FitVids: function() {
+   			$("#page-main").fitVids();
+		},
 
+		// turn standard UL nav to select lst for mobile by add ing class js-selectdropdown to <ul>
+		NavtoSelectlist: function() {
+			$('ul.js-selectdropdown').each(function() {
+			    var select = $(document.createElement('select')).insertBefore($(this)).addClass('mobile-select').wrap( "<div class='select-nav-wrap'></div>" );
+			    $('>li a', this).each(function() {
+			        var a = $(this).click(function() {
+			            if ($(this).attr('target')==='_blank') {
+			                window.open(this.href);
+			            }
+			            else {
+			                window.location.href = this.href;
+			            }
+			        }),
+			        option = $(document.createElement('option')).appendTo(select).val(this.href).html($(this).html()).click(function() {
+			            a.click();
+			        });
+			    });
+			});
+		},
 
 		// Smooth Scroll to Anchor Tags
 		Smoothscroll: function() {

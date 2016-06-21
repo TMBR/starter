@@ -48,8 +48,14 @@
       // 'assets/vendor/twbs-bootstrap-sass/vendor/assets/javascripts/bootstrap/tooltip.js',
       // 'assets/vendor/twbs-bootstrap-sass/vendor/assets/javascripts/bootstrap/popover.js',
 
-
+      'assets/vendor/jquery.fitvids/jquery.fitvids.js',                  //  Fitvids
+      'assets/vendor/slick-carousel/slick/slick.js',                    //  Slick slider: https://github.com/kenwheeler/slick
       'assets/vendor/flexslider/jquery.flexslider.js',                  //  Flexslider (slideshow) - http://www.woothemes.com/flexslider/
+
+      // Video .JS
+      'assets/vendor/video.js/dist/video-js/video.js',
+      'assets/vendor/videojs-Background/dist/videojs-Background.js',
+
       // 'assets/vendor/isotope/jquery.isotope.js',                         Isotope (filter & sort layouts) - http://isotope.metafizzy.co/
       'assets/vendor/waypoints/lib/jquery.waypoints.js',                //  Waypoints (trigger function on scroll) - http://imakewebthings.com/waypoints/
 
@@ -58,7 +64,6 @@
       // 'assets/vendor/jquery.stellar/jquery.stellar.js',                  Stellar.js (parallax helper) - http://markdalgleish.com/projects/stellar.js/
       'assets/vendor/magnific-popup/dist/jquery.magnific-popup.js',     //  Magnific Popup (responsive lightbox) - http://dimsemenov.com/plugins/magnific-popup/
       // 'assets/vendor/pace/pace.js',                                      PACE (page load progress bar) - http://github.hubspot.com/pace/docs/welcome/
-      // 'assets/vendor/videojs/dist/video-js/video.js',                    Video.js (work with HTML5 video) - http://videojs.com/
       'assets/vendor/respond/src/respond.js',                           //  Respond.js (media query helper for IE) - https://github.com/scottjehl/Respond
       'assets/vendor/responsejs/response.js'                            //  Response.js (serve responsive content via HTML5) - http://responsejs.com/
 

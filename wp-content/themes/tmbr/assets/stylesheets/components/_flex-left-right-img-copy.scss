@@ -1,14 +1,65 @@
 .flex-img-block{
-	> .img-wrapper {
-		max-height: $section-height;
-		overflow: hidden;
-		> .img {
+	.img-wrapper {
+		.img, img {
+			width: 130%;
+			max-width: 130%;
+			display: block;
+			@extend .shadow;
+		}
+		.bg-image {
+			position: relative;
+			height: 100%;
 			width: 100%;
+			display: block;
+			background-size: cover;
+			background-position: center;
+			display: block;
+			padding-bottom: 56.6%;
+			min-height: 400px;
+			@include respond-to($screen-xxs) {
+				min-height: 310px;
+			}
+
+		}
+		@include respond-to($screen-xxs) {
+			min-height: 310px;
+ 		}
+	}
+
+
+	.text-wrapper {
+		text-align: left;
+		.heading {
+			margin-bottom: $gutter * 4;
+		}
+		@include respond-to($screen-sm) {
+			padding: 2rem ;
+			.heading {
+				margin-bottom: $gutter * 2;
+			}
 		}
 	}
 
-	> .text-wrapper {
-		padding: 5rem 0;
-		text-align: center;
+	&.-img-left{
+		.img {
+			margin-left: -30%;
+		}
+		.text-wrapper {
+			padding-left: $gutter * 4;
+		}
+	}
+
+	&.-img-right{
+		.img {
+			margin-right: -25%;
+		}
+		.text-wrapper {
+			padding-right: $gutter * 4;
+		}
+	}
+	&.--homepage{
+		.text-wrapper {
+			padding: $gutter * 7;
+		}
 	}
 }

@@ -11,6 +11,12 @@
 							<?php get_template_part( 'partials/loops/page-loop' ); ?>
 					<?php endwhile; // end of the loop. ?>
 					</article>
+
+					<?php
+					  if ( function_exists('wp_bootstrap_pagination') )
+					    wp_bootstrap_pagination();
+					?>
+
 				</div><!-- /col -->
 
 
