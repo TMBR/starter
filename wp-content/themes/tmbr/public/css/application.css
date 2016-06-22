@@ -10380,6 +10380,65 @@ body.no-touch #footer a:hover {
 .widget {
   margin-bottom: 3rem; }
 
+#page-main.-no-hero {
+  margin-top: 50px; }
+  @media all and (max-width: 991px) {
+    #page-main.-no-hero {
+      margin-top: 50px; } }
+
+.page-header {
+  text-align: center;
+  border: none; }
+
+.page-background {
+  background: url("../images/page_bg.jpg") no-repeat top center;
+  background-size: 100% auto; }
+
+#page-main {
+  padding: 135px 0 45px; }
+  @media all and (max-width: 991px) {
+    #page-main {
+      padding: 45px 0; } }
+  #page-main img {
+    max-width: 100%;
+    height: auto; }
+  #page-main .entry-header .entry-title {
+    font-size: 3rem; }
+
+.gallery {
+  margin: 15px auto; }
+  .gallery:after {
+    content: "";
+    display: table;
+    clear: both; }
+  .gallery .gallery-item {
+    float: left;
+    margin: 7.5px;
+    text-align: center; }
+
+.gallery img {
+  border: 2px solid #cfcfcf; }
+
+.gallery .gallery-caption {
+  margin-left: 0; }
+
+.alignright {
+  float: right;
+  margin: 15px 0 15px 15px; }
+
+.alignleft {
+  float: left;
+  margin: 15px 15px 15px 0; }
+
+hr {
+  border: 0;
+  height: 1px;
+  background-image: linear-gradient(to right, transparent, rgba(0, 0, 0, 0.25), transparent);
+  display: inline-block;
+  width: 50%;
+  padding: 0 25%;
+  margin: 30px auto; }
+
 /* Components */
 /* GLOBAL BUTTONS
 input[type=submit] {
@@ -10420,44 +10479,95 @@ input[type=submit] {
     background: url(../../public/images/page-loader.gif) no-repeat center center;
     margin: -24px 0px 0px -24px; }
 
-.site-main .center-text {
+.site-main .text-block {
   padding: 5rem 0; }
 
-.center-text {
-  text-align: center; }
+.text-block br {
+  clear: both; }
 
-.flex-img-block > .img-wrapper {
-  max-height: 400px;
-  overflow: hidden; }
-  .flex-img-block > .img-wrapper > .img {
-    width: 100%; }
+.text-block hr {
+  border: 0;
+  height: 1px;
+  background-image: linear-gradient(to right, transparent, rgba(0, 0, 0, 0.25), transparent);
+  display: inline-block;
+  width: 50%;
+  padding: 0 25%;
+  margin: 30px auto; }
 
-.flex-img-block > .text-wrapper {
-  padding: 5rem 0;
-  text-align: center; }
+.flex-img-block .img-wrapper .img, .flex-img-block .img-wrapper img {
+  width: 130%;
+  max-width: 130%;
+  display: block; }
+
+.flex-img-block .img-wrapper .bg-image {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  display: block;
+  background-size: cover;
+  background-position: center;
+  display: block;
+  padding-bottom: 56.6%;
+  min-height: 400px; }
+  @media all and (max-width: 599px) {
+    .flex-img-block .img-wrapper .bg-image {
+      min-height: 310px; } }
+
+@media all and (max-width: 599px) {
+  .flex-img-block .img-wrapper {
+    min-height: 310px; } }
+
+.flex-img-block .text-wrapper {
+  text-align: left; }
+  .flex-img-block .text-wrapper .heading {
+    margin-bottom: 60px; }
+  @media all and (max-width: 991px) {
+    .flex-img-block .text-wrapper {
+      padding: 2rem; }
+      .flex-img-block .text-wrapper .heading {
+        margin-bottom: 30px; } }
+
+.flex-img-block.-img-left .img {
+  margin-left: -30%; }
+
+.flex-img-block.-img-left .text-wrapper {
+  padding-left: 60px; }
+
+.flex-img-block.-img-right .img {
+  margin-right: -25%; }
+
+.flex-img-block.-img-right .text-wrapper {
+  padding-right: 60px; }
+
+.flex-img-block.--homepage .text-wrapper {
+  padding: 105px; }
+
+.flex-section {
+  margin: 60px 0; }
 
 .sec-wipe {
   min-height: 400px; }
 
+.flex-img-gallery ul > *:nth-child(4n+5) {
+  clear: left; }
+
+@media all and (max-width: 767px) {
+  .flex-img-gallery ul > *:nth-child(2n+3) {
+    clear: left; } }
+
 .flex-img-gallery .image-wrap {
-  width: 25%;
+  width: 23%;
+  margin: 1%;
+  height: auto;
   float: left;
   position: relative; }
+  @media all and (max-width: 767px) {
+    .flex-img-gallery .image-wrap {
+      width: 48%; } }
   .flex-img-gallery .image-wrap .img {
-    width: 100%; }
-  .flex-img-gallery .image-wrap .overlay {
-    opacity: 0;
-    transition: all 0.3s ease-in; }
-
-body.no-touch .flex-img-gallery .image-wrap:hover .overlay {
-  opacity: 1;
-  display: block;
-  height: 100%;
-  width: 100%;
-  position: absolute;
-  top: 0px;
-  background-color: rgba(0, 0, 0, 0.6);
-  z-index: 10; }
+    width: 100%;
+    height: auto;
+    display: block; }
 
 .homepage-events .event-card {
   width: 23%;
