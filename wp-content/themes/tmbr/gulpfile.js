@@ -174,7 +174,8 @@
       }))
       .pipe(gulp.dest('public/css'))
       .pipe(rename('application.min.css'))
-      .pipe(cleanCSS({compatibility: 'ie8'}))
+      //.pipe(cleanCSS({compatibility: 'ie8'}))
+      .pipe(uglifycss())
       .pipe(gulp.dest('public/css'))
       .pipe(livereload())
   });
