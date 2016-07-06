@@ -347,4 +347,15 @@ a.link {
   @include transform(translate(-50%,-50%));
 }
 
+// Tmbricon font
+// ==================================
+@mixin tmbricon {
+  font-family: "tmbricons";
+  display: inline-block;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  @include font-smoothing;
+}
+
 
