@@ -41,7 +41,7 @@
 
 		<div class="row">
 			<p class="copyright">
-				<?php echo sprintf( __( '%1$s %2$s %3$s.'), 'Copyright &copy;', date('Y'), esc_html(get_bloginfo('name')) );  ?> All Rights Reserved.
+				<?php echo sprintf( __( '%1$s %2$s %3$s.'), 'Copyright &copy;', date('Y'), esc_html(get_bloginfo('name')) );  ?> All Rights Reserved. Site by <a href="" target="_blank">TMBR</a>.
 			</p>
 		</div>
 
