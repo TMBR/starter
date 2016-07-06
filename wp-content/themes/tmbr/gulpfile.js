@@ -20,7 +20,7 @@
     var runTimestamp = Math.round(Date.now()/1000);
     var consolidate = require('gulp-consolidate');
     var autoprefixer = require('gulp-autoprefixer');
-    var cleanCSS = require('gulp-clean-css');
+    //var cleanCSS = require('gulp-clean-css');
   } catch( e ) {
     console.log('Could not find one of the packages gulp needs to run.  Please run `npm install` to see if that resolves the issue.  The error is below:');
     console.log(e);
