@@ -1,82 +1,82 @@
 {
-  "key":"group_559ada6d3bcc2",
-  "title":"Video Gallery",
-  "fields":[
-    {
-      "key":"field_559adadf6a944",
-      "label":"Videos",
-      "name":"video_gallery",
-      "prefix":"",
-      "type":"repeater",
-      "instructions":"",
-      "required":0,
-      "conditional_logic":0,
-      "wrapper":{
-        "width":"",
-        "class":"",
-        "id":""
-      },
-      "min":"",
-      "max":"",
-      "layout":"table",
-      "button_label":"Add Video",
-      "sub_fields":[
+    "key": "group_559ada6d3bcc2",
+    "title": "Video Gallery",
+    "fields": [
         {
-          "key":"field_559adaf46a945",
-          "label":"Video URL",
-          "name":"vg_url",
-          "prefix":"",
-          "type":"url",
-          "instructions":"",
-          "required":0,
-          "conditional_logic":0,
-          "wrapper":{
-            "width":"",
-            "class":"",
-            "id":""
-          },
-          "default_value":"",
-          "placeholder":""
-        },
-        {
-          "key":"field_559adb026a946",
-          "label":"Video Title",
-          "name":"vg_title",
-          "prefix":"",
-          "type":"text",
-          "instructions":"",
-          "required":0,
-          "conditional_logic":0,
-          "wrapper":{
-            "width":"",
-            "class":"",
-            "id":""
-          },
-          "default_value":"",
-          "placeholder":"",
-          "prepend":"",
-          "append":"",
-          "maxlength":"",
-          "readonly":0,
-          "disabled":0
+            "key": "field_559adadf6a944",
+            "label": "Videos",
+            "name": "video_gallery",
+            "type": "repeater",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "min": "",
+            "max": "",
+            "layout": "table",
+            "button_label": "Add Video",
+            "sub_fields": [
+                {
+                    "key": "field_559adaf46a945",
+                    "label": "Video URL",
+                    "name": "vg_url",
+                    "type": "url",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": ""
+                },
+                {
+                    "key": "field_559adb026a946",
+                    "label": "Video Title",
+                    "name": "vg_title",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": "",
+                    "readonly": 0,
+                    "disabled": 0
+                }
+            ],
+            "collapsed": ""
         }
-      ]
-    }
-  ],
-  "location":[
-    [
-      {
-        "param":"post_type",
-        "operator":"==",
-        "value":"page"
-      }
-    ]
-  ],
-  "menu_order":0,
-  "position":"normal",
-  "style":"default",
-  "label_placement":"top",
-  "instruction_placement":"label",
-  "hide_on_screen":"",
-  "modified":1436211993
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "page"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": 0,
+    "description": "",
+    "modified": 1467838766
 }
