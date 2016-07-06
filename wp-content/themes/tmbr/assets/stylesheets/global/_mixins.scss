@@ -341,4 +341,10 @@ a.link {
   }
 }
 
+// CENTER
+@mixin center($z-index:null) {
+  @include absolute($t:50%,$l:50%,$z:$z-index);
+  @include transform(translate(-50%,-50%));
+}
+
 
