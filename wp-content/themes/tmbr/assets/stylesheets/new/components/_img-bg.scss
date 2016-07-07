@@ -1,0 +1,8 @@
+.img-bg {
+  @include absolute($t:0,$l:0);
+  @include wh100;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  background-clip: border-box;
+}

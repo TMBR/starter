@@ -19,14 +19,7 @@
   height: 90vh;
 }
 
-.img-bg {
-  @include absolute($t:0,$l:0);
-  @include wh100;
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-size: cover;
-  background-clip: border-box;
-}
+
 
 .page-hero .caption {
   @include absolute($t:50%,$l:50px);
