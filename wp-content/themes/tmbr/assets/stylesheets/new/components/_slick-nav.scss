@@ -4,11 +4,15 @@
 .slick-slider .slick-arrow {
   z-index: 1;
   background: $black;
+  height: 30px;
+  width: 30px;
+  padding: 5px;
+  @include border-radius(50%);
   &.slick-prev {
-    left: 0;
+    left: 5px;
   }
   &.slick-next {
-    right: 0;
+    right: 5px;
   }
 }
 
