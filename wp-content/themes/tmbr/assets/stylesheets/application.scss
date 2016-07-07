@@ -120,6 +120,9 @@
 @import "base/layout";
 @import "base/helpers";
 
+/* New */
+@import "new/style";
+
 /* Layout */
 @import "layout/header";
 @import "layout/footer";
@@ -129,7 +132,8 @@
 @import "layout/page";
 
 /* New */
-@import "new/style";
+@import "new/layout/page-hero";
+
 
 
 /* Components */
