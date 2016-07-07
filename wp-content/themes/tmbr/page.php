@@ -3,6 +3,16 @@
 
 <main id="page-main" role="main">
 
+	<!-- PAGE HERO -->
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-xs-12">
+			<?php get_template_part( 'new-partials/fields/page-hero' ); ?>
+			</div><!-- /col -->
+		</div><!-- /row -->
+	</div><!-- /container -->
+
+
 	<div class="container">
 		<div class="row">
 
