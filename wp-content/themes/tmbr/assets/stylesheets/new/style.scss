@@ -1,0 +1,41 @@
+// .page-hero {
+//   //background: magenta;
+//   height: 90vh;
+// }
+
+.hero-slider {
+  background: yellow;
+}
+.hero-slider .item,
+.page-hero .wrapper {
+  //height: 100%;
+
+}
+
+.page-hero .wrapper {
+
+  background: aqua;
+  width: 100%;
+  height: 90vh;
+}
+
+.img-bg {
+  @include absolute($t:0,$l:0);
+  @include wh100;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  background-clip: border-box;
+}
+
+.page-hero .caption {
+  @include absolute($t:50%,$l:50px);
+  @include transform(translateY(-50%));
+  width: 50%;
+  padding: $gutter;
+  background: $black;
+  color: $white;
+}
+
+
+
