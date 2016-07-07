@@ -1,0 +1,27 @@
+
+
+/* SLICK ARROWS */
+.slick-slider .slick-arrow {
+  z-index: 1;
+  background: $black;
+  &.slick-prev {
+    left: 0;
+  }
+  &.slick-next {
+    right: 0;
+  }
+}
+
+/* SLICK DOTS */
+.slick-slider .slick-dots {
+  li {
+    button {
+      text-indent: -9999px;
+      background: $black;
+      @include border-radius(50%);
+      &::before {
+        background: $white;
+      }
+    }
+  }
+}
