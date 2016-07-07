@@ -40,13 +40,15 @@
 		</div><!-- /row -->
 
 		<div class="row">
-			<p class="copyright">
-				<?php echo sprintf( __( '%1$s %2$s %3$s.'), 'Copyright &copy;', date('Y'), esc_html(get_bloginfo('name')) );  ?> All Rights Reserved. Site by <a href="" target="_blank">TMBR</a>.
-			</p>
-		</div>
+			<div class="col-xs-12">
+				<?php get_template_part('new-partials/components/social'); ?>
+				<p class="copyright">
+					<?php echo sprintf( __( '%1$s %2$s %3$s.'), 'Copyright &copy;', date('Y'), esc_html(get_bloginfo('name')) );  ?> All Rights Reserved. Site by <a href="" target="_blank">TMBR</a>.
+				</p>
+			</div><!-- /col -->
+		</div><!-- /row -->
 
-
-	</div>
+	</div><!-- /container -->
 </footer><!-- #colophon -->
 
 </div><!-- .body -->
