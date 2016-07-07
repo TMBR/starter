@@ -18,10 +18,10 @@
 }
 
 #page-main {
-	padding: $gutter * 9 0 $gutter * 3;
+	//padding: $gutter * 9 0 $gutter * 3;
 
 	@include respond-to($screen-sm) {
-		padding: $gutter * 3 0;
+		//padding: $gutter * 3 0;
 	}
 	img {
 		max-width: 100%;
