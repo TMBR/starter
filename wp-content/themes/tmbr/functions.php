@@ -35,6 +35,7 @@ get_template_part( 'inc/custom-img-size' );
 // @define( 'cat_featured', 17 ); // define cat or other terms
 // get_template_part( 'inc/is-tree' ); // is tree relation
 get_template_part( 'inc/shortcodes' );
+get_template_part( 'inc/backup-images' );
 
 // Valid constant names
 define("DEFAULTIMAGE", "http://placehold.it/500x500/e2e2e2/FFFFFF");
