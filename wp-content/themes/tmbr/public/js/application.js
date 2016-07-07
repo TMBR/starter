@@ -177,17 +177,8 @@ _throttle = function(func, wait, options) {
 		Slider: function() {
 
 			$(document).ready(function() {
-
-			  $('#home-slider').flexslider({
-			    animation: "slide",
-			    slideshow: false, // auto play on load
-			    slideshowSpeed: 4000,
-				animationSpeed: 600,
-				pauseOnHover: true,
-				controlNav: true, //Boolean: Create navigation for paging control of each clide? Note: Leave true for manualControls usage
-				directionNav: true, //Boolean: Create navigation for previous/next navigation? (true/false)
-				prevText: "Previous",
-				nextText: "Next"
+				$('.js-slider').slick({
+			    dots: true
 			  });
 
 			});
@@ -199,17 +190,49 @@ _throttle = function(func, wait, options) {
 		// Lightbox Gallery
 		Lightbox: function() {
 
-			$('.imagepop').magnificPopup({type:'image'});
+			$('.js-popup-img').magnificPopup({
+				type:'image',
+				mainClass: 'tmbr-overlay -media -img',
+			});
+
+			$('.js-popup-video').magnificPopup({
+				type: 'iframe',
+				removalDelay: 300,
+				mainClass: 'tmbr-overlay -media -video',
+				fixedContentPos: true,
+				closeOnBgClick: true,
+				preloader: false,
+				closeBtnInside: false
+			});
+
+			$('.js-o-trigger, .js-o-trigger > a').magnificPopup({
+				type: 'inline',
+				removalDelay: 300,
+				mainClass: 'tmbr-overlay -content',
+				fixedContentPos: true,
+				alignTop: true,
+				closeOnBgClick: true,
+				preloader: false,
+				midClick: true,
+				closeBtnInside: false
+			});
 
 			// Flex Content image gallery with modal
 			$('.js-flex-gallery-img').magnificPopup({
 			  type: 'image',
+			  mainClass: 'tmbr-overlay -media -img',
+			  delegate: 'a',
+			  fixedContentPos: true,
+			  closeOnBgClick: true,
+				closeBtnInside: false,
 			  gallery:{
 			    enabled:true
 			  }
 			});
 
 		},
+
+
 
 
 
