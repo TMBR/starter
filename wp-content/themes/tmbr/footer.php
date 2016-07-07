@@ -18,7 +18,7 @@
 				        <?php wp_list_categories('show_count=0&title_li='); ?>
 					</ul>
 				<?php } ?>
-			</div>
+			</div><!-- /col -->
 
 			<div class="col-xs-12 col-sm-3">
 				<?php if ( !function_exists('dynamic_sidebar') || !dynamic_sidebar('Footer 3') ) { ?>
@@ -27,7 +27,7 @@
 						<?php wp_list_pages('title_li='); ?>
 					</ul>
 				<?php } ?>
-			</div><!-- .site-info -->
+			</div><!-- /col -->
 
 			<div class="col-xs-12 col-sm-3">
 				<?php if ( !function_exists('dynamic_sidebar') || !dynamic_sidebar('Footer 4') ) { ?>
@@ -36,8 +36,8 @@
 				        <?php wp_list_categories('show_count=0&title_li='); ?>
 					</ul>
 				<?php } ?>
-			</div><!-- .site-info -->
-		</div>
+			</div><!-- /col -->
+		</div><!-- /row -->
 
 		<div class="row">
 			<p class="copyright">
