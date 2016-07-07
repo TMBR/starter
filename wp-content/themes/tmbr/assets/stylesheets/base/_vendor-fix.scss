@@ -1,7 +1,7 @@
 /* VENDOR OVERRIDES & REQUIRED STYLES
 ========================================= */
 
-/* 
+/*
 	FLEXSLIDER - Overwrites Native (and usually unnecessary) CSS Styles
 	http://www.woothemes.com/flexslider/
 =============================================== */
@@ -25,10 +25,10 @@
   -moz-user-select: none;
   user-select: none;
   @include fixed($t:0,$l:0);
- 
+
   width: 100%;
   @include transform(translate3d(0, -50px, 0));
- 
+
 
   -webkit-transition: -webkit-transform .5s ease-out;
   -ms-transition: -webkit-transform .5s ease-out;
@@ -52,8 +52,8 @@
 
 
 /* ISOTOPE */
-.item { width: 25%; }
-.item.w2 { width: 50%; }
+//.item { width: 25%; }
+//.item.w2 { width: 50%; }
 
 
 
