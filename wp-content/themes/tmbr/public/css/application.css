@@ -10192,6 +10192,10 @@ http://stackoverflow.com/questions/31800298/how-to-make-bootstrap-columns-the-sa
 .row-eq-height [class*="col-"] {
   padding: 0; }
 
+.sec-padded {
+  padding-top: 3rem;
+  padding-bottom: 3rem; }
+
 /* PUSH BODY DOWN SO NOT BLOCKED BY FIXED HEADER
 ================================================ */
 #page-main {
@@ -10431,6 +10435,19 @@ http://stackoverflow.com/questions/31800298/how-to-make-bootstrap-columns-the-sa
   padding-right: 15px; }
 
 /* New */
+.bg-action {
+  background-color: rgba(239, 76, 35, 0.8);
+  color: #FFF; }
+  .bg-action h1,
+  .bg-action h2,
+  .bg-action h3,
+  .bg-action h4,
+  .bg-action h5 {
+    color: #FFF; }
+
+.top-border {
+  border-top: 1px solid #ccc; }
+
 /* Layout */
 /* NAVIGATION */
 .navbar {
