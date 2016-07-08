@@ -14,7 +14,7 @@
 
 	<?php get_template_part( 'new-partials/fields/flex-content' ); ?>
 
-	<div class="container">
+	<div class="container-fluid stop1440">
 		<div class="row">
 
 				<div class="col-sm-8">
