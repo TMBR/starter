@@ -12,6 +12,7 @@
 		</div><!-- /row -->
 	</div><!-- /container -->
 
+	<?php get_template_part( 'new-partials/fields/flex-content' ); ?>
 
 	<div class="container">
 		<div class="row">
