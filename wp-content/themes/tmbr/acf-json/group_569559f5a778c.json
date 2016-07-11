@@ -771,7 +771,7 @@
                                             "name": "cbac_upload_file",
                                             "type": "file",
                                             "instructions": "",
-                                            "required": 1,
+                                            "required": 0,
                                             "conditional_logic": [
                                                 [
                                                     {
@@ -786,8 +786,8 @@
                                                 "class": "",
                                                 "id": ""
                                             },
-                                            "return_format": "url",
-                                            "library": "all",
+                                            "return_format": "",
+                                            "library": "",
                                             "min_size": "",
                                             "max_size": "",
                                             "mime_types": ""
@@ -837,7 +837,641 @@
                     "label": "Link Cards",
                     "display": "block",
                     "sub_fields": [
-                        
+                        {
+                            "key": "field_5783fcb4eabec",
+                            "label": "Style",
+                            "name": "lc_style",
+                            "type": "select",
+                            "instructions": "Link card section style.",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": 25,
+                                "class": "",
+                                "id": ""
+                            },
+                            "choices": {
+                                "default": "White Background (default)",
+                                "color": "Colored Background"
+                            },
+                            "default_value": [
+                                
+                            ],
+                            "allow_null": 0,
+                            "multiple": 0,
+                            "ui": 0,
+                            "ajax": 0,
+                            "placeholder": "",
+                            "disabled": 0,
+                            "readonly": 0
+                        },
+                        {
+                            "key": "field_5783fcb7eabed",
+                            "label": "Top Border?",
+                            "name": "lc_top_border",
+                            "type": "true_false",
+                            "instructions": "Top border breaks up content.",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": 25,
+                                "class": "",
+                                "id": ""
+                            },
+                            "message": "",
+                            "default_value": 0
+                        },
+                        {
+                            "key": "field_5783fcb9eabee",
+                            "label": "Section Link?",
+                            "name": "lc_section_link",
+                            "type": "true_false",
+                            "instructions": "Link directly to this section.",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": 25,
+                                "class": "",
+                                "id": ""
+                            },
+                            "message": "",
+                            "default_value": 0
+                        },
+                        {
+                            "key": "field_5783fcbceabef",
+                            "label": "Unique Section ID",
+                            "name": "lc_section_id",
+                            "type": "text",
+                            "instructions": "Lowercase \/ no space",
+                            "required": 0,
+                            "conditional_logic": [
+                                [
+                                    {
+                                        "field": "field_5783fcb9eabee",
+                                        "operator": "==",
+                                        "value": "1"
+                                    }
+                                ]
+                            ],
+                            "wrapper": {
+                                "width": 25,
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": "",
+                            "maxlength": "",
+                            "readonly": 0,
+                            "disabled": 0
+                        },
+                        {
+                            "key": "field_5783fdc668cbb",
+                            "label": "Add Content",
+                            "name": "lc_add_content",
+                            "type": "flexible_content",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "button_label": "Add Content",
+                            "min": "",
+                            "max": "",
+                            "layouts": [
+                                {
+                                    "key": "577fecc1da339",
+                                    "name": "lc_ac_header",
+                                    "label": "Header",
+                                    "display": "block",
+                                    "sub_fields": [
+                                        {
+                                            "key": "field_5783fdc668cc9",
+                                            "label": "Type",
+                                            "name": "lc_h_type",
+                                            "type": "select",
+                                            "instructions": "",
+                                            "required": 0,
+                                            "conditional_logic": 0,
+                                            "wrapper": {
+                                                "width": 25,
+                                                "class": "",
+                                                "id": ""
+                                            },
+                                            "choices": {
+                                                "h1": "Header 1",
+                                                "h2": "Header 2",
+                                                "h3": "Header 3",
+                                                "h4": "Header 4",
+                                                "h5": "Header 5"
+                                            },
+                                            "default_value": [
+                                                "h2"
+                                            ],
+                                            "allow_null": 0,
+                                            "multiple": 0,
+                                            "ui": 0,
+                                            "ajax": 0,
+                                            "placeholder": "",
+                                            "disabled": 0,
+                                            "readonly": 0
+                                        },
+                                        {
+                                            "key": "field_5783fdc668cca",
+                                            "label": "Align",
+                                            "name": "lc_h_align",
+                                            "type": "select",
+                                            "instructions": "",
+                                            "required": 0,
+                                            "conditional_logic": 0,
+                                            "wrapper": {
+                                                "width": 25,
+                                                "class": "",
+                                                "id": ""
+                                            },
+                                            "choices": {
+                                                "left": "Left (default)",
+                                                "center": "Center",
+                                                "right": "Right"
+                                            },
+                                            "default_value": [
+                                                
+                                            ],
+                                            "allow_null": 0,
+                                            "multiple": 0,
+                                            "ui": 0,
+                                            "ajax": 0,
+                                            "placeholder": "",
+                                            "disabled": 0,
+                                            "readonly": 0
+                                        },
+                                        {
+                                            "key": "field_5783fdc668ccb",
+                                            "label": "Header Text",
+                                            "name": "lc_h_header_text",
+                                            "type": "text",
+                                            "instructions": "",
+                                            "required": 0,
+                                            "conditional_logic": 0,
+                                            "wrapper": {
+                                                "width": 50,
+                                                "class": "",
+                                                "id": ""
+                                            },
+                                            "default_value": "",
+                                            "placeholder": "",
+                                            "prepend": "",
+                                            "append": "",
+                                            "maxlength": "",
+                                            "readonly": 0,
+                                            "disabled": 0
+                                        }
+                                    ],
+                                    "min": "",
+                                    "max": ""
+                                },
+                                {
+                                    "key": "5783fe6107845",
+                                    "name": "link_card_row",
+                                    "label": "Link Card Row",
+                                    "display": "block",
+                                    "sub_fields": [
+                                        {
+                                            "key": "field_5783fe7507846",
+                                            "label": "Add Link Cards",
+                                            "name": "add_link_cards",
+                                            "type": "repeater",
+                                            "instructions": "",
+                                            "required": 0,
+                                            "conditional_logic": 0,
+                                            "wrapper": {
+                                                "width": "",
+                                                "class": "",
+                                                "id": ""
+                                            },
+                                            "collapsed": "",
+                                            "min": "",
+                                            "max": 3,
+                                            "layout": "block",
+                                            "button_label": "Add Link Card",
+                                            "sub_fields": [
+                                                {
+                                                    "key": "field_5784109cc22ec",
+                                                    "label": "",
+                                                    "name": "",
+                                                    "type": "message",
+                                                    "instructions": "",
+                                                    "required": 0,
+                                                    "conditional_logic": 0,
+                                                    "wrapper": {
+                                                        "width": 30,
+                                                        "class": "",
+                                                        "id": ""
+                                                    },
+                                                    "message": "<h3>Link Card<\/h3>",
+                                                    "new_lines": "wpautop",
+                                                    "esc_html": 0
+                                                },
+                                                {
+                                                    "key": "field_5783fe9e07847",
+                                                    "label": "What type of Link Card is this?",
+                                                    "name": "lc_type",
+                                                    "type": "select",
+                                                    "instructions": "",
+                                                    "required": 0,
+                                                    "conditional_logic": 0,
+                                                    "wrapper": {
+                                                        "width": 70,
+                                                        "class": "",
+                                                        "id": ""
+                                                    },
+                                                    "choices": {
+                                                        "custom": "Custom",
+                                                        "site": "Site Content"
+                                                    },
+                                                    "default_value": [
+                                                        
+                                                    ],
+                                                    "allow_null": 1,
+                                                    "multiple": 0,
+                                                    "ui": 0,
+                                                    "ajax": 0,
+                                                    "placeholder": "",
+                                                    "disabled": 0,
+                                                    "readonly": 0
+                                                },
+                                                {
+                                                    "key": "field_5783fedd07848",
+                                                    "label": "Header",
+                                                    "name": "lc_custom_header",
+                                                    "type": "text",
+                                                    "instructions": "",
+                                                    "required": 0,
+                                                    "conditional_logic": [
+                                                        [
+                                                            {
+                                                                "field": "field_5783fe9e07847",
+                                                                "operator": "==",
+                                                                "value": "custom"
+                                                            }
+                                                        ]
+                                                    ],
+                                                    "wrapper": {
+                                                        "width": 50,
+                                                        "class": "",
+                                                        "id": ""
+                                                    },
+                                                    "default_value": "",
+                                                    "placeholder": "",
+                                                    "prepend": "",
+                                                    "append": "",
+                                                    "maxlength": "",
+                                                    "readonly": 0,
+                                                    "disabled": 0
+                                                },
+                                                {
+                                                    "key": "field_5783ff0207849",
+                                                    "label": "Add Media?",
+                                                    "name": "lc_custom_add_media",
+                                                    "type": "true_false",
+                                                    "instructions": "",
+                                                    "required": 0,
+                                                    "conditional_logic": [
+                                                        [
+                                                            {
+                                                                "field": "field_5783fe9e07847",
+                                                                "operator": "==",
+                                                                "value": "custom"
+                                                            }
+                                                        ]
+                                                    ],
+                                                    "wrapper": {
+                                                        "width": 50,
+                                                        "class": "",
+                                                        "id": ""
+                                                    },
+                                                    "message": "",
+                                                    "default_value": 0
+                                                },
+                                                {
+                                                    "key": "field_57840f47eff6f",
+                                                    "label": "Select Site Content",
+                                                    "name": "lc_site_select",
+                                                    "type": "post_object",
+                                                    "instructions": "Select the site content you would like to link to.",
+                                                    "required": 0,
+                                                    "conditional_logic": [
+                                                        [
+                                                            {
+                                                                "field": "field_5783fe9e07847",
+                                                                "operator": "==",
+                                                                "value": "site"
+                                                            }
+                                                        ]
+                                                    ],
+                                                    "wrapper": {
+                                                        "width": 40,
+                                                        "class": "",
+                                                        "id": ""
+                                                    },
+                                                    "post_type": [
+                                                        
+                                                    ],
+                                                    "taxonomy": [
+                                                        
+                                                    ],
+                                                    "allow_null": 0,
+                                                    "multiple": 0,
+                                                    "return_format": "object",
+                                                    "ui": 1
+                                                },
+                                                {
+                                                    "key": "field_57840fa9eff70",
+                                                    "label": "Custom Header Text",
+                                                    "name": "lc_site_custom_header",
+                                                    "type": "text",
+                                                    "instructions": "Override default page title.",
+                                                    "required": "",
+                                                    "conditional_logic": [
+                                                        [
+                                                            {
+                                                                "field": "field_5783fe9e07847",
+                                                                "operator": "==",
+                                                                "value": "site"
+                                                            }
+                                                        ]
+                                                    ],
+                                                    "wrapper": {
+                                                        "width": 30,
+                                                        "class": "",
+                                                        "id": ""
+                                                    },
+                                                    "default_value": "",
+                                                    "placeholder": "",
+                                                    "prepend": "",
+                                                    "append": "",
+                                                    "maxlength": "",
+                                                    "readonly": 0,
+                                                    "disabled": 0
+                                                },
+                                                {
+                                                    "key": "field_57840fd5eff71",
+                                                    "label": "Media Options",
+                                                    "name": "lc_custom_media_options",
+                                                    "type": "select",
+                                                    "instructions": "Pull in page hero, or add custom media. ",
+                                                    "required": "",
+                                                    "conditional_logic": [
+                                                        [
+                                                            {
+                                                                "field": "field_5783fe9e07847",
+                                                                "operator": "==",
+                                                                "value": "site"
+                                                            }
+                                                        ]
+                                                    ],
+                                                    "wrapper": {
+                                                        "width": 30,
+                                                        "class": "",
+                                                        "id": ""
+                                                    },
+                                                    "choices": {
+                                                        "none": "None",
+                                                        "page": "Page Hero",
+                                                        "custom": "Custom"
+                                                    },
+                                                    "default_value": [
+                                                        
+                                                    ],
+                                                    "allow_null": 0,
+                                                    "multiple": 0,
+                                                    "ui": 0,
+                                                    "ajax": 0,
+                                                    "placeholder": "",
+                                                    "disabled": 0,
+                                                    "readonly": 0
+                                                },
+                                                {
+                                                    "key": "field_5783ff2a0784a",
+                                                    "label": "Media",
+                                                    "name": "lc_custom_media",
+                                                    "type": "repeater",
+                                                    "instructions": "Adding more than one media item will create a slider.",
+                                                    "required": 0,
+                                                    "conditional_logic": [
+                                                        [
+                                                            {
+                                                                "field": "field_5783fe9e07847",
+                                                                "operator": "==",
+                                                                "value": "custom"
+                                                            },
+                                                            {
+                                                                "field": "field_5783ff0207849",
+                                                                "operator": "==",
+                                                                "value": "1"
+                                                            }
+                                                        ],
+                                                        [
+                                                            {
+                                                                "field": "field_5783fe9e07847",
+                                                                "operator": "==",
+                                                                "value": "site"
+                                                            },
+                                                            {
+                                                                "field": "field_57840fd5eff71",
+                                                                "operator": "==",
+                                                                "value": "custom"
+                                                            }
+                                                        ]
+                                                    ],
+                                                    "wrapper": {
+                                                        "width": "",
+                                                        "class": "",
+                                                        "id": ""
+                                                    },
+                                                    "collapsed": "",
+                                                    "min": "",
+                                                    "max": "",
+                                                    "layout": "table",
+                                                    "button_label": "Add Media Item",
+                                                    "sub_fields": [
+                                                        {
+                                                            "key": "field_5783ff510784c",
+                                                            "label": "Type",
+                                                            "name": "lc_custom_mi_type",
+                                                            "type": "select",
+                                                            "instructions": "",
+                                                            "required": 0,
+                                                            "conditional_logic": 0,
+                                                            "wrapper": {
+                                                                "width": "",
+                                                                "class": "",
+                                                                "id": ""
+                                                            },
+                                                            "choices": {
+                                                                "image": "Image",
+                                                                "video": "Video"
+                                                            },
+                                                            "default_value": [
+                                                                
+                                                            ],
+                                                            "allow_null": 0,
+                                                            "multiple": 0,
+                                                            "ui": 0,
+                                                            "ajax": 0,
+                                                            "placeholder": "",
+                                                            "disabled": 0,
+                                                            "readonly": 0
+                                                        },
+                                                        {
+                                                            "key": "field_5783ff780784d",
+                                                            "label": "Image",
+                                                            "name": "lc_custom_mi_image",
+                                                            "type": "image",
+                                                            "instructions": "",
+                                                            "required": 0,
+                                                            "conditional_logic": 0,
+                                                            "wrapper": {
+                                                                "width": "",
+                                                                "class": "",
+                                                                "id": ""
+                                                            },
+                                                            "return_format": "array",
+                                                            "preview_size": "thumbnail",
+                                                            "library": "all",
+                                                            "min_width": "",
+                                                            "min_height": "",
+                                                            "min_size": "",
+                                                            "max_width": "",
+                                                            "max_height": "",
+                                                            "max_size": "",
+                                                            "mime_types": ""
+                                                        },
+                                                        {
+                                                            "key": "field_5783ff910784e",
+                                                            "label": "Video URL",
+                                                            "name": "lc_custom_mi_video_url",
+                                                            "type": "url",
+                                                            "instructions": "",
+                                                            "required": 0,
+                                                            "conditional_logic": [
+                                                                [
+                                                                    {
+                                                                        "field": "field_5783ff510784c",
+                                                                        "operator": "==",
+                                                                        "value": "video"
+                                                                    }
+                                                                ]
+                                                            ],
+                                                            "wrapper": {
+                                                                "width": "",
+                                                                "class": "",
+                                                                "id": ""
+                                                            },
+                                                            "default_value": "",
+                                                            "placeholder": ""
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "key": "field_5783ffbd0784f",
+                                                    "label": "Content Excerpt",
+                                                    "name": "lc_custom_content_excerpt",
+                                                    "type": "textarea",
+                                                    "instructions": "",
+                                                    "required": "",
+                                                    "conditional_logic": [
+                                                        [
+                                                            {
+                                                                "field": "field_5783fe9e07847",
+                                                                "operator": "==",
+                                                                "value": "custom"
+                                                            }
+                                                        ]
+                                                    ],
+                                                    "wrapper": {
+                                                        "width": "",
+                                                        "class": "",
+                                                        "id": ""
+                                                    },
+                                                    "default_value": "",
+                                                    "placeholder": "",
+                                                    "maxlength": "",
+                                                    "rows": 3,
+                                                    "new_lines": "br",
+                                                    "readonly": 0,
+                                                    "disabled": 0
+                                                },
+                                                {
+                                                    "key": "field_5783ffd807850",
+                                                    "label": "Button Text",
+                                                    "name": "lc_custom_button_text",
+                                                    "type": "text",
+                                                    "instructions": "",
+                                                    "required": 0,
+                                                    "conditional_logic": [
+                                                        [
+                                                            {
+                                                                "field": "field_5783fe9e07847",
+                                                                "operator": "==",
+                                                                "value": "custom"
+                                                            }
+                                                        ]
+                                                    ],
+                                                    "wrapper": {
+                                                        "width": 50,
+                                                        "class": "",
+                                                        "id": ""
+                                                    },
+                                                    "default_value": "",
+                                                    "placeholder": "",
+                                                    "prepend": "",
+                                                    "append": "",
+                                                    "maxlength": "",
+                                                    "readonly": 0,
+                                                    "disabled": 0
+                                                },
+                                                {
+                                                    "key": "field_5783ffe907851",
+                                                    "label": "Button Link",
+                                                    "name": "lc_custom_button_link",
+                                                    "type": "text",
+                                                    "instructions": "",
+                                                    "required": "",
+                                                    "conditional_logic": [
+                                                        [
+                                                            {
+                                                                "field": "field_5783fe9e07847",
+                                                                "operator": "==",
+                                                                "value": "custom"
+                                                            }
+                                                        ]
+                                                    ],
+                                                    "wrapper": {
+                                                        "width": 50,
+                                                        "class": "",
+                                                        "id": ""
+                                                    },
+                                                    "default_value": "",
+                                                    "placeholder": "",
+                                                    "prepend": "",
+                                                    "append": "",
+                                                    "maxlength": "",
+                                                    "readonly": 0,
+                                                    "disabled": 0
+                                                }
+                                            ]
+                                        }
+                                    ],
+                                    "min": "",
+                                    "max": ""
+                                }
+                            ]
+                        }
                     ],
                     "min": "",
                     "max": ""
@@ -880,5 +1514,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "Post Type = Page or Post",
-    "modified": 1468266678
+    "modified": 1468273620
 }
