@@ -10954,6 +10954,16 @@ body.no-touch .popup-video .trigger::after {
   .slick-slider .slick-dots li button::before {
     background: #FFF; }
 
+.card-media {
+  padding-bottom: 45px; }
+
+.card-media .slick-dotted.slick-slider {
+  margin-bottom: 0; }
+
+.card-media .wrapper {
+  height: 0;
+  padding-bottom: 60%; }
+
 /* Templates */
 @media all and (max-width: 991px) {
   #home-slider {
