@@ -18,11 +18,19 @@ $unique_id = get_sub_field('cb_section_id');
 
               if( get_row_layout() == 'cb_ac_text_content' ) { get_template_part( 'new-partials/fields/flex/content/text-content' ); }
 
-              elseif( get_row_layout() == 'cb_ac_header' ) { get_template_part( 'new-partials/fields/flex/content/header' ); }
+              elseif( get_row_layout() == 'cb_ac_header' ) {
+                $tag = get_sub_field('ac_h_type');
+                $align = get_sub_field('ac_h_align');
+                $text = get_sub_field('ac_h_header_text');
+
+                tmbr_load_template( 'new-partials/components/elements/header.php', array(
+                  'tag' => (isset($tag)) ? $tag : null,
+                  'align' => (isset($align)) ? $align : null,
+                  'text' => (isset($text)) ? $text : null
+                ));
+              }
 
               elseif( get_row_layout() == 'cb_ac_button' ) { get_template_part( 'new-partials/fields/flex/content/button' ); }
-
-              elseif( get_row_layout() == 'cb_ac_form' ) { get_template_part( 'new-partials/fields/flex/media' ); }
 
             endwhile;
 

@@ -1,8 +1,13 @@
 <?php
-
-$tag = get_sub_field('ac_h_type');
-$align = get_sub_field('ac_h_align');
-$text = get_sub_field('ac_h_header_text');
+/* Required vars:
+* $tag
+* $align
+* $text
+*
+* Used by:
+* partials/fields/flex/content.php
+* partials/fields/flex/cards.php
+*/
 
 ?>
 
