@@ -20,7 +20,7 @@ $unique_id = get_sub_field('cb_section_id');
 
               elseif( get_row_layout() == 'cb_ac_header' ) { get_template_part( 'new-partials/fields/flex/content/header' ); }
 
-              elseif( get_row_layout() == 'cb_ac_button' ) { get_template_part( 'new-partials/fields/flex/cards' ); }
+              elseif( get_row_layout() == 'cb_ac_button' ) { get_template_part( 'new-partials/fields/flex/content/button' ); }
 
               elseif( get_row_layout() == 'cb_ac_form' ) { get_template_part( 'new-partials/fields/flex/media' ); }
 

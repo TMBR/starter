@@ -652,18 +652,175 @@
                                     "label": "Button",
                                     "display": "block",
                                     "sub_fields": [
-                                        
-                                    ],
-                                    "min": "",
-                                    "max": ""
-                                },
-                                {
-                                    "key": "577ec5a7541e8",
-                                    "name": "cb_ac_form",
-                                    "label": "Form",
-                                    "display": "block",
-                                    "sub_fields": [
-                                        
+                                        {
+                                            "key": "field_5783f62144184",
+                                            "label": "Button Text",
+                                            "name": "cbac_btn_text",
+                                            "type": "text",
+                                            "instructions": "",
+                                            "required": "",
+                                            "conditional_logic": "",
+                                            "wrapper": {
+                                                "width": 34,
+                                                "class": "",
+                                                "id": ""
+                                            },
+                                            "default_value": "",
+                                            "placeholder": "",
+                                            "prepend": "",
+                                            "append": "",
+                                            "maxlength": "",
+                                            "readonly": 0,
+                                            "disabled": 0
+                                        },
+                                        {
+                                            "key": "field_5783f64a44185",
+                                            "label": "Button Type",
+                                            "name": "cbac_btn_type",
+                                            "type": "select",
+                                            "instructions": "",
+                                            "required": "",
+                                            "conditional_logic": "",
+                                            "wrapper": {
+                                                "width": 33,
+                                                "class": "",
+                                                "id": ""
+                                            },
+                                            "choices": {
+                                                "external": "Custom Link",
+                                                "internal": "Link to Site Page",
+                                                "section": "Link to Page Section",
+                                                "file": "Uploaded File"
+                                            },
+                                            "default_value": [
+                                                
+                                            ],
+                                            "allow_null": 0,
+                                            "multiple": 0,
+                                            "ui": 0,
+                                            "ajax": 0,
+                                            "placeholder": "",
+                                            "disabled": 0,
+                                            "readonly": 0
+                                        },
+                                        {
+                                            "key": "field_5783f66944186",
+                                            "label": "Custom Link",
+                                            "name": "cbac_custom_link",
+                                            "type": "url",
+                                            "instructions": "",
+                                            "required": "",
+                                            "conditional_logic": [
+                                                [
+                                                    {
+                                                        "field": "field_5783f64a44185",
+                                                        "operator": "==",
+                                                        "value": "external"
+                                                    }
+                                                ]
+                                            ],
+                                            "wrapper": {
+                                                "width": 33,
+                                                "class": "",
+                                                "id": ""
+                                            },
+                                            "default_value": "",
+                                            "placeholder": ""
+                                        },
+                                        {
+                                            "key": "field_5783f67e44187",
+                                            "label": "Site Page Link",
+                                            "name": "cbac_site_page_link",
+                                            "type": "page_link",
+                                            "instructions": "",
+                                            "required": 0,
+                                            "conditional_logic": [
+                                                [
+                                                    {
+                                                        "field": "field_5783f64a44185",
+                                                        "operator": "==",
+                                                        "value": "internal"
+                                                    }
+                                                ],
+                                                [
+                                                    {
+                                                        "field": "field_5783f64a44185",
+                                                        "operator": "==",
+                                                        "value": "section"
+                                                    }
+                                                ]
+                                            ],
+                                            "wrapper": {
+                                                "width": 33,
+                                                "class": "",
+                                                "id": ""
+                                            },
+                                            "post_type": [
+                                                "page",
+                                                "post"
+                                            ],
+                                            "taxonomy": [
+                                                
+                                            ],
+                                            "allow_null": 0,
+                                            "multiple": 0
+                                        },
+                                        {
+                                            "key": "field_5783f69244188",
+                                            "label": "Upload File",
+                                            "name": "cbac_upload_file",
+                                            "type": "file",
+                                            "instructions": "",
+                                            "required": 1,
+                                            "conditional_logic": [
+                                                [
+                                                    {
+                                                        "field": "field_5783f64a44185",
+                                                        "operator": "==",
+                                                        "value": "file"
+                                                    }
+                                                ]
+                                            ],
+                                            "wrapper": {
+                                                "width": 33,
+                                                "class": "",
+                                                "id": ""
+                                            },
+                                            "return_format": "url",
+                                            "library": "all",
+                                            "min_size": "",
+                                            "max_size": "",
+                                            "mime_types": ""
+                                        },
+                                        {
+                                            "key": "field_5783f6a844189",
+                                            "label": "Section Name",
+                                            "name": "cbac_section_name",
+                                            "type": "text",
+                                            "instructions": "",
+                                            "required": "",
+                                            "conditional_logic": [
+                                                [
+                                                    {
+                                                        "field": "field_5783f64a44185",
+                                                        "operator": "==",
+                                                        "value": "section"
+                                                    }
+                                                ]
+                                            ],
+                                            "wrapper": {
+                                                "width": "",
+                                                "class": "",
+                                                "id": ""
+                                            },
+                                            "default_value": "",
+                                            "placeholder": "",
+                                            "prepend": "",
+                                            "append": "",
+                                            "maxlength": "",
+                                            "readonly": 0,
+                                            "disabled": 0
+                                        }
                                     ],
                                     "min": "",
                                     "max": ""
@@ -723,5 +880,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "Post Type = Page or Post",
-    "modified": 1468001691
+    "modified": 1468266678
 }
