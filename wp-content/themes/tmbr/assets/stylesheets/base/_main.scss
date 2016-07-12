@@ -1,7 +1,7 @@
 html {
-	overflow-x:hidden;
-	-webkit-font-smoothing:antialiased;
-	font-size: 17px;
+	overflow-x: hidden;
+	@include font-smoothing;
+	font-size: 16px;
 
 	@include respond-to($screen-sm) { font-size: 15px; }
 	@include respond-to($screen-xxs) { font-size: 12px; }
@@ -22,7 +22,7 @@ body {
 a {
 	color: $link-color;
 
-	@include transition($transition200);
+	@include transition(all $transition);
 	&:hover,
 	&:focus,
 	&:active {

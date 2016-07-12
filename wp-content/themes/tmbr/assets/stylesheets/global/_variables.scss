@@ -1,17 +1,18 @@
 $section-height: 400px;
 $menu-height:50px;
 $mobile-menu-height : 50px;
+
 $transition: .2s ease-in;
-$transition200: all .2s ease-in;
-$transition300: all .3s ease-in;
+
 
 /* COLORS */
 $white: #FFF;
-$black : #000;
-$action-color : rgba(239,76,35,0.8);
-$heading-color : rgba(239,76,35,0.8);
-$link-color : #4A96AD;
-$border-color : #ccc;
+$black: #000;
+$action-color: rgba(239,76,35,0.8);
+$heading-color: rgba(239,76,35,0.8);
+$link-color: #4A96AD;
+$border-color: #ccc;
+
 
 /* FONT SIZES */
 $h1: 4rem;
@@ -21,20 +22,26 @@ $h4: 2rem;
 $h5: 1.5rem;
 $p: 1rem;
 
+
 /* FONT FAMILIES */
 @import url(https://fonts.googleapis.com/css?family=Montserrat:400,700);
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,300,700);
+
+$heading-font: 'Montserrat', sans-serif;
+$copy-font: 'Open Sans', sans-serif;
+
 @mixin heading-font($weight: 400) {
-	font-family: 'Montserrat', sans-serif;
+	font-family: $heading-font;
 	font-style: normal;
 	font-weight: $weight;
 }
 
-@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,300,700);
 @mixin copy-font($weight: 400) {
-	font-family: 'Open Sans', sans-serif;
+	font-family: $copy-font;
 	font-style: normal;
 	font-weight: $weight;
 }
+
 
 /* FONT WEIGHTS */
 $fw-light: 300;
