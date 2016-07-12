@@ -10,3 +10,7 @@
     background: $black;
   }
 }
+
+.form-submit {
+  > .submit { @extend .btn } ;
+}

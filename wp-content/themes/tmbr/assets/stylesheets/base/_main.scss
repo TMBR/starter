@@ -56,3 +56,14 @@ button::-moz-focus-inner {
 :focus {outline:none !important;}
 ::-moz-focus-inner {border:0;}
 
+.bg-action {
+  background-color: $action-color;
+  color: $white;
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
+    color: $white;
+  }
+}

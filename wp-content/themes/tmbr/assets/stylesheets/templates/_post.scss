@@ -1,0 +1,8 @@
+.post-item {
+	.post-meta {
+    font-size: .8rem;
+  }
+	.read-more{
+    @extend %btn;
+  }
+}

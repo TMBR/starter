@@ -3,7 +3,14 @@
 .tac { text-align: center; }
 .tar { text-align: right; }
 .tal { text-align: left; }
-
+.alignright {
+  float: right;
+  margin: $gutter 0 $gutter $gutter;
+}
+.alignleft {
+  float: left;
+  margin: $gutter $gutter $gutter 0;
+}
 .wrapper { position: relative; }
 
 .clear { clear: both; }

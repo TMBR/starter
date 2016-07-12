@@ -120,43 +120,34 @@
 @import "base/layout";
 @import "base/helpers";
 
-/* New */
-@import "new/style";
+/* Theme */
+@import "theme/typography";
+@import "theme/buttons";
+@import "theme/forms";
+@import "theme/comments";
+@import "theme/widgets";
+
 
 /* Layout */
 @import "layout/header";
+@import "layout/navbar";
 @import "layout/footer";
-@import "layout/forms";
-@import "layout/widgets";
-@import "layout/comments";
 @import "layout/page";
-
-/* New */
-@import "new/layout/page-hero";
-@import "new/layout/social";
 
 
 /* Components */
-@import "components/buttons";
-@import "components/forms";
 @import "components/preloader";
-@import "components/flex-center-text";
-@import "components/flex-left-right-img-copy";
-@import "components/flex-sectionwipe";
-@import "components/flex-img-gallery";
-@import "components/flex-events";
+@import "components/video";
+@import "components/img-bg";
+@import "components/slick-nav";
+@import "components/link-card";
+@import "components/media-item";
+@import "components/page-hero";
+@import "components/social";
 
-@import "components/post-item";
-@import "components/comments";
 
-/* New */
-@import "new/components/video";
-@import "new/components/img-bg";
-@import "new/components/slick-nav";
-@import "new/components/link-card";
-@import "new/components/media-item";
 /* Templates */
 @import "templates/home";
-
+@import "templates/post";
 
 
