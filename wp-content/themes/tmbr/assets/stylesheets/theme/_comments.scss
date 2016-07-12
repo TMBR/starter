@@ -31,3 +31,13 @@
 		@extend %btn;
 	}
 }
+
+.comment-form {
+	textarea,
+	input {
+		border : 1px solid $border-color;
+	 }
+	 label {
+	 	width: 100%;
+	 }
+}
