@@ -39,7 +39,7 @@ else { $slider = 0; }
             ));
           }
           elseif($type == 'video') {
-            tmbr_load_template( 'new-partials/components/media/video.php', array(
+            tmbr_load_template( 'new-partials/components/media/video-bg.php', array(
               'img' => (isset($image)) ? $image : null,
               'size' => 'full_screen',
               'url' => (isset($url)) ? $url : null
