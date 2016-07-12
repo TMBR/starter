@@ -83,3 +83,8 @@
 .pl4 { padding-left: $gutter*4; }
 .ptb4 { padding-top: $gutter*4; padding-bottom: $gutter*4; }
 .plr4 { padding-left: $gutter*4; padding-right: $gutter*4; }
+
+
+.shadow {
+  @include prefix('box-shadow', '0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12)');
+}
