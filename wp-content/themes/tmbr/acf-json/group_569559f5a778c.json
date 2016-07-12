@@ -1068,11 +1068,11 @@
                                                     "required": 0,
                                                     "conditional_logic": 0,
                                                     "wrapper": {
-                                                        "width": 30,
+                                                        "width": 50,
                                                         "class": "",
                                                         "id": ""
                                                     },
-                                                    "message": "<h3>Link Card<\/h3>",
+                                                    "message": "<h1>Link Card<\/h1>",
                                                     "new_lines": "wpautop",
                                                     "esc_html": 0
                                                 },
@@ -1085,7 +1085,7 @@
                                                     "required": 0,
                                                     "conditional_logic": 0,
                                                     "wrapper": {
-                                                        "width": 70,
+                                                        "width": 50,
                                                         "class": "",
                                                         "id": ""
                                                     },
@@ -1423,7 +1423,7 @@
                                                         ]
                                                     ],
                                                     "wrapper": {
-                                                        "width": 50,
+                                                        "width": 34,
                                                         "class": "",
                                                         "id": ""
                                                     },
@@ -1436,12 +1436,12 @@
                                                     "disabled": 0
                                                 },
                                                 {
-                                                    "key": "field_5783ffe907851",
-                                                    "label": "Button Link",
-                                                    "name": "lc_custom_button_link",
-                                                    "type": "text",
+                                                    "key": "field_57851eca2e202",
+                                                    "label": "Button Type",
+                                                    "name": "lc_custom_btn_type",
+                                                    "type": "select",
                                                     "instructions": "",
-                                                    "required": "",
+                                                    "required": 0,
                                                     "conditional_logic": [
                                                         [
                                                             {
@@ -1452,7 +1452,159 @@
                                                         ]
                                                     ],
                                                     "wrapper": {
-                                                        "width": 50,
+                                                        "width": 33,
+                                                        "class": "",
+                                                        "id": ""
+                                                    },
+                                                    "choices": {
+                                                        "external": "Custom Link",
+                                                        "internal": "Link to Site Page",
+                                                        "section": "Link to Page Section",
+                                                        "file": "Uploaded File"
+                                                    },
+                                                    "default_value": [
+                                                        
+                                                    ],
+                                                    "allow_null": 0,
+                                                    "multiple": 0,
+                                                    "ui": 0,
+                                                    "ajax": 0,
+                                                    "placeholder": "",
+                                                    "disabled": 0,
+                                                    "readonly": 0
+                                                },
+                                                {
+                                                    "key": "field_5783ffe907851",
+                                                    "label": "Button Link",
+                                                    "name": "lc_custom_button_link",
+                                                    "type": "url",
+                                                    "instructions": "",
+                                                    "required": 0,
+                                                    "conditional_logic": [
+                                                        [
+                                                            {
+                                                                "field": "field_5783fe9e07847",
+                                                                "operator": "==",
+                                                                "value": "custom"
+                                                            },
+                                                            {
+                                                                "field": "field_57851eca2e202",
+                                                                "operator": "==",
+                                                                "value": "external"
+                                                            }
+                                                        ]
+                                                    ],
+                                                    "wrapper": {
+                                                        "width": 33,
+                                                        "class": "",
+                                                        "id": ""
+                                                    },
+                                                    "default_value": "",
+                                                    "placeholder": ""
+                                                },
+                                                {
+                                                    "key": "field_57851eca2e204",
+                                                    "label": "Site Page Link",
+                                                    "name": "lc_custom_site_page_link",
+                                                    "type": "page_link",
+                                                    "instructions": "",
+                                                    "required": 0,
+                                                    "conditional_logic": [
+                                                        [
+                                                            {
+                                                                "field": "field_5783fe9e07847",
+                                                                "operator": "==",
+                                                                "value": "custom"
+                                                            },
+                                                            {
+                                                                "field": "field_57851eca2e202",
+                                                                "operator": "==",
+                                                                "value": "internal"
+                                                            }
+                                                        ],
+                                                        [
+                                                            {
+                                                                "field": "field_5783fe9e07847",
+                                                                "operator": "==",
+                                                                "value": "custom"
+                                                            },
+                                                            {
+                                                                "field": "field_57851eca2e202",
+                                                                "operator": "==",
+                                                                "value": "section"
+                                                            }
+                                                        ]
+                                                    ],
+                                                    "wrapper": {
+                                                        "width": 33,
+                                                        "class": "",
+                                                        "id": ""
+                                                    },
+                                                    "post_type": [
+                                                        "page",
+                                                        "post"
+                                                    ],
+                                                    "taxonomy": [
+                                                        
+                                                    ],
+                                                    "allow_null": 0,
+                                                    "multiple": 0
+                                                },
+                                                {
+                                                    "key": "field_57851eca2e205",
+                                                    "label": "Upload File",
+                                                    "name": "lc_custom_upload_file",
+                                                    "type": "file",
+                                                    "instructions": "",
+                                                    "required": 0,
+                                                    "conditional_logic": [
+                                                        [
+                                                            {
+                                                                "field": "field_5783fe9e07847",
+                                                                "operator": "==",
+                                                                "value": "custom"
+                                                            },
+                                                            {
+                                                                "field": "field_57851eca2e202",
+                                                                "operator": "==",
+                                                                "value": "file"
+                                                            }
+                                                        ]
+                                                    ],
+                                                    "wrapper": {
+                                                        "width": 33,
+                                                        "class": "",
+                                                        "id": ""
+                                                    },
+                                                    "return_format": "url",
+                                                    "library": "all",
+                                                    "min_size": "",
+                                                    "max_size": "",
+                                                    "mime_types": ""
+                                                },
+                                                {
+                                                    "key": "field_57851eca2e206",
+                                                    "label": "Section Name",
+                                                    "name": "lc_custom_section_name",
+                                                    "type": "text",
+                                                    "instructions": "",
+                                                    "required": 0,
+                                                    "conditional_logic": [
+                                                        [
+                                                            {
+                                                                "field": "field_5783fe9e07847",
+                                                                "operator": "==",
+                                                                "value": "custom"
+                                                            },
+                                                            {
+                                                                "field": "field_57851eca2e202",
+                                                                "operator": "==",
+                                                                "value": "section"
+                                                            }
+                                                        ]
+                                                    ],
+                                                    "wrapper": {
+                                                        "width": "",
                                                         "class": "",
                                                         "id": ""
                                                     },
@@ -1981,5 +2133,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "Post Type = Page or Post",
-    "modified": 1468341757
+    "modified": 1468344059
 }
