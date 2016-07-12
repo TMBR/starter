@@ -8,7 +8,11 @@
 		padding: $gutter 0;
 		border-bottom: 1px solid $border-color;
 	}
-	.comment-meta { font-size: .8rem;}
+
+	.comment-meta {
+		font-size: .8rem;
+	}
+
 	.comment-author{
 		.avatar {
 			margin-right: $gutter;
@@ -19,6 +23,11 @@
 			float: left;
 		}
 	}
-	.comment-metadata { clear: both; padding: $gutter 0;}
-	.comment-reply-link{@extend .btn}
+	.comment-metadata {
+		clear: both;
+		padding: $gutter 0;
+	}
+	.comment-reply-link{
+		@extend %btn;
+	}
 }
