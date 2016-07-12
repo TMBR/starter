@@ -37,7 +37,7 @@ get_header(); ?>
 
 				<?php else : ?>
 
-					<?php get_template_part( 'partials/loops/nocontent-loop' ); ?>
+					<?php get_template_part( 'partials/loops/no-results' ); ?>
 
 				<?php endif; ?>
 				</article>

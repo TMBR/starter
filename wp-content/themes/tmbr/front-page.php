@@ -20,7 +20,7 @@ get_template_part( 'partials/slider/home-hero' ); ?>
 					</div>
 
 					<?php while ( have_posts() ) : the_post(); ?>
-							<?php get_template_part( 'partials/loops/page-loop' ); ?>
+							<?php get_template_part( 'partials/loops/page-content' ); ?>
 					<?php endwhile; // end of the loop. ?>
 
 					<!-- OUTPUT BLOG POSTS -->
@@ -35,7 +35,7 @@ get_template_part( 'partials/slider/home-hero' ); ?>
 							<?php if ( $blogposts->have_posts() ) : while ( $blogposts->have_posts() ) : $blogposts->the_post(); ?>
 								<?php
 								// large News Item
-								get_template_part( 'partials/loops/article-loop' ); ?>
+								get_template_part( 'partials/loops/single-excerpt' ); ?>
 
 							<?php  endwhile; endif; ?>
 							<?php  wp_reset_postdata(); ?>

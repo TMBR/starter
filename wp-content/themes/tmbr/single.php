@@ -15,7 +15,7 @@ get_header(); ?>
 				<article role="article">
 					<?php while ( have_posts() ) : the_post(); ?>
 
-						<?php get_template_part( 'partials/loops/single-loop' ); ?>
+						<?php get_template_part( 'partials/loops/single-content' ); ?>
 
 						<?php the_post_navigation(); ?>
 
