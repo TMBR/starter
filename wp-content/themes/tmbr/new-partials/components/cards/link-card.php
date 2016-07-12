@@ -25,6 +25,23 @@
   }
   if(isset($header)){ echo '<h4 class="title">'. $header .'</h4>'; }
   if(isset($content)){ echo '<p class="text">'. $content .'</p>'; }
-  if(isset($btn_text)){ echo '<a href="'.$btn_link.'" class="btn">'. $btn_text .'</a>'; }
+
+  if($source == 'flex_custom') {
+    $type = get_sub_field('lc_custom_btn_type');
+    $text = get_sub_field('lc_custom_button_text');
+    $site_pg = get_sub_field('lc_custom_site_page_link');
+    $id = get_sub_field('lc_custom_section_name');
+    $custom = get_sub_field('lc_custom_button_link');
+    $u_file = get_sub_field('lc_custom_upload_file');
+
+    tmbr_load_template( 'new-partials/components/elements/button.php', array(
+      'type' => (isset($type)) ? $type : null,
+      'text' => (isset($text)) ? $text : null,
+      'site_pg' => (isset($site_pg)) ? $site_pg : null,
+      'id' => (isset($id)) ? $id : null,
+      'custom' => (isset($custom)) ? $custom : null,
+      'u_file' => (isset($u_file)) ? $u_file : null
+    ));
+  }
   ?>
 </div><!-- /link-card -->
