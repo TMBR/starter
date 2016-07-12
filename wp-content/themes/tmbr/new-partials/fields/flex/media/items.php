@@ -1,5 +1,7 @@
 
 <?php
+// @TO DO - SHOULD WE HAVE OPTION FOR POPUP IMG?
+// SHOULD THIS BE INTEGRATED INTO CONTENT BLOCK FLEX?
 
 $rows = 'fm_mi_media';
 $get_rows = get_sub_field($rows);
