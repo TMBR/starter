@@ -17,7 +17,7 @@ $unique_id = get_sub_field('lc_section_id');
             while ( have_rows('lc_add_content') ) : the_row();
 
               if( get_row_layout() == 'link_card_row' ) {
-                get_template_part( 'new-partials/fields/flex/cards/row' );
+                get_template_part( 'partials/custom-fields/flex/cards/row' );
               }
 
               elseif( get_row_layout() == 'lc_ac_header' ) {

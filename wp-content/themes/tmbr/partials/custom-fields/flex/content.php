@@ -17,7 +17,7 @@ $unique_id = get_sub_field('cb_section_id');
             while ( have_rows('cb_add_content') ) : the_row();
 
               if( get_row_layout() == 'cb_ac_text_content' ) {
-                get_template_part( 'new-partials/fields/flex/content/text-content' );
+                get_template_part( 'partials/custom-fields/flex/content/text-content' );
               }
 
               elseif( get_row_layout() == 'cb_ac_header' ) {

@@ -17,11 +17,11 @@ $unique_id = get_sub_field('fm_section_id');
             while ( have_rows('fm_add_content') ) : the_row();
 
               if( get_row_layout() == 'fm_media_items' ) {
-                get_template_part( 'new-partials/fields/flex/media/items' );
+                get_template_part( 'partials/custom-fields/flex/media/items' );
               }
 
               elseif( get_row_layout() == 'fm_gallery' ) {
-                get_template_part( 'new-partials/fields/flex/media/gallery' );
+                get_template_part( 'partials/custom-fields/flex/media/gallery' );
               }
 
 

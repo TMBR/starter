@@ -13,12 +13,12 @@ if(get_sub_field('add_link_cards')) :
 
         // CUSTOM CARD
         if($type == 'custom') {
-          get_template_part( 'new-partials/fields/flex/cards/custom' );
+          get_template_part( 'partials/custom-fields/flex/cards/custom' );
         }
 
         // SITE CONTENT
         elseif($type == 'site') {
-          get_template_part( 'new-partials/fields/flex/cards/site' );
+          get_template_part( 'partials/custom-fields/flex/cards/site' );
 
         }
 

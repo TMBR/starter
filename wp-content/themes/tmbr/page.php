@@ -7,12 +7,12 @@
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-xs-12">
-			<?php get_template_part( 'new-partials/fields/page-hero' ); ?>
+			<?php get_template_part( 'partials/custom-fields/page-hero' ); ?>
 			</div><!-- /col -->
 		</div><!-- /row -->
 	</div><!-- /container -->
 
-	<?php get_template_part( 'new-partials/fields/flex-content' ); ?>
+	<?php get_template_part( 'partials/custom-fields/flex-content' ); ?>
 
 	<div class="container-fluid stop1440">
 		<div class="row">
