@@ -36,6 +36,7 @@
 .ml4{margin-left : $gutter * 4;}
 
 /* Padding Helpers */
+
 .p1{padding : $gutter;}
 .p2{padding : $gutter * 2;}
 .p3{padding : $gutter * 3;}
@@ -60,3 +61,25 @@
 .pr4{padding-right : $gutter * 4;}
 .pb4{padding-bottom : $gutter * 4;}
 .pl4{padding-left : $gutter * 4;}
+
+.ptb0 { padding-top: 0; padding-bottom: 0; }
+.plr0 { padding-left: 0; padding-right: 0; }
+
+
+.ptb1 { padding-top: $gutter; padding-bottom: $gutter; }
+.plr1 { padding-left: $gutter; padding-right: $gutter; }
+
+
+.ptb2 { padding-top: $gutter*2; padding-bottom: $gutter*2; }
+.plr2 { padding-left: $gutter*2; padding-right: $gutter*2; }
+
+
+.ptb3 { padding-top: $gutter*3; padding-bottom: $gutter*3; }
+.plr3 { padding-left: $gutter*3; padding-right: $gutter*3; }
+
+
+.ptb4 { padding-top: $gutter*4; padding-bottom: $gutter*4; }
+.plr4 { padding-left: $gutter*4; padding-right: $gutter*4; }
+
+
+
