@@ -33,13 +33,13 @@ else { $slider = 0; }
 
         <?php
           if($type == 'image') {
-            tmbr_load_template( 'new-partials/components/media/img-bg.php', array(
+            tmbr_load_template( 'partials/components/media/img-bg.php', array(
               'img' => (isset($image)) ? $image : null,
               'size' => 'full_screen'
             ));
           }
           elseif($type == 'video') {
-            tmbr_load_template( 'new-partials/components/media/video-bg.php', array(
+            tmbr_load_template( 'partials/components/media/video-bg.php', array(
               'img' => (isset($image)) ? $image : null,
               'size' => 'full_screen',
               'url' => (isset($url)) ? $url : null

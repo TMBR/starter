@@ -30,7 +30,7 @@ $unique_id = get_sub_field('fm_section_id');
                 $align = get_sub_field('fm_h_align');
                 $text = get_sub_field('fm_h_header_text');
 
-                tmbr_load_template( 'new-partials/components/elements/header.php', array(
+                tmbr_load_template( 'partials/components/elements/header.php', array(
                   'tag' => (isset($tag)) ? $tag : null,
                   'align' => (isset($align)) ? $align : null,
                   'text' => (isset($text)) ? $text : null

@@ -23,7 +23,7 @@ if($get_rows) :
       ?>
     <div class="col-xs-4">
       <?php
-        tmbr_load_template( 'new-partials/components/media/video-obj.php', array(
+        tmbr_load_template( 'partials/components/media/video-obj.php', array(
           'img' => (isset($image)) ? $image : null,
           'size' => 'full_screen',
           'url' => (isset($url)) ? $url : null

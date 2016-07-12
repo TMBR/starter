@@ -25,7 +25,7 @@ $unique_id = get_sub_field('cb_section_id');
                 $align = get_sub_field('ac_h_align');
                 $text = get_sub_field('ac_h_header_text');
 
-                tmbr_load_template( 'new-partials/components/elements/header.php', array(
+                tmbr_load_template( 'partials/components/elements/header.php', array(
                   'tag' => (isset($tag)) ? $tag : null,
                   'align' => (isset($align)) ? $align : null,
                   'text' => (isset($text)) ? $text : null
@@ -42,7 +42,7 @@ $unique_id = get_sub_field('cb_section_id');
                 ?>
                 <div class="text-center">
                 <?php
-                tmbr_load_template( 'new-partials/components/elements/button.php', array(
+                tmbr_load_template( 'partials/components/elements/button.php', array(
                   'type' => (isset($type)) ? $type : null,
                   'text' => (isset($text)) ? $text : null,
                   'site_pg' => (isset($site_pg)) ? $site_pg : null,

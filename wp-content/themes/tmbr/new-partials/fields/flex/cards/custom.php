@@ -6,7 +6,7 @@ $content = get_sub_field('lc_custom_content_excerpt');
 
 
 
-tmbr_load_template( 'new-partials/components/cards/link-card.php', array(
+tmbr_load_template( 'partials/components/cards/link-card.php', array(
   'source' => 'flex_custom',
   'header' => (isset($header)) ? $header : null,
   'add_media' => (isset($add_media)) ? $add_media : null,

@@ -29,7 +29,7 @@ if( $post_object ) :
   $btn_text = 'Read More';
   $btn_link = get_the_permalink();
 
-  tmbr_load_template( 'new-partials/components/cards/link-card.php', array(
+  tmbr_load_template( 'partials/components/cards/link-card.php', array(
     'source' => (isset($source)) ? $source : null,
     'header' => (isset($header)) ? $header : null,
     'add_media' => (isset($add_media)) ? $add_media : null,

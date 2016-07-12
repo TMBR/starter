@@ -19,7 +19,7 @@
 <div class="link-card">
   <?php
   if($add_media) {
-    tmbr_load_template( 'new-partials/components/cards/media.php', array(
+    tmbr_load_template( 'partials/components/cards/media.php', array(
       'source' => (isset($source)) ? $source : null
     ));
   }
@@ -34,7 +34,7 @@
     $custom = get_sub_field('lc_custom_button_link');
     $u_file = get_sub_field('lc_custom_upload_file');
 
-    tmbr_load_template( 'new-partials/components/elements/button.php', array(
+    tmbr_load_template( 'partials/components/elements/button.php', array(
       'type' => (isset($type)) ? $type : null,
       'text' => (isset($text)) ? $text : null,
       'site_pg' => (isset($site_pg)) ? $site_pg : null,
