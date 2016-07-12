@@ -10,7 +10,7 @@
 
       elseif( get_row_layout() == 'link_cards' ) { get_template_part( 'new-partials/fields/flex/cards' ); }
 
-      elseif( get_row_layout() == 'media' ) { get_template_part( 'new-partials/fields/flex/media' ); }
+      elseif( get_row_layout() == 'flex_media' ) { get_template_part( 'new-partials/fields/flex/media' ); }
 
     endwhile;
 
