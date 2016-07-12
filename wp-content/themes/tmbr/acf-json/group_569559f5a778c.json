@@ -1897,9 +1897,9 @@
                                                         "class": "",
                                                         "id": ""
                                                     },
-                                                    "return_format": "",
+                                                    "return_format": "array",
                                                     "preview_size": "thumbnail",
-                                                    "library": "",
+                                                    "library": "all",
                                                     "min_width": "",
                                                     "min_height": "",
                                                     "min_size": "",
@@ -2133,5 +2133,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "Post Type = Page or Post",
-    "modified": 1468344059
+    "modified": 1468346117
 }
