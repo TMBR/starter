@@ -10386,13 +10386,13 @@ http://stackoverflow.com/questions/31800298/how-to-make-bootstrap-columns-the-sa
 .pl2 {
   padding-left: 30px; }
 
-.ptb1 {
-  padding-top: 15px;
-  padding-bottom: 15px; }
+.ptb2 {
+  padding-top: 30px;
+  padding-bottom: 30px; }
 
-.plr1 {
-  padding-left: 15px;
-  padding-right: 15px; }
+.plr2 {
+  padding-left: 30px;
+  padding-right: 30px; }
 
 .pt3 {
   padding-top: 45px; }
@@ -10406,13 +10406,13 @@ http://stackoverflow.com/questions/31800298/how-to-make-bootstrap-columns-the-sa
 .pl3 {
   padding-left: 45px; }
 
-.ptb1 {
-  padding-top: 15px;
-  padding-bottom: 15px; }
+.ptb3 {
+  padding-top: 45px;
+  padding-bottom: 45px; }
 
-.plr1 {
-  padding-left: 15px;
-  padding-right: 15px; }
+.plr3 {
+  padding-left: 45px;
+  padding-right: 45px; }
 
 .pt4 {
   padding-top: 60px; }
@@ -10426,13 +10426,13 @@ http://stackoverflow.com/questions/31800298/how-to-make-bootstrap-columns-the-sa
 .pl4 {
   padding-left: 60px; }
 
-.ptb1 {
-  padding-top: 15px;
-  padding-bottom: 15px; }
+.ptb4 {
+  padding-top: 60px;
+  padding-bottom: 60px; }
 
-.plr1 {
-  padding-left: 15px;
-  padding-right: 15px; }
+.plr4 {
+  padding-left: 60px;
+  padding-right: 60px; }
 
 /* New */
 .bg-action {
@@ -10604,9 +10604,6 @@ body.no-touch #footer a:hover {
     float: left;
     margin: 7.5px;
     text-align: center; }
-
-.gallery img {
-  border: 2px solid #cfcfcf; }
 
 .gallery .gallery-caption {
   margin-left: 0; }
@@ -10918,6 +10915,10 @@ body.no-touch .popup-video .trigger::after {
       width: calc(80px - 3px);
       height: calc(80px - 3px); } }
 
+/* VID OB */
+.wrapper.-vid-obj {
+  float: left; }
+
 .img-bg {
   top: 0;
   left: 0;
@@ -10961,6 +10962,10 @@ body.no-touch .popup-video .trigger::after {
   margin-bottom: 0; }
 
 .card-media .wrapper {
+  height: 0;
+  padding-bottom: 60%; }
+
+.media-item .wrapper.-media {
   height: 0;
   padding-bottom: 60%; }
 
