@@ -1843,8 +1843,8 @@
                                             "name": "fm_mi_media",
                                             "type": "repeater",
                                             "instructions": "Adding more than one media item will create a slider.",
-                                            "required": "",
-                                            "conditional_logic": "",
+                                            "required": 0,
+                                            "conditional_logic": 0,
                                             "wrapper": {
                                                 "width": "",
                                                 "class": "",
@@ -1853,7 +1853,7 @@
                                             "collapsed": "",
                                             "min": "",
                                             "max": "",
-                                            "layout": "",
+                                            "layout": "block",
                                             "button_label": "Add Media Item",
                                             "sub_fields": [
                                                 {
@@ -1862,10 +1862,10 @@
                                                     "name": "fm_mi_type",
                                                     "type": "select",
                                                     "instructions": "",
-                                                    "required": "",
-                                                    "conditional_logic": "",
+                                                    "required": 0,
+                                                    "conditional_logic": 0,
                                                     "wrapper": {
-                                                        "width": "",
+                                                        "width": 34,
                                                         "class": "",
                                                         "id": ""
                                                     },
@@ -1890,10 +1890,10 @@
                                                     "name": "fm_mi_image",
                                                     "type": "image",
                                                     "instructions": "",
-                                                    "required": "",
-                                                    "conditional_logic": "",
+                                                    "required": 0,
+                                                    "conditional_logic": 0,
                                                     "wrapper": {
-                                                        "width": "",
+                                                        "width": 33,
                                                         "class": "",
                                                         "id": ""
                                                     },
@@ -1914,7 +1914,7 @@
                                                     "name": "fm_mi_video_url",
                                                     "type": "url",
                                                     "instructions": "",
-                                                    "required": "",
+                                                    "required": 0,
                                                     "conditional_logic": [
                                                         [
                                                             {
@@ -1925,7 +1925,7 @@
                                                         ]
                                                     ],
                                                     "wrapper": {
-                                                        "width": "",
+                                                        "width": 33,
                                                         "class": "",
                                                         "id": ""
                                                     },
