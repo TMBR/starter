@@ -8,11 +8,11 @@
 */
 
 
-if($source == 'flex_custom'){
+if($source == 'flex_custom' || $source == 'site_custom'){
   $rows = 'lc_custom_media';
   $get_rows = get_sub_field($rows);
 }
-elseif($source == 'page_hero'){
+elseif($source == 'site_hero'){
   $rows = 'flex_hero';
   $get_rows = get_field($rows);
 }
@@ -33,12 +33,12 @@ else { $slider = 0; }
 
       while(has_sub_field($rows)) :
 
-        if($source == 'flex_custom'){
+        if($source == 'flex_custom' || $source == 'site_custom'){
           $src_type = 'lc_custom_mi_type';
           $src_img = 'lc_custom_mi_image';
           $src_vid_url = 'lc_custom_mi_video_url';
         }
-        if($source == 'page_hero'){
+        if($source == 'site_hero'){
           $src_type = 'flex_hero_type';
           $src_img = 'flex_hero_image';
           $src_vid_url = 'flex_hero_video_url';

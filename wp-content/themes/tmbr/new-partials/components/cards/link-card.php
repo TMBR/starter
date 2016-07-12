@@ -43,5 +43,8 @@
       'u_file' => (isset($u_file)) ? $u_file : null
     ));
   }
+  else {
+    if(isset($btn_text)){ echo '<a href="'.$btn_link.'" class="btn">'. $btn_text .'</a>'; }
+  }
   ?>
 </div><!-- /link-card -->

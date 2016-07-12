@@ -18,10 +18,10 @@ if( $post_object ) :
   }
 
   if($media_choice == 'page') {
-    $source = 'page_hero';
+    $source = 'site_hero';
   }
   elseif($media_choice == 'custom') {
-    $source = 'flex_custom';
+    $source = 'site_custom';
   }
 
   $header = $custom_header ? $custom_header : get_the_title();
