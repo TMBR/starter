@@ -291,15 +291,6 @@
 	top: 0;
 }
 
-.tribe-grid-allday .column.first span {
-	left: 50%;
-	margin-left: -15px;
-	margin-top: -12px;
-	position: absolute;
-	top: 50%;
-	width: 30px;
-}
-
 .tribe-grid-allday .type-tribe_events {
 	margin: 0;
 	position: relative;
@@ -1180,6 +1171,14 @@ div.tribe-countdown-text {
 .tribe-theme-twentysixteen .tribe-events-list-photo-description ul,
 	.tribe-theme-twentysixteen .tribe-events-list-photo-description ol {
 	margin-left: 1.25em;
+}
+
+.tribe-theme-twentysixteen .tribe-events-list-photo-description {
+	width: 100%;
+}
+
+.tribe-events-list-photo-description {
+	width: 100%;
 }
 
 /* = Events Venue Widget

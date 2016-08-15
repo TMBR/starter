@@ -56,6 +56,7 @@ class Tribe__Events__Venue {
 		$rewrite = Tribe__Events__Rewrite::instance();
 
 		$this->singular_venue_label                = $this->get_venue_label_singular();
+		$this->singular_venue_label_lowercase      = $this->get_venue_label_singular_lowercase();
 		$this->plural_venue_label                  = $this->get_venue_label_plural();
 
 		$this->post_type_args['rewrite']['slug']   = $rewrite->prepare_slug( $this->singular_venue_label, self::POSTTYPE, false );
@@ -70,6 +71,7 @@ class Tribe__Events__Venue {
 		$this->post_type_args['labels'] = apply_filters( 'tribe_events_register_venue_post_type_labels', array(
 			'name'               => $this->plural_venue_label,
 			'singular_name'      => $this->singular_venue_label,
+			'singular_name_lowercase' => $this->singular_venue_label_lowercase,
 			'add_new'            => esc_html__( 'Add New', 'the-events-calendar' ),
 			'add_new_item'       => sprintf( esc_html__( 'Add New %s', 'the-events-calendar' ), $this->singular_venue_label ),
 			'edit_item'          => sprintf( esc_html__( 'Edit %s', 'the-events-calendar' ), $this->singular_venue_label ),
@@ -88,6 +90,7 @@ class Tribe__Events__Venue {
 		add_filter( 'tribe_events_linked_post_type_container', array( $this, 'linked_post_type_container' ), 10, 2 );
 		add_filter( 'tribe_events_linked_post_create_' . self::POSTTYPE, array( $this, 'save' ), 10, 5 );
 		add_filter( 'tribe_events_linked_post_meta_box_title', array( $this, 'meta_box_title' ), 5, 2 );
+		add_filter( 'tribe_events_linked_post_default', array( $this, 'linked_post_default' ), 10, 2 );
 		add_action( 'tribe_events_linked_post_new_form', array( $this, 'linked_post_new_form' ) );
 	}
 
@@ -138,6 +141,24 @@ class Tribe__Events__Venue {
 	public function get_venue_label_plural() {
 		return apply_filters( 'tribe_venue_label_plural', esc_html__( 'Venues', 'the-events-calendar' ) );
 	}
+
+	/**
+	 * Allow users to specify their own lowercase singular label for Venues
+	 * @return string
+	 */
+	public function get_venue_label_singular_lowercase() {
+		return apply_filters( 'tribe_venue_label_singular_lowercase', esc_html__( 'venue', 'the-events-calendar' ) );
+	}
+
+	/**
+	 * Allow users to specify their own lowercase plural label for Venues
+	 *
+	 * @return string
+	 */
+	public function get_venue_label_plural_lowercase() {
+		return apply_filters( 'tribe_venue_label_plural_lowercase', esc_html__( 'venues', 'the-events-calendar' ) );
+	}
+
 
 	/**
 	 * Filters the linked post id field
@@ -358,6 +379,22 @@ class Tribe__Events__Venue {
 	 */
 	public function delete( $venue_id, $force_delete = false ) {
 		wp_delete_post( $venue_id, $force_delete );
+	}
+
+	/**
+	 * Returns the default venue
+	 *
+	 * @since 4.2.4
+	 *
+	 * @param int $default Default venue ID
+	 * @param string $post_type Post type of form being output
+	 */
+	public function linked_post_default( $default, $post_type ) {
+		if ( self::POSTTYPE !== $post_type ) {
+			return $default;
+		}
+
+		return Tribe__Events__Main::instance()->defaults()->venue_id();
 	}
 
 	public function linked_post_new_form( $post_type ) {

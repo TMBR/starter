@@ -108,8 +108,10 @@ jQuery( document ).ready( function( $ ) {
 
 		var calendar_filters = hidden.val() ? $.parseJSON( hidden.val() ) : new Object();
 
-		if ( calendar_filters[tax_id] ) {
-			calendar_filters[tax_id].myremove( term_id );
+		if ( calendar_filters[ tax_id ] ) {
+			calendar_filters[ tax_id ] = $.grep( calendar_filters[ tax_id ], function ( value ) {
+				return value != term_id;
+			} );
 		}
 
 		hidden.val( JSON.stringify( calendar_filters ) );
@@ -123,16 +125,6 @@ jQuery( document ).ready( function( $ ) {
 
 	} );
 
-	Array.prototype.myremove = function() {
-		var what, a = arguments, L = a.length, ax;
-		while ( L && this.length ) {
-			what = a[--L];
-			while ( (ax = this.indexOf( what )) != -1 ) {
-				this.splice( ax, 1 );
-			}
-		}
-		return this;
-	};
 
 	if ( !Array.prototype.indexOf ) {
 		Array.prototype.indexOf = function( what, i ) {

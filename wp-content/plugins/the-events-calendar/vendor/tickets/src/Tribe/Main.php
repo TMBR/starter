@@ -9,12 +9,12 @@ class Tribe__Tickets__Main {
 	/**
 	 * Current version of this plugin
 	 */
-	const VERSION = '4.2';
+	const VERSION = '4.2.4dev';
 
 	/**
 	 * Min required The Events Calendar version
 	 */
-	const MIN_TEC_VERSION = '4.2';
+	const MIN_TEC_VERSION = '4.2.2';
 
 	/**
 	 * Name of the provider
@@ -387,6 +387,8 @@ class Tribe__Tickets__Main {
 		$this->settings_tab();
 
 		$this->tickets_view();
+
+		Tribe__Credits::init();
 	}
 
 	/**

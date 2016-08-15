@@ -2,7 +2,7 @@
 Contributors: elliotcondon
 Tags: acf, advanced, custom, field, fields, custom field, custom fields, simple fields, magic fields, more fields, repeater, edit
 Requires at least: 3.6.0
-Tested up to: 4.5.2
+Tested up to: 4.6.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -105,6 +105,34 @@ http://support.advancedcustomfields.com/
 
 
 == Changelog ==
+
+= 5.4.1 =
+* API: Fixed bug causing `get_fields('options')` to return false
+* Core: Fixed bug causing `get_current_screen()` to throw PHP error
+* Core: Fixed bug causing 'Preview Post' to load empty field values
+
+= 5.4.0 =
+* Clone field: Added new field type (https://www.advancedcustomfields.com/resources/clone/)
+* Gallery field: Removed 'Preview Size' setting and improved UI
+* Taxonomy field: Added compatibility to save/load terms to user object
+* Select field: Added new 'Return Format' setting
+* Radio field: Added new 'Return Format' setting
+* Checkbox field: Added new 'Return Format' setting
+* Page link field: Added new 'Allow Archives URLs' setting
+* Core: Fixed plugin update bug delaying updates
+* Core: Fixed bug when editing field settings in Chrome causing required setting to self toggle
+* Core: Improved speed and fixed bugs when creating and restoring revisions
+* Core: Minor fixes and improvements
+* Language: Updated Portuguese translation - thanks to Pedro Mendonca
+* Language: Updated Brazilian Portuguese translation - thanks to Augusto Simão
+* Language: Updated Dutch translation - thanks to Derk Oosterveld
+* Language: Updated Persian translation - thanks to Kamel
+* Language: Updated German translation - thanks to Ralf Koller
+* Language: Updated Swiss German translation - thanks to Raphael Hüni
+
+= 5.3.10 =
+* Core: Added new 'google_api_key' and 'google_api_client' global settings
+* Google Map: Added new 'acf/fields/google_map/api' filter
 
 = 5.3.9.2 =
 * Time Picker field: Added compatibility with previous 3rd party field settings
