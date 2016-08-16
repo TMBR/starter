@@ -12,6 +12,9 @@ get_template_part( 'partials/slider/home-hero' ); ?>
 				<div class="col-sm-8">
 
 					<div class="homepage-events">
+
+
+
 						<?php
 						global $sectiontitle;
 						$sectiontitle = "Events";
