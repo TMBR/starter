@@ -1,7 +1,6 @@
 #preloader {
   @include fixed($t:0,$r:0,$b:0,$l:0,$z:99999);
-    width: 100%;
-    height: 100%;
+    @include wh100;
     background-color: $white;
   .spinner {
     @include absolute($t:50%, $l:50%);

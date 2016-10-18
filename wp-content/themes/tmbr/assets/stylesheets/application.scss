@@ -84,70 +84,51 @@
 
 /**
 * =========== THEME STYLES ==============
+* http://demo.patternlab.io/
 *
-*
-*   # GLOBAL
-*   - variables
-*   - mixins
-*   - keyframes
-*
-*   # BASE
-*   - reset / vendor fix
-*   - main (body / typography / color classes)
-*   - layout (align / margin classes)
-*
-*   # COMPONENTS
-*   - buttons / form elements
-*   - preloader
-*
-*   # LAYOUT
-*   - header / footer
-*
+
 *
 */
 
+@import "00_base/variables";
+@import "00_base/mixins";
+@import "00_base/keyframes";
+@import "00_base/reset";
+@import "00_base/vendor-fix";
+@import "00_base/main";
 
-/* Global */
-@import "global/variables";
-@import "global/mixins";
-@import "global/keyframes";
+@import "01_atom/bootstrap-hacks";
+@import "01_atom/helpers";
+@import "01_atom/layout";
+@import "01_atom/typography";
+@import "01_atom/buttons";
+@import "01_atom/forms";
 
-/* Base */
-@import "base/reset";
-@import "base/vendor-fix";
-@import "base/main";
-@import "base/layout";
-@import "base/helpers";
+@import "02_molecule/preloader";
+@import "02_molecule/wp-comments";
+@import "02_molecule/wp-widgets";
+@import "02_molecule/navbar-toggle";
+@import "02_molecule/social";
 
-/* Layout */
-@import "layout/header";
-@import "layout/footer";
-@import "layout/forms";
-@import "layout/widgets";
-@import "layout/comments";
-@import "layout/page";
+@import "03_organism/header";
+@import "03_organism/footer";
+// @import "03_organism/flex-center-text";
+// @import "03_organism/flex-left-right-img-copy";
+// @import "03_organism/flex-sectionwipe";
+// @import "03_organism/flex-img-gallery";
+// @import "03_organism/flex-events";
 
+@import "04_template/post-item";
+@import "04_template/page";
 
-@import "new/layout/social";
-
-
-/* Components */
-@import "components/buttons";
-@import "components/forms";
-@import "components/preloader";
-@import "components/flex-center-text";
-@import "components/flex-left-right-img-copy";
-@import "components/flex-sectionwipe";
-@import "components/flex-img-gallery";
-@import "components/flex-events";
-
-@import "components/post-item";
-@import "components/comments";
+@import "05_page/homepage";
 
 
 
-/* Templates */
-@import "templates/home";
 
-@import "theme/typography";
+
+
+
+
+
 

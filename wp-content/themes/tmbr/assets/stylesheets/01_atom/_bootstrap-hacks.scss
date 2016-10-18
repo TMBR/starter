@@ -1,0 +1,73 @@
+// * BOOTSTRAP HACKS *
+// - No Gutter
+// - Custom Bootstrap Grid
+// - Row Equal Height
+
+
+
+
+/* NO-GUTTER */
+.nopad {
+  padding: 0!important;
+  [class*="col-"] {
+    padding-left: 0!important;
+    padding-right: 0!important;
+  }
+}
+
+.no-gutter {
+  margin: 0;
+  padding: 0;
+  &.container-fluid,
+  &.container {
+    padding: 0;
+    .row {
+      margin-left: 0;
+      margin-right: 0;
+      [class*='col-'] {
+        &,
+        &:not(:first-child),
+        &:not(:last-child) {
+          padding-left: 0;
+          padding-right: 0;
+        }
+      }
+    }
+  }
+}
+
+
+/* CUSTOM GRID */
+@media only screen and (max-width: 600px) {
+   @include make-grid(xxs);
+}
+
+/* ROW EQUAL HEIGHT - http://stackoverflow.com/questions/31800298/how-to-make-bootstrap-columns-the-same-height-in-a-row */
+.row-eq-height{
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  &.-auto-md {
+    @include respond-to($screen-md) {
+      display: block;
+    }
+  }
+  &.-auto-sm {
+    @include respond-to($screen-sm) {
+      display: block;
+    }
+  }
+  &.-auto-xs {
+    @include respond-to($screen-xs) {
+      display: block;
+    }
+  }
+  &.-auto-xxs {
+    @include respond-to($screen-xxs) {
+      display: block;
+    }
+  }
+}
+
+

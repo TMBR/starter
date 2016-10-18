@@ -1,0 +1,45 @@
+
+/* NAVIGATION */
+.navbar {
+	margin-bottom: 0;
+}
+
+
+
+/*change nav breakpoint to 992 */
+@media (max-width: $screen-sm) {
+  .navbar-header {
+    float: none;
+  }
+  .navbar-left,.navbar-right {
+    float: none!important;
+  }
+  .navbar-toggle {
+    display: block;
+  }
+  .navbar-collapse {
+    border-top: 1px solid transparent;
+    box-shadow: inset 0 1px 0 rgba($white,0.1);
+  }
+  .navbar-fixed-top {
+    top: 0;
+    border-width: 0 0 1px;
+  }
+  .navbar-collapse.collapse {
+    display: none!important;
+  }
+  .navbar-nav {
+    float: none!important;
+    margin-top: $gutter/2;
+  }
+  .navbar-nav>li {
+    float: none;
+  }
+  .navbar-nav>li>a {
+    padding-top: $gutter;
+    padding-bottom: $gutter;
+  }
+  .collapse.in{
+    display: block!important;
+  }
+}

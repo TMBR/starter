@@ -1,0 +1,62 @@
+
+/* TEXT ALIGN
+================================= */
+.tac {
+	text-align: center;
+}
+
+.tar {
+	text-align: right;
+}
+
+.tal {
+	text-align: left;
+}
+
+/* IMAGE ALIGN */
+.alignright {
+  float: right;
+  margin: 10px 0 $gutter $gutter;
+}
+
+.alignleft {
+  float: left;
+  margin: 10px $gutter $gutter 0;
+}
+
+/* Center */
+.center-xy {
+  @include absolute($t:50%,$l:50%);
+  @include transform(translate(-50%,-50%));
+}
+
+.center-y{
+  @include absolute($t:50%);
+  @include transform(translateY(-50%));
+}
+
+.center-x{
+  @include absolute($l:50%);
+  @include transform(translateX(-50%));
+}
+
+/* misc */
+.clear {
+	clear: both;
+}
+
+.wrapper {
+  position: relative;
+}
+
+.clear {
+  clear: both;
+}
+
+.h100 {
+  height: 100%;
+}
+
+
+
+
