@@ -30,6 +30,7 @@ require_once('inc/wp_bootstrap_pagination.php');
 get_template_part( 'inc/register-sidebars' );
 get_template_part( 'inc/register-menus' );
 get_template_part( 'inc/custom-img-size' );
+get_template_part( 'inc/backup-images' );
 
 // Functions
 // @define( 'cat_featured', 17 ); // define cat or other terms
