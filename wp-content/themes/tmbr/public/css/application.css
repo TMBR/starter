@@ -9479,10 +9479,6 @@ html[xmlns] .flexslider .slides {
 /* GLOBAL DIMENSIONS */
 /* INTERACTION */
 /*
-Set Border radious for any element
-@include border-radius(0px);
---------------------- */
-/*
 opacity filter with x-browser fallback
 @include opacity(.9);
 --------------------- */
@@ -9496,6 +9492,10 @@ Truncate text
 /*
 Transform
 @include transform(translateY(-50%));
+--------------------- */
+/*
+Set Border radious for any element
+@include border-radius(0px);
 --------------------- */
 /*
 Background size with broswer prefix for cover image
@@ -9566,7 +9566,6 @@ a.link {
   }
 }
 --------------------- */
-/* Base */
 /* http://meyerweb.com/eric/tools/css/reset/
    v2.0 | 20110126
    License: none (public domain)
@@ -9614,68 +9613,27 @@ table {
   border-collapse: collapse;
   border-spacing: 0; }
 
-/* VENDOR OVERRIDES & REQUIRED STYLES
-========================================= */
-/* 
-	FLEXSLIDER - Overwrites Native (and usually unnecessary) CSS Styles
-	http://www.woothemes.com/flexslider/
-=============================================== */
+/* ANIMATE.CSS */
+.animation {
+  visibility: hidden; }
+
+.animated,
+.ie .animation,
+.ie9 .animation,
+.mobile .animation {
+  visibility: visible; }
+
+/* FLEXSLIDER - http://www.woothemes.com/flexslider/ */
 .flexslider {
   border: none;
-  margin-bottom: 0px;
+  margin-bottom: 0;
   background: transparent;
   border-radius: 0;
   background-clip: padding-box;
   /* stops bg color from leaking outside the border: */ }
 
-/* http://github.hubspot.com/pace/docs/welcome/ */
-/*
-.pace {
-  -webkit-pointer-events: none;
-  pointer-events: none;
-
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  user-select: none;
-  @include fixed($t:0,$l:0);
- 
-  width: 100%;
-  @include transform(translate3d(0, -50px, 0));
- 
-
-  -webkit-transition: -webkit-transform .5s ease-out;
-  -ms-transition: -webkit-transform .5s ease-out;
-  transition: transform .5s ease-out;
-}
-
-.pace.pace-active {
-  @include transform(translate3d(0,0,0));
-}
-
-.pace .pace-progress {
-  display: block;
-  @include fixed($t:0,$r:100%, $z:2000);
-
-  width: 100%;
-  height: 10px;
-  background: #29d;
-
-  pointer-events: none;
-}*/
-/* ISOTOPE */
-.item {
-  width: 25%; }
-
-.item.w2 {
-  width: 50%; }
-
-/* NECESSARY TO GET FADE IN CLASSES WORKING */
-.animation {
-  visibility: hidden; }
-
-.animated, .ie .animation, .ie9 .animation, .mobile .animation {
-  visibility: visible; }
-
+/* PACE - http://github.hubspot.com/pace/docs/welcome/ */
+/* ISOTOPE - http://isotope.metafizzy.co/  */
 html {
   overflow-x: hidden;
   font-size: 16px;
@@ -9712,34 +9670,24 @@ button::-moz-focus-inner {
 ::-moz-focus-inner {
   border: 0; }
 
-/* GENERAL LAYOUT
-================================= */
-.tac {
-  text-align: center; }
+.post-edit-link {
+  text-align: center;
+  padding: 8px 20px;
+  text-transform: uppercase;
+  bottom: 0;
+  left: 50%;
+  z-index: 10000;
+  position: fixed;
+  margin-left: -75px;
+  width: 150px;
+  display: inline-block;
+  background-color: #0848cc;
+  color: #FFF;
+  font-weight: bold; }
 
-.tar {
-  text-align: right; }
-
-.tal {
-  text-align: left; }
-
-.clear {
-  clear: both; }
-
-/* NO MARGIN
-================================= */
-.b-margin0,
-.tb-margin0 {
-  margin-bottom: 0; }
-
-.t-margin0,
-.tb-margin0 {
-  margin-top: 0; }
-
-/* BOOTSTRAP NO-GUTTER
-================================== */
+/* NO-GUTTER */
 .nopad {
-  padding: 0px !important; }
+  padding: 0 !important; }
   .nopad [class*="col-"] {
     padding-left: 0 !important;
     padding-right: 0 !important; }
@@ -9763,23 +9711,7 @@ button::-moz-focus-inner {
         padding-left: 0;
         padding-right: 0; }
 
-.post-edit-link {
-  text-align: center;
-  padding: 8px 20px;
-  text-transform: uppercase;
-  position: fixed;
-  bottom: 0px;
-  left: 50%;
-  margin-left: -75px;
-  width: 150px;
-  display: inline-block;
-  background-color: #F7B733;
-  z-index: 10000;
-  color: #fff;
-  font-weight: bold; }
-
-/* CREATES NEW BOOTSTRAP EXTRA EXTRA SMALL CLASSES
-==================================== */
+/* CUSTOM GRID */
 @media only screen and (max-width: 600px) {
   .col-xxs-1, .col-xxs-2, .col-xxs-3, .col-xxs-4, .col-xxs-5, .col-xxs-6, .col-xxs-7, .col-xxs-8, .col-xxs-9, .col-xxs-10, .col-xxs-11, .col-xxs-12 {
     float: left; }
@@ -9886,10 +9818,7 @@ button::-moz-focus-inner {
   .col-xxs-offset-12 {
     margin-left: 100%; } }
 
-/* set Cols to equal height
-http://stackoverflow.com/questions/31800298/how-to-make-bootstrap-columns-the-same-height-in-a-row
-
-==================================== */
+/* ROW EQUAL HEIGHT - http://stackoverflow.com/questions/31800298/how-to-make-bootstrap-columns-the-same-height-in-a-row */
 .row-eq-height {
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -9906,21 +9835,6 @@ http://stackoverflow.com/questions/31800298/how-to-make-bootstrap-columns-the-sa
   @media all and (max-width: 599px) {
     .row-eq-height.-auto-xxs {
       display: block; } }
-
-.row-eq-height [class*="col-"] {
-  padding: 0; }
-
-/* PUSH BODY DOWN SO NOT BLOCKED BY FIXED HEADER
-================================================ */
-.verticalcenter {
-  top: 50%;
-  position: absolute;
-  -webkit-transform: translate(0, 50%);
-  transform: translate(0, 50%); }
-
-#page-main {
-  margin-top: 50px;
-  /* height of header */ }
 
 /* Margin Helpers */
 .m0 {
@@ -10166,6 +10080,59 @@ http://stackoverflow.com/questions/31800298/how-to-make-bootstrap-columns-the-sa
 
 .border-left {
   border-left: 1px solid #DFDCE3; }
+
+/* TEXT ALIGN
+================================= */
+.tac {
+  text-align: center; }
+
+.tar {
+  text-align: right; }
+
+.tal {
+  text-align: left; }
+
+/* IMAGE ALIGN */
+.alignright {
+  float: right;
+  margin: 10px 0 15px 15px; }
+
+.alignleft {
+  float: left;
+  margin: 10px 15px 15px 0; }
+
+/* Center */
+.center-xy {
+  top: 50%;
+  left: 50%;
+  position: absolute;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%); }
+
+.center-y {
+  top: 50%;
+  position: absolute;
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%); }
+
+.center-x {
+  left: 50%;
+  position: absolute;
+  -webkit-transform: translateX(-50%);
+  transform: translateX(-50%); }
+
+/* misc */
+.clear {
+  clear: both; }
+
+.wrapper {
+  position: relative; }
+
+.clear {
+  clear: both; }
+
+.h100 {
+  height: 100%; }
 
 /* Layout */
 /* NAVIGATION */
