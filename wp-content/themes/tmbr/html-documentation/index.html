@@ -1,0 +1,847 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset='utf-8' />
+  <title>  | Documentation</title>
+  <meta name='viewport' content='width=device-width,initial-scale=1'>
+  <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Source+Code+Pro:400,500,700' rel='stylesheet' type='text/css'>
+  <link href='assets/bass.css' type='text/css' rel='stylesheet' />
+  <link href='assets/style.css' type='text/css' rel='stylesheet' />
+  <link href='assets/github.css' type='text/css' rel='stylesheet' />
+</head>
+<body class='documentation'>
+  <div class='container'>
+    <div class='clearfix md-mxn2'>
+      <div class='fixed md-show fix-3 overflow-auto max-height-100'>
+        <div class='py1 px2'>
+          <h3 class='mb0 no-anchor'></h3>
+          <div class='mb1'><code></code></div>
+          <input
+            placeholder='Filter'
+            id='filter-input'
+            class='col12 block field'
+            type='text' />
+          <div id='toc'>
+              <a
+                href='#__debugMode'
+                class='block bold'>
+                __debugMode
+              </a>
+              <a
+                href='#_debounce'
+                class='block bold'>
+                _debounce
+              </a>
+              <a
+                href='#_getQueryParameters'
+                class='block bold'>
+                _getQueryParameters
+              </a>
+              <a
+                href='#_init'
+                class='block bold'>
+                _init
+              </a>
+              <a
+                href='#_loadBodyHTML'
+                class='block bold'>
+                _loadBodyHTML
+              </a>
+              <a
+                href='#_loadJSON'
+                class='block bold'>
+                _loadJSON
+              </a>
+              <a
+                href='#_mergeArrays'
+                class='block bold'>
+                _mergeArrays
+              </a>
+              <a
+                href='#_randomItemFromArray'
+                class='block bold'>
+                _randomItemFromArray
+              </a>
+              <a
+                href='#_removeArrayDuplicates'
+                class='block bold'>
+                _removeArrayDuplicates
+              </a>
+              <a
+                href='#_removeBlankStrings'
+                class='block bold'>
+                _removeBlankStrings
+              </a>
+              <a
+                href='#_shuffleArray'
+                class='block bold'>
+                _shuffleArray
+              </a>
+              <a
+                href='#_split'
+                class='block bold'>
+                _split
+              </a>
+              <a
+                href='#_throttle'
+                class='block bold'>
+                _throttle
+              </a>
+              <a
+                href='#_uid'
+                class='block bold'>
+                _uid
+              </a>
+              <a
+                href='#Constants'
+                class='block bold'>
+                Constants
+              </a>
+              <a
+                href='#Lightbox'
+                class='block bold'>
+                Lightbox
+              </a>
+              <a
+                href='#Preloader'
+                class='block bold'>
+                Preloader
+              </a>
+              <a
+                href='#ready'
+                class='block bold'>
+                ready
+              </a>
+              <a
+                href='#Roadblock'
+                class='block bold'>
+                Roadblock
+              </a>
+              <a
+                href='#Slider'
+                class='block bold'>
+                Slider
+              </a>
+              <a
+                href='#SmoothScroll'
+                class='block bold'>
+                SmoothScroll
+              </a>
+              <a
+                href='#Tabs'
+                class='block bold'>
+                Tabs
+              </a>
+              <a
+                href='#Throttle'
+                class='block bold'>
+                Throttle
+              </a>
+              <a
+                href='#Util'
+                class='block bold'>
+                Util
+              </a>
+          </div>
+        </div>
+      </div>
+      <div class='fix-margin-3'>
+        <div class='px2'>
+<div class='py1'><section class='py2 clearfix'>
+  <h2 id='__debugMode' class='mt0'>
+    __debugMode<span class='gray'></span>
+  </h2>
+  <p>Enables debug mode</p>
+
+</section>
+</div><div class='py1'><section class='py2 clearfix'>
+  <h2 id='_debounce' class='mt0'>
+    _debounce<span class='gray'>(Function, Miliseconds, fn, delay)</span>
+  </h2>
+  <p>Debounce</p>
+
+    <h4>Parameters</h4>
+    <ul class='suppress-p-margin'>
+        <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function">Function</a></code> <strong>Function</strong>
+          :
+          <div class='force-inline'>
+            <p>to delay</p>
+
+          </div>
+        </li>
+        <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></code> <strong>Miliseconds</strong>
+          :
+          <div class='force-inline'>
+            <p>to delay the function</p>
+
+          </div>
+        </li>
+        <li> <strong>fn</strong>
+          :
+          <div class='force-inline'>
+            
+          </div>
+        </li>
+        <li> <strong>delay</strong>
+          :
+          <div class='force-inline'>
+            
+          </div>
+        </li>
+    </ul>
+      <h4>Returns</h4>
+      <code><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function">Function</a></code></code>
+      
+      <div class='force-inline'>
+        
+      </div>
+</section>
+</div><div class='py1'><section class='py2 clearfix'>
+  <h2 id='_getQueryParameters' class='mt0'>
+    _getQueryParameters<span class='gray'>(String, _s)</span>
+  </h2>
+  <p>Gets the URL query parameters.</p>
+
+    <h4>Parameters</h4>
+    <ul class='suppress-p-margin'>
+        <li> <strong>String</strong>
+          :
+          <div class='force-inline'>
+            
+          </div>
+        </li>
+        <li> <strong>_s</strong>
+          :
+          <div class='force-inline'>
+            
+          </div>
+        </li>
+    </ul>
+      <h4>Returns</h4>
+      <code><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></code></code>
+      :
+      <div class='force-inline'>
+        <p>The query parameters in key / pair.</p>
+
+      </div>
+</section>
+</div><div class='py1'><section class='py2 clearfix'>
+  <h2 id='_init' class='mt0'>
+    _init<span class='gray'>(options)</span>
+  </h2>
+  <p>init</p>
+
+    <h4>Parameters</h4>
+    <ul class='suppress-p-margin'>
+        <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></code> <strong>options</strong>
+          :
+          <div class='force-inline'>
+            <p>The options</p>
+
+          </div>
+        </li>
+    </ul>
+</section>
+</div><div class='py1'><section class='py2 clearfix'>
+  <h2 id='_loadBodyHTML' class='mt0'>
+    _loadBodyHTML<span class='gray'>(html_location, onComplete)</span>
+  </h2>
+  <p>Loads a body html.</p>
+
+    <h4>Parameters</h4>
+    <ul class='suppress-p-margin'>
+        <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></code> <strong>html_location</strong>
+          :
+          <div class='force-inline'>
+            <p>The html location</p>
+
+          </div>
+        </li>
+        <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function">Function</a></code> <strong>onComplete</strong>
+          :
+          <div class='force-inline'>
+            <p>On complete</p>
+
+          </div>
+        </li>
+    </ul>
+</section>
+</div><div class='py1'><section class='py2 clearfix'>
+  <h2 id='_loadJSON' class='mt0'>
+    _loadJSON<span class='gray'>(JSONLocation, onComplete)</span>
+  </h2>
+  <p>Loads a json.</p>
+
+    <h4>Parameters</h4>
+    <ul class='suppress-p-margin'>
+        <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></code> <strong>JSONLocation</strong>
+          :
+          <div class='force-inline'>
+            <p>The json location</p>
+
+          </div>
+        </li>
+        <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function">Function</a></code> <strong>onComplete</strong>
+          :
+          <div class='force-inline'>
+            <p>On complete</p>
+
+          </div>
+        </li>
+    </ul>
+</section>
+</div><div class='py1'><section class='py2 clearfix'>
+  <h2 id='_mergeArrays' class='mt0'>
+    _mergeArrays<span class='gray'>(Array, Array)</span>
+  </h2>
+  <p>Merges two arrays</p>
+
+    <h4>Parameters</h4>
+    <ul class='suppress-p-margin'>
+        <li> <strong>Array</strong>
+          :
+          <div class='force-inline'>
+            
+          </div>
+        </li>
+        <li> <strong>Array</strong>
+          :
+          <div class='force-inline'>
+            
+          </div>
+        </li>
+    </ul>
+      <h4>Returns</h4>
+      <code><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></code></code>
+      
+      <div class='force-inline'>
+        
+      </div>
+</section>
+</div><div class='py1'><section class='py2 clearfix'>
+  <h2 id='_randomItemFromArray' class='mt0'>
+    _randomItemFromArray<span class='gray'>(Array, array)</span>
+  </h2>
+  <p>Returns a random item from array</p>
+
+    <h4>Parameters</h4>
+    <ul class='suppress-p-margin'>
+        <li> <strong>Array</strong>
+          :
+          <div class='force-inline'>
+            
+          </div>
+        </li>
+        <li> <strong>array</strong>
+          :
+          <div class='force-inline'>
+            
+          </div>
+        </li>
+    </ul>
+      <h4>Returns</h4>
+      <code><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></code></code>
+      
+      <div class='force-inline'>
+        
+      </div>
+</section>
+</div><div class='py1'><section class='py2 clearfix'>
+  <h2 id='_removeArrayDuplicates' class='mt0'>
+    _removeArrayDuplicates<span class='gray'>(Array, array)</span>
+  </h2>
+  <p>Removes array duplicates.</p>
+
+    <h4>Parameters</h4>
+    <ul class='suppress-p-margin'>
+        <li> <strong>Array</strong>
+          :
+          <div class='force-inline'>
+            
+          </div>
+        </li>
+        <li> <strong>array</strong>
+          :
+          <div class='force-inline'>
+            
+          </div>
+        </li>
+    </ul>
+      <h4>Returns</h4>
+      <code><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></code></code>
+      
+      <div class='force-inline'>
+        
+      </div>
+</section>
+</div><div class='py1'><section class='py2 clearfix'>
+  <h2 id='_removeBlankStrings' class='mt0'>
+    _removeBlankStrings<span class='gray'>(Array, array)</span>
+  </h2>
+  <p>Removes blank strings.</p>
+
+    <h4>Parameters</h4>
+    <ul class='suppress-p-margin'>
+        <li> <strong>Array</strong>
+          :
+          <div class='force-inline'>
+            
+          </div>
+        </li>
+        <li> <strong>array</strong>
+          :
+          <div class='force-inline'>
+            
+          </div>
+        </li>
+    </ul>
+      <h4>Returns</h4>
+      <code><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></code></code>
+      :
+      <div class='force-inline'>
+        <p>Removes blank values in an array</p>
+
+      </div>
+</section>
+</div><div class='py1'><section class='py2 clearfix'>
+  <h2 id='_shuffleArray' class='mt0'>
+    _shuffleArray<span class='gray'>(Array, o)</span>
+  </h2>
+  <p>Suffles an Array</p>
+
+    <h4>Parameters</h4>
+    <ul class='suppress-p-margin'>
+        <li> <strong>Array</strong>
+          :
+          <div class='force-inline'>
+            
+          </div>
+        </li>
+        <li> <strong>o</strong>
+          :
+          <div class='force-inline'>
+            
+          </div>
+        </li>
+    </ul>
+      <h4>Returns</h4>
+      <code><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></code></code>
+      :
+      <div class='force-inline'>
+        <p>Shuffled array.</p>
+
+      </div>
+</section>
+</div><div class='py1'><section class='py2 clearfix'>
+  <h2 id='_split' class='mt0'>
+    _split<span class='gray'>(string, delimiter)</span>
+  </h2>
+  <p>{ function_description }</p>
+
+    <h4>Parameters</h4>
+    <ul class='suppress-p-margin'>
+        <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></code> <strong>string</strong>
+          :
+          <div class='force-inline'>
+            <p>The string</p>
+
+          </div>
+        </li>
+        <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></code> <strong>delimiter</strong>
+          :
+          <div class='force-inline'>
+            <p>The delimiter</p>
+
+          </div>
+        </li>
+    </ul>
+      <h4>Returns</h4>
+      <code><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></code></code>
+      :
+      <div class='force-inline'>
+        <p>{ Returns the string split on the delimiter }</p>
+
+      </div>
+</section>
+</div><div class='py1'><section class='py2 clearfix'>
+  <h2 id='_throttle' class='mt0'>
+    _throttle<span class='gray'>(Function, fn, threshhold, scope)</span>
+  </h2>
+  <p>Throttle</p>
+
+    <h4>Parameters</h4>
+    <ul class='suppress-p-margin'>
+        <li> <strong>Function</strong>
+          :
+          <div class='force-inline'>
+            
+          </div>
+        </li>
+        <li> <strong>fn</strong>
+          :
+          <div class='force-inline'>
+            
+          </div>
+        </li>
+        <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></code> <strong>threshhold</strong>
+          :
+          <div class='force-inline'>
+            <p>The threshhold</p>
+
+          </div>
+        </li>
+        <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></code> <strong>scope</strong>
+          :
+          <div class='force-inline'>
+            <p>The scope</p>
+
+          </div>
+        </li>
+    </ul>
+      <h4>Returns</h4>
+      <code><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function">Function</a></code></code>
+      
+      <div class='force-inline'>
+        
+      </div>
+</section>
+</div><div class='py1'><section class='py2 clearfix'>
+  <h2 id='_uid' class='mt0'>
+    _uid<span class='gray'></span>
+  </h2>
+  <p>Returns a random string value</p>
+
+      <h4>Returns</h4>
+      <code><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></code></code>
+      :
+      <div class='force-inline'>
+        <p>Returns a random string value</p>
+
+      </div>
+</section>
+</div><div class='py1'><section class='py2 clearfix'>
+  <h2 id='Constants' class='mt0'>
+    Constants<span class='gray'>(jQuery)</span>
+  </h2>
+  
+    <h4>Parameters</h4>
+    <ul class='suppress-p-margin'>
+        <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></code> <strong>jQuery</strong>
+          :
+          <div class='force-inline'>
+            
+          </div>
+        </li>
+    </ul>
+      <h4>Returns</h4>
+      <code><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></code></code>
+      :
+      <div class='force-inline'>
+        <p>DIRECTION : UP,DOWN,LEFT,RIGHT</p>
+
+      </div>
+</section>
+</div><div class='py1'><section class='py2 clearfix'>
+  <h2 id='Lightbox' class='mt0'>
+    Lightbox<span class='gray'>(element)</span>
+  </h2>
+  <p>Provides Lightbox Capabilities</p>
+
+    <h4>Parameters</h4>
+    <ul class='suppress-p-margin'>
+        <li> <strong>element</strong>
+          :
+          <div class='force-inline'>
+            <p><element> Pass in jQuery element for event target</p>
+
+          </div>
+        </li>
+    </ul>
+      <h4>Returns</h4>
+      <code><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/constructor">Constructor</a></code></code>
+      :
+      <div class='force-inline'>
+        <p>Lightbox.init()</p>
+
+      </div>
+</section>
+</div><div class='py1'><section class='py2 clearfix'>
+  <h2 id='Preloader' class='mt0'>
+    Preloader<span class='gray'></span>
+  </h2>
+  <p>Adds a preloader across the site</p>
+
+      <h4>Returns</h4>
+      <code><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/constructor">Constructor</a></code></code>
+      :
+      <div class='force-inline'>
+        <p>Preloader.init()</p>
+
+      </div>
+</section>
+</div><div class='py1'><section class='py2 clearfix'>
+  <h2 id='ready' class='mt0'>
+    ready<span class='gray'></span>
+  </h2>
+  <p>This function fires off Control.init();</p>
+
+</section>
+</div><div class='py1'><section class='py2 clearfix'>
+  <h2 id='Roadblock' class='mt0'>
+    Roadblock<span class='gray'></span>
+  </h2>
+  <p>Enables TMBR Roadblock modal</p>
+
+      <h4>Returns</h4>
+      <code><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/constructor">Constructor</a></code></code>
+      :
+      <div class='force-inline'>
+        <p>Roadblock.init()</p>
+
+      </div>
+</section>
+</div><div class='py1'><section class='py2 clearfix'>
+  <h2 id='Slider' class='mt0'>
+    Slider<span class='gray'>(Element, [namespace], [animation], [easing], [animationLoop], [startAt], [initDelay], [slideshowSpeed], [animationSpeed], [pauseOnHover], [controlNav], [directionNav], [prevText], [nextText], [randomize], [touch], [video], [pauseOnAction], [pauseOnHover])</span>
+  </h2>
+  <p>Flexslider extension</p>
+
+    <h4>Parameters</h4>
+    <ul class='suppress-p-margin'>
+        <li><code>jquery</code> <strong>Element</strong>
+          :
+          <div class='force-inline'>
+            <p>selector</p>
+
+          </div>
+        </li>
+        <li><code>[<code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></code>]</code> <strong>namespace</strong>
+            (default <code>&quot;flex-&quot;</code>)
+          :
+          <div class='force-inline'>
+            <p>any namespace</p>
+
+          </div>
+        </li>
+        <li><code>[<code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></code>]</code> <strong>animation</strong>
+            (default <code>&quot;slide&quot;</code>)
+          :
+          <div class='force-inline'>
+            <p>Select the sliding direction, &quot;horizontal&quot; or &quot;vertical&quot;</p>
+
+          </div>
+        </li>
+        <li><code>[<code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></code>]</code> <strong>easing</strong>
+            (default <code>&quot;swing&quot;</code>)
+          :
+          <div class='force-inline'>
+            <p>Determines the easing method used in jQuery transitions.</p>
+
+          </div>
+        </li>
+        <li><code>[<code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></code>]</code> <strong>animationLoop</strong>
+            (default <code>true</code>)
+          :
+          <div class='force-inline'>
+            
+          </div>
+        </li>
+        <li><code>[<code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></code>]</code> <strong>startAt</strong>
+            (default <code>0</code>)
+          :
+          <div class='force-inline'>
+            <p>Slide to start at.</p>
+
+          </div>
+        </li>
+        <li><code>[<code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></code>]</code> <strong>initDelay</strong>
+            (default <code>0</code>)
+          :
+          <div class='force-inline'>
+            
+          </div>
+        </li>
+        <li><code>[<code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></code>]</code> <strong>slideshowSpeed</strong>
+            (default <code>4000</code>)
+          :
+          <div class='force-inline'>
+            
+          </div>
+        </li>
+        <li><code>[<code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></code>]</code> <strong>animationSpeed</strong>
+            (default <code>600</code>)
+          :
+          <div class='force-inline'>
+            
+          </div>
+        </li>
+        <li><code>[<code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></code>]</code> <strong>pauseOnHover</strong>
+            (default <code>true</code>)
+          :
+          <div class='force-inline'>
+            
+          </div>
+        </li>
+        <li><code>[<code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></code>]</code> <strong>controlNav</strong>
+            (default <code>true</code>)
+          :
+          <div class='force-inline'>
+            
+          </div>
+        </li>
+        <li><code>[<code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></code>]</code> <strong>directionNav</strong>
+            (default <code>true</code>)
+          :
+          <div class='force-inline'>
+            
+          </div>
+        </li>
+        <li><code>[<code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></code>]</code> <strong>prevText</strong>
+            (default <code>&quot;Previous&quot;</code>)
+          :
+          <div class='force-inline'>
+            
+          </div>
+        </li>
+        <li><code>[<code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></code>]</code> <strong>nextText</strong>
+            (default <code>&quot;Next&quot;</code>)
+          :
+          <div class='force-inline'>
+            
+          </div>
+        </li>
+        <li><code>[<code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></code>]</code> <strong>randomize</strong>
+            (default <code>true</code>)
+          :
+          <div class='force-inline'>
+            
+          </div>
+        </li>
+        <li><code>[<code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></code>]</code> <strong>touch</strong>
+            (default <code>true</code>)
+          :
+          <div class='force-inline'>
+            
+          </div>
+        </li>
+        <li><code>[<code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></code>]</code> <strong>video</strong>
+            (default <code>false</code>)
+          :
+          <div class='force-inline'>
+            
+          </div>
+        </li>
+        <li><code>[<code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></code>]</code> <strong>pauseOnAction</strong>
+            (default <code>true</code>)
+          :
+          <div class='force-inline'>
+            
+          </div>
+        </li>
+        <li><code>[<code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></code>]</code> <strong>pauseOnHover</strong>
+            (default <code>false</code>)
+          :
+          <div class='force-inline'>
+            
+          </div>
+        </li>
+    </ul>
+      <h4>Returns</h4>
+      <code><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/constructor">constructor</a></code></code>
+      :
+      <div class='force-inline'>
+        <p>Slider.init()</p>
+
+      </div>
+      <h4>Returns</h4>
+      <code><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function">function</a></code></code>
+      :
+      <div class='force-inline'>
+        <p>get get slider instance options</p>
+
+      </div>
+      <h4>Returns</h4>
+      <code><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function">function</a></code></code>
+      :
+      <div class='force-inline'>
+        <p>set set slider instance options</p>
+
+      </div>
+</section>
+</div><div class='py1'><section class='py2 clearfix'>
+  <h2 id='SmoothScroll' class='mt0'>
+    SmoothScroll<span class='gray'></span>
+  </h2>
+  <p>Set up smooth scroll on anchor click</p>
+
+      <h4>Returns</h4>
+      <code><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/constructor">constructor</a></code></code>
+      :
+      <div class='force-inline'>
+        <p>init</p>
+
+      </div>
+</section>
+</div><div class='py1'><section class='py2 clearfix'>
+  <h2 id='Tabs' class='mt0'>
+    Tabs<span class='gray'>([$tabContainer])</span>
+  </h2>
+  <p>Creates Tabs on selected items</p>
+
+    <h4>Parameters</h4>
+    <ul class='suppress-p-margin'>
+        <li><code>[<code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></code>]</code> <strong>$tabContainer</strong>
+          :
+          <div class='force-inline'>
+            <p>jQuery selector container</p>
+
+          </div>
+        </li>
+    </ul>
+      <h4>Returns</h4>
+      <code><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/constructor">Constructor</a></code></code>
+      :
+      <div class='force-inline'>
+        <p>init(options)</p>
+
+      </div>
+</section>
+</div><div class='py1'><section class='py2 clearfix'>
+  <h2 id='Throttle' class='mt0'>
+    Throttle<span class='gray'>($)</span>
+  </h2>
+  <p>Throttle</p>
+
+    <h4>Parameters</h4>
+    <ul class='suppress-p-margin'>
+        <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function">Function</a></code> <strong>$</strong>
+          :
+          <div class='force-inline'>
+            
+          </div>
+        </li>
+    </ul>
+      <h4>Returns</h4>
+      <code><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/constructor">Constructor</a></code></code>
+      :
+      <div class='force-inline'>
+        <p>init</p>
+
+      </div>
+</section>
+</div><div class='py1'><section class='py2 clearfix'>
+  <h2 id='Util' class='mt0'>
+    Util<span class='gray'></span>
+  </h2>
+  <p>Utility functions commonly used in Javascript</p>
+
+</section>
+</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src='assets/anchor.js'></script>
+  <script src='assets/site.js'></script>
+</body>
+</html>

@@ -1,16 +1,16 @@
 // TMBR Creative Agency
 // Date: 6.27.2016
 
-// Dependent Upon
-// - jQuery
-// Module(s) (static)
-// - SmoothScroll
-
+/**
+ * Set up smooth scroll on anchor click
+ *
+ * @class      	SmoothScroll (name)
+ * @return  	{constructor} init
+ */
 var SmoothScroll = function($) { // ----- static module
 
-    // private method(s)
     var _init = function() {
-    	$('a[href*=#]:not([href=#]).scroll-to').on('click','', function( e ) {
+    	$('a[href*=#]:not([href=#])').on('click','', function( e ) {
 			e.preventDefault();
 
 			if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') || location.hostname == this.hostname) {
@@ -19,7 +19,7 @@ var SmoothScroll = function($) { // ----- static module
 
 				if (target.length) {
 					$('html,body').animate(
-						{ scrollTop: target.offset().top - 50 },
+						{ scrollTop: target.offset().top },
 						{ duration: 600, easing:'easeOutCubic'}
 					);
 					return false;
@@ -29,8 +29,7 @@ var SmoothScroll = function($) { // ----- static module
 
 		});
     };
-
-    // output/public
+       
     return {
         init: _init
     };

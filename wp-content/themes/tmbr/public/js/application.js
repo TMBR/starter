@@ -1,62 +1,72 @@
 // TMBR Creative Agency
 // Date: 6.27.2016
-// Dependent Upon
-// - jQuery
-// Module(s) (static)
-// - Animated
-//
-//
+
+/**
+ * @name Animated
+ * @private
+ * @param {object} jQuery
+ * @returns {object} Animated.init
+ * * @returns {object} Animated.ShowAnimated
+*/
 var Animated = function($) { // ----- static module
     // private var(s)
+
+
     // private method(s)
     var _init = function() {
+
         // TODO: Make this fuction work with passed in selector
-        function animateRun() {
-            $('.animation, .animation-visible').each(function() {
-                var $element = $(this);
-                $element.waypoint(function() {
-                    var delay = 0;
-                    if ($element.attr('data-delay')) delay = parseInt($element.attr('data-delay'), 0);
-                    if (!$element.hasClass('animated')) {
-                        setTimeout(function() {
-                            $element.addClass('animated ' + $element.attr('data-animation'));
-                        }, delay);
-                    }
-                    delay = 0;
-                }, {
-                    offset: '80%'
-                });
+
+       $('.animation, .animation-visible').each(function() {
+
+            var $element = $(this);
+
+            $element.waypoint(function() {
+
+                var delay = 0;
+
+                if ($element.attr('data-delay')) delay = parseInt($element.attr('data-delay'), 0);
+                if (!$element.hasClass('animated')) {
+                    setTimeout(function() {
+                        $element.addClass('animated ' + $element.attr('data-animation'));
+                    }, delay);
+                }
+                delay = 0;
+            }, {
+                offset: '80%'
             });
-        }
-        var ismobile = (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent));
-        if (ismobile != true) {
-            animateRun();
-            //animate();
-        }
+
+        });
+
+       console.log("animated init");
     };
+
     // Show All Animated Items
     var _showAnimated = function() {
+
         $('.animation, .animation-visible').each(function() {
             $(this).addClass('animated');
         });
     };
-    // output/public
+
+    // output/public     
     return {
         init: _init,
         ShowAnimated: _showAnimated
     };
 }(jQuery);
+
 // TMBR Creative Agency
 // Author: michael.ross
 // Date: 6.27.2016
-//
-// Dependent Upon
-// - jQuery
-// - Modernizr
-// Modules (static)
-// - Constants
 
-// ------------------ Constants (static)
+
+/**
+ * @name Constants
+ * @static
+ * @param {object} jQuery
+ * @returns {object} DIRECTION : UP,DOWN,LEFT,RIGHT
+*/
 var Constants = function($) {
     
     // output/public     
@@ -67,94 +77,33 @@ var Constants = function($) {
 			DOWN:'direction_down',
 			LEFT:'direction_left',
 			RIGHT:'direction_right'
-		},
-		//
-		CLASS_NAME:{
-			//
-			NEW:'new-item',
-			SORT_ME:'sort-me',
 		}
     };
 }(jQuery);
 // TMBR Creative Agency
-// Author: galen.strasen
-// Date: 7.19.2016
-// Dependent Upon
-// - jQuery
-// - magnific popup
-// Module(s) (static)
-// - Lightbox
-//
+// Date: 6.27.2016
 
+/**
+ * Provides Lightbox Capabilities
+ * @class      Lightbox (name)
+ * @param      {element} <element> Pass in jQuery element for event target
+ * @return     {Constructor}  Lightbox.init()
+ */
 var Lightbox = function(element) { // ----- static module
-    // private var(s)
 
-
-    // private method(s)
     var _init = function() {
-
-        $('.js-popup-img').magnificPopup({
-            type:'image',
-            mainClass: 'tmbr-overlay -media -img'
-
-        });
-
-        $('.js-popup-video').magnificPopup({
-            type: 'iframe',
-            removalDelay: 300,
-            mainClass: 'tmbr-overlay -media -video',
-            fixedContentPos: true,
-            closeOnBgClick: true,
-            preloader: false,
-            closeBtnInside: true
-
-        });
-
-        $('.js-iframe-trigger').magnificPopup({
-          type: 'iframe',
-          removalDelay: 300,
-          mainClass: 'tmbr-overlay -content -iframe',
-          fixedContentPos: true,
-          alignTop: true,
-          closeOnBgClick: true,
-          preloader: true,
-          midClick: true,
-          closeBtnInside: true
-        });
-
-        $('.js-o-trigger').magnificPopup({
-          type: 'inline',
-          removalDelay: 300,
-          mainClass: 'tmbr-overlay -content',
-          fixedContentPos: true,
-          alignTop: true,
-          closeOnBgClick: true,
-          preloader: false,
-          midClick: true,
-          closeBtnInside: true
-
-        });
+        $('.imagepop').magnificPopup({type:'image'});
 
         // Flex Content image gallery with modal
-        $('.js-img-gallery').magnificPopup({
-          type: 'image',
-          mainClass: 'tmbr-overlay -media -img -gallery',
-          delegate: 'a',
-          fixedContentPos: true,
-          closeOnBgClick: true,
-          gallery: {
-            enabled: true,
-            tCounter: '', // markup of counter
-            arrowMarkup: '' // markup of an arrow button
-          }
-
+        $('.js-flex-gallery-img').magnificPopup({
+            type: 'image',
+            gallery:{
+                enabled:true
+            }
         });
-
-
-        Util.log("Lightbox.init");
     };
 
-    // output/public
+    // output/public     
     return {
         init: _init
     };
@@ -222,15 +171,18 @@ var NavtoSelectList = function(element) { // ----- static module
 }(jQuery);
 // TMBR Creative Agency
 // Date: 6.27.2016
-// Dependent Upon
-// - jQuery
-// Module(s) (static)
-// - Preloader
-//
+
+/**
+ * Adds a preloader across the site
+ * @class      Preloader (name)
+ * @return     {Constructor} Preloader.init()
+ */
+
 var Preloader = function($) { // ----- static module
-    // private method(s)
+
     var _init = function() {
-        $(window).load(function() {
+
+        $(window).on("load", function(){
             setTimeout(function() {
                 $('.js-sitewrap').animate({
                     opacity: 1
@@ -238,10 +190,10 @@ var Preloader = function($) { // ----- static module
                 $('#preloader').fadeOut(300, function() {
                     Animated.init();
                 });
-            }, 300); // delay 300 ms
+            }, 300);
         });
     };
-    // output/public     
+
     return {
         init: _init
     };
@@ -249,10 +201,12 @@ var Preloader = function($) { // ----- static module
 // TMBR Creative Agency
 // Author: galen.strasen
 // Date: 8.24.2016
-// Dependent Upon
-// - jQuery
-// - magnific popup
-//
+
+/**
+ * Enables TMBR Roadblock modal
+ * @class      Roadblock (name)
+ * @return     {Constructor} Roadblock.init()
+ */
 var Roadblock = function() { // ----- static module
     // private var
     var _init = function() {
@@ -363,43 +317,136 @@ var SlickSlider = function(element) { // ----- static module
 // TMBR Creative Agency
 // Date: 6.27.2016
 
-// Dependent Upon
-// - jQuery
-// - UTIL
-// - Slick.js
-// 
-// Module(s) (static)
-// - Slider
-//
+/**
+ * Flexslider extension
+ *
+ * @class       Slider (name)
+ * @return      {constructor}  Slider.init()
+ * @return      {function} get get slider instance options
+ * @return      {function} set set slider instance options
+ * @param       {jquery} Element selector
+ * @param       {string} [namespace="flex-"] any namespace
+ * @param       {string} [animation="slide"] Select the sliding direction, "horizontal" or "vertical"
+ * @param       {string} [easing="swing"] Determines the easing method used in jQuery transitions.
+ * @param       {boolean} [animationLoop=true]
+ * @param       {number} [startAt=0] Slide to start at.
+ * @param       {number} [initDelay=0]
+ * @prarm       {boolean} [slideshow=false] Flexslider 
+ * @param       {number} [slideshowSpeed=4000] 
+ * @param       {number} [animationSpeed=600]
+ * @param       {boolean} [pauseOnHover=true]
+ * @param       {boolean} [controlNav=true]
+ * @param       {boolean} [directionNav=true]
+ * @param       {string} [prevText="Previous"]
+ * @param       {string} [nextText="Next"]
+ * @param       {boolean} [randomize=true]
+ * @param       {boolean} [touch=true]
+ * @param       {boolean} [video=false]
+ * @param       {boolean} [pauseOnAction=true]
+ * @param       {boolean} [pauseOnHover=false]
+ */
 
 var Slider = function() { // ----- static module
+                          // 
+    // for more options, check out : https://www.woothemes.com/flexslider/
+    var __options = {
+        selector:           ".flexslider",
+        namespace:          "flex-",
+        animation:          "slide",
+        easing:             "swing",
+        animationLoop:      true,
+        startAt:            0,
+        initDelay:          0,
+        slideshow:          false, // auto play on load                          
+        slideshowSpeed:     4000,
+        animationSpeed:     600,
+        pauseOnHover:       true,
+        controlNav:         true, //Boolean: Create navigation for paging control of each clide? Note: Leave true for manualControls usage
+        directionNav:       true, //Boolean: Create navigation for previous/next navigation? (true/false)
+        prevText:           "Previous",
+        nextText:           "Next",
+        randomize:          false,
+        touch:              true,
+        video:              false,
+        pauseOnAction:      true,
+        pauseOnHover:       false
+    };
 
-    // private method(s)
-    var _init = function( options ) {
+    /**
+     * init
+     *
+     * @param      {object}  options  The options
+     */
+    var _init = function(options) {
 
-        $('.slick-slider').each( function() {
-            $(this).slick( options );
+        /* override static options with passed options */
+        if( options )
+            __options = options;
+
+        var $slider = $(__options.selector);
+        // console.log($slider)
+
+        $slider.each(function(){
+            console.log($(this))
+            $(this).flexslider({
+                namespace: __options.namespace,
+                animation: __options.animation,
+                slideshow: __options.slideshow,
+                slideshowSpeed: __options.slideshowSpeed,
+                animationSpeed: __options.animationSpeed,
+                pauseOnHover: __options.pauseOnHover,
+                controlNav: __options.controlNav,
+                directionNav: __options.directionNav,
+                prevText: __options.prevText,
+                nextText: __options.nextText,
+                randomize: __options.randomize,
+                touch: __options.touch,
+                video: __options.video
+            });
         });
+
+        
+    };
+
+    // getter(s)/setter(s) methods
+    var _set = function(options) {
+        for (var property_name in options) {
+            if (options.hasOwnProperty(property_name)) {
+                var property_value = options[property_name];
+                if(__options.hasOwnProperty(property_name)) {
+                    __options[property_name] = property_value;
+                } else {
+                    Util.log('Options.set() to a property that is not expected');
+                    Util.log('property_name:',property_name,'property_value:',property_value);
+                }
+            }
+        }
+    };
+
+    var _get = function() {
+        return __options;
     };
 
     // output/public     
     return {
-        init: _init
+        init: _init,
+        set: _set,
+        get: _get,
     };
-}(jQuery)
+}(jQuery);
 // TMBR Creative Agency
 // Date: 6.27.2016
 
-// Dependent Upon
-// - jQuery
-// Module(s) (static)
-// - SmoothScroll
-
+/**
+ * Set up smooth scroll on anchor click
+ *
+ * @class      	SmoothScroll (name)
+ * @return  	{constructor} init
+ */
 var SmoothScroll = function($) { // ----- static module
 
-    // private method(s)
     var _init = function() {
-    	$('a[href*=#]:not([href=#]).scroll-to').on('click','', function( e ) {
+    	$('a[href*=#]:not([href=#])').on('click','', function( e ) {
 			e.preventDefault();
 
 			if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') || location.hostname == this.hostname) {
@@ -408,7 +455,7 @@ var SmoothScroll = function($) { // ----- static module
 
 				if (target.length) {
 					$('html,body').animate(
-						{ scrollTop: target.offset().top - 50 },
+						{ scrollTop: target.offset().top },
 						{ duration: 600, easing:'easeOutCubic'}
 					);
 					return false;
@@ -418,6 +465,78 @@ var SmoothScroll = function($) { // ----- static module
 
 		});
     };
+       
+    return {
+        init: _init
+    };
+}(jQuery);
+// TMBR Creative Agency
+// Author: Sarah Cleveland
+// Date: 9.25.2016
+
+/**
+ * Creates Tabs on selected items
+ *
+ * @class      Tabs (name)
+ * @return     {Constructor} init(options)
+ * @param      {string} [$tabContainer] - jQuery selector container
+ */
+
+var Tabs = function($) {
+
+    var $tabContainer,
+        $tabs,
+        $tabsContent,
+        $firstTabs,
+        windowSize,
+        mobileWidth,
+        isMobile;
+
+    var _init = function(options) {
+        $tabContainer = options.container;
+        $tabs = $tabContainer.find('[data-tab]');
+        $tabsContent = $tabContainer.find('[data-tab-content]');
+        $firstTabs = $tabContainer.find('[data-tab-content="1"]');
+
+        windowSize = $(window).outerWidth();
+        mobileWidth = 768;
+        isMobile = windowSize <= mobileWidth;
+
+        if(isMobile){
+            _toggleTabs($firstTabs);
+        }
+
+        $(window).on('resize', function(){
+            windowSize = $(window).outerWidth();
+
+            if(windowSize > mobileWidth && isMobile === true){
+                isMobile = false;
+                _toggleTabs($tabsContent);
+            } else if(windowSize <= mobileWidth && isMobile === false){
+                isMobile = true;
+                _toggleTabs($firstTabs);
+            }
+        });
+
+        $('#checkingtype').on('change', function(){
+            if(options.mobileOnly === true && windowSize <= mobileWidth){
+                var tab = $(event.target).find(':selected');
+                _openTabContent(tab);
+            }
+        });
+    };
+
+    var _openTabContent = function(tab){
+        var int = tab.data('tab');
+        var selectedTabs = $tabContainer.find('[data-tab-content="'+int+'"]');
+
+        _toggleTabs(selectedTabs);
+    }
+
+    var _toggleTabs = function(selectedTabs){
+        $tabsContent.addClass('hidden');
+        selectedTabs.removeClass('hidden');
+    }
 
     // output/public
     return {
@@ -427,14 +546,13 @@ var SmoothScroll = function($) { // ----- static module
 // TMBR Creative Agency
 // Date: 6.27.2016
 
-// Dependent Upon
-// - jQuery
-// - Util
-// - Constants
-// Module(s) (static)
-// - Throttle
-//
-//
+/**
+ * Throttle
+ *
+ * @class      Throttle (name)
+ * @param      {Function}  $
+ * @return     {Constructor} init
+ */
 
 var Throttle = function($) { // ----- static module
     // private var(s)
@@ -443,13 +561,19 @@ var Throttle = function($) { // ----- static module
     // private method(s)
     var _init = function() {
         // Window Scroll functions
-        // $(window).on('scroll', _throttle(function(){
-        //     if ( $(window).scrollTop() > 20) {
-        //       $('body').addClass('scrolled');
-        //     } else {
-        //       $('body').removeClass('scrolled');
-        //     }
-        // }, throttleTimeOut));
+        $(window).on('scroll', _throttle(function(){
+
+           var  scrollTop = $(window).scrollTop(),
+                screensize = $('.js-doc-nav-wrapper').height() - 50,
+                distance = (screensize - scrollTop);
+
+            if ( distance < 0 ) {
+                $('.navbar-default').addClass("js-nav-scroll-white");
+            } else {
+                $('.navbar-default').removeClass("js-nav-scroll-white");
+            }
+
+        }, throttleTimeOut));
 
         // Window Resize Functions
         $(window).on('resize', _throttle(function(){
@@ -458,6 +582,7 @@ var Throttle = function($) { // ----- static module
              * the host machine's processor */
         }, throttleTimeOut));
 
+        console.log("Throttle.init");
     };
 
 
@@ -470,17 +595,18 @@ var Throttle = function($) { // ----- static module
 // TMBR Creative Agency
 // Author: michael.ross
 // Date: 6.27.2016
-//
-// Dependent Upon
-// - jQuery
-// Modules (static)
-// - Util
 
-// ------------------ Util (static)
+/**
+ * Utility functions commonly used in Javascript
+  * @class      Util (name)
+ */
 var Util = function() {
-	// private var(s)
 
-	// getter(s)/setter(s) var(s)    
+	/**
+	 * Enables debug mode
+	 *
+	 * @type       {boolean} Enables debug mode
+	 */
 	var __debugMode = false;
 
 	// todo : deine a local storage variable that can turn debugging on/off
@@ -488,11 +614,6 @@ var Util = function() {
 	var _debugMode = function() {
 		if (!arguments.length) return __debugMode;
 		else __debugMode = arguments[0];
-	};
-
-	// private method(s)
-	var _constructor = function() {
-		// console.log('Util._constructor()');
 	};
 
 	// todo : add a force object for quick logs
@@ -506,16 +627,13 @@ var Util = function() {
 		}
 	};
 
-	/* Fancy Resize event that only triggers once the resize is DONE */
-	var _on_resize = function(c,t){
-		onresize = function(){
-			clearTimeout(t);
-			t=setTimeout(c,100)};
-			return c
-	};
-
+	/**
+	 * Loads a json.
+	 *
+	 * @param      {string}    JSONLocation  The json location
+	 * @param      {Function}  onComplete    On complete
+	 */
 	var _loadJSON = function(JSONLocation, onComplete) {
-		// Util.log('_loadJSON() JSONLocation : ' + JSONLocation);
 		$.ajax({
 			url: JSONLocation,
 			dataType: 'text',
@@ -526,6 +644,12 @@ var Util = function() {
 		});
 	};
 
+	/**
+	 * Loads a body html.
+	 *
+	 * @param      {string}    html_location  The html location
+	 * @param      {Function}  onComplete     On complete
+	 */
 	var _loadBodyHTML = function(html_location, onComplete) {
 		$.ajax({
 			url: html_location,
@@ -536,7 +660,13 @@ var Util = function() {
 		});
 	};
 
-
+	/**
+	 * { function_description }
+	 *
+	 * @param      {string}  string     The string
+	 * @param      {string}  delimiter  The delimiter
+	 * @return     {string}  { Returns the string split on the delimiter }
+	 */
 	var _split = function(string, delimiter) {
 		if (typeof string !== 'string') return string;
 		// string = string.replace(/\s/g, ''); // remove white space
@@ -546,6 +676,11 @@ var Util = function() {
 		return string.split(delimiter); // create array
 	};
 
+	/**
+	 * Returns a random string value
+	 *
+	 * @return     {string}  Returns a random string value
+	 */
 	var _uid = function() {
 		return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
 			var r = Math.random() * 16 | 0,
@@ -554,7 +689,12 @@ var Util = function() {
 		});
 	};
 
-	// array specific
+	/**
+	 * Removes blank strings.
+	 *
+	 * @param      {Array}
+	 * @return     {Array} Removes blank values in an array
+	 */
 	var _removeBlankStrings = function(array) {
 		var newArray = [];
 		for (var i = 0; i < array.length; i++) {
@@ -564,11 +704,23 @@ var Util = function() {
 		return newArray;
 	};
 
+	/**
+	 * Suffles an Array
+	 *
+	 * @param      {Array}
+	 * @return     {Array} Shuffled array.
+	 */
 	var _shuffleArray = function(o) {
 		for (var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
 		return o;
 	};
 
+	/**
+	 * Removes array duplicates.
+	 *
+	 * @param      {Array}
+	 * @return     {Array}
+	 */
 	var _removeArrayDuplicates = function(array) {
 		var a = array.concat();
 		for (var i = 0; i < a.length; ++i) {
@@ -579,6 +731,13 @@ var Util = function() {
 		return a;
 	};
 
+	/**
+	 * Merges two arrays
+	 *
+	 * @param      {Array}
+	 * @param      {Array}
+	 * @return     {Array}
+	 */
 	var _mergeArrays = function() {
 		var i, ii, newArray = [],
 			arrayAmount, iteredArray, iteredArrayContentsAmount;
@@ -593,11 +752,23 @@ var Util = function() {
 		return newArray;
 	};
 
+	/**
+	 * Returns a random item from array
+	 *
+	 * @param      {Array}
+	 * @return     {Array}
+	 */
 	var _randomItemFromArray = function(array) {
 		return array[Math.floor(Math.random()*array.length)];
 	};
 
-	// from : https://remysharp.com
+	/**
+	 * Debounce
+	 *
+	 * @param      {Function}  Function to delay
+	 * @param      {Number} Miliseconds to delay the function
+	 * @return     {Function} 
+	 */
 	var _debounce = function(fn, delay) {
 		var timer = null;
 		return function() {
@@ -610,7 +781,14 @@ var Util = function() {
 		};
 	};
 
-	// from : https://remysharp.com
+	/**
+	 * Throttle
+	 *
+	 * @param      {Function}
+	 * @param      {number}    threshhold  The threshhold
+	 * @param      {String}    scope       The scope
+	 * @return     {Function}
+	 */
 	var _throttle = function(fn, threshhold, scope) {
 		threshhold || (threshhold = 250);
 		var last,
@@ -652,6 +830,12 @@ var Util = function() {
 		}
 	};
 
+	/**
+	 * Gets the URL query parameters.
+	 *
+	 * @param      {String}
+	 * @return     {Object}  The query parameters in key / pair.
+	 */
 	var _getQueryParameters = function(_s) {
 		var query = _s;
 		var parameters = query.split("&");
@@ -736,14 +920,10 @@ var Util = function() {
 	};
 
 	
-
-
-	_constructor();
 	// output/public     
 	return {
 		debugMode: _debugMode,
 		log: _log,
-		onresize: _on_resize,
 		loadJSON: _loadJSON,
 		loadBodyHTML: _loadBodyHTML,
 		// string
@@ -768,110 +948,350 @@ var Util = function() {
 	};
 }();
 
-// 
-if (!Array.prototype.indexOf) {
-	Array.prototype.indexOf = function(elt /*, from*/ ) {
-		var len = this.length >>> 0;
+function ssc_init() {
+    if (!document.body) return;
+    var e = document.body;
+    var t = document.documentElement;
+    var n = window.innerHeight;
+    var r = e.scrollHeight;
 
-		var from = Number(arguments[1]) || 0;
-		from = (from < 0) ? Math.ceil(from) : Math.floor(from);
-		if (from < 0)
-			from += len;
+    ssc_root = document.compatMode.indexOf("CSS") >= 0 ? t : e;
+    ssc_activeElement = e;
+    ssc_initdone = true;
 
-		for (; from < len; from++) {
-			if (from in this &&
-				this[from] === elt)
-				return from;
-		}
-		return -1;
-	};
-}
-// Credit goes to [Underscore.js](http://underscorejs.org/)
+    if (top != self)
+        ssc_frame = true;
 
-/**
- * Returns a function, that, when invoked, will only be triggered at most
- * once during a given window of time. Normally, the throttled function will
- * run as much as it can, without ever going more than once per wait
- * duration; but if you’d like to disable the execution on the leading edge,
- * pass {leading: false}. To disable execution on the trailing edge, ditto.
- */
-
-// throttle's dependent upon _now
-_now = Date.now || function() {
-  return new Date().getTime();
-};
-
-_throttle = function(func, wait, options) {
-  var context, args, result;
-  var timeout = null;
-  var previous = 0;
-  if (!options) options = {};
-  var later = function() {
-    previous = options.leading === false ? 0 : _now();
-    timeout = null;
-    result = func.apply(context, args);
-    if (!timeout) context = args = null;
-  };
-  return function() {
-    var now = _now();
-    if (!previous && options.leading === false) previous = now;
-    var remaining = wait - (now - previous);
-    context = this;
-    args = arguments;
-    if (remaining <= 0 || remaining > wait) {
-      if (timeout) {
-        clearTimeout(timeout);
-        timeout = null;
-      }
-      previous = now;
-      result = func.apply(context, args);
-      if (!timeout) context = args = null;
-    } else if (!timeout && options.trailing !== false) {
-      timeout = setTimeout(later, remaining);
+    else if (r > n && (e.offsetHeight <= n || t.offsetHeight <= n)) {
+        ssc_root.style.height = "auto";
+        if (ssc_root.offsetHeight <= n) {
+            var i = document.createElement("div");
+            i.style.clear = "both";
+            e.appendChild(i)
+        }
     }
-    return result;
-  };
+
+    if (!ssc_fixedback) {
+        e.style.backgroundAttachment = "scroll";
+        t.style.backgroundAttachment = "scroll"
+    }
+
+    if (ssc_keyboardsupport)
+        ssc_addEvent("keydown", ssc_keydown);
+}
+
+function ssc_scrollArray(e, t, n, r) {
+    r || (r = 1e3);
+    ssc_directionCheck(t, n);
+    ssc_que.push({
+        x: t,
+        y: n,
+        lastX: t < 0 ? .99 : -.99,
+        lastY: n < 0 ? .99 : -.99,
+        start: +(new Date)
+    });
+
+    if (ssc_pending)
+        return;
+
+    var i = function () {
+        var s = +(new Date);
+        var o = 0;
+        var u = 0;
+        for (var a = 0; a < ssc_que.length; a++) {
+            var f = ssc_que[a];
+            var l = s - f.start;
+            var c = l >= ssc_animtime;
+            var h = c ? 1 : l / ssc_animtime;
+            if (ssc_pulseAlgorithm) {
+                h = ssc_pulse(h)
+            }
+            var p = f.x * h - f.lastX >> 0;
+            var d = f.y * h - f.lastY >> 0;
+            o += p;
+            u += d;
+            f.lastX += p;
+            f.lastY += d;
+            if (c) {
+                ssc_que.splice(a, 1);
+                a--
+            }
+        }
+        if (t) {
+            var v = e.scrollLeft;
+            e.scrollLeft += o;
+            if (o && e.scrollLeft === v) {
+                t = 0
+            }
+        }
+        if (n) {
+            var m = e.scrollTop;
+            e.scrollTop += u;
+            if (u && e.scrollTop === m) {
+                n = 0
+            }
+        }
+        if (!t && !n)
+            ssc_que = [];
+
+        if (ssc_que.length)
+            setTimeout(i, r / ssc_framerate + 1);
+        else
+            ssc_pending = false;
+    };
+    setTimeout(i, 0);
+    ssc_pending = true
+}
+
+function ssc_wheel(e) {
+    if (!ssc_initdone) {
+        ssc_init()
+    }
+    var t = e.target;
+    var n = ssc_overflowingAncestor(t);
+    if (!n || e.defaultPrevented || ssc_isNodeName(ssc_activeElement, "embed") || ssc_isNodeName(t, "embed") && /\.pdf/i.test(t.src)) {
+        return true
+    }
+    var r = e.wheelDeltaX || 0;
+    var i = e.wheelDeltaY || 0;
+    if (!r && !i)
+        i = e.wheelDelta || 0;
+
+    if (Math.abs(r) > 1.2)
+        r *= ssc_stepsize / 120;
+
+    if (Math.abs(i) > 1.2)
+        i *= ssc_stepsize / 120;
+
+    ssc_scrollArray(n, -r, -i);
+    e.preventDefault()
+}
+
+function ssc_keydown(e) {
+    var t = e.target;
+    var n = e.ctrlKey || e.altKey || e.metaKey;
+
+    if (/input|textarea|embed/i.test(t.nodeName) || t.isContentEditable || e.defaultPrevented || n)
+        return true;
+
+    if (ssc_isNodeName(t, "button") && e.keyCode === ssc_key.spacebar)
+        return true;
+
+    var r, i = 0,
+        s = 0;
+    var o = ssc_overflowingAncestor(ssc_activeElement);
+    var u = o.clientHeight;
+
+    if (o == document.body)
+        u = window.innerHeight;
+
+    switch (e.keyCode) {
+        case ssc_key.up:
+            s = -ssc_arrowscroll;
+            break;
+        case ssc_key.down:
+            s = ssc_arrowscroll;
+            break;
+        case ssc_key.spacebar:
+            r = e.shiftKey ? 1 : -1;
+            s = -r * u * .9;
+            break;
+        case ssc_key.pageup:
+            s = -u * .9;
+            break;
+        case ssc_key.pagedown:
+            s = u * .9;
+            break;
+        case ssc_key.home:
+            s = -o.scrollTop;
+            break;
+        case ssc_key.end:
+            var a = o.scrollHeight - o.scrollTop - u;
+            s = a > 0 ? a + 10 : 0;
+            break;
+        case ssc_key.left:
+            i = -ssc_arrowscroll;
+            break;
+        case ssc_key.right:
+            i = ssc_arrowscroll;
+            break;
+        default:
+            return true
+    }
+    ssc_scrollArray(o, i, s);
+    e.preventDefault()
+}
+
+function ssc_mousedown(e) {
+    ssc_activeElement = e.target
+}
+
+function ssc_setCache(e, t) {
+    for (var n = e.length; n--;) ssc_cache[ssc_uniqueID(e[n])] = t;
+    return t
+}
+
+function ssc_overflowingAncestor(e) {
+    var t = [];
+    var n = ssc_root.scrollHeight;
+    do {
+        var r = ssc_cache[ssc_uniqueID(e)];
+        if (r) {
+            return ssc_setCache(t, r)
+        }
+        t.push(e);
+        if (n === e.scrollHeight) {
+            if (!ssc_frame || ssc_root.clientHeight + 10 < n) {
+                return ssc_setCache(t, document.body)
+            }
+        } else if (e.clientHeight + 10 < e.scrollHeight) {
+            overflow = getComputedStyle(e, "").getPropertyValue("overflow");
+            if (overflow === "scroll" || overflow === "auto") {
+                return ssc_setCache(t, e)
+            }
+        }
+    }
+    while (e = e.parentNode)
+}
+
+function ssc_addEvent(e, t, n) {
+    window.addEventListener(e, t, n || false)
+}
+
+function ssc_removeEvent(e, t, n) {
+    window.removeEventListener(e, t, n || false)
+}
+
+function ssc_isNodeName(e, t) {
+    return e.nodeName.toLowerCase() === t.toLowerCase()
+}
+
+function ssc_directionCheck(e, t) {
+    e = e > 0 ? 1 : -1;
+    t = t > 0 ? 1 : -1;
+    if (ssc_direction.x !== e || ssc_direction.y !== t) {
+        ssc_direction.x = e;
+        ssc_direction.y = t;
+        ssc_que = []
+    }
+}
+
+function ssc_pulse_(e) {
+    var t, n, r;
+    e = e * ssc_pulseScale;
+    if (e < 1) {
+        t = e - (1 - Math.exp(-e))
+    } else {
+        n = Math.exp(-1);
+        e -= 1;
+        r = 1 - Math.exp(-e);
+        t = n + r * (1 - n)
+    }
+    return t * ssc_pulseNormalize
+}
+
+function ssc_pulse(e) {
+    if (e >= 1) return 1;
+    if (e <= 0) return 0;
+    if (ssc_pulseNormalize == 1) {
+        ssc_pulseNormalize /= ssc_pulse_(1)
+    }
+    return ssc_pulse_(e)
+}
+
+var ssc_framerate = 150;
+var ssc_animtime = 500;
+var ssc_stepsize = 150;
+var ssc_pulseAlgorithm = true;
+var ssc_pulseScale = 6;
+var ssc_pulseNormalize = 1;
+var ssc_keyboardsupport = true;
+var ssc_arrowscroll = 50;
+var ssc_frame = false;
+var ssc_direction = {
+    x: 0,
+    y: 0
 };
+var ssc_initdone = false;
+var ssc_fixedback = true;
+var ssc_root = document.documentElement;
+var ssc_activeElement;
+var ssc_key = {
+    left: 37,
+    up: 38,
+    right: 39,
+    down: 40,
+    spacebar: 32,
+    pageup: 33,
+    pagedown: 34,
+    end: 35,
+    home: 36
+};
+var ssc_que = [];
+var ssc_pending = false;
+var ssc_cache = {};
+
+setInterval(function () {
+    ssc_cache = {}
+}, 10 * 1e3);
+
+var ssc_uniqueID = function () {
+    var e = 0;
+    return function (t) {
+        return t.ssc_uniqueID || (t.ssc_uniqueID = e++)
+    }
+}();
+
+var ischrome = /chrome/.test(navigator.userAgent.toLowerCase());
+if (ischrome) {
+    ssc_addEvent("mousedown", ssc_mousedown);
+    ssc_addEvent("mousewheel", ssc_wheel);
+    ssc_addEvent("load", ssc_init)
+}
 
 // TMBR Creative Agency
 // Author: michael.ross
 // Date: 6.27.2016
+// updated: 10.4.2016
+// 
+// Doc - https://github.com/documentationjs/documentation/blob/master/docs/GETTING_STARTED.md
 
-// Dependent Upon
-// - jQuery
-// Module(s) (static)
-// - Control
-//
-
+/**
+ * This function is called at Document.ready()
+ * @name Control
+ * @private
+ * @param {object} jQuery
+ * @returns {object} Control + methods
+ * @example Control.init();
+*/
 var Control = function($) { // ----- static module
     // private var(s)
-
-    var SlickOptions = {
-        dots: false,
-        arrows: true,
-        infinite: true,
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        adaptiveHeight: true,
-        lazyLoad: 'ondemand',
-        autoplay: true,
-        autoplaySpeed: 5000,
-    };
+    var sliderOptions = {
+        selector:           ".flexslider",
+        namespace:          "flex-",
+        animation:          "slide",
+        slideshow:          false, // auto play on load
+        slideshowSpeed:     2000,
+        animationSpeed:     500,
+        pauseOnHover:       true,
+        controlNav:         false, //Boolean: Create navigation for paging control of each clide? Note: Leave true for manualControls usage
+        directionNav:       true, //Boolean: Create navigation for previous/next navigation? (true/false)
+        prevText:           "Previous",
+        nextText:           "Next",
+        randomize:          false,
+        touch:              true,
+        video:              true
+    }
 
     // private method(s)
     var _init = function() {
 
-        MobileDetect.detect();
         Preloader.init();
+        Throtte.init();
         SmoothScroll.init();
         Animated.init();
-        Slider.init( SlickOptions );
-        SlickSlider.init();
+        Slider.init(sliderOptions);
         Lightbox.init();
-        NavtoSelectList.init();
-        SpeakerPair.init();
-        ProductCatOffset.init();
-        //Roadblock.init();
     };
 
     // output/public
@@ -880,8 +1300,9 @@ var Control = function($) { // ----- static module
     };
 }(jQuery);
 
-
-/* Fire off the doc ready */
-jQuery( document ).ready(function() {
+/**
+ * This function fires off Control.init();
+*/
+jQuery(document).ready(function() {
     Control.init();
 });

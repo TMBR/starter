@@ -1,10 +1,12 @@
 // TMBR Creative Agency
 // Author: galen.strasen
 // Date: 8.24.2016
-// Dependent Upon
-// - jQuery
-// - magnific popup
-//
+
+/**
+ * Enables TMBR Roadblock modal
+ * @class      Roadblock (name)
+ * @return     {Constructor} Roadblock.init()
+ */
 var Roadblock = function() { // ----- static module
     // private var
     var _init = function() {

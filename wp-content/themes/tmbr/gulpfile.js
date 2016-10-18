@@ -21,6 +21,7 @@
     var consolidate = require('gulp-consolidate');
     var autoprefixer = require('gulp-autoprefixer');
     var cleanCSS = require('gulp-clean-css');
+    var documentation = require('gulp-documentation');
   } catch( e ) {
     console.log('Could not find one of the packages gulp needs to run.  Please run `npm install` to see if that resolves the issue.  The error is below:');
     console.log(e);
@@ -74,7 +75,6 @@
       // Nothing's important about the naming scheme, just as long as the file
       // is included in this array, it'll come together.
         'assets/scripts/modules/*.js',
-        // 'assets/scripts/main.js'
         'assets/scripts/Control.js'
     ],
     styles: [
@@ -211,7 +211,7 @@
         runSequence('clean:vendorScripts', 'scripts:vendor', 'version');
       }),
       gulp.watch(paths.appScripts, function(event){
-        runSequence('clean:appScripts', 'scripts:app', 'version');
+        runSequence('clean:appScripts', 'scripts:app', 'version', 'documentation');
       }),
       gulp.watch(paths.stylesWatchDir, function(event){
         runSequence('clean:styles', 'styles', 'version');
@@ -267,6 +267,7 @@
       ['iconfont'],
       ['scripts:vendor', 'scripts:app', 'styles', 'images', 'fonts'],
       ['version', 'startwatch'],
+      'documentation',
       'refresh'
     );
   });
@@ -276,8 +277,17 @@
       'clean',
       'iconfont',
       ['scripts:vendor', 'scripts:app', 'styles', 'images', 'fonts'],
-      'version'
+      'version',
+      'documentation'
     );
+  });
+
+  /* Task for generating HTML JS documentation. */
+  gulp.task('documentation', function () {
+    del(['html-documentation']);
+    gulp.src(paths.appScripts)
+      .pipe(documentation({ format: 'html' }))
+      .pipe(gulp.dest('html-documentation'));
   });
 
 

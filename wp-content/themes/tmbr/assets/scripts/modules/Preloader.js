@@ -1,14 +1,17 @@
 // TMBR Creative Agency
 // Date: 6.27.2016
-// Dependent Upon
-// - jQuery
-// Module(s) (static)
-// - Preloader
-//
+
+/**
+ * Adds a preloader across the site
+ * @class      Preloader (name)
+ * @return     {Constructor} Preloader.init()
+ */
+
 var Preloader = function($) { // ----- static module
-    // private method(s)
+
     var _init = function() {
-        $(window).load(function() {
+
+        $(window).on("load", function(){
             setTimeout(function() {
                 $('.js-sitewrap').animate({
                     opacity: 1
@@ -16,10 +19,10 @@ var Preloader = function($) { // ----- static module
                 $('#preloader').fadeOut(300, function() {
                     Animated.init();
                 });
-            }, 300); // delay 300 ms
+            }, 300);
         });
     };
-    // output/public     
+
     return {
         init: _init
     };

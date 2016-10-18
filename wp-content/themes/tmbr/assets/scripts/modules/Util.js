@@ -1,17 +1,18 @@
 // TMBR Creative Agency
 // Author: michael.ross
 // Date: 6.27.2016
-//
-// Dependent Upon
-// - jQuery
-// Modules (static)
-// - Util
 
-// ------------------ Util (static)
+/**
+ * Utility functions commonly used in Javascript
+  * @class      Util (name)
+ */
 var Util = function() {
-	// private var(s)
 
-	// getter(s)/setter(s) var(s)    
+	/**
+	 * Enables debug mode
+	 *
+	 * @type       {boolean} Enables debug mode
+	 */
 	var __debugMode = false;
 
 	// todo : deine a local storage variable that can turn debugging on/off
@@ -19,11 +20,6 @@ var Util = function() {
 	var _debugMode = function() {
 		if (!arguments.length) return __debugMode;
 		else __debugMode = arguments[0];
-	};
-
-	// private method(s)
-	var _constructor = function() {
-		// console.log('Util._constructor()');
 	};
 
 	// todo : add a force object for quick logs
@@ -37,16 +33,13 @@ var Util = function() {
 		}
 	};
 
-	/* Fancy Resize event that only triggers once the resize is DONE */
-	var _on_resize = function(c,t){
-		onresize = function(){
-			clearTimeout(t);
-			t=setTimeout(c,100)};
-			return c
-	};
-
+	/**
+	 * Loads a json.
+	 *
+	 * @param      {string}    JSONLocation  The json location
+	 * @param      {Function}  onComplete    On complete
+	 */
 	var _loadJSON = function(JSONLocation, onComplete) {
-		// Util.log('_loadJSON() JSONLocation : ' + JSONLocation);
 		$.ajax({
 			url: JSONLocation,
 			dataType: 'text',
@@ -57,6 +50,12 @@ var Util = function() {
 		});
 	};
 
+	/**
+	 * Loads a body html.
+	 *
+	 * @param      {string}    html_location  The html location
+	 * @param      {Function}  onComplete     On complete
+	 */
 	var _loadBodyHTML = function(html_location, onComplete) {
 		$.ajax({
 			url: html_location,
@@ -67,7 +66,13 @@ var Util = function() {
 		});
 	};
 
-
+	/**
+	 * { function_description }
+	 *
+	 * @param      {string}  string     The string
+	 * @param      {string}  delimiter  The delimiter
+	 * @return     {string}  { Returns the string split on the delimiter }
+	 */
 	var _split = function(string, delimiter) {
 		if (typeof string !== 'string') return string;
 		// string = string.replace(/\s/g, ''); // remove white space
@@ -77,6 +82,11 @@ var Util = function() {
 		return string.split(delimiter); // create array
 	};
 
+	/**
+	 * Returns a random string value
+	 *
+	 * @return     {string}  Returns a random string value
+	 */
 	var _uid = function() {
 		return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
 			var r = Math.random() * 16 | 0,
@@ -85,7 +95,12 @@ var Util = function() {
 		});
 	};
 
-	// array specific
+	/**
+	 * Removes blank strings.
+	 *
+	 * @param      {Array}
+	 * @return     {Array} Removes blank values in an array
+	 */
 	var _removeBlankStrings = function(array) {
 		var newArray = [];
 		for (var i = 0; i < array.length; i++) {
@@ -95,11 +110,23 @@ var Util = function() {
 		return newArray;
 	};
 
+	/**
+	 * Suffles an Array
+	 *
+	 * @param      {Array}
+	 * @return     {Array} Shuffled array.
+	 */
 	var _shuffleArray = function(o) {
 		for (var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
 		return o;
 	};
 
+	/**
+	 * Removes array duplicates.
+	 *
+	 * @param      {Array}
+	 * @return     {Array}
+	 */
 	var _removeArrayDuplicates = function(array) {
 		var a = array.concat();
 		for (var i = 0; i < a.length; ++i) {
@@ -110,6 +137,13 @@ var Util = function() {
 		return a;
 	};
 
+	/**
+	 * Merges two arrays
+	 *
+	 * @param      {Array}
+	 * @param      {Array}
+	 * @return     {Array}
+	 */
 	var _mergeArrays = function() {
 		var i, ii, newArray = [],
 			arrayAmount, iteredArray, iteredArrayContentsAmount;
@@ -124,11 +158,23 @@ var Util = function() {
 		return newArray;
 	};
 
+	/**
+	 * Returns a random item from array
+	 *
+	 * @param      {Array}
+	 * @return     {Array}
+	 */
 	var _randomItemFromArray = function(array) {
 		return array[Math.floor(Math.random()*array.length)];
 	};
 
-	// from : https://remysharp.com
+	/**
+	 * Debounce
+	 *
+	 * @param      {Function}  Function to delay
+	 * @param      {Number} Miliseconds to delay the function
+	 * @return     {Function} 
+	 */
 	var _debounce = function(fn, delay) {
 		var timer = null;
 		return function() {
@@ -141,7 +187,14 @@ var Util = function() {
 		};
 	};
 
-	// from : https://remysharp.com
+	/**
+	 * Throttle
+	 *
+	 * @param      {Function}
+	 * @param      {number}    threshhold  The threshhold
+	 * @param      {String}    scope       The scope
+	 * @return     {Function}
+	 */
 	var _throttle = function(fn, threshhold, scope) {
 		threshhold || (threshhold = 250);
 		var last,
@@ -183,6 +236,12 @@ var Util = function() {
 		}
 	};
 
+	/**
+	 * Gets the URL query parameters.
+	 *
+	 * @param      {String}
+	 * @return     {Object}  The query parameters in key / pair.
+	 */
 	var _getQueryParameters = function(_s) {
 		var query = _s;
 		var parameters = query.split("&");
@@ -267,14 +326,10 @@ var Util = function() {
 	};
 
 	
-
-
-	_constructor();
 	// output/public     
 	return {
 		debugMode: _debugMode,
 		log: _log,
-		onresize: _on_resize,
 		loadJSON: _loadJSON,
 		loadBodyHTML: _loadBodyHTML,
 		// string
@@ -298,22 +353,3 @@ var Util = function() {
 		deepCompare:_deepCompare
 	};
 }();
-
-// 
-if (!Array.prototype.indexOf) {
-	Array.prototype.indexOf = function(elt /*, from*/ ) {
-		var len = this.length >>> 0;
-
-		var from = Number(arguments[1]) || 0;
-		from = (from < 0) ? Math.ceil(from) : Math.floor(from);
-		if (from < 0)
-			from += len;
-
-		for (; from < len; from++) {
-			if (from in this &&
-				this[from] === elt)
-				return from;
-		}
-		return -1;
-	};
-}

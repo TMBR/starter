@@ -1,14 +1,14 @@
 // TMBR Creative Agency
 // Author: michael.ross
 // Date: 6.27.2016
-//
-// Dependent Upon
-// - jQuery
-// - Modernizr
-// Modules (static)
-// - Constants
 
-// ------------------ Constants (static)
+
+/**
+ * @name Constants
+ * @static
+ * @param {object} jQuery
+ * @returns {object} DIRECTION : UP,DOWN,LEFT,RIGHT
+*/
 var Constants = function($) {
     
     // output/public     
@@ -19,12 +19,6 @@ var Constants = function($) {
 			DOWN:'direction_down',
 			LEFT:'direction_left',
 			RIGHT:'direction_right'
-		},
-		//
-		CLASS_NAME:{
-			//
-			NEW:'new-item',
-			SORT_ME:'sort-me',
 		}
     };
 }(jQuery);
