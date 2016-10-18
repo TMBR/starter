@@ -2,8 +2,6 @@
 /* ======== CORE VARIABLES & MIXINS ======== */
 /* ======== RESET ======== */
 /*! normalize.css v3.0.1 | MIT License | git.io/normalize */
-@import url(https://fonts.googleapis.com/css?family=Montserrat:400,700);
-@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,300,700);
 html {
   font-family: sans-serif;
   -ms-text-size-adjust: 100%;
@@ -9478,6 +9476,8 @@ html[xmlns] .flexslider .slides {
 /* FIXED WIDTHS */
 /* GUTTER */
 /* SCREEN SIZE */
+/* GLOBAL DIMENSIONS */
+/* INTERACTION */
 /*
 Set Border radious for any element
 @include border-radius(0px);
@@ -9678,17 +9678,19 @@ table {
 
 html {
   overflow-x: hidden;
-  font-size: 15px;
+  font-size: 16px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale; }
+  @media all and (max-width: 767px) {
+    html {
+      font-size: 14px; } }
 
 @media only screen and (-webkit-min-device-pixel-ratio: 1.25), only screen and (min-device-pixel-ratio: 1.25), only screen and (-webkit-min-device-pixel-ratio: 2.0833333333333335), only screen and (min-resolution: 200dpi), only screen and (min-resolution: 1.25dppx) {
   -webkit-font-smoothing: subpixel-antialiased; }
 
 body {
   overflow-x: hidden;
-  font-family: 'Open Sans', sans-serif;
-  font-style: normal;
+  font-family: "Open Sans", sans-serif;
   font-weight: 400; }
 
 .site-wrap {
@@ -9771,7 +9773,7 @@ button::-moz-focus-inner {
   margin-left: -75px;
   width: 150px;
   display: inline-block;
-  background-color: rgba(239, 76, 35, 0.8);
+  background-color: #F7B733;
   z-index: 10000;
   color: #fff;
   font-weight: bold; }
@@ -10154,16 +10156,16 @@ http://stackoverflow.com/questions/31800298/how-to-make-bootstrap-columns-the-sa
 
 /* Border Helpers */
 .border-top {
-  border-top: 1px solid #ccc; }
+  border-top: 1px solid #DFDCE3; }
 
 .border-right {
-  border-right: 1px solid #ccc; }
+  border-right: 1px solid #DFDCE3; }
 
 .border-bottom {
-  border-bottom: 1px solid #ccc; }
+  border-bottom: 1px solid #DFDCE3; }
 
 .border-left {
-  border-left: 1px solid #ccc; }
+  border-left: 1px solid #DFDCE3; }
 
 /* Layout */
 /* NAVIGATION */
@@ -10192,7 +10194,7 @@ http://stackoverflow.com/questions/31800298/how-to-make-bootstrap-columns-the-sa
 
 /* Animate nav toggle to close on click */
 .navbar-toggle > .icon-bar {
-  transition: all 0.3s ease-in; }
+  transition: all 0.2s ease-in; }
 
 .navbar-toggle > .icon-bar.one {
   -webkit-transform: rotate(-45deg);
@@ -10246,43 +10248,43 @@ http://stackoverflow.com/questions/31800298/how-to-make-bootstrap-columns-the-sa
   .collapse.in {
     display: block !important; } }
 
-#footer {
+.footer {
   padding: 3rem 0;
-  background-color: rgba(239, 76, 35, 0.8);
+  background-color: #4ABDAC;
   color: #FFF; }
-  #footer a {
+  .footer a {
     color: #FFF; }
-  #footer .copyright {
+  .footer .copyright {
     text-align: center;
     font-size: .8rem;
-    color: #ccc;
+    color: #DFDCE3;
     margin: 4rem 0 0 0; }
-  #footer .list-title {
+  .footer .list-title {
     color: #FFF; }
 
-#footer .menu > li a {
+.footer .menu > li a {
   font-size: .8rem;
   display: block;
   padding: .4rem 0; }
 
 @media all and (max-width: 767px) {
-  #footer .menu {
+  .footer .menu {
     margin-bottom: 3rem;
     text-align: center; }
-    #footer .menu > li a {
+    .footer .menu > li a {
       font-size: 1rem; } }
 
-body.no-touch #footer a:hover {
-  color: #ccc; }
+body.no-touch .footer a:hover {
+  color: #DFDCE3; }
 
 .comment-form textarea,
 .comment-form input {
-  border: 1px solid #ccc; }
+  border: 1px solid #DFDCE3; }
 
 .comment-form label {
   width: 100%; }
 
-.widgettitle, #footer .list-title {
+.widgettitle, .footer .list-title {
   font-size: .9rem;
   margin-bottom: .8rem;
   line-height: 1; }
@@ -10363,7 +10365,7 @@ input[type=submit] {
 }
 ======================== */
 .btn, .form-submit > .submit, .post-item .read-more, .comments-area .comment-reply-link {
-  background-color: rgba(239, 76, 35, 0.8);
+  background-color: #F7B733;
   display: inline-block;
   padding: 7px 20px;
   font-weight: bold;
@@ -10529,7 +10531,7 @@ input[type=submit] {
 
 .comments-area .comment-body {
   padding: 15px 0;
-  border-bottom: 1px solid #ccc; }
+  border-bottom: 1px solid #DFDCE3; }
 
 .comments-area .comment-meta {
   font-size: .8rem; }
@@ -10550,3 +10552,62 @@ input[type=submit] {
 @media all and (max-width: 991px) {
   #home-slider {
     margin-top: 50px; } }
+
+h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6 {
+  margin-top: 0;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+  color: #4ABDAC; }
+
+h1,
+.h1 {
+  font-size: 4rem;
+  /* 4em */
+  margin-bottom: 2.5rem; }
+
+h2,
+.h2 {
+  font-size: 3rem;
+  /* 3em */
+  margin-bottom: 2.5rem; }
+
+h3,
+.h3 {
+  font-size: 2.5rem;
+  /* 2.5em */
+  margin-bottom: 2rem; }
+
+h4,
+.h4 {
+  font-size: 2rem;
+  /* 2em */
+  margin-bottom: 1.5rem; }
+
+h5,
+.h5 {
+  font-size: 1.5rem;
+  /* 1.5em */
+  margin-bottom: 1.5rem; }
+
+p {
+  line-height: 1.8rem;
+  margin-bottom: 2rem; }
+
+a {
+  color: #F7B733;
+  transition: all 0.2s ease-in; }
+  a:hover,
+  a:focus,
+  a:active {
+    text-decoration: none;
+    outline: none;
+    color: #F7B733; }
+
+ul {
+  margin: 0;
+  padding: 0px; }
+
+li {
+  margin: 0px;
+  padding: 0px;
+  list-style: none; }
