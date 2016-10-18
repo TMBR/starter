@@ -27,7 +27,7 @@
 /* Animate nav toggle to close on click */
 .navbar-toggle {
 	> .icon-bar{
-		@include transition($transition300);
+		@include transition(all $transition);
 	}
 	> .icon-bar.one{
 		@include transform(rotate(-45deg));

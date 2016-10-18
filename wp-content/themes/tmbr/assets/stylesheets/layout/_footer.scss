@@ -1,4 +1,4 @@
-#footer {
+.footer {
 	padding: 3rem 0;
 	background-color: $heading-color;
 	color: $white;
@@ -20,7 +20,7 @@
 
 
 
-#footer .menu {
+.footer .menu {
 
 	> li a {
 		font-size: .8rem;
@@ -38,7 +38,7 @@
 }
 
 body.no-touch {
-	#footer {
+	.footer {
 		a:hover { color: $border-color}
 	}
 }
