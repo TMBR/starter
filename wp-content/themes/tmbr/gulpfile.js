@@ -74,7 +74,8 @@
       // Nothing's important about the naming scheme, just as long as the file
       // is included in this array, it'll come together.
         'assets/scripts/modules/*.js',
-        'assets/scripts/main.js'
+        // 'assets/scripts/main.js'
+        'assets/scripts/Control.js'
     ],
     styles: [
       // do your @imports from this file, not the gulpfile
