@@ -1,0 +1,28 @@
+.footer {
+	padding: 3rem 0;
+	background-color: $heading-color;
+	color: $white;
+
+	a {
+		color: $white;
+		@include a-hover {
+			color: $border-color;
+		}
+	}
+}
+
+// technically these would be molecules
+.footer	.copyright {
+	text-align: center;
+	font-size: .8rem;
+	color: $border-color;
+	margin: 4rem 0 0 0;
+}
+
+.footer .menu > li a {
+	font-size: $small;
+	display: block;
+	padding: .4rem 0;
+}
+
+

@@ -1,0 +1,51 @@
+/* Reset Bootstrap nav toggle */
+
+.navbar-toggle,
+.navbar-default .navbar-toggle {
+  border: none;
+  @include border-radius(0);
+
+  .icon-bar {
+    width: 30px;
+    height: 3px;
+  }
+  .icon-bar + .icon-bar {
+    margin-top: 7px;
+  }
+  &:hover,
+  &:focus {
+    background: none ;
+  }
+}
+
+/* Animate nav toggle to close on click */
+.navbar-toggle {
+  > .icon-bar{
+    @include transition(all $transition);
+  }
+  > .icon-bar.one{
+    @include transform(rotate(-45deg));
+    transform-origin: 100% 0;
+  }
+
+  > .icon-bar.two{
+    @include opacity(0);
+  }
+
+  > .icon-bar.three{
+    @include transform(rotate(45deg));
+    transform-origin: 100% 100%;
+
+  }
+
+  &.collapsed > .icon-bar.one,
+  &.collapsed > .icon-bar.two,
+  &.collapsed > .icon-bar.three, {
+    display: block;
+    @include transform(rotate(0deg));
+    @include opacity(1);
+
+  }
+
+
+}
