@@ -1,85 +1,91 @@
-.verticalcenter{
-  @include absolute($t:50%);
-	@include transform(translate(0,50%));
-}
+
 
 /* Margin Helpers */
-.m0{margin : 0; }
-.m1{margin : $gutter;}
-.m2{margin : $gutter * 2;}
-.m3{margin : $gutter * 3;}
-.m4{margin : $gutter * 4;}
+.m0 { margin: 0; }
+.m1 { margin: $gutter; }
+.m2 { margin: $gutter*2; }
+.m3 { margin: $gutter*3; }
+.m4 { margin: $gutter*4; }
 
-.mt0{margin-top : 0;}
-.mr0{margin-right : 0;}
-.mb0{margin-bottom : 0;}
-.ml0{margin-left : 0;}
+.mt0 { margin-top: 0; }
+.mr0 { margin-right: 0; }
+.mb0 { margin-bottom: 0; }
+.ml0 { margin-left: 0; }
+.mtb0 { margin-top: 0; margin-bottom: 0; }
+.mlr0 { margin-left: 0; margin-right: 0; }
 
-.mt1{margin-top : $gutter;}
-.mr1{margin-right : $gutter;}
-.mb1{margin-bottom : $gutter;}
-.ml1{margin-left : $gutter;}
+.mt1 { margin-top: $gutter; }
+.mr1 { margin-right: $gutter; }
+.mb1 { margin-bottom: $gutter; }
+.ml1 { margin-left: $gutter; }
+.mtb1 { margin-top: $gutter; margin-bottom: $gutter; }
+.mlr1 { margin-left: $gutter; margin-right: $gutter; }
 
-.mt2{margin-top : $gutter * 2;}
-.mr2{margin-right : $gutter * 2;}
-.mb2{margin-bottom : $gutter * 2;}
-.ml2{margin-left : $gutter * 2;}
+.mt2 { margin-top: $gutter*2; }
+.mr2 { margin-right: $gutter*2; }
+.mb2 { margin-bottom: $gutter*2; }
+.ml2 { margin-left: $gutter*2; }
+.mtb2 { margin-top: $gutter*2; margin-bottom: $gutter*2; }
+.mlr2 { margin-left: $gutter*2; margin-right: $gutter*2; }
 
-.mt3{margin-top : $gutter * 3;}
-.mr3{margin-right : $gutter * 3;}
-.mb3{margin-bottom : $gutter * 3;}
-.ml3{margin-left : $gutter * 3;}
+.mt3 { margin-top: $gutter*3; }
+.mr3 { margin-right: $gutter*3; }
+.mb3 { margin-bottom: $gutter*3; }
+.ml3 { margin-left: $gutter*3; }
+.mtb3 { margin-top: $gutter*3; margin-bottom: $gutter*3; }
+.mlr3 { margin-left: $gutter*3; margin-right: $gutter*3; }
 
-.mt4{margin-top : $gutter * 4;}
-.mr4{margin-right : $gutter * 4;}
-.mb4{margin-bottom : $gutter * 4;}
-.ml4{margin-left : $gutter * 4;}
+.mt4 { margin-top: $gutter*4; }
+.mr4 { margin-right: $gutter*4; }
+.mb4 { margin-bottom: $gutter*4; }
+.ml4 { margin-left: $gutter*4; }
+.mtb4 { margin-top: $gutter*4; margin-bottom: $gutter*4; }
+.mlr4 { margin-left: $gutter*4; margin-right: $gutter*4; }
 
 /* Padding Helpers */
+.p0 { padding: 0; }
+.p1 { padding: $gutter; }
+.p2 { padding: $gutter*2; }
+.p3 { padding: $gutter*3; }
+.p4 { padding: $gutter*4; }
 
-.p1{padding : $gutter;}
-.p2{padding : $gutter * 2;}
-.p3{padding : $gutter * 3;}
-.p4{padding : $gutter * 4;}
-
-.pt1{padding-top : $gutter;}
-.pr1{padding-right : $gutter;}
-.pb1{padding-bottom : $gutter;}
-.pl1{padding-left : $gutter;}
-
-.pt2{padding-top : $gutter * 2;}
-.pr2{padding-right : $gutter * 2;}
-.pb2{padding-bottom : $gutter * 2;}
-.pl2{padding-left : $gutter * 2;}
-
-.pt3{padding-top : $gutter * 3;}
-.pr3{padding-right : $gutter * 3;}
-.pb3{padding-bottom : $gutter * 3;}
-.pl3{padding-left : $gutter * 3;}
-
-.pt4{padding-top : $gutter * 4;}
-.pr4{padding-right : $gutter * 4;}
-.pb4{padding-bottom : $gutter * 4;}
-.pl4{padding-left : $gutter * 4;}
-
+.pt0 { padding-top: 0; }
+.pr0 { padding-right: 0; }
+.pb0 { padding-bottom: 0; }
+.pl0 { padding-left: 0; }
 .ptb0 { padding-top: 0; padding-bottom: 0; }
 .plr0 { padding-left: 0; padding-right: 0; }
 
-
+.pt1 { padding-top: $gutter; }
+.pr1 { padding-right: $gutter; }
+.pb1 { padding-bottom: $gutter; }
+.pl1 { padding-left: $gutter; }
 .ptb1 { padding-top: $gutter; padding-bottom: $gutter; }
 .plr1 { padding-left: $gutter; padding-right: $gutter; }
 
-
+.pt2 { padding-top: $gutter*2; }
+.pr2 { padding-right: $gutter*2; }
+.pb2 { padding-bottom: $gutter*2; }
+.pl2 { padding-left: $gutter*2; }
 .ptb2 { padding-top: $gutter*2; padding-bottom: $gutter*2; }
 .plr2 { padding-left: $gutter*2; padding-right: $gutter*2; }
 
-
+.pt3 { padding-top: $gutter*3; }
+.pr3 { padding-right: $gutter*3; }
+.pb3 { padding-bottom: $gutter*3; }
+.pl3 { padding-left: $gutter*3; }
 .ptb3 { padding-top: $gutter*3; padding-bottom: $gutter*3; }
 .plr3 { padding-left: $gutter*3; padding-right: $gutter*3; }
 
-
+.pt4 { padding-top: $gutter*4; }
+.pr4 { padding-right: $gutter*4; }
+.pb4 { padding-bottom: $gutter*4; }
+.pl4 { padding-left: $gutter*4; }
 .ptb4 { padding-top: $gutter*4; padding-bottom: $gutter*4; }
 .plr4 { padding-left: $gutter*4; padding-right: $gutter*4; }
 
-
-
+/* Border Helpers */
+.border-top { border-top: 1px solid $border-color; }
+.border-right { border-right: 1px solid $border-color; }
+.border-bottom { border-bottom: 1px solid $border-color; }
+.border-left { border-left: 1px solid $border-color; }

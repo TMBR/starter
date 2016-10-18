@@ -122,6 +122,10 @@ http://stackoverflow.com/questions/31800298/how-to-make-bootstrap-columns-the-sa
 
 /* PUSH BODY DOWN SO NOT BLOCKED BY FIXED HEADER
 ================================================ */
+.verticalcenter{
+  @include absolute($t:50%);
+  @include transform(translate(0,50%));
+}
 #page-main {
 	margin-top: $menu-height; /* height of header */
 }

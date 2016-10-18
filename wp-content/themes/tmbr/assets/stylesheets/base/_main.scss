@@ -1,35 +1,19 @@
 html {
-	overflow-x:hidden;
-	-webkit-font-smoothing:antialiased;
-	font-size: 17px;
-
-	@include respond-to($screen-sm) { font-size: 15px; }
-	@include respond-to($screen-xxs) { font-size: 12px; }
-
+	overflow-x: hidden;
+	font-size: 15px;
+	@include font-smoothing;
+	@include respond-to($screen-xs) { }
 }
 
 @media only screen and (-webkit-min-device-pixel-ratio:1.25), only screen and (min-device-pixel-ratio:1.25), only screen and (min-resolution:200dpi), only screen and (min-resolution:1.25dppx) { -webkit-font-smoothing: subpixel-antialiased; }
 
 body {
 	overflow-x: hidden;
-	@include copy-font();
+	@include copy-font;
 }
 
 .site-wrap {
 	@include opacity(0);
-}
-
-a {
-	color: $link-color;
-
-	@include transition($transition200);
-	&:hover,
-	&:focus,
-	&:active {
-		text-decoration: none;
-		outline: none;
-		color: $link-color;
-	}
 }
 
 :active,
@@ -38,13 +22,13 @@ a {
 }
 
 ::-moz-selection {
-	background: $black;
-	color: $white;
+	// background: $black;
+	// color: $white;
 }
 
 ::selection {
-	background: $black;
-	color: $white;
+	// background: $black;
+	// color: $white;
 }
 
 ::-moz-focus-inner,
@@ -53,6 +37,11 @@ button::-moz-focus-inner {
 	border: 0;
 }
 
-:focus {outline:none !important;}
-::-moz-focus-inner {border:0;}
+:focus {
+	outline:none !important;
+}
+
+::-moz-focus-inner {
+	border:0;
+}
 
