@@ -40,10 +40,23 @@ button::-moz-focus-inner {
 }
 
 :focus {
-	outline:none !important;
+	outline: none!important;
 }
 
 ::-moz-focus-inner {
-	border:0;
+	border: 0;
+}
+
+.post-edit-link{
+	text-align: center;
+	padding: 8px 20px;
+	text-transform: uppercase;
+	@include fixed($b:0,$l:50%, $z:10000);
+	margin-left: -75px;
+	width: 150px;
+	display: inline-block;
+	background-color: invert($action-color);
+	color: $white;
+	font-weight: bold;
 }
 

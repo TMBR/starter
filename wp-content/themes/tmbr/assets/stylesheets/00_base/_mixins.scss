@@ -1,21 +1,7 @@
-@mixin prefix($property, $value) {
-  -webkit-#{$property}: #{$value};
-  -moz-#{$property}: #{$value};
-  -ms-#{$property}: #{$value};
-  -o-#{$property}: #{$value};
-  #{$property}: #{$value};
-}
 
 
-/*
-Set Border radious for any element
-@include border-radius(0px);
---------------------- */
-@mixin border-radius($radius) {
-  -webkit-border-radius: $radius;
-  border-radius: $radius;
-  background-clip: padding-box;  /* stops bg color from leaking outside the border: */
-}
+
+
 
 /*
 opacity filter with x-browser fallback
@@ -70,6 +56,16 @@ Transform
   height: 100%;
 }
 
+/*
+Set Border radious for any element
+@include border-radius(0px);
+--------------------- */
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+  border-radius: $radius;
+  background-clip: padding-box;  /* stops bg color from leaking outside the border: */
+}
+
 // Tmbricon font
 // ==================================
 @mixin tmbricon {
@@ -79,6 +75,16 @@ Transform
   font-weight: normal;
   line-height: 1;
   @include font-smoothing;
+}
+
+// PREFIX
+// ==================================
+@mixin prefix($property, $value) {
+  -webkit-#{$property}: #{$value};
+  -moz-#{$property}: #{$value};
+  -ms-#{$property}: #{$value};
+  -o-#{$property}: #{$value};
+  #{$property}: #{$value};
 }
 
 

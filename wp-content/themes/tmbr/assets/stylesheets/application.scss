@@ -106,18 +106,17 @@
 *
 */
 
-
 /* Global */
-@import "global/variables";
-@import "global/mixins";
-@import "global/keyframes";
+@import "00_base/variables";
+@import "00_base/mixins";
+@import "00_base/keyframes";
+@import "00_base/reset";
+@import "00_base/vendor-fix";
+@import "00_base/main";
 
-/* Base */
-@import "base/reset";
-@import "base/vendor-fix";
-@import "base/main";
-@import "base/layout";
-@import "base/helpers";
+@import "01_atom/bootstrap-hacks";
+@import "01_atom/helpers";
+@import "01_atom/layout";
 
 /* Layout */
 @import "layout/header";
@@ -150,4 +149,8 @@
 @import "templates/home";
 
 @import "theme/typography";
+
+
+
+
 
