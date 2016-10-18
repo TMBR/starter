@@ -51,7 +51,8 @@
             "ajax": 0,
             "placeholder": "",
             "disabled": 0,
-            "readonly": 0
+            "readonly": 0,
+            "return_format": "value"
         },
         {
             "key": "field_580694be2d30b",
@@ -89,7 +90,8 @@
                 
             ],
             "allow_null": 0,
-            "multiple": 0
+            "multiple": 0,
+            "allow_archives": 1
         },
         {
             "key": "field_580695192d30d",
@@ -132,11 +134,11 @@
                 ]
             ],
             "wrapper": {
-                "width": 32,
+                "width": "32",
                 "class": "",
                 "id": ""
             },
-            "return_format": "array",
+            "return_format": "url",
             "library": "all",
             "min_size": "",
             "max_size": "",
@@ -189,5 +191,5 @@
     "hide_on_screen": "",
     "active": 0,
     "description": "",
-    "modified": 1476826507
+    "modified": 1476829113
 }
