@@ -117,6 +117,9 @@
 @import "01_atom/bootstrap-hacks";
 @import "01_atom/helpers";
 @import "01_atom/layout";
+@import "01_atom/typography";
+@import "01_atom/buttons";
+@import "01_atom/forms";
 
 /* Layout */
 @import "layout/header";
@@ -131,8 +134,8 @@
 
 
 /* Components */
-@import "components/buttons";
-@import "components/forms";
+
+
 @import "components/preloader";
 @import "components/flex-center-text";
 @import "components/flex-left-right-img-copy";
@@ -148,7 +151,7 @@
 /* Templates */
 @import "templates/home";
 
-@import "theme/typography";
+
 
 
 

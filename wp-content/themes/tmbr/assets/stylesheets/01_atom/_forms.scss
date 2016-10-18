@@ -1,0 +1,48 @@
+/* INPUTS
+.gf_wrapper input[type=text] {
+  @extend %input;
+}
+======================== */
+%input-text {
+  color: $white;
+  @include placeholder {
+    color: $white;
+    background: $black;
+  }
+}
+
+textarea,
+select,
+input[type="text"] {
+  @extend %input-text;
+}
+
+input::-moz-focus-inner {
+  border: 0;
+}
+
+select,
+input[type=checkbox],
+input[type=radio] {
+  @include prefix(appearance,none);
+  cursor: pointer;
+}
+
+select {
+  option {
+    // need to set color of option - setting color of select overrides this
+    color: $black;
+    &::checked {
+      color: $heading-color
+    }
+  }
+  &::-moz-focusring {
+    color: transparent;
+    text-shadow: 0 0 0 $black;
+  }
+}
+
+input[type="submit"] {
+  @extend %btn;
+}
+
