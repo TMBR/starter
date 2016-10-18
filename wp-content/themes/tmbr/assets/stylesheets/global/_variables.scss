@@ -1,18 +1,27 @@
-$section-height: 400px;
-$menu-height:50px;
-$mobile-menu-height : 50px;
 
-$transition: .2s ease-in;
-$transition200: all .2s ease-in;
-$transition300: all .3s ease-in;
+// * VARIABLES *
+// - Colors
+// - Font Sizes
+// - Font Families
+// - Font Weights
+// - Fixed Widths
+// - Gutter
+// - Screen Size
+// - Global Dimensions
+// - Interaction
+
 
 /* COLORS */
 $white: #FFF;
-$black : #000;
-$action-color : rgba(239,76,35,0.8);
-$heading-color : rgba(239,76,35,0.8);
-$link-color : #4A96AD;
-$border-color : #ccc;
+$black: #000;
+$yellow: #F7B733;
+$green: #4ABDAC;
+$gray: #DFDCE3;
+
+$action-color: $yellow;
+$heading-color: $green;
+$link-color: $yellow;
+$border-color: $gray;
 
 /* FONT SIZES */
 $h1: 4rem;
@@ -21,19 +30,21 @@ $h3: 2.5rem;
 $h4: 2rem;
 $h5: 1.5rem;
 $p: 1rem;
+$hero: 7rem;
+$small: .875rem;
 
 /* FONT FAMILIES */
-@import url(https://fonts.googleapis.com/css?family=Montserrat:400,700);
+//@import url(https://fonts.googleapis.com/css?family=Montserrat:400,700|family=Open+Sans:400,300,700);
+$heading-font: 'Montserrat', sans-serif;
+$copy-font: 'Open Sans', sans-serif;
+
 @mixin heading-font($weight: 400) {
-	font-family: 'Montserrat', sans-serif;
-	font-style: normal;
+	font-family: $heading-font;
 	font-weight: $weight;
 }
 
-@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,300,700);
 @mixin copy-font($weight: 400) {
-	font-family: 'Open Sans', sans-serif;
-	font-style: normal;
+	font-family: $copy-font;
 	font-weight: $weight;
 }
 
@@ -51,6 +62,7 @@ $fixed-w-sm: 750px;
 
 /* GUTTER */
 $gutter: 15px;
+$col: 100%/12;
 
 /* SCREEN SIZE */
 $screen-tiny: 480px;
@@ -60,3 +72,10 @@ $screen-sm: 992px;
 $screen-md: 1200px;
 $screen-lg: 1350px;
 $screen-xl: 1400px;
+
+/* GLOBAL DIMENSIONS */
+$menu-height: 50px;
+$mobile-menu-height: 50px;
+
+/* INTERACTION */
+$transition: .2s ease-in;
