@@ -91,13 +91,13 @@ Background size with broswer prefix for cover
 
 @mixin respond-to($breakpoint) {
   @media all and (max-width: ($breakpoint - 1)) {
-    @content
+    @content;
   }
 }
 
 @mixin respond-between($min, $max) {
   @media all and (min-width:$min) and (max-width:$max - 1) {
-    @content
+    @content;
   }
 }
 
@@ -189,19 +189,19 @@ Placeholder
 --------------------- */
 @mixin placeholder {
   &::-webkit-input-placeholder {
-    @content
+    @content;
   }
 
   &:-moz-placeholder { /* Firefox 18- */
-    @content
+    @content;
   }
 
   &::-moz-placeholder {  /* Firefox 19+ */
-    @content
+    @content;
   }
 
   &:-ms-input-placeholder {
-    @content
+    @content;
   }
 }
 
@@ -303,7 +303,7 @@ a.link {
 --------------------- */
 @mixin a-link {
   &, &:visited {
-    @content
+    @content;
   }
 }
 
@@ -320,7 +320,7 @@ a.link {
   &:hover,
   &:active,
   &:focus {
-    @content
+    @content;
   }
 }
 
@@ -337,7 +337,7 @@ a.link {
   html.no-touch &:hover,
   html.no-touch &:active,
   html.no-touch &:focus {
-    @content
+    @content;
   }
 }
 
