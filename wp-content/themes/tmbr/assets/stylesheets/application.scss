@@ -103,16 +103,20 @@
 @import "01_atom/typography";
 @import "01_atom/buttons";
 @import "01_atom/forms";
+@import "01_atom/img-bg";
 
 @import "02_molecule/preloader";
 @import "02_molecule/wp-comments";
 @import "02_molecule/wp-widgets";
 @import "02_molecule/navbar-toggle";
-@import "02_molecule/social";
+@import "02_molecule/video";
+@import "02_molecule/social-bar";
 @import "02_molecule/link-card";
+@import "02_molecule/slick-nav";
 
 @import "03_organism/header";
 @import "03_organism/footer";
+@import "03_organism/page-hero";
 // @import "03_organism/flex-center-text";
 // @import "03_organism/flex-left-right-img-copy";
 // @import "03_organism/flex-sectionwipe";
