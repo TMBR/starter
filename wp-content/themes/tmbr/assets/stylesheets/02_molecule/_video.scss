@@ -1,60 +1,44 @@
 
 .popup-video {
+  display: block;
+  @include relative;
   @include wh100;
+  margin-bottom: $gutter;
+  img {
+    width: 100%;
+    height: auto;
+  }
+}
+
+.video-trigger {
   @include center(1);
-  @include transition(background .4s ease-in-out .1s);
-  body.no-touch &:hover {
-    background: rgba($black,0.5);
+  width: 60px;
+  height: 60px;
+  background: $white;
+  @include border-radius(50%);
+  @include transition(opacity $transition);
+  &::before {
+    content: '\EA3B';
+    @include tmbricon;
+    font-size: 1.5rem;
+    color: $black;
+    @include center(1);
+    margin-top: -5px; // Fix for odd centering due to varying icon sizes
   }
 }
 
 .popup-video {
-  .trigger {
-    @include center(1);
-    width: 100px;
-    height: 100px;
-    background: rgba($white,0.85);
-    @include border-radius(50%);
-    @include transition(background $transition);
-    @include respond-to($screen-sm) {
-      width: 80px;
-      height: 80px;
-    }
+  .video-trigger {
+    @include opacity(0.85);
   }
-  body.no-touch &:hover .trigger {
-    background: $white;
-  }
-}
-
-.popup-video .trigger::before {
-  content: '\EA3B';
-  @include tmbricon;
-  font-size: 2rem;
-  color: $black;
-  @include center(1);
-  margin-top: -5px; // Fix for odd centering due to varying icon sizes
-}
-
-.popup-video .trigger::after {
-  body.no-touch & {
-    content: '';
-    border: 0 solid $black;
-    width: calc(100px - 3px);
-    height: calc(100px - 3px);
-    padding: 2px;
-    background: transparent;
-    @include border-radius(50%);
-    @include center(-1);
-    @include transition(all .2s);
-    @include respond-to($screen-sm) {
-      width: calc(80px - 3px);
-      height: calc(80px - 3px);
+  @include a-hover {
+    .video-trigger {
+      @include opacity(1);
     }
   }
 }
 
-/* VID OB */
-.wrapper.-vid-obj {
-  float: left;
-}
+
+
+
 
