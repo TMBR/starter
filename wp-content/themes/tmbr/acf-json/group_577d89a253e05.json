@@ -51,7 +51,8 @@
                     "ajax": 0,
                     "placeholder": "",
                     "disabled": 0,
-                    "readonly": 0
+                    "readonly": 0,
+                    "return_format": "value"
                 },
                 {
                     "key": "field_577ea7f967b5c",
@@ -88,6 +89,6 @@
     "instruction_placement": "label",
     "hide_on_screen": "",
     "active": 1,
-    "description": "",
-    "modified": 1467918371
+    "description": "Options Page = Global Settings",
+    "modified": 1476837126
 }
