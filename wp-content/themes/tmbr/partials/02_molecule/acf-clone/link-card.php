@@ -8,10 +8,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  *  ACF - Link Card (clone field)
  *
- *  First checks whether link card type is set to page content or custom
- *  If type = page content, then variables are setup based on selected post object
- *  If type = custom, then vars are setup based on field values
- *  This partial resets the field values for the button partial
+ *  Checks whether link card type is set to page content or custom
+ *    a. if type = page content, then variables are setup based on selected post object
+ *    b. if type = custom, then vars are setup based on field values
+ *  NOTE: This partial pulls in the button atom & resets the field values
+ *
+ *  Required vars:
+ *   $feat_img
+ *   $image
+ *   $header
+ *   $text
+ *   ! button vars
+ *
+ *  Dependent upon:
+ *   partials/01_atom/acf-clone/button.php
  */
 
 $type = isset($type) ? $type : get_sub_field('link_card_type'); // content / custom
@@ -58,26 +68,30 @@ elseif($type == 'custom') {
 
 }
 
+
+
+// BEGIN MARKUP
 ?>
 
+  <div class="link-card">
 
-<div class="link-card">
-  <img src="<?php if(!empty($image)) { echo $image; } else { echo backup_img('medium'); } ?>" class="img-responsive img" alt="<?php echo $header; ?>" />
+    <img src="<?php if(!empty($image)) { echo $image; } else { echo backup_img('medium'); } ?>" class="img-responsive img" alt="<?php echo $header; ?>" />
 
-  <?php
-  if(isset($header)){
-    echo '<h4 class="title">'. $header .'</h4>';
-  }
+    <?php
+    if(isset($header)){
+      echo '<h4 class="title">'. $header .'</h4>';
+    }
 
-  if(isset($text)){
-    echo '<p class="text">'. $text .'</p>';
-  }
+    if(isset($text)){
+      echo '<p class="text">'. $text .'</p>';
+    }
 
-  tmbr_load_template( 'partials/01_atom/acf-button.php', array(
-    'href' => (isset($href)) ? $href : null,
-    'btn_text' => (isset($btn_text)) ? $btn_text : null,
-    'new_tab' => (isset($new_tab)) ? $new_tab : null
-  ));
-  ?>
-</div><!-- /link-card -->
+    tmbr_load_template( 'partials/01_atom/acf-button.php', array(
+      'href' => (isset($href)) ? $href : null,
+      'btn_text' => (isset($btn_text)) ? $btn_text : null,
+      'new_tab' => (isset($new_tab)) ? $new_tab : null
+    ));
+    ?>
+
+  </div><!-- /link-card -->
 

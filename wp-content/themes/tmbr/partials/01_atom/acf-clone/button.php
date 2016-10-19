@@ -10,6 +10,18 @@ global $post;
  *
  *  Checks if variables to get_fields are set in load template,
  *  otherwise sets vars to base button fields
+ *
+ *  Required vars:
+ *   $btn_text
+ *   $type
+ *   $href (based on $type)
+ *   = $pg_link
+ *   = $ext_url
+ *   = $file
+ *   = $sec_id
+ *
+ *  Used by:
+ *   partials/02_molecule/acf-clone/link-card.php
  */
 
 $btn_text = isset($btn_text) ? $btn_text : get_sub_field('btn_text');
@@ -37,7 +49,7 @@ elseif($type == 'file') {
   $new_tab = 'true';
 }
 
-
+// BEGIN MARKUP
 echo '<a href="'. $href .'" '. ((isset($new_tab) && $new_tab == 'true') ? 'target="_blank" ' : '' ) .'class="btn">'. $btn_text .'</a>';
 
 
