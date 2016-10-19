@@ -7,30 +7,52 @@ global $post;
 
 /**
  *  ACF - BUTTON (clone field)
- *
- *  Checks if variables to get_fields are set in load template,
+ *  ===========================
+ *  1. Checks if display is set to group or seamless
+ *   a. if display = group, values are loaded as array
+ *  2. Checks if variables to get_fields are set in load template,
  *  otherwise sets vars to base button fields
  *
- *  Required vars:
- *   $btn_text
- *   $type
- *   $href (based on $type)
- *   = $pg_link
- *   = $ext_url
- *   = $file
- *   = $sec_id
+ *  Vars:
+ *   $display - 'group', 'seamless'
+ *   $label - for 'group' display only
  *
  *  Used by:
  *   partials/02_molecule/acf-clone/link-card.php
  */
 
-$btn_text = isset($btn_text) ? $btn_text : get_sub_field('btn_text');
-$type = isset($type) ? $type : get_sub_field('btn_type'); // page / section / ext / file
 
-$pg_link = isset($pg_link) ? $pg_link : get_sub_field('btn_pg_link');
-$ext_url = isset($ext_url) ? $ext_url : get_sub_field('btn_url');
-$file = isset($file) ? $file : get_sub_field('btn_file');
-$sec_id = isset($sec_id) ? $sec_id : get_sub_field('btn_sec_id');
+if(isset($display))
+{
+
+  if($display == 'group' && !empty($label)) {
+    $btn_text = $label['btn_text'];
+    $type = $label['btn_type'];
+    $pg_link = $label['btn_pg_link'];
+    $ext_url = $label['btn_url'];
+    $file = $label['btn_file'];
+    $sec_id = $label['btn_sec_id'];
+  }
+
+  elseif($display == 'seamless') {
+    // could get very granular here and check if clone is sub field or not.
+  }
+
+}
+
+/* Assumes that field is getting loaded directly */
+else
+{
+  $btn_text = isset($btn_text) ? $btn_text : get_field('btn_text');
+  $type = isset($type) ? $type : get_field('btn_type');
+
+  $pg_link = isset($pg_link) ? $pg_link : get_field('btn_pg_link');
+  $ext_url = isset($ext_url) ? $ext_url : get_field('btn_url');
+  $file = isset($file) ? $file : get_field('btn_file');
+  $sec_id = isset($sec_id) ? $sec_id : get_field('btn_sec_id');
+}
+
+
 
 
 // Set button href based on button type
