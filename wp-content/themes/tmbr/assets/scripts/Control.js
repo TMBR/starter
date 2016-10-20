@@ -40,6 +40,7 @@ var Control = function($) { // ----- static module
         SmoothScroll.init();
         Animated.init();
         Slider.init(sliderOptions);
+        SlickSlider.init();
         Lightbox.init();
     };
 

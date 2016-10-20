@@ -51,7 +51,7 @@
 
       'assets/vendor/jquery.fitvids/jquery.fitvids.js',                  //  Fitvids
       'assets/vendor/slick-carousel/slick/slick.js',                    //  Slick slider: https://github.com/kenwheeler/slick
-      'assets/vendor/flexslider/jquery.flexslider.js',                  //  Flexslider (slideshow) - http://www.woothemes.com/flexslider/
+      //'assets/vendor/flexslider/jquery.flexslider.js',                  //  Flexslider (slideshow) - http://www.woothemes.com/flexslider/
 
       // Video .JS
       'assets/vendor/video.js/dist/video-js/video.js',

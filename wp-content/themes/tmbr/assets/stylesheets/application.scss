@@ -73,13 +73,14 @@
 
 
 @import '../vendor/magnific-popup/src/css/main';
-
+@import '../vendor/slick-carousel/slick/slick.scss';
+@import '../vendor/slick-carousel/slick/slick-theme.scss';
 
 /* ======== VENDOR STYLES - Copied & Pasted (scss not provided) ======== */
 
 @import "vendor/video-js";
 @import "vendor/animate";
-@import "vendor/flexslider"; /* #### have to rename file to sass - move fonts to public */
+//@import "vendor/flexslider"; /* #### have to rename file to sass - move fonts to public */
 
 
 /**
@@ -113,6 +114,7 @@
 @import "02_molecule/social-bar";
 @import "02_molecule/link-card";
 @import "02_molecule/slick-nav";
+@import "02_molecule/image-caption-overlay";
 
 @import "03_organism/header";
 @import "03_organism/footer";
