@@ -3,6 +3,25 @@
     "title": "(Video Gallery)",
     "fields": [
         {
+            "key": "field_58091a7ed315d",
+            "label": "Header",
+            "name": "vg_header",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
             "key": "field_5808023acdbbe",
             "label": "Video Gallery",
             "name": "video_gallery",
@@ -62,5 +81,5 @@
     "hide_on_screen": "",
     "active": 0,
     "description": "",
-    "modified": 1476919927
+    "modified": 1476991626
 }

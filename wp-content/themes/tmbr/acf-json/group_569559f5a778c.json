@@ -617,9 +617,93 @@
                     "key": "5808054a5e34c",
                     "name": "media_gallery",
                     "label": "Media Gallery",
-                    "display": "block",
+                    "display": "row",
                     "sub_fields": [
-                        
+                        {
+                            "key": "field_5809152705fa6",
+                            "label": "Gallery Type",
+                            "name": "mg_gallery_type",
+                            "type": "select",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "choices": {
+                                "image": "Image Gallery",
+                                "video": "Video Gallery"
+                            },
+                            "default_value": [
+                                
+                            ],
+                            "allow_null": 0,
+                            "multiple": 0,
+                            "ui": 0,
+                            "ajax": 0,
+                            "return_format": "value",
+                            "placeholder": ""
+                        },
+                        {
+                            "key": "field_5809154a05fa7",
+                            "label": "Image Gallery",
+                            "name": "mg_img",
+                            "type": "clone",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": [
+                                [
+                                    {
+                                        "field": "field_5809152705fa6",
+                                        "operator": "==",
+                                        "value": "image"
+                                    }
+                                ]
+                            ],
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "clone": [
+                                "group_580801e9ca8d9"
+                            ],
+                            "display": "group",
+                            "layout": "block",
+                            "prefix_label": 0,
+                            "prefix_name": 0
+                        },
+                        {
+                            "key": "field_580915ef05fa8",
+                            "label": "Video Gallery",
+                            "name": "mg_video",
+                            "type": "clone",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": [
+                                [
+                                    {
+                                        "field": "field_5809152705fa6",
+                                        "operator": "==",
+                                        "value": "video"
+                                    }
+                                ]
+                            ],
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "clone": [
+                                "group_580801eb2d29f"
+                            ],
+                            "display": "group",
+                            "layout": "block",
+                            "prefix_label": 0,
+                            "prefix_name": 0
+                        }
                     ],
                     "min": "",
                     "max": ""
@@ -693,5 +777,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "Post Type = Page or Post",
-    "modified": 1476988746
+    "modified": 1476991564
 }

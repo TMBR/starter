@@ -16,7 +16,8 @@ global $post;
  *   $label - for 'group' display only
  *   $size - size of image
  *
- *
+ *  Used by:
+ *   partials/03_organism/video-gallery.php
  */
 
 if(isset($display))

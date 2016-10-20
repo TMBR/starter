@@ -3,6 +3,25 @@
     "title": "(Image Gallery)",
     "fields": [
         {
+            "key": "field_580917f0ee0a1",
+            "label": "Header",
+            "name": "ig_header",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
             "key": "field_580801f8a47b8",
             "label": "Image Gallery",
             "name": "image_gallery",
@@ -45,5 +64,5 @@
     "hide_on_screen": "",
     "active": 0,
     "description": "",
-    "modified": 1476919822
+    "modified": 1476990982
 }
