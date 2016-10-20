@@ -45,8 +45,14 @@
             }
           }
 
-
-          if( get_row_layout() == 'media_slider' )  { get_template_part( 'partials/03_organism/content-blockx' ); }
+          /**
+           *  MEDIA SLIDER
+           *  clone field - requires passes in vars */
+          if( get_row_layout() == 'media_slider' )  {
+            tmbr_load_template( 'partials/03_organism/media-slider.php', array(
+              'display' => 'seamless'
+            ));
+          }
 
           if( get_row_layout() == 'left_img_w_text' )   { get_template_part( 'partials/03_organism/content-blockx' ); }
 

@@ -14,13 +14,12 @@
 /* COLORS */
 $white: #FFF;
 $black: #000;
-$yellow: #F7B733;
 $green: #4ABDAC;
 $gray: #DFDCE3;
 
-$action-color: $yellow;
-$heading-color: $green;
-$link-color: $yellow;
+$action-color: $green;
+$heading-color: darken($green,15%);
+$link-color: $green;
 $border-color: $gray;
 
 /* FONT SIZES */

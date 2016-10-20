@@ -1,0 +1,13 @@
+.image-caption-overlay {
+  @include relative;
+  .img {
+
+  }
+  .caption {
+    @include absolute($t:50%,$l:10%);
+    @include transform(translateY(-50%));
+    background: rgba($black,0.5);
+    width: 40%;
+    padding: $gutter*2;
+  }
+}
