@@ -2,7 +2,7 @@
 // Author: michael.ross
 // Date: 6.27.2016
 // updated: 10.4.2016
-// 
+//
 // Doc - https://github.com/documentationjs/documentation/blob/master/docs/GETTING_STARTED.md
 
 /**
@@ -36,7 +36,7 @@ var Control = function($) { // ----- static module
     var _init = function() {
 
         Preloader.init();
-        Throtte.init();
+        //Throttle.init();
         SmoothScroll.init();
         Animated.init();
         Slider.init(sliderOptions);
