@@ -583,6 +583,37 @@
                     "max": ""
                 },
                 {
+                    "key": "58092cbbf570d",
+                    "name": "image_with_text",
+                    "label": "Image with Text",
+                    "display": "row",
+                    "sub_fields": [
+                        {
+                            "key": "field_58092e8fa3ee6",
+                            "label": "Image with Text",
+                            "name": "img_w_text",
+                            "type": "clone",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "clone": [
+                                "group_580930f399dad"
+                            ],
+                            "display": "seamless",
+                            "layout": "block",
+                            "prefix_label": 0,
+                            "prefix_name": 0
+                        }
+                    ],
+                    "min": "",
+                    "max": ""
+                },
+                {
                     "key": "580805685e34d",
                     "name": "link_card_row",
                     "label": "Link Card Row",
@@ -777,5 +808,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "Post Type = Page or Post",
-    "modified": 1476993189
+    "modified": 1476997560
 }

@@ -54,7 +54,24 @@
             ));
           }
 
-          if( get_row_layout() == 'left_img_w_text' )   { get_template_part( 'partials/03_organism/content-blockx' ); }
+          /**
+           *  IMAGE WITH TEXT
+           *  clone field - requires passes in vars
+           *  loads template based on "layout" */
+          elseif( get_row_layout() == 'image_with_text' )   {
+            if( get_sub_field('iwt_layout') == 'left_iwc' ) {
+              tmbr_load_template( 'partials/03_organism/left-img-w-text.php', array(
+                'display' => 'seamless'
+              ));
+            }
+            elseif( get_sub_field('iwt_layout') == 'right_iwc' ) {
+              tmbr_load_template( 'partials/03_organism/right-img-w-text.php', array(
+                'display' => 'seamless'
+              ));
+            }
+          }
+
+          elseif( get_row_layout() == 'left_img_w_text' )   { get_template_part( 'partials/03_organism/content-blockx' ); }
 
           if( get_row_layout() == 'right_img_w_text' )  { get_template_part( 'partials/03_organism/content-blockx' ); }
 
