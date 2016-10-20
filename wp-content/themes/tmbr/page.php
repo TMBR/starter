@@ -20,7 +20,7 @@
 
 		</div><!-- /row -->
 	</div><!-- /container -->
-	<?php get_template_part( 'partials/loops/page-content' ); ?>
+	<?php get_template_part( 'partials/03_organism/get-flex-layouts' ); ?>
 </main>
 <!-- #page-main -->
 
