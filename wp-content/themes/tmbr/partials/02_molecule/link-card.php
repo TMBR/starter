@@ -19,10 +19,10 @@ global $post;
  *   $label - for 'group' display only
  *
  *  Dependent upon:
- *   partials/01_atom/acf-clone/button.php
+ *   partials/01_atom/button.php
  *
  *  Used by:
- *   partials/03_organism/acf-clone/link-card-group.php
+ *   partials/03_organism/link-card-group.php
  */
 
 
@@ -105,7 +105,7 @@ elseif($type == 'custom') {
 
 
     if($type == 'custom') {
-      tmbr_load_template( 'partials/01_atom/acf-clone/button.php', array(
+      tmbr_load_template( 'partials/01_atom/button.php', array(
         'display' => 'group',
         'label' => (isset($button)) ? $button : null
       ));

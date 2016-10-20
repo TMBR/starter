@@ -18,7 +18,7 @@ global $post;
  *   $label - for 'group' display only
  *
  *  Used by:
- *   partials/02_molecule/acf-clone/link-card.php
+ *   partials/02_molecule/link-card.php
  */
 
 

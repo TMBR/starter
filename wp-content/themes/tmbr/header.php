@@ -34,11 +34,11 @@
 
 <body <?php body_class(); ?>  itemscope="itemscope" itemtype="http://schema.org/WebPage">
 
-  <?php get_template_part( 'partials/02_molecule/header/preloader' ); ?>
+  <?php get_template_part( 'partials/02_molecule/preloader' ); ?>
 
   <div class="js-sitewrap site-wrap"> <!-- .body has opacity 0 for fade in effect on load -->
 
     <header id="header" role="header">
-      <?php get_template_part( 'partials/03_organism/header' ); ?>
+      <?php get_template_part( 'partials/03_organism/site-header' ); ?>
     </header>
     <!-- #header -->
