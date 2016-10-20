@@ -19,7 +19,9 @@ global $post;
        // loop through the rows of data
       while ( have_rows('flex_content') ) : the_row();
 
-          if( get_row_layout() == 'content_block' )   { get_template_part( 'partials/03_organism/content-blockx' ); }
+          if( get_row_layout() == 'content_block' )   {
+            get_template_part( 'partials/03_organism/content-block' );
+          }
 
           /**
            *  LINK CARD ROW
@@ -76,9 +78,6 @@ global $post;
             }
           }
 
-          elseif( get_row_layout() == 'left_img_w_text' )   { get_template_part( 'partials/03_organism/content-blockx' ); }
-
-          elseif( get_row_layout() == 'right_img_w_text' )  { get_template_part( 'partials/03_organism/content-blockx' ); }
 
           elseif( get_row_layout() == 'tabbed_content' )  { get_template_part( 'partials/03_organism/content-blockx' ); }
 
