@@ -26,60 +26,15 @@
                     "display": "block",
                     "sub_fields": [
                         {
-                            "key": "field_577ec3e871ca6",
-                            "label": "Style",
-                            "name": "cb_style",
-                            "type": "select",
-                            "instructions": "Content block style.",
-                            "required": 0,
-                            "conditional_logic": 0,
-                            "wrapper": {
-                                "width": 25,
-                                "class": "",
-                                "id": ""
-                            },
-                            "choices": {
-                                "default": "White Background (default)",
-                                "color": "Colored Background"
-                            },
-                            "default_value": [
-                                
-                            ],
-                            "allow_null": 0,
-                            "multiple": 0,
-                            "ui": 0,
-                            "ajax": 0,
-                            "placeholder": "",
-                            "disabled": 0,
-                            "readonly": 0,
-                            "return_format": "value"
-                        },
-                        {
-                            "key": "field_577ec46e71ca7",
-                            "label": "Top Border?",
-                            "name": "cb_top_border",
-                            "type": "true_false",
-                            "instructions": "Top border breaks up content.",
-                            "required": "",
-                            "conditional_logic": "",
-                            "wrapper": {
-                                "width": 25,
-                                "class": "",
-                                "id": ""
-                            },
-                            "message": "",
-                            "default_value": 0
-                        },
-                        {
                             "key": "field_577ec48071ca8",
                             "label": "Section Link?",
                             "name": "cb_section_link",
                             "type": "true_false",
                             "instructions": "Link directly to this section.",
-                            "required": "",
-                            "conditional_logic": "",
+                            "required": 0,
+                            "conditional_logic": 0,
                             "wrapper": {
-                                "width": 25,
+                                "width": "50",
                                 "class": "",
                                 "id": ""
                             },
@@ -92,7 +47,7 @@
                             "name": "cb_section_id",
                             "type": "text",
                             "instructions": "Lowercase \/ no space",
-                            "required": "",
+                            "required": 0,
                             "conditional_logic": [
                                 [
                                     {
@@ -103,7 +58,7 @@
                                 ]
                             ],
                             "wrapper": {
-                                "width": 25,
+                                "width": "50",
                                 "class": "",
                                 "id": ""
                             },
@@ -111,9 +66,7 @@
                             "placeholder": "",
                             "prepend": "",
                             "append": "",
-                            "maxlength": "",
-                            "readonly": 0,
-                            "disabled": 0
+                            "maxlength": ""
                         },
                         {
                             "key": "field_577ec53b541e6",
@@ -633,7 +586,7 @@
                     "key": "580805685e34d",
                     "name": "link_card_row",
                     "label": "Link Card Row",
-                    "display": "block",
+                    "display": "row",
                     "sub_fields": [
                         {
                             "key": "field_580805da5e350",
@@ -740,5 +693,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "Post Type = Page or Post",
-    "modified": 1476920974
+    "modified": 1476988746
 }
