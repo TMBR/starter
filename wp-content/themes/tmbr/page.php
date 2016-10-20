@@ -1,4 +1,4 @@
-<?php get_header(); ?>
+<?php get_header(); while ( have_posts() ) : the_post(); ?>
 
 
 <main id="page-main" role="main">
@@ -6,11 +6,12 @@
 	<div class="container">
 		<div class="row">
 
-				<div class="col-sm-8">
+				<div class="col-sm-12">
 					<article role="article">
-					<?php while ( have_posts() ) : the_post(); ?>
+
+
 							<?php get_template_part( 'partials/loops/page-content' ); ?>
-					<?php endwhile; // end of the loop. ?>
+
 					</article>
 				</div><!-- /col -->
 
@@ -19,7 +20,8 @@
 
 		</div><!-- /row -->
 	</div><!-- /container -->
+	<?php get_template_part( 'partials/loops/page-content' ); ?>
 </main>
 <!-- #page-main -->
 
-<?php get_footer();
+<?php endwhile; get_footer();
