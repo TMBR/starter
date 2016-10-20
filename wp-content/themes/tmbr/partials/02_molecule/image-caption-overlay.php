@@ -8,9 +8,6 @@ global $post;
 /**
  *  ACF - IMAGE W CAPTION (clone field)
  *  ==========================
- *  Checks if variables to get_fields are set in load template,
- *  otherwise sets vars to base video fields
- *
  *  Vars:
  *   $display - 'group', 'seamless'
  *   $label - for 'group' display only
@@ -18,6 +15,9 @@ global $post;
  *
  *  Used by:
  *   partials/03_organism/media-slider.php
+ *
+ *  Dependent upon:
+ *   partials/01_atom/button.php
  */
 
 if(isset($display))
@@ -57,7 +57,7 @@ $image = $img_obj['sizes'][$size];
 
 
 <div class="image-caption-overlay">
-  <img src="<?php if(!empty($image)) { echo $image; } else { echo backup_img('medium'); } ?>" alt="<?php echo $img_obj['alt']; ?>" class="img" />
+  <img src="<?php if(!empty($image)) { echo $image; } else { echo backup_img($size); } ?>" alt="<?php echo $img_obj['alt']; ?>" class="img" />
   <div class="caption">
     <?php
     if(isset($header)) {
