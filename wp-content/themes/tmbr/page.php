@@ -1,6 +1,6 @@
 <?php get_header(); while ( have_posts() ) : the_post(); ?>
 
-
+<?php get_template_part( 'partials/03_organism/page-hero' ); ?>
 <main id="page-main" role="main">
 
 	<div class="container">
