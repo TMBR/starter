@@ -446,7 +446,7 @@ var Slider = function() { // ----- static module
 var SmoothScroll = function($) { // ----- static module
 
     var _init = function() {
-    	$('a[href*=#]:not([href=#]).scroll-to').on('click','', function( e ) {
+    	$('a[href*="#"]:not([href="#"]).scroll-to').on('click','', function( e ) {
 			e.preventDefault();
 
 			if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') || location.hostname == this.hostname) {
