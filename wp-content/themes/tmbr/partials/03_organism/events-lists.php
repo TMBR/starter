@@ -6,10 +6,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 global $post;
 
 
-?>
-
-
-<?php
 	/*
 	 * Dependent on Events Calander being installed
 	 * https://wordpress.org/plugins/the-events-calendar/
