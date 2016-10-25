@@ -17,7 +17,7 @@ global $post;
  *   $size - size of image
  *
  *  Used by:
- *   partials/03_organism/video-gallery.php
+ *   partials/03_organism/gallery-video.php
  */
 
 if(isset($display))

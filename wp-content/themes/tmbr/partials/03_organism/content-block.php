@@ -24,13 +24,13 @@ $section_id = get_sub_field('cb_section_id');
             //get_template_part( 'partials/03_organism/content-layout' );
             $layout = get_sub_field('ac_tc_layout');
             if($layout == 'default') {
-              get_template_part( 'partials/03_organism/content-full' );
+              get_template_part( 'partials/03_organism/layout-full-col' );
             }
             elseif($layout == '2_col') {
-              get_template_part( 'partials/03_organism/content-2col' );
+              get_template_part( 'partials/03_organism/layout-2col' );
             }
             elseif($layout == '3_col') {
-              get_template_part( 'partials/03_organism/content-3col' );
+              get_template_part( 'partials/03_organism/layout-3col' );
             }
           }
 

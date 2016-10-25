@@ -38,14 +38,14 @@ global $post;
           elseif( get_row_layout() == 'media_gallery' )   {
             if( get_sub_field('mg_gallery_type') == 'image' ) {
               $label = get_sub_field('mg_img');
-              tmbr_load_template( 'partials/03_organism/image-gallery.php', array(
+              tmbr_load_template( 'partials/03_organism/gallery-image.php', array(
                 'display' => 'group',
                 'label' => (isset($label)) ? $label : null
               ));
             }
             elseif( get_sub_field('mg_gallery_type') == 'video' ) {
               $label = get_sub_field('mg_video');
-              tmbr_load_template( 'partials/03_organism/video-gallery.php', array(
+              tmbr_load_template( 'partials/03_organism/gallery-video.php', array(
                 'display' => 'group',
                 'label' => (isset($label)) ? $label : null
               ));
@@ -67,12 +67,12 @@ global $post;
            *  loads template based on "layout" */
           elseif( get_row_layout() == 'image_with_text' )   {
             if( get_sub_field('iwt_layout') == 'left_iwc' ) {
-              tmbr_load_template( 'partials/03_organism/left-img-w-text.php', array(
+              tmbr_load_template( 'partials/03_organism/layout-left-img-w-text.php', array(
                 'display' => 'seamless'
               ));
             }
             elseif( get_sub_field('iwt_layout') == 'right_iwc' ) {
-              tmbr_load_template( 'partials/03_organism/right-img-w-text.php', array(
+              tmbr_load_template( 'partials/03_organism/layout-right-img-w-text.php', array(
                 'display' => 'seamless'
               ));
             }
@@ -81,12 +81,12 @@ global $post;
 
           elseif( get_row_layout() == 'tabbed_content' )  {
             if( get_sub_field('tp_layout') == 'tab' ) {
-              tmbr_load_template( 'partials/03_organism/tab-content.php', array(
+              tmbr_load_template( 'partials/03_organism/layout-tab.php', array(
                 'display' => 'seamless'
               ));
             }
             elseif( get_sub_field('tp_layout') == 'panel' ) {
-              tmbr_load_template( 'partials/03_organism/panel-content.php', array(
+              tmbr_load_template( 'partials/03_organism/layout-panel.php', array(
                 'display' => 'seamless'
               ));
             }
