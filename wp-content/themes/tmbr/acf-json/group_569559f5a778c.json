@@ -738,10 +738,30 @@
                 {
                     "key": "580806855132a",
                     "name": "tabbed_content",
-                    "label": "Tabbed Content",
+                    "label": "Tab \/ Panel Content",
                     "display": "block",
                     "sub_fields": [
-                        
+                        {
+                            "key": "field_580fd48a85070",
+                            "label": "Tab \/ Panel",
+                            "name": "tab_panel",
+                            "type": "clone",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "clone": [
+                                "group_580fd35a8ea12"
+                            ],
+                            "display": "seamless",
+                            "layout": "block",
+                            "prefix_label": 0,
+                            "prefix_name": 0
+                        }
                     ],
                     "min": "",
                     "max": ""
@@ -773,5 +793,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "Post Type = Page or Post",
-    "modified": 1476999890
+    "modified": 1477434260
 }

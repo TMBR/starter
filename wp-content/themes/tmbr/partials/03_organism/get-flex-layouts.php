@@ -79,7 +79,18 @@ global $post;
           }
 
 
-          elseif( get_row_layout() == 'tabbed_content' )  { get_template_part( 'partials/03_organism/content-blockx' ); }
+          elseif( get_row_layout() == 'tabbed_content' )  {
+            if( get_sub_field('tp_layout') == 'tab' ) {
+              tmbr_load_template( 'partials/03_organism/tab-content.php', array(
+                'display' => 'seamless'
+              ));
+            }
+            elseif( get_sub_field('tp_layout') == 'panel' ) {
+              tmbr_load_template( 'partials/03_organism/panel-content.php', array(
+                'display' => 'seamless'
+              ));
+            }
+          }
 
 
 
