@@ -2,7 +2,7 @@
 	padding: 3rem 0;
 	background-color: $heading-color;
 	color: $white;
-
+	.list-title,
 	a {
 		color: $white;
 		@include a-hover {

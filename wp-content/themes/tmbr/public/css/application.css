@@ -10609,8 +10609,12 @@ select::-moz-focusring {
   padding: 3rem 0;
   background-color: #968249;
   color: #FFF; }
+  .footer .list-title,
   .footer a {
     color: #FFF; }
+    .footer .list-title:hover,
+    .footer .list-title:active,
+    .footer .list-title:focus,
     .footer a:hover,
     .footer a:active,
     .footer a:focus {
