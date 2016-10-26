@@ -1,5 +1,9 @@
 
-.page-hero {}
+.page-hero {
+  &.hero-default {
+    padding-top: $gutter*3;
+  }
+}
 
 .page-hero .wrapper {
   width: 100%;
