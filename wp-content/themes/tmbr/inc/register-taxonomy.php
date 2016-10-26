@@ -1,10 +1,10 @@
 <?php
 //hook into the init action and call create_book_taxonomies when it fires
-add_action( 'init', 'create_pmc_taxonomy', 0 );
+add_action( 'init', 'create_taxonomy', 0 );
 
 //create a custom taxonomy name it topics for your posts
 
-function create_pmc_taxonomy() {
+function create_taxonomy() {
 
 //Locations Taxonomy
   $labels = array(
@@ -22,7 +22,7 @@ function create_pmc_taxonomy() {
   );
 
 // Now register the taxonomy
-  register_taxonomy('locations',array('post','page','projects','pmcmedia'), array(
+  register_taxonomy('locations',array('post','page','projects'), array(
     'hierarchical' => true,
     'labels' => $labels,
     'show_ui' => true,
