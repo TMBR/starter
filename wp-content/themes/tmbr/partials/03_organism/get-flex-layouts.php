@@ -92,6 +92,10 @@ global $post;
             }
           }
 
+          elseif( get_row_layout() == 'horizontal_rule' )  {
+            echo '<hr/>';
+          }
+
 
 
       endwhile;

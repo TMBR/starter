@@ -765,6 +765,33 @@
                     ],
                     "min": "",
                     "max": ""
+                },
+                {
+                    "key": "580ff59685b8e",
+                    "name": "horizontal_rule",
+                    "label": "Horizontal Rule",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_580ff59f85b8f",
+                            "label": "",
+                            "name": "",
+                            "type": "message",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "message": "<hr\/>",
+                            "new_lines": "wpautop",
+                            "esc_html": 0
+                        }
+                    ],
+                    "min": "",
+                    "max": ""
                 }
             ]
         }
@@ -793,5 +820,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "Post Type = Page or Post",
-    "modified": 1477434260
+    "modified": 1477440942
 }
