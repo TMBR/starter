@@ -1,27 +1,29 @@
-<?php get_header(); while ( have_posts() ) : the_post(); ?>
+<?php
 
-<?php get_template_part( 'partials/03_organism/page-hero' ); ?>
-<main id="page-main" role="main">
+get_header();
 
-	<div class="container">
-		<div class="row">
-
-				<div class="col-sm-12">
-					<article role="article">
+	while ( have_posts() ) : the_post(); ?>
 
 
-							<?php get_template_part( 'partials/loops/page-content' ); ?>
 
-					</article>
-				</div><!-- /col -->
+<main class="page-main" role="main">
+
+	<?php
+	// PAGE HERO
+	get_template_part( 'partials/03_organism/page-hero' );
+
+	// PAGE CONTENT
+	get_template_part( 'partials/loops/page-content' );
+
+	// FLEXIBLE CONTENT
+	get_template_part( 'partials/03_organism/get-flex-layouts' ); ?>
 
 
-			<?php get_sidebar(); ?>
-
-		</div><!-- /row -->
-	</div><!-- /container -->
-	<?php get_template_part( 'partials/03_organism/get-flex-layouts' ); ?>
 </main>
 <!-- #page-main -->
 
-<?php endwhile; get_footer();
+
+
+	<?php endwhile;
+
+get_footer();
