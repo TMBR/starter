@@ -12,6 +12,9 @@ $section_id = get_sub_field('cb_section_id');
 
 
 <section class="content-block" <?php if(isset($section_id)) { echo 'id="'. $section_id .'"'; } ?>>
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12">
   <?php
 
   // check if the flexible content field has rows of data
@@ -64,5 +67,7 @@ $section_id = get_sub_field('cb_section_id');
         endif;
 
         ?>
-
+    </div><!-- /col -->
+  </div><!-- /row -->
+</div><!-- /container-->
 </section><!-- /content-block -->

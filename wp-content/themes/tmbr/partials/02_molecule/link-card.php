@@ -84,7 +84,7 @@ if($type == 'content') {
 
 elseif($type == 'custom') {
 
-  $image = $img_obj['sizes']['medium'];
+  $image = $img_obj['sizes']['large'];
 
 }
 
@@ -92,7 +92,7 @@ elseif($type == 'custom') {
 ?>
 
   <div class="link-card">
-    <img src="<?php if(!empty($image)) { echo $image; } else { echo backup_img('medium'); } ?>" class="img-responsive img" alt="<?php echo $header; ?>" />
+    <img src="<?php if(!empty($image)) { echo $image; } else { echo backup_img('large'); } ?>" class="img-responsive img" alt="<?php echo $header; ?>" />
 
     <?php
     if(isset($header)) {

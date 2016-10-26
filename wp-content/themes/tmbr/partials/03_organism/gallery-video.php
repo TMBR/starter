@@ -55,7 +55,7 @@ if( $videos ) :
         $video_item = $video['video_item'];
       ?>
 
-      <div class="col-md-2 col-xs-4">
+      <div class="col-xs-4">
         <?php
         tmbr_load_template( 'partials/02_molecule/video-thumb.php', array(
           'display' => 'group',

@@ -53,7 +53,7 @@ if( $images ) :
       <?php foreach( $images as $image ): ?>
       <div class="col-md-2 col-xs-4">
         <a href="<?php echo $image['url']; ?>">
-          <img src="<?php echo $image['sizes']['medium']; ?>" alt="<?php echo $image['alt']; ?>" class="" />
+          <img src="<?php echo $image['sizes']['medium']; ?>" alt="<?php echo $image['alt']; ?>" class="img-responsive" />
         </a>
       </div><!-- /col -->
     <?php endforeach; ?>

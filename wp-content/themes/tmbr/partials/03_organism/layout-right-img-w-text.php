@@ -59,7 +59,7 @@ $image = $img_obj['sizes'][$size];
   <div class="container">
     <div class="row">
       <div class="col-sm-5 col-sm-push-7 col-xs-12">
-        <img src="<?php if(!empty($image)) { echo $image; } else { echo backup_img($size); } ?>" alt="<?php echo $img_obj['alt']; ?>" class="img" />
+        <img src="<?php if(!empty($image)) { echo $image; } else { echo backup_img($size); } ?>" alt="<?php echo $img_obj['alt']; ?>" class="img img-responsive" />
       </div><!-- /col -->
       <div class="col-sm-7 col-sm-pull-5 col-xs-12">
         <div class="content">
