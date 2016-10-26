@@ -446,7 +446,7 @@ var Slider = function() { // ----- static module
 var SmoothScroll = function($) { // ----- static module
 
     var _init = function() {
-    	$('a[href*=#]:not([href=#])').on('click','', function( e ) {
+    	$('a[href*="#"]:not([href="#"]).scroll-to').on('click','', function( e ) {
 			e.preventDefault();
 
 			if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') || location.hostname == this.hostname) {
@@ -465,7 +465,7 @@ var SmoothScroll = function($) { // ----- static module
 
 		});
     };
-       
+
     return {
         init: _init
     };
@@ -1253,7 +1253,7 @@ if (ischrome) {
 // Author: michael.ross
 // Date: 6.27.2016
 // updated: 10.4.2016
-// 
+//
 // Doc - https://github.com/documentationjs/documentation/blob/master/docs/GETTING_STARTED.md
 
 /**
@@ -1287,10 +1287,11 @@ var Control = function($) { // ----- static module
     var _init = function() {
 
         Preloader.init();
-        Throtte.init();
+        //Throttle.init();
         SmoothScroll.init();
         Animated.init();
         Slider.init(sliderOptions);
+        SlickSlider.init();
         Lightbox.init();
     };
 

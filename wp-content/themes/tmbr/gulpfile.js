@@ -42,8 +42,8 @@
       // 'assets/vendor/twbs-bootstrap-sass/vendor/assets/javascripts/bootstrap/carousel.js',
       'assets/vendor/twbs-bootstrap-sass/vendor/assets/javascripts/bootstrap/collapse.js',
       'assets/vendor/twbs-bootstrap-sass/vendor/assets/javascripts/bootstrap/dropdown.js',
-      // 'assets/vendor/twbs-bootstrap-sass/vendor/assets/javascripts/bootstrap/tab.js',
-      // 'assets/vendor/twbs-bootstrap-sass/vendor/assets/javascripts/bootstrap/transition.js',
+      'assets/vendor/twbs-bootstrap-sass/vendor/assets/javascripts/bootstrap/tab.js',
+      'assets/vendor/twbs-bootstrap-sass/vendor/assets/javascripts/bootstrap/transition.js',
       // 'assets/vendor/twbs-bootstrap-sass/vendor/assets/javascripts/bootstrap/scrollspy.js',
       // 'assets/vendor/twbs-bootstrap-sass/vendor/assets/javascripts/bootstrap/modal.js',
       // 'assets/vendor/twbs-bootstrap-sass/vendor/assets/javascripts/bootstrap/tooltip.js',
@@ -51,7 +51,7 @@
 
       'assets/vendor/jquery.fitvids/jquery.fitvids.js',                  //  Fitvids
       'assets/vendor/slick-carousel/slick/slick.js',                    //  Slick slider: https://github.com/kenwheeler/slick
-      'assets/vendor/flexslider/jquery.flexslider.js',                  //  Flexslider (slideshow) - http://www.woothemes.com/flexslider/
+      //'assets/vendor/flexslider/jquery.flexslider.js',                  //  Flexslider (slideshow) - http://www.woothemes.com/flexslider/
 
       // Video .JS
       'assets/vendor/video.js/dist/video-js/video.js',

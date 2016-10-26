@@ -1,0 +1,44 @@
+
+.popup-video {
+  display: block;
+  @include relative;
+  @include wh100;
+  margin-bottom: $gutter;
+  img {
+    width: 100%;
+    height: auto;
+  }
+}
+
+.video-trigger {
+  @include center(1);
+  width: 60px;
+  height: 60px;
+  background: $white;
+  @include border-radius(50%);
+  @include transition(opacity $transition);
+  &::before {
+    content: '\EA3B';
+    @include tmbricon;
+    font-size: 1.5rem;
+    color: $black;
+    @include center(1);
+    margin-top: -5px; // Fix for odd centering due to varying icon sizes
+  }
+}
+
+.popup-video {
+  .video-trigger {
+    @include opacity(0.85);
+  }
+  @include a-hover {
+    .video-trigger {
+      @include opacity(1);
+    }
+  }
+}
+
+
+
+
+

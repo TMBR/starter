@@ -14,13 +14,12 @@
 /* COLORS */
 $white: #FFF;
 $black: #000;
-$yellow: #F7B733;
-$green: #4ABDAC;
 $gray: #DFDCE3;
+$gold: #baa772;
 
-$action-color: $yellow;
-$heading-color: $green;
-$link-color: $yellow;
+$link-color: $gold;
+$heading-color: darken($gold,15%);
+$action-color: $gold;
 $border-color: $gray;
 
 /* FONT SIZES */
@@ -31,14 +30,15 @@ $h4: 2rem;
 $h5: 1.5rem;
 $p: 1rem;
 $hero: 7rem;
+$lead: 1.125rem;
 $small: .875rem;
 
 /* FONT FAMILIES */
-//@import url(https://fonts.googleapis.com/css?family=Montserrat:400,700|family=Open+Sans:400,300,700);
-$heading-font: 'Montserrat', sans-serif;
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,400i,300i,300,700,700i,800i,800);
+$heading-font: 'Open Sans', sans-serif;
 $copy-font: 'Open Sans', sans-serif;
 
-@mixin heading-font($weight: 400) {
+@mixin heading-font($weight: 800) {
 	font-family: $heading-font;
 	font-weight: $weight;
 }

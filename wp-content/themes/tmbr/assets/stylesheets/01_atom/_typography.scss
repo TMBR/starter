@@ -1,5 +1,5 @@
 h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6 {
-  margin-top: 0;
+  margin: 2rem 0;
   @include heading-font();
   color : $heading-color;
 }
@@ -7,31 +7,26 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6 {
 h1,
 .h1 {
   font-size: $h1; /* 4em */
-  margin-bottom: 2.5rem;
 }
 
 h2,
 .h2 {
   font-size: $h2; /* 3em */
-  margin-bottom: 2.5rem;
 }
 
 h3,
 .h3 {
   font-size: $h3; /* 2.5em */
-  margin-bottom: 2rem;
 }
 
 h4,
 .h4 {
   font-size: $h4; /* 2em */
-  margin-bottom: 1.5rem;
 }
 
 h5,
 .h5 {
   font-size: $h5; /* 1.5em */
-  margin-bottom: 1.5rem;
 }
 
 p {
@@ -39,18 +34,34 @@ p {
   margin-bottom: 2rem;
 }
 
+.small {
+  font-size: $small;
+}
+
+.lead,
+.lead p {
+  font-size: $lead;
+}
+
 a {
   color: $link-color;
-
   @include transition(all $transition);
   &:hover,
   &:focus,
   &:active {
     text-decoration: none;
     outline: none;
-    color: $link-color;
+    color: darken($link-color,20%);
   }
 }
 
-ul { margin: 0; padding: 0px;}
-li {margin: 0px; padding: 0px; list-style: none;}
+.strong,
+b,
+strong {
+  font-weight: bold;
+}
+
+i,
+em {
+  font-style: italic;
+}

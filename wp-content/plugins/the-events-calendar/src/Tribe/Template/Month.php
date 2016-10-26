@@ -29,6 +29,16 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 		const AJAX_HOOK = 'tribe_calendar';
 
 		/**
+		 * The path to the template file used for the view.
+		 * This value is used in Shortcodes/Tribe_Events.php to
+		 * locate the correct template file for each shortcode
+		 * view.
+		 *
+		 * @var string
+		 */
+		public $view_path = 'month/content';
+
+		/**
 		 * Number of events per day
 		 * @var int
 		 * @see tribe_events_month_day_limit
@@ -151,8 +161,21 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 			// include child categories in the query, save categories for reuse
 			$this->set_queried_event_cats();
 
-			// decide if we should use the month view cache
-			$this->use_cache = tribe_get_option( 'enable_month_view_cache', false );
+
+
+			/**
+			 * Controls whether or not month view caching is enabled.
+			 *
+			 * Filtering this value can be useful if you need to implement
+			 * a fine grained caching policy for month view.
+			 *
+			 * @param boolean $enable
+			 * @param array   $args
+			 */
+			$this->use_cache = apply_filters( 'tribe_events_enable_month_view_cache',
+				$this->should_enable_month_view_cache(),
+				$this->args
+			);
 
 			// Cache the result of month/content.php
 			if ( $this->use_cache ) {
@@ -179,7 +202,59 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 		}
 
 		/**
+		 * Indicates if month view cache should be enabled or not.
+		 *
+		 * If the month view cache setting itself is not enabled (or not set) then this
+		 * method will always return false.
+		 *
+		 * In other cases, the default rules are to cache everything in the 2 months past
+		 * to 12 months in the future range. This policy can be refined or replaced via
+		 * the 'tribe_events_enable_month_view_cache' filter hook.
+		 *
+		 * @return bool
+		 */
+		protected function should_enable_month_view_cache() {
+			// Respect the month view caching setting
+			if ( ! tribe_get_option( 'enable_month_view_cache', false ) ) {
+				return false;
+			}
+
+			// Default to always caching the current month
+			if ( ! isset( $this->args[ 'eventDate' ] ) ) {
+				return true;
+			}
+
+			// If the eventDate argument is not in the expected format then do not cache
+			if ( ! preg_match( '/^[0-9]{4}-[0-9]{1,2}$/', $this->args[ 'eventDate' ] ) ) {
+				return false;
+			}
+
+			// If the requested month is more than 2 months in the past, do not cache
+			if ( $this->args[ 'eventDate' ] < date_i18n( 'Y-m', Tribe__Date_Utils::wp_strtotime( '-2 months' ) ) ) {
+				return false;
+			}
+
+			// If the requested month is more than 1yr in the future, do not cache
+			if ( $this->args[ 'eventDate' ] > date_i18n( 'Y-m', Tribe__Date_Utils::wp_strtotime( '+1 year' ) ) ) {
+				return false;
+			}
+
+			// In all other cases, let's cache it!
+			return true;
+		}
+
+		/**
+		 * Returns an array containing the IDs of all the events in the month.
+		 *
+		 * @return array
+		 */
+		public function get_events_in_month_ids() {
+			return $this->has_events() ? wp_list_pluck( $this->events_in_month, 'ID' ) : array();
+		}
+
+		/**
 		 * Add any special hooks for this view
+		 * any actions added here should also be removed in the unhook function
 		 *
 		 */
 		protected function hooks() {
@@ -218,6 +293,8 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 			if ( ! empty( $this->events_in_month ) ) {
 				remove_filter( 'tribe_events_month_has_events', array( $this, 'has_events' ) );
 			}
+
+			remove_action( 'wp_head', array( $this, 'json_ld_markup' ) );
 		}
 
 		/**
@@ -674,7 +751,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 			// Populate complete date range including leading/trailing days from adjacent months
 			while ( $date <= $this->final_grid_date ) {
 
-				$day_events = self::get_daily_events( $date );
+				$day_events = $this->get_daily_events( $date );
 				$day = (int) substr( $date, - 2 );
 
 				$prev_month = (int) substr( $date, 5, 2 ) < (int) substr( $this->requested_date, 5, 2 );
@@ -985,7 +1062,6 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 			if ( isset( $_POST['eventDate'] ) && $_POST['eventDate'] ) {
 
 				Tribe__Events__Query::init();
-
 
 				Tribe__Events__Main::instance()->displaying = 'month';
 

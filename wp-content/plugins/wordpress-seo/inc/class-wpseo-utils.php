@@ -851,6 +851,36 @@ class WPSEO_Utils {
 	}
 
 	/**
+	 * Returns the language part of a given locale, defaults to english when the $locale is empty
+	 *
+	 * @param string $locale The locale to get the language of.
+	 * @returns string The language part of the locale.
+	 */
+	public static function get_language( $locale ) {
+		$language = 'en';
+
+		if ( ! empty( $locale ) && strlen( $locale ) >= 2 ) {
+			$language = substr( $locale, 0, 2 );
+		}
+
+		return $language;
+	}
+
+	/**
+	 * Checks if the WP-REST-API is available.
+	 *
+	 * @since 3.6
+	 *
+	 * @param string $minimum_version The minimum version the API should be.
+	 *
+	 * @return bool Returns true if the API is available.
+	 */
+	public static function is_api_available( $minimum_version = '2.0' ) {
+		return ( defined( 'REST_API_VERSION' )
+		         && version_compare( REST_API_VERSION, $minimum_version, '>=' ) );
+	}
+
+	/**
 	 * Wrapper for the PHP filter input function.
 	 *
 	 * This is used because stupidly enough, the `filter_input` function is not available on all hosts...

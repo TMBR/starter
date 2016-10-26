@@ -42,7 +42,7 @@
 // @import "../vendor/twbs-bootstrap-sass/vendor/assets/stylesheets/bootstrap/_progress-bars.scss";
 // @import "../vendor/twbs-bootstrap-sass/vendor/assets/stylesheets/bootstrap/_media.scss";
 @import "../vendor/twbs-bootstrap-sass/vendor/assets/stylesheets/bootstrap/_list-group.scss";
-// @import "../vendor/twbs-bootstrap-sass/vendor/assets/stylesheets/bootstrap/_panels.scss";
+@import "../vendor/twbs-bootstrap-sass/vendor/assets/stylesheets/bootstrap/_panels.scss";
 // @import "../vendor/twbs-bootstrap-sass/vendor/assets/stylesheets/bootstrap/_wells.scss";
 @import "../vendor/twbs-bootstrap-sass/vendor/assets/stylesheets/bootstrap/_close.scss";
 
@@ -73,13 +73,14 @@
 
 
 @import '../vendor/magnific-popup/src/css/main';
-
+@import '../vendor/slick-carousel/slick/slick.scss';
+@import '../vendor/slick-carousel/slick/slick-theme.scss';
 
 /* ======== VENDOR STYLES - Copied & Pasted (scss not provided) ======== */
 
 @import "vendor/video-js";
 @import "vendor/animate";
-@import "vendor/flexslider"; /* #### have to rename file to sass - move fonts to public */
+//@import "vendor/flexslider"; /* #### have to rename file to sass - move fonts to public */
 
 
 /**
@@ -103,15 +104,22 @@
 @import "01_atom/typography";
 @import "01_atom/buttons";
 @import "01_atom/forms";
+@import "01_atom/img-bg";
 
 @import "02_molecule/preloader";
 @import "02_molecule/wp-comments";
 @import "02_molecule/wp-widgets";
 @import "02_molecule/navbar-toggle";
-@import "02_molecule/social";
+@import "02_molecule/video";
+@import "02_molecule/social-bar";
+@import "02_molecule/link-card";
+@import "02_molecule/slick-nav";
+@import "02_molecule/image-caption-overlay";
 
 @import "03_organism/header";
 @import "03_organism/footer";
+@import "03_organism/page-hero";
+@import "03_organism/layout-panels";
 // @import "03_organism/flex-center-text";
 // @import "03_organism/flex-left-right-img-copy";
 // @import "03_organism/flex-sectionwipe";
