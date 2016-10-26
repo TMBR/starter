@@ -6,10 +6,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 global $post;
 
   // If content in page editor - display standard content
-  if( get_the_content() != '' && get_field('hide_main_content') == false ){
+  //if( get_the_content() != '' && get_field('hide_main_content') == false ){
     // page intro
-    get_template_part( 'partials/loops/page-content' );
-  } ?>
+    //get_template_part( 'partials/loops/page-content' );
+  //} ?>
 
   <?php
 
@@ -81,12 +81,12 @@ global $post;
 
           elseif( get_row_layout() == 'tabbed_content' )  {
             if( get_sub_field('tp_layout') == 'tab' ) {
-              tmbr_load_template( 'partials/03_organism/layout-tab.php', array(
+              tmbr_load_template( 'partials/03_organism/layout-tabs.php', array(
                 'display' => 'seamless'
               ));
             }
             elseif( get_sub_field('tp_layout') == 'panel' ) {
-              tmbr_load_template( 'partials/03_organism/layout-panel.php', array(
+              tmbr_load_template( 'partials/03_organism/layout-panels.php', array(
                 'display' => 'seamless'
               ));
             }
