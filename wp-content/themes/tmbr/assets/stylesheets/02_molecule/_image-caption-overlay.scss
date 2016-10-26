@@ -9,5 +9,9 @@
     background: rgba($black,0.5);
     width: 40%;
     padding: $gutter*2;
+    .title,
+    .text {
+      color: $white;
+    }
   }
 }
