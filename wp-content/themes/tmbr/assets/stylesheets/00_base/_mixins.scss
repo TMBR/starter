@@ -63,11 +63,12 @@ Transform
 @include transform(translateY(-50%));
 --------------------- */
 @mixin transform( $transform-props ) {
+  transform: $transform-props;
   -webkit-transform: $transform-props;
   -moz-transform: $transform-props;
   -ms-transform: $transform-props;
   -o-transform: $transform-props;
-  transform: $transform-props;
+
 }
 
 // Font Smoothing
