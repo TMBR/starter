@@ -280,6 +280,15 @@
     );
   });
 
+  /* Just SCSS and js */
+  gulp.task('dev', function(){
+    runSequence(
+      ['clean'],
+      ['scripts:vendor', 'scripts:app', 'styles'],
+      ['version', 'startwatch'],
+      'refresh'
+    );
+  });
 
   /****************** ICON FONT SECTION *********************/
 
