@@ -68,15 +68,21 @@ class Tribe__Events__Pro__Recurrence__Sequence {
 	}
 
 	/**
+	 * @param bool $keep_original_index Whether the original sequence index associated to each element
+	 *                                  should be returned in the resulting array or not.
+	 *
 	 * @return array The sequence sorted by start date (not time) ASC
 	 */
-	public function get_sorted_sequence_array() {
-		$this->sort_sequence();
+	public function get_sorted_sequence_array( $keep_original_index = true ) {
+		$this->sort_sequence( $keep_original_index );
 
 		return $this->sequence;
 	}
 
-	private function sort_sequence() {
+	/**
+	 * @param bool $keep_original_index
+	 */
+	private function sort_sequence( $keep_original_index = true ) {
 		if ( $this->has_sorted_sequence ) {
 			return;
 		}
@@ -85,16 +91,24 @@ class Tribe__Events__Pro__Recurrence__Sequence {
 		$timezone              = Tribe__Events__Timezones::get_event_timezone_string( $this->parent_event_id );
 		$this->timezone_string = Tribe__Events__Timezones::generate_timezone_string_from_utc_offset( $timezone );
 
+		//add the original key to entry array in the sequence
+		if ( $keep_original_index ) {
+			array_walk( $this->sequence, array( $this, 'set_original_index' ) );
+		}
+
 		// sort the dates to create by starting time
 		usort( $this->sequence, array( $this, 'sort_by_start_date' ) );
 		$this->has_sorted_sequence = true;
 	}
 
 	/**
+	 * @param bool $keep_original_index Whether the original sequence index associated to each element
+	 *                                  should be returned in the resulting array or not.
+	 *
 	 * @return array The sequence sorted with an added `sequence` key to specify the sequence order.
 	 */
-	public function get_sorted_sequence() {
-		$this->sort_sequence();
+	public function get_sorted_sequence( $keep_original_index = true ) {
+		$this->sort_sequence( $keep_original_index );
 
 		if ( null !== $this->sorted_sequence ) {
 			return $this->sorted_sequence;
@@ -105,7 +119,7 @@ class Tribe__Events__Pro__Recurrence__Sequence {
 
 
 		$sequence = $this->sequence;
-		$output = $sequence;
+		$output   = $sequence;
 
 		foreach ( $sequence as $key => $entry ) {
 			$same_start_date_and_time = $entry['timestamp'] === $last_entry_timestamp;
@@ -117,8 +131,8 @@ class Tribe__Events__Pro__Recurrence__Sequence {
 				++ $sequence_number;
 			}
 
-			$output[$key]['sequence']    = $sequence_number;
-			$last_entry_timestamp = $entry['timestamp'];
+			$output[ $key ]['sequence'] = $sequence_number;
+			$last_entry_timestamp       = $entry['timestamp'];
 		}
 
 		$this->sorted_sequence = $output;
@@ -161,6 +175,14 @@ class Tribe__Events__Pro__Recurrence__Sequence {
 		$b_start_date = new DateTime( date( $format, $b_timestamp ), $timezone );
 
 		return $a_start_date->format( 'Y-d-m' ) === $b_start_date->format( 'Y-d-m' );
+	}
+
+	/**
+	 * @param array $date_duration
+	 * @param int   $index
+	 */
+	protected function set_original_index( array &$date_duration, $index ) {
+		$date_duration['original_index'] = $index;
 	}
 
 }

@@ -1,4 +1,43 @@
 ------------------------------------------------------------------------------------------------------------------
+Version 4.1
+    - Added additional error logging when creating a subscription.
+    - Added support for configuring a note to be added to the subscriber.
+    - Fixed a fatal error during feed processing when a list field is mapped to an entry property.
+    - Fixed an issue where an Invalid Resource error would occur if the subscribers merge_fields property was included in the request when empty.
+    - Fixed an issue with the note being urlencoded during merge tag processing.
+    - Fixed users not being subscribed due to incorrect address formatting.
+    - Increased number of merge fields returned for a list.
+	- Updated feed processing to bypass override empty fields check for address fields.
+    - Updated maximum number of category interests returned by the API.
+    - Updated maximum number of interest groups returned by API.
+    - Updated merge fields field map to only allow Address fields to be mapped to MailChimp address merge fields.
+	- Updated strings for translations.
+    - Updated subscription object to use existing member status where possible.
+
+------------------------------------------------------------------------------------------------------------------
+Version 4.0
+    - Added gform_mailchimp_subscription filter to modify subscription object.
+    - Removed 3.0 upgrade page.
+    - Removed send welcome email as feed settings option.
+    - Updated API requests to use MailChimp API 3.0.
+
+------------------------------------------------------------------------------------------------------------------
+Version 3.7.5
+	- Fixed strings for translations
+
+------------------------------------------------------------------------------------------------------------------
+Version 3.7.4
+    - Fixed an issue with multi-input fields available for use with groups logic not including the inputs (i.e. Name and Address).
+
+------------------------------------------------------------------------------------------------------------------
+Version 3.7.3
+    - Updated the MailChimp API to support the WP_PROXY_HOST and WP_PROXY_PORT constants when configuring the cURL options.
+
+------------------------------------------------------------------------------------------------------------------
+Version 3.7.2
+    - Fixed an issue which was preventing feed processing aborting early if there is an issue with the MailChimp API.
+
+------------------------------------------------------------------------------------------------------------------
 Version 3.7.1
     - Fixed an issue where the cached settings were not cleared when the add-on was uninstalled.
     - Fixed a rare issue for some server environments where several groups could be assigned the same settings key causing js issues in the feed editor.

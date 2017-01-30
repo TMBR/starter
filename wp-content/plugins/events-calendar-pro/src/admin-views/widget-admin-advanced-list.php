@@ -28,15 +28,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 <p><?php esc_html_e( 'Display:', 'tribe-events-calendar-pro' ); ?><br />
 
 	<?php $displayoptions = array(
+		'cost'      => __( 'Price', 'tribe-events-calendar-pro' ),
 		'venue'     => __( 'Venue', 'tribe-events-calendar-pro' ),
-		'organizer' => __( 'Organizer', 'tribe-events-calendar-pro' ),
 		'address'   => __( 'Address', 'tribe-events-calendar-pro' ),
 		'city'      => __( 'City', 'tribe-events-calendar-pro' ),
 		'region'    => __( 'State (US) Or Province (Int)', 'tribe-events-calendar-pro' ),
 		'zip'       => __( 'Postal Code', 'tribe-events-calendar-pro' ),
 		'country'   => __( 'Country', 'tribe-events-calendar-pro' ),
 		'phone'     => __( 'Phone', 'tribe-events-calendar-pro' ),
-		'cost'      => __( 'Price', 'tribe-events-calendar-pro' ),
+		'organizer' => __( 'Organizer', 'tribe-events-calendar-pro' ),
 	);
 	foreach ( $displayoptions as $option => $label ) {
 		?>
@@ -64,13 +64,9 @@ if ( empty( $instance['filters'] ) ) {
 	<input type="hidden" name="<?php echo esc_attr( $this->get_field_name( 'filters' ) ); ?>"
 	       id="<?php echo esc_attr( $this->get_field_id( 'filters' ) ); ?>" class="calendar-widget-added-filters"
 	       value='<?php echo esc_attr( maybe_serialize( $instance['filters'] ) ); ?>' />
-	<style>
-		.customizer-select2 {
-			z-index: 500001
-		}
-	</style>
 	<div class="calendar-widget-filter-list">
 		<?php
+		$disabled = array();
 		if ( ! empty( $instance['filters'] ) ) {
 
 			echo '<ul>';
@@ -86,6 +82,9 @@ if ( empty( $instance['filters'] ) ) {
 					if ( empty( $term_obj ) || is_wp_error( $term_obj ) ) {
 						continue;
 					}
+
+					// Add to the disabled ones
+					$disabled[] = $term_obj->term_id;
 					echo sprintf( "<li><p>%s: %s&nbsp;&nbsp;<span><a href='#' class='calendar-widget-remove-filter' data-tax='%s' data-term='%s'>(" . __( 'remove', 'tribe-events-calendar-pro' ) . ')</a></span></p></li>', $tax_obj->labels->name, $term_obj->name, $tax, $term_obj->term_id );
 				}
 			}
@@ -105,39 +104,31 @@ if ( empty( $instance['filters'] ) ) {
 			<?php esc_html_e( 'Match any', 'tribe-events-calendar-pro' ); ?></label>
 	</p>
 </div>
-<p>
-	<label><?php esc_html_e( 'Add a filter', 'tribe-events-calendar-pro' ); ?>:
-		<select class="widefat calendar-widget-add-filter" id="<?php echo esc_attr( $this->get_field_id( 'selector' ) ); ?>" data-storage="<?php echo esc_attr( $this->get_field_id( 'filters' ) ); ?>">
-			<?php
-			echo "<option value='0'>" . esc_html__( 'Select one...', 'tribe-events-calendar-pro' ) . '</option>';
-			foreach ( $taxonomies as $tax ) {
-				echo sprintf( "<optgroup id='%s' label='%s'>", esc_attr( $tax->name ), esc_attr( $tax->labels->name ) );
-				$terms = get_terms( $tax->name, array( 'hide_empty' => false ) );
-				foreach ( $terms as $term ) {
-					echo sprintf( "<option value='%d'>%s</option>", esc_attr( $term->term_id ), esc_html( $term->name ) );
-				}
-				echo '</optgroup>';
-			}
-			?>
-		</select>
-	</label>
+<p class="tribe-widget-term-filter">
+	<label><?php esc_html_e( 'Add a filter', 'tribe-events-calendar-pro' ); ?>:	</label>
+	<input
+		type="hidden"
+		placeholder="<?php esc_attr_e( 'Select a Taxonomy Term', 'tribe-events-calendar-pro' ); ?>"
+		data-source="terms"
+		data-hide-search
+		data-prevent-clear
+		class="widefat calendar-widget-add-filter tribe-widget-select2"
+		id="<?php echo esc_attr( $this->get_field_id( 'selector' ) ); ?>"
+		data-disabled="<?php echo esc_attr( json_encode( $disabled ) ); ?>"
+	/>
 </p>
 
-<script type="text/javascript">
-
-	jQuery(document).ready(function ($) {
-		if ($('div.widgets-sortables').find('select.calendar-widget-add-filter:not(#widget-tribe-mini-calendar-__i__-selector)').length && !$('#customize-controls').length) {
-
-			$(".select2-container.calendar-widget-add-filter").remove();
-			setTimeout(function () {
-				$("select.calendar-widget-add-filter:not(#widget-tribe-mini-calendar-__i__-selector)").select2();
-				calendar_toggle_all();
-			}, 600);
-		}
-	});
-</script>
-
 <p>
-	<label for="<?php echo esc_attr( $this->get_field_id( 'no_upcoming_events' ) ); ?>"><?php esc_html_e( 'Hide this widget if there are no upcoming events:', 'tribe-events-calendar-pro' ); ?></label>
 	<input id="<?php echo esc_attr( $this->get_field_id( 'no_upcoming_events' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'no_upcoming_events' ) ); ?>" type="checkbox" <?php checked( $instance['no_upcoming_events'], 1 ); ?> value="1" />
+	<label for="<?php echo esc_attr( $this->get_field_id( 'no_upcoming_events' ) ); ?>"><?php esc_html_e( 'Hide this widget if there are no upcoming events:', 'tribe-events-calendar-pro' ); ?></label>
+</p>
+<p>
+	<input id="<?php echo esc_attr( $this->get_field_id( 'featured_events_only' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'featured_events_only' ) ); ?>" type="checkbox" <?php checked( $instance['featured_events_only'], 1 ); ?> value="1" />
+	<label for="<?php echo esc_attr( $this->get_field_id( 'featured_events_only' ) ); ?>"><?php echo esc_html_x( 'Limit to featured events only', 'events list widget setting', 'tribe-events-calendar-pro' ); ?></label>
+</p>
+<p>
+	<?php $jsonld_enable = ( isset( $instance['jsonld_enable'] ) && $instance['jsonld_enable'] ) || false === $this->updated; ?>
+	<input class="checkbox" type="checkbox" value="1" <?php checked( $jsonld_enable, '1' ); ?>
+	       id="<?php echo esc_attr( $this->get_field_id( 'jsonld_enable' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'jsonld_enable' ) ); ?>"/>
+	<label for="<?php echo esc_attr( $this->get_field_id( 'jsonld_enable' ) ); ?>"><?php esc_html_e( 'Generate JSON-LD data', 'the-events-calendar-pro' ); ?></label>
 </p>

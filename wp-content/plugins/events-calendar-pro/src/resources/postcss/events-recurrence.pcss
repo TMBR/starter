@@ -1,21 +1,71 @@
 /******* Recurrence Rule visibility *******/
 .recurrence-row td {
 	border-top: 1px solid #dfdfdf;
-	padding-top: 10px;
+	padding-top: 20px;
 }
 
-.eventForm .recurrence-rules-header,
-.eventForm .recurrence-exclusions-header {
-	vertical-align: top;
+.tribe-hidden {
+	display: none!important;
+}
+
+.eventForm {
+	.recurrence-rules-header,
+	.recurrence-exclusions-header {
+		vertical-align: top;
+	}
+
+	.recurrence-rules-header {
+		min-width: 124px;
+	}
+
+	.recurrence-end-container {
+		vertical-align: middle;
+	}
 }
 
 #tribe-add-recurrence {
+	.tribe-has-recurrence-rule & {
+
+		.has-no-recurrence {
+			display: none;
+		}
+
+		.has-recurrence {
+			display: inline;
+		}
+	}
+
+	.has-no-recurrence {
+		display: inline;
+	}
+
+	.has-recurrence {
+		display: none;
+	}
+}
+
+.tribe-has-recurrence-rule .tribe-add-recurrence.button {
+	background: #2786ba;
+	border-color: #2274A0;
+	color: #fff;
+}
+
+.tribe-divider-bottom {
+	border-bottom: 1px solid #dfdfdf;
+	padding: 0 5px 10px 0;
+	margin-bottom: 10px;
+}
+
+.tribe-divider-top {
+	border-top: 1px solid #dfdfdf;
+	padding: 10px 5px 0;
 	margin-top: 10px;
 }
 
-.tribe-event-recurrence {
+.tribe-event-recurrence,
+.tribe-event-exclusion {
 	border-top: 1px solid #dfdfdf;
-	padding: 10px 5px;
+	padding: 10px 5px 10px 0;
 
 	&:nth-child( 2n+2 ) {
 		background: #fdfdfd;
@@ -26,12 +76,25 @@
 		padding-top: 0;
 	}
 
+	input,
+	select {
+		font-size: 13px;
+	}
+
 	.tribe-handle {
 		color: #a0a5aa;
 		cursor: pointer;
-		float: right;
-		height: 30px;
-		width: 27px;
+		margin-left: -6px;
+		vertical-align: middle;
+
+		span {
+			vertical-align: middle;
+		}
+	}
+
+	.tribe-timepicker {
+		font-size: 13px;
+		width: 80px;
 	}
 
 	.tribe-handle:before {
@@ -40,15 +103,44 @@
 		font: 400 20px/1 dashicons;
 		-webkit-font-smoothing: antialiased;
 		-moz-osx-font-smoothing: grayscale;
-		padding: 8px 10px;
 		position: relative;
-		right: 12px;
 		speak: none;
-		top: 0;
+		top: 7px;
 	}
 
-	&.tribe-open .tribe-handle:before {
-		content: '\f142';
+	&.tribe-open {
+		.tribe-handle {
+			&:before {
+				content: '\f142';
+				top: 6px;
+			}
+
+			.show {
+				display: none;
+			}
+
+			.hide {
+				display: inline;
+			}
+		}
+
+		.tribe-recurrence-details {
+			display: block;
+		}
+	}
+
+	.tribe-handle {
+		.show {
+			display: inline;
+		}
+
+		.hide {
+			display: none;
+		}
+	}
+
+	.tribe-recurrence-details {
+		display: none;
 	}
 
 	.recurrence-rows {
@@ -87,48 +179,11 @@ input[data-field="custom-interval"] {
 }
 
 .tribe-recurrence-description,
-.tribe-event-recurrence .recurrence-changed-row,
-.tribe-event-recurrence .custom-recurrence-frequency,
-.tribe-event-recurrence .recurrence_end,
-.tribe-event-recurrence .recurrence-end,
-.tribe-event-recurrence .recurrence-end .recurrence-end-single-date,
-.tribe-event-recurrence .custom-recurrence-weeks,
-.tribe-event-recurrence .custom-recurrence-months,
-.tribe-event-recurrence .custom-recurrence-years,
-.tribe-event-recurrence .recurrence-time,
-.tribe-event-recurrence .tribe-custom-same-time-day,
-.tribe-event-recurrence select[data-field="custom-month-day"],
-.tribe-event-recurrence[data-recurrence-same-time="no"]:not([data-recurrence-type="Custom"]) .recurrence-time,
-.tribe-event-recurrence[data-recurrence-type="Date"] .recurrence-end .recurrence-end-range,
-.tribe-event-recurrence[data-recurrence-type="None"] .recurrence-end,
-.tribe-event-recurrence[data-recurrence-type="None"] .custom-recurrence-frequency,
-.tribe-event-recurrence[data-recurrence-end-type="On"] .rec-count,
-.tribe-event-recurrence[data-recurrence-end-type="Never"] .rec-count,
-.tribe-event-recurrence[data-recurrence-end-type="Never"] .recurrence_end {
+.tribe-event-recurrence .recurrence-changed-row {
 	display: none;
 }
 
-.tribe-event-recurrence .rec-count,
-.tribe-event-recurrence[data-recurrence-type]:not([data-recurrence-type="None"]) .recurrence-end,
-.tribe-event-recurrence[data-recurrence-type="Date"] .recurrence-end .recurrence-end-single-date,
-.tribe-event-recurrence[data-recurrence-end-type="On"] .recurrence_end,
-.tribe-event-recurrence[data-recurrence-type="Custom"][data-recurrence-custom-type="Daily"] .tribe-custom-same-time-day,
-.tribe-event-recurrence[data-recurrence-type="Custom"][data-recurrence-custom-month-number="string"] select[data-field="custom-month-day"],
-.tribe-event-recurrence-exclusion[data-recurrence-custom-type="Date"] .recurrence-end,
-.tribe-event-recurrence-exclusion[data-recurrence-custom-type="Monthly"][data-recurrence-custom-month-number="string"] select[data-field="custom-month-day"],
-.tribe-event-recurrence-exclusion[data-recurrence-custom-type]:not([data-recurrence-custom-type="None"]):not([data-recurrence-custom-type="Date"]) .custom-recurrence-frequency {
-	display: inline;
-}
-
-.tribe-event-recurrence[data-recurrence-same-time="no"] .recurrence-time,
-.tribe-event-recurrence[data-recurrence-changed="yes"] .recurrence-changed-row,
-.tribe-event-recurrence[data-recurrence-type="Custom"] .custom-recurrence-frequency,
-.tribe-event-recurrence[data-recurrence-type="Custom"][data-recurrence-custom-type="Weekly"] .custom-recurrence-weeks,
-.tribe-event-recurrence[data-recurrence-type="Custom"][data-recurrence-custom-type="Monthly"] .custom-recurrence-months,
-.tribe-event-recurrence[data-recurrence-type="Custom"][data-recurrence-custom-type="Yearly"] .custom-recurrence-years,
-.tribe-event-recurrence-exclusion[data-recurrence-custom-type="Weekly"] .custom-recurrence-weeks,
-.tribe-event-recurrence-exclusion[data-recurrence-custom-type="Monthly"] .custom-recurrence-months,
-.tribe-event-recurrence-exclusion[data-recurrence-custom-type="Yearly"] .custom-recurrence-years {
+.tribe-event-recurrence[data-recurrence-changed="yes"] .recurrence-changed-row {
 	display: block;
 }
 
@@ -139,4 +194,155 @@ input[data-field="custom-interval"] {
 .tribe-custom-same-time {
 	font-weight: bold;
 	margin-left: 10px;
+}
+
+.custom-recurrence-weeks {
+	label {
+		margin-right: 1rem;
+	}
+}
+
+.tribe-field-inline-text {
+	padding-left: 2px;
+	padding-right: 2px;
+
+	&.tribe-field-inline-first {
+		margin-left: 0;
+		padding-left: 0;
+	}
+
+	&.tribe-field-inline-last {
+		margin-right: 0;
+		padding-right: 0;
+	}
+}
+
+.recurrence-row {
+	line-height: 28px;
+
+	div,
+	span {
+		line-height: 28px;
+		vertical-align: top;
+	}
+
+	button > span {
+		vertical-align: top;
+	}
+
+	table {
+		border-collapse: collapse;
+	}
+
+	.select2-container {
+		margin-top: 1px;
+	}
+}
+
+.first-label-in-line {
+	margin-left: 0;
+	margin-right: .25rem;
+	min-width: 1rem;
+
+	span&{
+		display: inline-block;
+	}
+}
+
+.custom-recurrence-years {
+	width: 200px;
+
+	td {
+		border-top: 0;
+		padding-top: 0;
+	}
+
+	.month-label {
+		font-weight: normal;
+		vertical-align: top;
+	}
+}
+
+.tribe-same-day-select {
+	min-width: 118px;
+}
+
+/* Recurrence confirmation dialog styles */
+#tribe-row-delete-dialog {
+	display: none;
+	margin-bottom: 0;
+	padding-bottom :0;
+	padding-top: 0;
+	position: relative;
+	text-align: center;
+
+	.question {
+		display: block;
+		margin: 0 auto;
+		padding-top: .5em;
+		position: relative;
+	}
+
+	.exclusion-question {
+		display: none;
+	}
+
+	&.rule-dialog {
+		.rule-question {
+			display: block;
+		}
+
+		.exclusion-question {
+			display: none;
+		}
+	}
+
+	&.exclusion-dialog {
+		.exclusion-question {
+			display: block;
+		}
+
+		.rule-question {
+			display: none;
+		}
+	}
+}
+
+.tribe-row-delete-dialog {
+
+	.ui-dialog-titlebar {
+		display: none;
+	}
+
+	.ui-dialog-titlebar-close {
+		display: none;
+	}
+
+	.ui-dialog-buttonpane {
+		text-align : center;
+		margin-top: 0;
+		padding-top: 0;
+
+		.button {
+			margin: .5em .4em .5em;
+		}
+	}
+}
+
+/* make recurrence > monthly > on a different day > select2 height tall enough to show date options */
+.select2-results {
+	max-height: 280px;
+}
+
+.select2-results {
+	.select2-highlighted {
+		background-color: #585858;
+	}
+}
+
+.tribe-month-select,
+.tribe-dame-day-select,
+.tribe-recurrence-type,
+.recurrence-custom-container {
+	padding-top: 10px;
 }

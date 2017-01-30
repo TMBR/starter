@@ -19,6 +19,7 @@ class Tribe__Events__Pro__Asset__Ajax_Maps extends Tribe__Events__Asset__Abstrac
 			'ajaxurl'  => admin_url( 'admin-ajax.php', $http ),
 			'nonce'    => wp_create_nonce( 'tribe_geosearch' ),
 			'map_view' => 'map' == Tribe__Events__Main::instance()->displaying ? true : false,
+			'pin_url'  => Tribe__Customizer::instance()->get_option( array( 'global_elements', 'map_pin' ), false ),
 		);
 
 		wp_localize_script( 'tribe-events-pro-geoloc', 'GeoLoc', $data );

@@ -41,11 +41,8 @@ class Tribe__Events__Pro__Recurrence__Custom_Types {
 
 	public static function data_keys() {
 		return array(
-			'start-time',
-			'day',
-			'week',
-			'month',
-			'year',
+			'interval',
+			'same-time',
 		);
 	}
 

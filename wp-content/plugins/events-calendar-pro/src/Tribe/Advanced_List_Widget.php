@@ -131,6 +131,7 @@ class Tribe__Events__Pro__Advanced_List_Widget extends Tribe__Events__List_Widge
 			'title'                => __( 'Upcoming Events', 'tribe-events-calendar-pro' ),
 			'limit'                => '5',
 			'no_upcoming_events'   => false,
+			'featured_events_only' => false,
 			'venue'                => false,
 			'country'              => true,
 			'address'              => false,

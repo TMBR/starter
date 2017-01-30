@@ -161,7 +161,7 @@ class Tribe__Events__Pro__Geo_Loc {
 					),
 					'geoloc_fix_venues'       => array(
 						'type'        => 'html',
-						'html'        => '<a name="geoloc_fix"></a><fieldset class="tribe-field tribe-field-html"><legend>' . __( 'Fix geolocation data', 'tribe-events-calendar-pro' ) . '</legend><div class="tribe-field-wrap">' . $this->fix_geoloc_data_button() . '<p class="tribe-field-indent description">' . sprintf( __( "You have %d venues for which we don't have geolocation data. We need to use the Google Maps API to get that information. Doing this may take a while (aprox. 1 minute for every 200 venues).", 'tribe-events-calendar-pro' ), $venues->found_posts ) . '</p></div></fieldset>',
+						'html'        => '<a name="geoloc_fix"></a><fieldset class="tribe-field tribe-field-html"><legend>' . __( 'Fix geolocation data', 'tribe-events-calendar-pro' ) . '</legend><div class="tribe-field-wrap">' . $this->fix_geoloc_data_button() . '<p class="tribe-field-indent description">' . sprintf( __( "You have %d venues for which we don't have geolocation data. We need to use the Google Maps API to get that information. Doing this may take a while (approximately 1 minute for every 200 venues).", 'tribe-events-calendar-pro' ), $venues->found_posts ) . '</p></div></fieldset>',
 						'conditional' => ( $venues->found_posts > 0 ),
 					),
 				)
@@ -364,9 +364,19 @@ class Tribe__Events__Pro__Geo_Loc {
 
 		$newRules = array();
 
-		$newRules[ $base . $this->rewrite_slug ]                         = 'index.php?post_type=' . Tribe__Events__Main::POSTTYPE . '&eventDisplay=map';
-		$newRules[ $baseTax . '([^/]+)/' . $this->rewrite_slug . '/?$' ] = 'index.php?tribe_events_cat=' . $wp_rewrite->preg_index( 2 ) . '&post_type=' . Tribe__Events__Main::POSTTYPE . '&eventDisplay=map';
-		$newRules[ $baseTag . '([^/]+)/' . $this->rewrite_slug . '/?$' ] = 'index.php?tag=' . $wp_rewrite->preg_index( 2 ) . '&post_type=' . Tribe__Events__Main::POSTTYPE . '&eventDisplay=map';
+		/**
+		 * Filters the rewrite slugs used to generate the geocode based rewrite rules.
+		 *
+		 * @param array $rewrite_slugs An array of rewrite slugs to use; defaults to [ 'map' ], the
+		 *                             default geocode-based rewrite slug.
+		 */
+		$rewrite_slugs = apply_filters('tribe_events_pro_geocode_rewrite_slugs', array( $this->rewrite_slug ) );
+
+		foreach ( $rewrite_slugs as $rewrite_slug ) {
+			$newRules[ $base . $rewrite_slug ] = 'index.php?post_type=' . Tribe__Events__Main::POSTTYPE . '&eventDisplay=map';
+			$newRules[ $baseTax . '([^/]+)/' . $rewrite_slug . '/?$' ] = 'index.php?tribe_events_cat=' . $wp_rewrite->preg_index( 2 ) . '&post_type=' . Tribe__Events__Main::POSTTYPE . '&eventDisplay=map';
+			$newRules[ $baseTag . '([^/]+)/' . $rewrite_slug . '/?$' ] = 'index.php?tag=' . $wp_rewrite->preg_index( 2 ) . '&post_type=' . Tribe__Events__Main::POSTTYPE . '&eventDisplay=map';
+		}
 
 		$wp_rewrite->rules = $newRules + $wp_rewrite->rules;
 	}
@@ -440,6 +450,13 @@ class Tribe__Events__Pro__Geo_Loc {
 		$data = wp_remote_get( apply_filters( 'tribe_events_pro_geocode_request_url', $url ) );
 
 		if ( is_wp_error( $data ) || ! isset( $data['body'] ) ) {
+			Tribe__Main::instance()->log()->log_warning( sprintf(
+					_x( 'Geocode request failed ($1%s - $2%s)', 'debug geodata', 'tribe-events-calendar-pro' ),
+					is_wp_error( $data ) ? $data->get_error_code() : _x( 'empty response', 'debug geodata' ),
+					$url
+				),
+				__METHOD__
+			);
 			return false;
 		}
 

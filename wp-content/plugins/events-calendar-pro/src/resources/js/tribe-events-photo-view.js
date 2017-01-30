@@ -118,7 +118,7 @@
 						tribe_apply_photo_cols( $container );
 						clearTimeout( resize_timer );
 						resize_timer = setTimeout( function() {
-							$container.isotope( 'reLayout' );
+							$container.isotope( 'reloadItems' );
 						}, 400 );
 					} );
 				} );
@@ -143,6 +143,10 @@
 
 			if ( ts.category ) {
 				params = params + '&tribe_event_category=' + ts.category;
+			}
+
+			if ( tf.is_featured() ) {
+				params = params + '&featured=1';
 			}
 
 			history.replaceState( {
@@ -279,7 +283,8 @@
 				ts.params = {
 					action             : 'tribe_photo',
 					tribe_paged        : ts.paged,
-					tribe_event_display: ts.view
+					tribe_event_display: ts.view,
+					featured           : tf.is_featured()
 				};
 
 				ts.url_params = {

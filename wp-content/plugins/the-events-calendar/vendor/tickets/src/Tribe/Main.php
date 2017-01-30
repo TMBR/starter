@@ -1,20 +1,21 @@
 <?php
 
 class Tribe__Tickets__Main {
-	/**
-	 * Instance of this class for use as singleton
-	 */
-	private static $instance;
 
 	/**
 	 * Current version of this plugin
 	 */
-	const VERSION = '4.3';
+	const VERSION = '4.4.1';
 
 	/**
 	 * Min required The Events Calendar version
 	 */
-	const MIN_TEC_VERSION = '4.3';
+	const MIN_TEC_VERSION = '4.4';
+
+	/**
+	 * Min required version of Tribe Common
+	 */
+	const MIN_COMMON_VERSION = '4.4';
 
 	/**
 	 * Name of the provider
@@ -73,10 +74,15 @@ class Tribe__Tickets__Main {
 	private $has_initialized = false;
 
 	/**
+	 * Static Singleton Holder
+	 * @var self
+	 */
+	protected static $instance;
+
+	/**
 	 * Get (and instantiate, if necessary) the instance of the class
 	 *
-	 * @static
-	 * @return Tribe__Tickets__Main
+	 * @return self
 	 */
 	public static function instance() {
 		if ( ! self::$instance ) {
@@ -89,7 +95,7 @@ class Tribe__Tickets__Main {
 	/**
 	 * Class constructor
 	 */
-	public function __construct() {
+	protected function __construct() {
 		/* Set up some parent's vars */
 		$this->plugin_name = 'Tickets';
 		$this->plugin_slug = 'tickets';
@@ -124,11 +130,30 @@ class Tribe__Tickets__Main {
 	 * Finalize the initialization of this plugin
 	 */
 	public function plugins_loaded() {
-		// It's possible we'll have initialized already (if the plugin has been embedded as a vendor lib
-		// within another plugin, for example) in which case we need not repeat the process
+		/**
+		 * It's possible we'll have initialized already (if the plugin has been embedded as a vendor lib
+		 * within another plugin, for example) in which case we need not repeat the process
+		 */
 		if ( $this->has_initialized ) {
 			return;
 		}
+
+		/**
+		 * Before any methods from this plugin are called, we initialize our Autoloading
+		 * After this method we can use any `Tribe__` classes
+		 */
+		$this->init_autoloading();
+
+		// Safety check: if Tribe Common is not at a certain minimum version, bail out
+		if ( version_compare( Tribe__Main::VERSION, self::MIN_COMMON_VERSION, '<' ) ) {
+			return;
+		}
+
+		/**
+		 * We need Common to be able to load text domains correctly.
+		 * With that in mind we initialize Common passing the plugin Main class as the context
+		 */
+		Tribe__Main::instance( $this )->load_text_domain( 'event-tickets', $this->plugin_dir . 'lang/' );
 
 		if (
 			class_exists( 'TribeEvents', false )
@@ -144,14 +169,9 @@ class Tribe__Tickets__Main {
 			return;
 		}
 
-		$this->init_autoloading();
-
-		// initialize the common libraries
-		$this->common();
-
-		Tribe__Main::instance()->load_text_domain( 'event-tickets', $this->plugin_dir . 'lang/' );
-
 		$this->hooks();
+
+		$this->register_active_plugin();
 
 		$this->has_initialized = true;
 
@@ -167,6 +187,30 @@ class Tribe__Tickets__Main {
 		 * Fires once Event Tickets has completed basic setup.
 		 */
 		do_action( 'tribe_tickets_plugin_loaded' );
+	}
+
+	/**
+	 * Method to initialize Common Object
+	 *
+	 * @deprecated 4.3.4
+	 *
+	 * @return Tribe__Main
+	 */
+	public function common() {
+		return Tribe__Main::instance( $this );
+	}
+
+	/**
+	 * Registers this plugin as being active for other tribe plugins and extensions
+	 *
+	 * @return bool Indicates if Tribe Common wants the plugin to run
+	 */
+	public function register_active_plugin() {
+		if ( ! function_exists( 'tribe_register_plugin' ) ) {
+			return true;
+		}
+
+		return tribe_register_plugin( EVENT_TICKETS_MAIN_PLUGIN_FILE, __CLASS__, self::VERSION );
 	}
 
 	/**
@@ -243,20 +287,6 @@ class Tribe__Tickets__Main {
 		}
 	}
 
-
-	/**
-	 * Common library object accessor method
-	 */
-	public function common() {
-		static $common;
-
-		if ( ! $common ) {
-			$common = new Tribe__Main( $this );
-		}
-
-		return $common;
-	}
-
 	/**
 	 * Sets up autoloading
 	 */
@@ -331,8 +361,26 @@ class Tribe__Tickets__Main {
 			add_filter( 'tribe_event_import_rsvp_column_names', array( Tribe__Tickets__CSV_Importer__Column_Names::instance(), 'filter_rsvp_column_names' ) );
 		}
 
+		// Register singletons we might need
+		tribe_singleton( 'tickets.handler', 'Tribe__Tickets__Tickets_Handler' );
+
 		// Caching
-		Tribe__Tickets__Cache__Central::instance()->hook();
+		tribe_singleton( 'tickets.cache-central', 'Tribe__Tickets__Cache__Central', array( 'hook' ) );
+		tribe_singleton( 'tickets.cache', tribe( 'tickets.cache-central' )->get_cache() );
+
+		// Query Vars
+		tribe_singleton( 'tickets.query', 'Tribe__Tickets__Query', array( 'hook' ) );
+		tribe( 'tickets.query' );
+
+		// View links, columns and screen options
+		if ( is_admin() ) {
+			tribe_singleton( 'tickets.admin.views', 'Tribe__Tickets__Admin__Views', array( 'hook' ) );
+			tribe_singleton( 'tickets.admin.columns', 'Tribe__Tickets__Admin__Columns', array( 'hook' ) );
+			tribe_singleton( 'tickets.admin.screen-options', 'Tribe__Tickets__Admin__Screen_Options', array( 'hook' ) );
+			tribe( 'tickets.admin.views' );
+			tribe( 'tickets.admin.columns' );
+			tribe( 'tickets.admin.screen-options' );
+		}
 	}
 
 	/**
@@ -608,9 +656,9 @@ class Tribe__Tickets__Main {
 
 		// if the ticket-enabled-post-types index has never been set, default it to tribe_events
 		if ( ! array_key_exists( 'ticket-enabled-post-types', $options ) ) {
-			$options['ticket-enabled-post-types'] = array(
-				'tribe_events',
-			);
+			$defaults                             = array( 'tribe_events' );
+			$options['ticket-enabled-post-types'] = $defaults;
+			tribe_update_option( 'ticket-enabled-post-types', $defaults );
 		}
 
 		/**

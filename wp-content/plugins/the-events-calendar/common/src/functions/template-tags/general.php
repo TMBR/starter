@@ -40,10 +40,10 @@ if ( ! function_exists( 'tribe_update_option' ) ) {
 	 * @param string $optionName Name of the option to retrieve.
 	 * @param string $value      Value to save
 	 *
-	 * @return void
+	 * @return bool
 	 */
 	function tribe_update_option( $optionName, $value ) {
-		Tribe__Settings_Manager::set_option( $optionName, $value );
+		return Tribe__Settings_Manager::set_option( $optionName, $value );
 	}
 }//end if
 
@@ -113,7 +113,7 @@ if ( ! function_exists( 'tribe_resource_url' ) ) {
 		$file = $plugin_path . $path;
 
 		// Turn the Path into a URL
-		$url = str_replace( wp_normalize_path( WP_CONTENT_DIR ), WP_CONTENT_URL, $file );
+		$url = str_replace( wp_normalize_path( WP_CONTENT_DIR ), content_url(), $file );
 
 		// Make it compatible with Windows and other OS
 		$url = str_replace( DIRECTORY_SEPARATOR, '/', $url );
@@ -474,11 +474,13 @@ if ( ! function_exists( 'tribe_get_date_option' ) ) {
  * @param  string          $slug      Slug to save the notice
  * @param  callable|string $callback  A callable Method/Fuction to actually display the notice
  * @param  array           $arguments Arguments to Setup a notice
+ * @param callable|null    $active_callback An optional callback that should return bool values
+ *                                          to indicate whether the notice should display or not.
  *
- * @return stdClass        Which notice was registered
+ * @return stdClass Which notice was registered
  */
-function tribe_notice( $slug, $callback, $arguments = array() ) {
-	return Tribe__Admin__Notices::instance()->register( $slug, $callback, $arguments );
+function tribe_notice( $slug, $callback, $arguments = array(), $active_callback = null ) {
+	return Tribe__Admin__Notices::instance()->register( $slug, $callback, $arguments, $active_callback );
 }
 
 /**

@@ -143,9 +143,9 @@
 .tribe-events-ajax-loading {
 	background: #666;
 	border-radius: 5px;
-	box-shadow: none !important;
-	-moz-box-shadow: none !important;
-	-webkit-box-shadow: none !important;
+	box-shadow: none;
+	-moz-box-shadow: none;
+	-webkit-box-shadow: none;
 	display: none;
 	left: 50%;
 	margin-left: -27px;

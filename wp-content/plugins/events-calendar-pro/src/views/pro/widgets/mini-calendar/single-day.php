@@ -3,9 +3,10 @@
  * Mini Calendar Single Day
  * This file contains one day in the mini calendar grid
  *
-	 * Override this template in your own theme by creating a file at [your-theme]/tribe-events/pro/widgets/mini-calendar/single-day.php
+ * Override this template in your own theme by creating a file at [your-theme]/tribe-events/pro/widgets/mini-calendar/single-day.php
  *
  * @package TribeEventsCalendar
+ * @version 4.3.4
  *
  */
 

@@ -21,21 +21,24 @@ class GFExport {
 				return;
 			}
 
-			$forms = RGFormsModel::get_form_meta_by_id( $selected_forms );
-
-			$forms = self::prepare_forms_for_export( $forms );
-
-			$forms['version'] = GFForms::$version;
-
-			$forms_json = json_encode( $forms );
-
-			$filename = 'gravityforms-export-' . date( 'Y-m-d' ) . '.json';
-			header( 'Content-Description: File Transfer' );
-			header( "Content-Disposition: attachment; filename=$filename" );
-			header( 'Content-Type: application/json; charset=' . get_option( 'blog_charset' ), true );
-			echo $forms_json;
-			die();
+			self::export_forms( $selected_forms );
 		}
+	}
+
+	public static function export_forms( $form_ids ) {
+
+		$forms = GFFormsModel::get_form_meta_by_id( $form_ids );
+		$forms = self::prepare_forms_for_export( $forms );
+
+		$forms['version'] = GFForms::$version;
+		$forms_json       = json_encode( $forms );
+
+		$filename = 'gravityforms-export-' . date( 'Y-m-d' ) . '.json';
+		header( 'Content-Description: File Transfer' );
+		header( "Content-Disposition: attachment; filename=$filename" );
+		header( 'Content-Type: application/json; charset=' . get_option( 'blog_charset' ), true );
+		echo $forms_json;
+		die();
 	}
 
 	public static function export_page() {
@@ -110,7 +113,7 @@ class GFExport {
 			$form_ids = array();
 		} else {
 			foreach ( $form_ids as $key => $form_id ) {
-				$forms[ $key ]['id'] = $form_id;
+				$forms[ $key ] = GFAPI::get_form( $form_id );
 			}
 			/**
 			 * Fires after forms have been imported.
@@ -669,7 +672,6 @@ class GFExport {
 		$total_entry_count     = GFAPI::count_entries( $form_id, $search_criteria );
 		$remaining_entry_count = $offset == 0 ? $total_entry_count : $total_entry_count - $offset;
 
-		// Adding BOM marker for UTF-8
 		$lines = '';
 
 		// Set the separator
@@ -680,8 +682,19 @@ class GFExport {
 		if ( $offset == 0 ) {
 			GFCommon::log_debug( __METHOD__ . '(): Processing request for form #' . $form_id );
 
+
+			/**
+			 * Allows the BOM character to be excluded from the beginning of entry export files.
+			 * 
+			 * @since 2.1.1.21
+			 *
+			 * @param bool  $include_bom Whether or not to include the BOM characters. Defaults to true.
+			 * @param array $form        The Form Object.
+			 */
+			$include_bom = apply_filters( 'gform_include_bom_export_entries', true, $form );
+
 			//Adding BOM marker for UTF-8
-			$lines = chr( 239 ) . chr( 187 ) . chr( 191 );
+			$lines = $include_bom ? chr( 239 ) . chr( 187 ) . chr( 191 ) : '';
 
 			//writing header
 			$headers = array();
@@ -1079,6 +1092,11 @@ deny from all';
 	public static function ajax_download_export() {
 		check_admin_referer( 'gform_download_export' );
 
+		if ( ! function_exists( 'readfile' ) ) {
+			GFCommon::log_error( __METHOD__ . '(): Aborting. The PHP readfile function is not available.' );
+			die( esc_html__( 'The PHP readfile function is not available, please contact the web host.', 'gravityforms' ) );
+		}
+
 		if ( ! GFCommon::current_user_can_any( 'gravityforms_export_entries' ) ) {
 			die();
 		}
@@ -1106,6 +1124,10 @@ deny from all';
 		$buffer_length = ob_get_length(); //length or false if no buffer
 		if ( $buffer_length > 1 ) {
 			ob_clean();
+		}
+
+		if ( has_filter( 'sanitize_file_name' ) ) {
+			GFCommon::log_debug( __METHOD__ . '(): The WordPress sanitize_file_name filter has been detected.' );
 		}
 
 		$export_folder = RGFormsModel::get_upload_root() . 'export/';

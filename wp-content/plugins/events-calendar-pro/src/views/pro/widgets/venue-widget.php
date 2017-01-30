@@ -5,7 +5,7 @@
  *
  * Override this template in your own theme by creating a file at [your-theme]/tribe-events/pro/widgets/venue-widget.php
  *
- * @version 4.1.1
+ * @version 4.4
  *
  * @package TribeEventsCalendarPro
  *
@@ -31,10 +31,9 @@ $events_label_plural_lowercase = tribe_get_event_label_plural_lowercase();
 			</div>
 		<?php } ?>
 		<div class="tribe-venue-widget-address">
-			<?php echo tribe_get_meta_group( $venue_ID, 'tribe_event_venue' ) ?>
+			<?php echo tribe_get_full_address( $venue_ID, true ) ?>
 		</div>
 	</div>
-
 	<?php if ( 0 === $events->post_count ): ?>
 		<?php printf( __( 'No upcoming %s.', 'tribe-events-calendar-pro' ), $events_label_plural_lowercase ); ?>
 	<?php else: ?>
@@ -43,6 +42,34 @@ $events_label_plural_lowercase = tribe_get_event_label_plural_lowercase();
 			<?php while ( $events->have_posts() ): ?>
 				<?php $events->the_post(); ?>
 				<li class="<?php tribe_events_event_classes() ?>">
+					<?php
+					if (
+						tribe( 'tec.featured_events' )->is_featured( get_the_ID() )
+						&& get_post_thumbnail_id( get_the_ID() )
+					) {
+						/**
+						 * Fire an action before the venue widget featured image
+						 */
+						do_action( 'tribe_events_list_venue_before_the_event_image' );
+
+						/**
+						 * Allow the default post thumbnail size to be filtered
+						 *
+						 * @param $size
+						 */
+						$thumbnail_size = apply_filters( 'tribe_events_venue_widget_thumbnail_size', 'post-thumbnail' );
+						?>
+						<div class="tribe-event-image">
+							<?php the_post_thumbnail( $thumbnail_size ); ?>
+						</div>
+						<?php
+
+						/**
+						 * Fire an action after the venue widget featured image
+						 */
+						do_action( 'tribe_events_venue_widget_after_the_event_image' );
+					}
+					?>
 					<h4 class="tribe-event-title">
 						<a href="<?php echo esc_url( tribe_get_event_link() ); ?>"><?php echo get_the_title( get_the_ID() ) ?></a>
 					</h4>

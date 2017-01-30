@@ -1,6 +1,6 @@
 /**
  * @file The core file for the pro events calendar plugin javascript.
- * This file must load on all front facing events pages and be the first file loaded after treibe-events.js.
+ * This file must load on all front facing events pages and be the first file loaded after tribe-events.js.
  * @version 3.0
  */
 
@@ -139,25 +139,37 @@ if ( Object.prototype.hasOwnProperty.call( window, 'tribe_ev' ) ) {
 		 */
 
 		pro_tooltips: function() {
+			var $container = $( '#tribe-events' ),
+				$body = $( 'body' ),
+				is_shortcode = $container.hasClass( 'tribe-events-shortcode' ),
+				is_month_view = $container.hasClass( 'view-month' ) || $body.hasClass( 'events-gridview' ),
+				is_week_view = $container.hasClass( 'view-week' ) || $body.hasClass( 'tribe-events-week' ),
+				is_photo_view = $container.hasClass( 'view-photo' ) || $body.hasClass( 'tribe-events-photo' ),
+				is_day_view = $container.hasClass( 'view-day' ) || $body.hasClass( 'tribe-events-day' ),
+				is_list_view = $container.hasClass( 'view-list' ) || $body.hasClass( 'events-list' ),
+				is_map_view = $container.hasClass( 'view-map' ) || $body.hasClass( 'tribe-events-map' ),
+				is_single = $body.hasClass( 'single-tribe_events' );
 
-			$( '#tribe-events' ).on( 'mouseenter', 'div[id*="tribe-events-event-"], div[id*="tribe-events-daynum-"]:has(a), div.event-is-recurring', function() {
+			$container.on( 'mouseenter', 'div[id*="tribe-events-event-"], div[id*="tribe-events-daynum-"]:has(a), div.event-is-recurring', function() {
 
 				var bottomPad = 0;
 				var $this = $( this );
 
-				if ( $( 'body' ).hasClass( 'tribe-events-week' ) ) {
+				if ( is_week_view ) {
 
 					if ( $this.tribe_has_attr( 'data-tribejson' ) ) {
 
-						if ( !$this.parents( '.tribe-grid-allday' ).length ) {
+						if ( ! $this.parents( '.tribe-grid-allday' ).length ) {
 
 							var $tip = $this.find( '.tribe-events-tooltip' );
 
-							if ( !$tip.length ) {
+							if ( ! $tip.length ) {
 								var data = $this.data( 'tribejson' );
+								var tooltip_template = $this.hasClass( 'tribe-event-featured' )
+									? 'tribe_tmpl_tooltip_featured'
+									: 'tribe_tmpl_tooltip';
 
-								$this
-									.append( tribe_tmpl( 'tribe_tmpl_tooltip', data ) );
+								$this.append( tribe_tmpl( tooltip_template, data ) );
 
 								$tip = $this.find( '.tribe-events-tooltip' );
 							}
@@ -189,26 +201,22 @@ if ( Object.prototype.hasOwnProperty.call( window, 'tribe_ev' ) ) {
 
 							if ( isright ) {
 								wcheck = Math.ceil( coffset.left ) - 20;
-							}
-							else {
+							} else {
 								wcheck = pwidth - cwidth - Math.ceil( coffset.left );
 							}
 
 							if ( twidth >= wcheck ) {
 								twidth = wcheck;
-							}
-							else if ( $tip.data( 'ow' ) > wcheck ) {
+							} else if ( $tip.data( 'ow' ) > wcheck ) {
 								twidth = wcheck;
-							}
-							else {
+							} else {
 								twidth = $tip.data( 'ow' );
 							}
 
 							if ( isright ) {
-								cssmap = { "right": cwidth + 20, "bottom": "auto", "width": twidth + "px"};
-							}
-							else {
-								cssmap = { "left": cwidth + 20, "bottom": "auto", "width": twidth + "px"};
+								cssmap = { "right": cwidth + 20, "bottom": "auto", "width": twidth + "px" };
+							} else {
+								cssmap = { "left": cwidth + 20, "bottom": "auto", "width": twidth + "px" };
 							}
 
 							$tip.css( cssmap );
@@ -217,28 +225,27 @@ if ( Object.prototype.hasOwnProperty.call( window, 'tribe_ev' ) ) {
 
 							if ( toffset >= 0 ) {
 								toffset = toffset + 5;
-							}
-							else {
+							} else {
 								available = toffset + gheight;
 								if ( theight > available ) {
 									toffset = available - theight - 8;
-								}
-								else {
+								} else {
 									toffset = 5;
 								}
 							}
 
 							$tip.css( "top", toffset ).show();
 
-						}
-						else {
+						} else {
 							var $tip = $this.find( '.tribe-events-tooltip' );
 
 							if ( !$tip.length ) {
 								var data = $this.data( 'tribejson' );
+								var tooltip_template = $this.hasClass( 'tribe-event-featured' )
+									? 'tribe_tmpl_tooltip_featured'
+									: 'tribe_tmpl_tooltip';
 
-								$this
-									.append( tribe_tmpl( 'tribe_tmpl_tooltip', data ) );
+								$this.append( tribe_tmpl( tooltip_template, data ) );
 
 								$tip = $this.find( '.tribe-events-tooltip' );
 							}
@@ -246,11 +253,8 @@ if ( Object.prototype.hasOwnProperty.call( window, 'tribe_ev' ) ) {
 							bottomPad = $this.outerHeight() + 6;
 							$tip.css( 'bottom', bottomPad ).show();
 						}
-
 					}
-
 				}
-
 			} );
 		},
 

@@ -26,8 +26,6 @@ class Tribe__Events__Pro__This_Week {
 		add_action( 'wp_ajax_tribe_this_week', array( $this, 'ajax_change_this_week' ) );
 		add_action( 'wp_ajax_nopriv_tribe_this_week', array( $this, 'ajax_change_this_week' ) );
 
-		//Enqueue Style and Scripts
-		add_action( 'wp_enqueue_scripts', array( $this, 'styles_and_scripts' ), 15 );
 	}
 
 	/**
@@ -224,6 +222,9 @@ class Tribe__Events__Pro__This_Week {
 		if ( current_user_can( 'read_private_tribe_events' ) ) {
 			$post_status[] = 'private';
 		}
+
+		// enqueue the widget js
+		self::styles_and_scripts();
 
 		//Get Events with Hide From Event Listings Checked
 		$hide_upcoming_ids = Tribe__Events__Query::getHideFromUpcomingEvents();

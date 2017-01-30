@@ -37,7 +37,7 @@ class Tribe__Events__Pro__Recurrence__Validator {
 		$this->recurrence_meta = $recurrence_meta;
 
 		if ( ! tribe_is_event( $event_id ) ) {
-				$response->valid   = false;
+			$response->valid   = false;
 			$response->message = __( 'Not an event post.', 'tribe-events-calendar-pro' );
 
 			return $this->filtered_response( $response );
@@ -51,10 +51,11 @@ class Tribe__Events__Pro__Recurrence__Validator {
 				if ( $this->is_monthly() ) {
 					$this->ensure_monthly_day_and_number();
 				} else if ( $this->is_yearly() ) {
-					$this->ensure_yearly_day(); }
+					$this->ensure_yearly_day_and_number();
+				}
 			}
 		} catch ( RuntimeException $e ) {
-				$response->valid   = false;
+			$response->valid   = false;
 			$response->message = $e->getMessage();
 		}
 
@@ -69,10 +70,10 @@ class Tribe__Events__Pro__Recurrence__Validator {
 	public static function instance() {
 		if ( empty( self::$instance ) ) {
 			self::$instance = new self;
-			}
+		}
 
 		return self::$instance;
-		}
+	}
 
 	/**
 	 * Returns the validation response `valid` boolean after filtering.
@@ -111,29 +112,56 @@ class Tribe__Events__Pro__Recurrence__Validator {
 	}
 
 	private function ensure_monthly_day_and_number() {
-		$no_day          = empty( $this->recurrence_meta['custom']['month']['day'] );
-		$day_is_dash     = '-' === $this->recurrence_meta['custom']['month']['day'];
-		$no_number       = empty( $this->recurrence_meta['custom']['month']['number'] );
+		$number = Tribe__Utils__Array::get( $this->recurrence_meta, array( 'custom', 'month', 'number' ), false );
+
+		if (
+			empty( $this->recurrence_meta['custom']['month']['same-day'] )
+			|| 'yes' === $this->recurrence_meta['custom']['month']['same-day']
+			|| is_numeric( $number )
+		) {
+			return;
+		}
+
+		$day         = Tribe__Utils__Array::get( $this->recurrence_meta, array( 'custom', 'month', 'day' ) );
+		$no_day      = empty( $day );
+		$day_is_dash = '-' === $day;
+		$no_number   = ! $number;
+
 		$is_missing_data = $no_day || $no_number || $day_is_dash;
 
 		if ( $is_missing_data ) {
-			throw new RuntimeException            ( __( 'Monthly custom recurrences cannot have a dash set as the day to occur on.', 'tribe-events-calendar-pro' ) );
+			throw new RuntimeException( __( 'Monthly custom recurrences cannot have a dash set as the day to occur on.', 'tribe-events-calendar-pro' ) );
 		}
 	}
 
-	private function ensure_yearly_day() {
-		$empty_month_day   = empty( $this->recurrence_meta['custom']['year']['month-day'] );
-		$month_day_is_dash = '-' === $this->recurrence_meta['custom']['year']['month-day'];
+	private function ensure_yearly_day_and_number() {
+		if ( empty( $this->recurrence_meta['custom']['year']['filter'] ) ) {
+			return;
+		}
+
+		$empty_number = empty( $this->recurrence_meta['custom']['year']['number'] );
+		$numeric_number = is_numeric( $this->recurrence_meta['custom']['year']['number'] );
+
+		if ( $empty_number ) {
+			throw new RuntimeException( __( 'Yearly custom recurrences with a different day must have either a date or day specified.', 'tribe-events-calendar-pro' ) );
+		}
+
+		if ( $numeric_number ) {
+			return;
+		}
+
+		$empty_month_day   = empty( $this->recurrence_meta['custom']['year']['day'] );
+		$month_day_is_dash = '-' === $this->recurrence_meta['custom']['year']['day'];
 		$no_month_day      = $empty_month_day || $month_day_is_dash;
 
 		if ( $no_month_day ) {
-			throw new RuntimeException ( __( 'Yearly custom recurrences cannot have a dash set as the day to occur on.', 'tribe-events-calendar-pro' ) );
+			throw new RuntimeException( __( 'Yearly custom recurrences cannot have a dash set as the day to occur on.', 'tribe-events-calendar-pro' ) );
 		}
 	}
 
 	private function ensure_not_empty() {
 		if ( empty( $this->recurrence_meta ) ) {
-			throw new RuntimeException ( __( 'Recurrence meta should not be empty.', 'tribe-events-calendar-pro' ) );
+			throw new RuntimeException( __( 'Recurrence meta should not be empty.', 'tribe-events-calendar-pro' ) );
 		}
 	}
 
@@ -141,17 +169,13 @@ class Tribe__Events__Pro__Recurrence__Validator {
 	 * @return bool
 	 */
 	private function is_monthly() {
-		$is_monthly = Tribe__Events__Pro__Recurrence__Custom_Types::MONTHLY_CUSTOM_TYPE === $this->recurrence_meta['custom']['type'];
-
-		return $is_monthly;
+		return Tribe__Events__Pro__Recurrence__Custom_Types::MONTHLY_CUSTOM_TYPE === $this->recurrence_meta['custom']['type'];
 	}
 
 	/**
 	 * @return bool
 	 */
 	private function is_yearly() {
-		$is_yearly = Tribe__Events__Pro__Recurrence__Custom_Types::YEARLY_CUSTOM_TYPE === $this->recurrence_meta['custom']['type'];
-
-		return $is_yearly;
+		return Tribe__Events__Pro__Recurrence__Custom_Types::YEARLY_CUSTOM_TYPE === $this->recurrence_meta['custom']['type'];
 	}
 }

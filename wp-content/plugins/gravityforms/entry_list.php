@@ -182,7 +182,7 @@ class GFEntryList {
 
 		$option_values = get_user_option( 'gform_entries_screen_options' );
 
-		if ( empty( $option_values ) ) {
+		if ( empty( $option_values ) || ! is_array( $option_values ) ) {
 			$option_values = array();
 		}
 		$option_values = array_merge( $default_values, $option_values );
@@ -219,8 +219,6 @@ class GFEntryList {
 
 			<?php
 			GFForms::top_toolbar();
-
-			if ( $table->has_items() ) :
 				?>
 
 				<div id="entry_search_container">
@@ -229,8 +227,6 @@ class GFEntryList {
 					   href="javascript:Search('<?php echo esc_js( $table->get_orderby() ); ?>', '<?php echo esc_js( $table->get_order() ) ?>', <?php echo absint( $form_id ); ?>, jQuery('.gform-filter-value').val(), '<?php echo esc_js( $table->get_filter() ) ?>', jQuery('.gform-filter-field').val(), jQuery('.gform-filter-operator').val());"><?php esc_html_e( 'Search', 'gravityforms' ) ?></a>
 
 				</div>
-
-			<?php endif; ?>
 
 			<form id="entry_list_form" method="post">
 				<?php
@@ -748,7 +744,17 @@ final class GF_Entry_List_Table extends WP_List_Table {
 
 		$table_columns['column_selector'] = '<a title="' . esc_attr__( 'click to select columns to display', 'gravityforms' ) . '" href="' . trailingslashit( site_url( null, 'admin' ) ) . '?gf_page=select_columns&id=' . absint( $form_id ) . '&TB_iframe=true&height=365&width=600" class="thickbox entries_edit_icon"><i class="fa fa-cog"></i></a>';
 
-		return $table_columns;
+		/**
+		 * Allow the columns to be displayed in the entry list table to be overridden.
+		 *
+		 * @since 2.0.7.6
+		 *
+		 * @param array $table_columns The columns to be displayed in the entry list table.
+		 * @param int   $form_id       The ID of the form the entries to be listed belong to.
+		 */
+		$table_columns = apply_filters( 'gform_entry_list_columns', $table_columns, $form_id );
+
+		return apply_filters( 'gform_entry_list_columns_' . $form_id, $table_columns, $form_id );
 	}
 
 	/**
@@ -1357,8 +1363,8 @@ final class GF_Entry_List_Table extends WP_List_Table {
 	function output_scripts() {
 
 		$form_id = $this->get_form_id();
-		$form       = $this->get_form();
-		$search     = stripslashes( rgget( 's' ) );
+		$form    = $this->get_form();
+		$search  = isset( $_GET['s'] ) ? stripslashes( $_GET['s'] ) : null;
 
 		$orderby      = empty( $_GET['orderby'] ) ? 0 : $_GET['orderby'];
 		$order = empty( $_GET['order'] ) ? 'ASC' : strtoupper( $_GET['order'] );

@@ -62,6 +62,7 @@ class Tribe__Events__Pro__Shortcodes__Events_List extends Tribe__Events__Pro__Sh
 		// Events to show
 		'limit'                => '',
 		'no_upcoming_events'   => '',
+		'featured_events_only' => false,
 		'tribe_is_list_widget' => true,
 
 		// Optional additional information to include per event

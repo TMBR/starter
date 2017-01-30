@@ -39,6 +39,9 @@ tribe_events_pro_admin.recurrence = {
 			end: []
 		};
 
+		this.date_format = tribe_datepicker_opts.dateFormat.toUpperCase();
+		this.date_format = this.date_format.replace( 'YY', 'YYYY' );
+
 		window.Handlebars.registerHelper( {
 			tribe_recurrence_select: function( value, options ) {
 				var $el = $( '<select />' ).html( options.fn( this ) );
@@ -51,6 +54,31 @@ tribe_events_pro_admin.recurrence = {
 				$el.find( '[value="' + value + '"]' ).attr( 'selected', 'selected' );
 				return $el.html();
 			},
+
+			tribe_if_in: function( value, collection, text ) {
+				if ( typeof collection === 'undefined' ) {
+					collection = [];
+				}
+
+				if ( typeof text === 'undefined' ) {
+					text = '';
+				}
+
+				return -1 !== $.inArray( value, collection ) ? text : '';
+			},
+
+			tribe_if_not_in: function( value, collection, text ) {
+				if ( typeof collection === 'undefined' ) {
+					collection = [];
+				}
+
+				if ( typeof text === 'undefined' ) {
+					text = '';
+				}
+
+				return -1 === $.inArray( value, collection ) ? text : '';
+			},
+
 			tribe_checked_if_is: function( value, goal ) {
 				return value === goal ? 'checked' : '';
 			},
@@ -68,15 +96,22 @@ tribe_events_pro_admin.recurrence = {
 			.on( 'submit', '.wp-admin.events-cal #post', this.event.submit_validation )
 			.on( 'change', '[data-field="type"]', this.event.recurrence_type_changed )
 			.on( 'change', '[data-field="end-type"]', this.event.recurrence_end_type_changed )
-			.on( 'change', '[data-field="custom-type"]', this.event.recurrence_custom_type_changed )
 			.on( 'change', '[data-field="custom-month-number"]', this.event.recurrence_custom_month_changed )
+			.on( 'change', '[data-field="same-time"]', this.event.same_time_changed )
+			.on( 'change', '[data-field="custom-week-day"]', this.event.weekdays_changed )
 			.on( 'change', '.recurrence_end_count', this.event.recurrence_end_count_changed )
 			.on( 'change', '.recurrence-row, .custom-recurrence-row', this.event.recurrence_row_changed )
-			.on( 'change', '.tribe-custom-same-time input', this.event.same_time_changed )
-			.on( 'change', '#EventStartDate, #EventEndDate, select[name="EventStartHour"], select[name="EventStartMinute"], select[name="EventStartMeridian"], select[name="EventEndHour"], select[name="EventEndMinute"], select[name="EventEndMeridian"]', this.event.datepicker_updated )
+			.on( 'change', '#EventStartDate, #EventEndDate, #allDayCheckbox, #EventStartTime, #EventEndTime', this.event.datepicker_updated )
+			.on( 'change', '#EventStartTime, #EventEndTime, #allDayCheckbox', this.setup_same_time )
+			.on( 'change', '#EventStartDate', this.setup_same_day )
 			.on( 'click', '#tribe-add-recurrence', this.event.add_recurrence )
 			.on( 'click', '#tribe-add-exclusion', this.event.add_exclusion )
-			.on( 'click', '.tribe-event-recurrence .tribe-handle', this.event.toggle_rule );
+			.on( 'click', '.tribe-event-recurrence .tribe-handle, .tribe-event-exclusion .tribe-handle', this.event.toggle_rule )
+			.on( 'click', '.tribe-event-recurrence .tribe-confirm-delete-this, .tribe-event-exclusion .tribe-confirm-delete-this', this.event.delete_rule );
+
+		// bind to document so we only trigger the delete dialog if a click event propagates up to the document. The global
+		// close dialog click event stops propagation at the body tag
+		$( document ).on( 'click', '.tribe-event-recurrence .tribe-delete-this, .tribe-event-exclusion .tribe-delete-this', this.event.delete_rule );
 
 		// If recurrence changes on a recurring event, then show warning
 		if ( $( 'input[data-field="is_recurring"][value="true"]' ).length ) {
@@ -88,28 +123,55 @@ tribe_events_pro_admin.recurrence = {
 		$( '.recurrence_end, #EventStartDate, #EventEndDate' ).datepicker( 'option', 'onClose', this.event.datepicker_updated );
 
 		this.set_recurrence_end_min_date();
+	};
 
-		// Trigger the required events after everything is done
-		$( '.eventForm' ).find( '[data-field="type"]' ).trigger( 'change' );
+	my.init_dropdowns = function() {
+		$( '.recurrence-row .tribe-dropdown' ).tribe_dropdowns();
+	};
+
+	my.init_buttonset = function() {
+		$( tribe_buttonset.selector.input ).trigger( 'change.tribe_buttonset' );
 	};
 
 	/**
 	 * adds a recurrence rule to the list of available rules
 	 */
 	my.add_recurrence = function( data ) {
+		var is_new = 'undefined' === typeof data;
+
 		if ( 'undefined' !== typeof data && 'undefined' !== typeof data.end && data.end ) {
-			var date_format = tribe_datepicker_opts.dateFormat.toUpperCase().replace( 'YY', 'YYYY' );
-			data.end = moment( data.end ).format( date_format );
+			data.end = moment( data.end ).format( this.date_format );
 		}
 
 		this.$recurrence_staging.append( this.recurrence_template( data ) );
 
 		var $rule = this.$recurrence_staging.find( '.tribe-event-recurrence' );
 
+		if ( is_new ) {
+			$rule.addClass( 'recurrence-new-rule' );
+		}
+
 		// replace all of the recurrence[] instances with recurrence[x] where x is a number
-		$rule.find( '[name*="recurrence[rules][]"]' ).each( function() {
+		$rule.find( '[name*="recurrence[rules][]"],[id*="recurrence_rule_--"],[data-input*="recurrence_rule_--"],[data-depends*="#recurrence_rule_--"]' ).each( function() {
 			var $field = $( this );
-			$field.attr( 'name', $field.attr( 'name' ).replace( /recurrence\[rules\]\[\]/, 'recurrence[rules][' + my.recurrence_count + ']' ) );
+
+			if ( $field.attr( 'name' ) ) {
+				$field.attr( 'name', $field.attr( 'name' ).replace( /recurrence\[rules\]\[\]/, 'recurrence[rules][' + my.recurrence_count + ']' ) );
+			}
+
+			if ( $field.attr( 'id' ) ) {
+				$field.attr( 'id', $field.attr( 'id' ).replace( /recurrence_rule_--/, 'recurrence_rule_' + my.recurrence_count ) );
+			}
+
+			if ( $field.attr( 'data-input' ) ) {
+				$field
+					.attr( 'data-input', $field.attr( 'data-input' ).replace( /recurrence_rule_--/, 'recurrence_rule_' + my.recurrence_count ) )
+					.data( 'input', $field.attr( 'data-input' ) );
+			}
+
+			if ( $field.attr( 'data-depends' ) ) {
+				$field.attr( 'data-depends', $field.attr( 'data-depends' ).replace( /#recurrence_rule_--/, '#recurrence_rule_' + my.recurrence_count ) );
+			}
 		} );
 
 		if ( ! data ) {
@@ -118,8 +180,10 @@ tribe_events_pro_admin.recurrence = {
 
 		$rule.find( '.tribe-datepicker' ).datepicker( tribe_datepicker_opts );
 		$rule.insertBefore( this.$recurrence_staging );
+		this.set_recurrence_end_min_date();
 
 		this.set_recurrence_data_attributes( $rule );
+		this.maybe_relocate_end_date( $rule );
 		this.adjust_rule_helper_text( $rule );
 		this.update_rule_recurrence_text( $rule );
 
@@ -128,6 +192,152 @@ tribe_events_pro_admin.recurrence = {
 		this.recurrence_count++;
 
 		this.check_for_useful_rule();
+		this.setup_intervals( $rule );
+		this.setup_same_time();
+		this.setup_same_day();
+
+		this.setup_yearly_select( $rule );
+		this.setup_weekly_select( $rule );
+
+		this.init_dropdowns();
+
+		if ( 'undefined' === typeof data ) {
+			this.toggle_rule( $rule );
+		}
+
+		// It's important to trigger the Buttonset after setup of a Recurrence
+		this.init_buttonset();
+	};
+
+	my.setup_weekly_select = function ( $rule ) {
+		// default the weekly rule to pre-check the day of the week for the current event
+		var start_date = $( document.getElementById( 'EventStartDate' ) ).val(),
+			default_day_of_week = moment( start_date, this.date_format ).isoWeekday(),
+			$days = $rule.find( '[data-field="custom-week-day"]' );
+
+		// If any are selected bail
+		if ( $days.filter( ':checked' ).length > 0 ) {
+			return;
+		}
+
+		$rule.find( '[data-field="custom-week-day"][value="' + default_day_of_week + '"]' ).each(function ()  {
+			$( this ).parent().trigger( 'click' );
+		});
+	};
+
+	/**
+	 * Sets up the checkboxes for months-in-a-year
+	 *
+	 * @param $rule Recurrence rule
+	 */
+	my.setup_yearly_select = function( $rule ) {
+		var $start_date = $( document.getElementById( 'EventStartDate' ) );
+		var format = tribe_dynamic_help_text.datepicker_format;
+
+		format = format.replace( 'm', 'MM' ).replace( 'd', 'DD' ).replace( 'Y', 'YYYY' );
+
+		var start_month = moment( $start_date.val(), format ).format( 'M' );
+		var $select = $rule.find( '[data-field="custom-year-month"]' );
+
+		// When you already have content we bail
+		if ( $select.val() ) {
+			return;
+		}
+
+		// Change the Value
+		$select.val( start_month );
+	};
+
+	/**
+	 * Sets up the interval select box
+	 *
+	 * @param $rule Recurrence rule
+	 */
+	my.setup_intervals = function( $rule ) {
+		var type = $rule.find( '[data-field="type"]' ).val();
+		var $interval = $rule.find( 'input.tribe-recurrence-rule-interval' );
+		var i = 1;
+		var num = 6;
+		var autocomplete_options = [];
+
+		if ( 'Daily' === type ) {
+			num = 6;
+		} else if ( 'Weekly' === type ) {
+			num = 6;
+		} else if ( 'Monthly' === type ) {
+			num = 12;
+		} else if ( 'Yearly' === type ) {
+			num = 3;
+		}
+
+		for ( i = 1; i <= num; i++ ) {
+			autocomplete_options.push( { id: i, text: '' + i } );
+		}
+
+		$interval
+			.select2( 'destroy' )
+			.removeClass( 'select2-offscreen' )
+			.data( 'options', autocomplete_options );
+	};
+
+	/**
+	 * sets up the section that indicates if the recurrence rule uses the same day as the main event or not
+	 */
+	my.setup_same_day = function() {
+		$( '.tribe-event-recurrence, .tribe-event-exclusion' ).each( function() {
+			var $rule = $( this );
+			var $same_day_text = $rule.find( '.recurrence-same-day-text' );
+
+			var $start_date = $( document.getElementById( 'EventStartDate' ) );
+			var format = my.convert_date_format_php_to_moment( tribe_dynamic_help_text.datepicker_format );
+
+			var start_day = moment( $start_date.val(), format ).format( 'D' );
+
+			$same_day_text.html( tribe_events_pro_recurrence_strings.recurrence['same-day-month-' + start_day] );
+		} );
+	};
+
+	/**
+	 * sets up the section that indicates if the recurrence rule uses the same time as the main event or not
+	 */
+	my.setup_same_time = function() {
+		$( '.tribe-event-recurrence, .tribe-event-exclusion' ).each( function() {
+			var $rule = $( this );
+			var $same_time_text = $rule.find( '.recurrence-same-time-text' );
+			var same_time_text = '';
+
+			if ( $( '#allDayCheckbox:checked' ).length ) {
+				same_time_text = tribe_events_pro_recurrence_strings.recurrence['same-time-text-same-all-day' ];
+			} else {
+				var $start_time = $( document.getElementById( 'EventStartTime' ) );
+				var $end_time   = $( document.getElementById( 'EventEndTime' ) );
+				same_time_text  = tribe_events_pro_recurrence_strings.recurrence['same-time-text-same' ].replace( '%1$s', $start_time.val() ).replace( '%2$s', $end_time.val() );
+			}
+
+			$same_time_text.html( same_time_text );
+
+			var $timepickers = $rule.find( '.tribe-timepicker:not(.ui-timepicker-input)' );
+			tribe_timepickers.setup_timepickers( $timepickers );
+		} );
+	};
+
+	/**
+	 * Optionally relocates the end date. "Date" recurrence rules need the end
+	 * date near the top of the form. Otherwise, it should be at the bottom.
+	 *
+	 * @param $rule
+	 */
+	my.maybe_relocate_end_date = function( $rule ) {
+		var $custom_container = $rule.find( '.recurrence-custom-container' );
+		var $end_container = $rule.find( '.recurrence-end-container' );
+		var $end = $rule.find( '.recurrence_end' );
+		var type = $rule.find( '[data-field="type"]' ).data( 'value' );
+
+		if ( 'Date' === type ) {
+			$custom_container.append( $end );
+		} else {
+			$end_container.append( $end );
+		}
 	};
 
 	/**
@@ -137,9 +347,9 @@ tribe_events_pro_admin.recurrence = {
 		var $rule = this.$recurrence_rules.filter( ':first' );
 		var rule_set = false;
 
-		this.$recurrence_rules.find( '[data-field="type"] option:selected' ).each( function() {
+		this.$recurrence_rules.find( '[data-field="type"]' ).each( function() {
 			var $el = $( this );
-			if ( 'None' !== $el.val() ) {
+			if ( 'None' !== $el.data( 'value' ) ) {
 				rule_set = true;
 			}
 		} );
@@ -155,25 +365,76 @@ tribe_events_pro_admin.recurrence = {
 	 * adds an exclusion rule to the list of available rules
 	 */
 	my.add_exclusion = function( data ) {
+		var is_new = 'undefined' === typeof data;
+
+		if ( 'undefined' !== typeof data && 'undefined' !== typeof data.end && data.end ) {
+			var date_format = tribe_datepicker_opts.dateFormat.toUpperCase().replace( 'YY', 'YYYY' );
+			data.end = moment( data.end ).format( date_format );
+		}
+
 		this.$exclusion_staging.append( this.exclusion_template( data ) );
 
-		var $rule = this.$exclusion_staging.find( '.tribe-event-recurrence' );
+		var $rule = this.$exclusion_staging.find( '.tribe-event-exclusion' );
 
-		// replace all of the recurrence[] instances with recurrence[x] where x is a number
-		$rule.find( '[name*="recurrence[exclusions][]"]' ).each( function() {
+		if ( is_new ) {
+			$rule.addClass( 'exclusion-new-rule' );
+		}
+
+		// replace all of the exclusion[] instances with exclusion[x] where x is a number
+		$rule.find( '[name*="recurrence[exclusions][]"],[id*="exclusion_rule_--"],[data-input*="exclusion_rule_--"],[data-depends*="#exclusion_rule_--"]' ).each( function() {
 			var $field = $( this );
-			$field.attr( 'name', $field.attr( 'name' ).replace( /recurrence\[exclusions\]\[\]/, 'recurrence[exclusions][' + my.exclusion_count + ']' ) );
+
+			if ( $field.attr( 'name' ) ) {
+				$field.attr( 'name', $field.attr( 'name' ).replace( /recurrence\[exclusions\]\[\]/, 'recurrence[exclusions][' + my.exclusion_count + ']' ) );
+			}
+
+			if ( $field.attr( 'id' ) ) {
+				$field.attr( 'id', $field.attr( 'id' ).replace( /exclusion_rule_--/, 'exclusion_rule_' + my.exclusion_count ) );
+			}
+
+			if ( $field.attr( 'data-input' ) ) {
+				$field
+					.attr( 'data-input', $field.attr( 'data-input' ).replace( /exclusion_rule_--/, 'exclusion_rule_' + my.exclusion_count ) )
+					.data( 'input', $field.attr( 'data-input' ) );
+			}
+
+			if ( $field.attr( 'data-depends' ) ) {
+				$field.attr( 'data-depends', $field.attr( 'data-depends' ).replace( /#exclusion_rule_--/, '#exclusion_rule_' + my.exclusion_count ) );
+			}
 		} );
+
+		if ( ! data ) {
+			$rule.find( '.tribe-same-time-checkbox' ).prop( 'checked', true );
+		}
 
 		$rule.find( '.tribe-datepicker' ).datepicker( tribe_datepicker_opts );
 		$rule.insertBefore( this.$exclusion_staging );
 
-		this.set_recurrence_data_attributes( $rule );
+		this.set_recurrence_data_attributes($rule);
+		this.maybe_relocate_end_date( $rule );
 		this.adjust_rule_helper_text( $rule );
+		this.update_rule_recurrence_text( $rule );
 
-		// re-initialize recurrence rules
+		// re-initialize exclusion rules
 		this.$exclusion_rules = this.$exclusion_rules.add( $rule );
 		this.exclusion_count++;
+
+		this.check_for_useful_rule();
+		this.setup_intervals( $rule );
+		this.setup_same_time();
+		this.setup_same_day();
+
+		this.setup_yearly_select( $rule );
+		this.setup_weekly_select( $rule );
+
+		this.init_dropdowns();
+
+		if ( 'undefined' === typeof data ) {
+			this.toggle_rule( $rule );
+		}
+
+		// It's important to trigger the Buttonset after setup of a Recurrence
+		this.init_buttonset();
 	};
 
 	/**
@@ -182,8 +443,9 @@ tribe_events_pro_admin.recurrence = {
 	my.populate_recurrence = function( data ) {
 		var i = 0;
 
+		// if there aren't any rules defined, don't bother trying to populate recurrence until
+		// a rule is added
 		if ( 'undefined' === typeof data.rules || ! data.rules.length ) {
-			this.add_recurrence();
 			return;
 		}
 
@@ -294,7 +556,7 @@ tribe_events_pro_admin.recurrence = {
 	 */
 	my.has_valid_recurrence_days_for_rule = function( $recurrence_rule ) {
 		var $interval = $recurrence_rule.find( '[data-field="custom-interval"]' );
-		var $recurrence_type = $recurrence_rule.find( '[data-field="type"] option:selected' );
+		var $recurrence_type = $recurrence_rule.find( '[data-field="type"]' );
 
 		if ( $interval.val() !== parseInt( $interval.val(), 10 ) && 'Custom' === $recurrence_type.val() ) {
 			return false;
@@ -399,208 +661,132 @@ tribe_events_pro_admin.recurrence = {
 		} );
 	};
 
-	my.update_rule_recurrence_text = function( $rule ) {
-		var type = $rule.find( '[data-field="type"] option:selected' ).val();
-		var end_type = $rule.find( '[data-field="end-type"] option:selected' ).val();
-		var end = $rule.find( '[data-field="end"]' ).val();
-		var end_count = $rule.find( '[data-field="end-count"]' ).val();
-		var custom_type = $rule.find( '[data-field="custom-type"] option:selected' ).val();
-		var same_time = $rule.find( '.tribe-same-time-checkbox:checked' ).length ? true : false;
-		var interval = $rule.find( '[data-field="custom-interval"]' ).val();
-		var year_filtered = $rule.find( '[data-field="custom-year-filter"]:checked' ).length ? true : false;
+	/**
+	 * Converts a PHP date format to Moment JS date format
+	 */
+	my.convert_date_format_php_to_moment = function( format ) {
+		// this format conversion is pretty fragile, but the best we can do at the moment
+		return format.replace( 'j', 'D' ).replace( 'F', 'MMMM' ).replace( 'Y', 'YYYY' ).replace( 'm', 'MM' ).replace( 'd', 'DD' );
+	};
 
-		if ( ! end ) {
-			end = $rule.find( '[data-field="end"]' ).attr( 'placeholder' );
+	my.update_rule_recurrence_text = function( $rule ) {
+		var type = $rule.find( '[data-field="type"]' ).val();
+		var end_type = $rule.find( '[data-field="end-type"] option:selected' ).val();
+		var end_count = $rule.find( '[data-field="end-count"]' ).val();
+		var same_time = 'yes' === $rule.find( '[data-field="same-time"]' ).val();
+		var interval = $rule.find( '[data-field="custom-interval"]' ).val();
+		var allday = $( document.getElementById( 'allDayCheckbox' ) ).prop( 'checked' );
+
+		if ( ! end_count ) {
+			end_count = 0;
 		}
 
 		type = type.toLowerCase().replace( ' ', '-' );
 		end_type = end_type.toLowerCase().replace( ' ', '-' );
-		custom_type = custom_type.toLowerCase().replace( ' ', '-' );
 
-		if ( 'none' === type ) {
+		if ( 'none' === type || '' === type ) {
 			$rule.find( '.tribe-event-recurrence-description' ).html( '' );
+			return;
 		}
-
-		var date_format = tribe_datepicker_opts.dateFormat.toUpperCase();
-		date_format = date_format.replace( 'YY', 'YYYY' );
 
 		var $event_form = $rule.closest( '.eventForm' );
 
-		if ( $event_form.find( '[name="EventStartMeridian"]' ).length ) {
-			date_format = date_format + ' hh:mm a';
-		} else {
-			date_format = date_format + ' HH:mm';
-		}
+		var date_format = this.date_format + ' hh:mm a';
 
 		var $start_date = $( document.getElementById( 'EventStartDate' ) );
 		var start_date = $start_date.val();
-		var $selected_start_meridian = $event_form.find( '[name="EventStartMeridian"] option:selected' );
 
-		start_date += ' ' + $event_form.find( '[name="EventStartHour"] option:selected' ).val() + ':' + $event_form.find( '[name="EventStartMinute"] option:selected' ).val();
-
-		if ( $selected_start_meridian.length ) {
-			start_date += ' ' + $selected_start_meridian.val().toUpperCase();
-		}
+		var $start_time = $( document.getElementById( 'EventStartTime' ) );
+		var start_time = $start_time.val().toUpperCase();
+		start_date += ' ' + start_time;
 
 		var $end_date = $( document.getElementById( 'EventEndDate' ) );
 		var end_date = $end_date.val();
 		var $selected_end_meridian = $event_form.find( '[name="EventEndMeridian"] option:selected' );
 
-		end_date += ' ' + $event_form.find( '[name="EventEndHour"] option:selected' ).val() + ':' + $event_form.find( '[name="EventEndMinute"] option:selected' ).val();
-
-		if ( $selected_end_meridian.length ) {
-			end_date += ' ' + $selected_end_meridian.val().toUpperCase();
-		}
+		var $end_time = $( document.getElementById( 'EventEndTime' ) );
+		var end_time = $end_time.val().toUpperCase();
+		end_date += ' ' + end_time;
 
 		var start_moment = moment( start_date, date_format );
 		var end_moment = moment( end_date, date_format );
+		var single_moment = start_moment;
 
-		var num_days = end_moment.diff( start_moment, 'days' );
+		// The specific start time for this rule depends on whether or not it takes
+		// place at the same time as the parent event
+		var instance_start_time = same_time ? start_time : $rule.find( '.tribe-field-start_time' ).val();
 
-		// make sure we always round hours UP to when dealing with decimal lengths more than 2. Example: 4.333333 would become 4.34
-		var num_hours = Math.ceil( ( end_moment.diff( start_moment, 'hours', true ) - ( num_days * 24 ) ) * 100 ) / 100;
+		var days_of_week = null;
+		var month_names = null;
+		var month_day_description = tribe_events_pro_recurrence_strings.date.day_placeholder;
+		var day_number = start_moment.format( 'D' );
 
-		var new_start_time = $rule.find( '[data-field="custom-start-time-hour"] option:selected' ).val() + ':'+
-			$rule.find( '[data-field="custom-start-time-minute"] option:selected' ).val();
+		var key = type;
 
-		var $custom_start_meridian = $rule.find( '[data-field="custom-start-time-meridian"] option:selected' );
-		if ( $custom_start_meridian.length ) {
-			new_start_time += ' ' + $custom_start_meridian.val();
+		// @todo: double check the end of day cut off setting
+		if ( allday && ! start_moment.isSame( end_moment, 'day' ) ) {
+			key += '-multi';
+		} else if ( allday && same_time ) {
+			key += '-allday';
 		}
 
-		var new_start = start_moment.format( 'YYYY-MM-DD' ) + ' ' + new_start_time;
-
-		var duration_days = parseInt( $rule.find( '[data-field="custom-duration-days"]' ).val(), 10 );
-		var duration_hours = parseInt( $rule.find( '[data-field="custom-duration-hours"]' ).val(), 10 );
-		var duration_minutes = parseInt( $rule.find( '[data-field="custom-duration-minutes"]' ).val(), 10 );
-
-		var new_start_moment = moment( new_start, date_format );
-
-		var new_end_moment = new_start_moment.add( {
-			days: duration_days,
-			hours: duration_hours,
-			minutes: duration_minutes
-		} );
-
-		var new_num_days = new_end_moment.diff( new_start_moment, 'days' );
-
-		// make sure we always round hours UP to when dealing with decimal lengths more than 2. Example: 4.333333 would become 4.34
-		var new_num_hours = Math.ceil( ( new_end_moment.diff( new_start_moment, 'hours', true ) - ( num_days * 24 ) ) * 100 ) / 100;
-
-		// If a custom duration has been specified we can obtain the days and hours directly from the relevant fields
-		if ( ! same_time ) {
-			var duration_days  = parseInt( $rule.find( '[data-field="custom-duration-days"]' ).val(), 10 );
-			var duration_hours = parseFloat( $rule.find( '[data-field="custom-duration-hours"]' ).val() );
-			var duration_mins  = parseInt( $rule.find( '[data-field="custom-duration-minutes"]' ).val(), 10 );
-
-			duration_days  = isNaN( duration_days )  ? 0 : duration_days;
-			duration_hours = isNaN( duration_hours ) ? 0 : duration_hours;
-			duration_mins  = isNaN( duration_mins )  ? 0 : duration_mins;
-
-			new_num_days  = duration_days;
-			new_num_hours = duration_hours + ( duration_mins / 60 );
-
-			// Round the number of hours
-			new_num_hours = Math.ceil( new_num_hours * 100 ) / 100;
-		}
-
-		var weekdays = [];
-		var months = [];
-		var month_number = null;
-		var month_day = null;
-		var month_day_description = null;
-
-		if ( 'weekly' === custom_type ) {
+		if ( 'weekly' === type ) {
+			var weekdays = [];
 			$rule.find( '[data-field="custom-week-day"]:checked' ).each( function() {
 				weekdays.push( tribe_events_pro_recurrence_strings.date.weekdays[ parseInt( $( this ).val(), 10 ) - 1 ] );
 			} );
 
 			if ( 0 === weekdays.length ) {
-				weekdays = tribe_events_pro_recurrence_strings.date.day_placeholder;
+				days_of_week = tribe_events_pro_recurrence_strings.date.day_placeholder;
 			} else if ( 2 === weekdays.length ) {
-				weekdays = weekdays.join( ' ' + tribe_events_pro_recurrence_strings.date.collection_joiner + ' ' );
+				days_of_week = weekdays.join( ' ' + tribe_events_pro_recurrence_strings.date.collection_joiner + ' ' );
 			} else {
-				weekdays = weekdays.join( ', ' );
-				weekdays = weekdays.replace( /(.*),/, '$1, ' + tribe_events_pro_recurrence_strings.date.collection_joiner );
+				days_of_week = weekdays.join( ', ' );
+				days_of_week = days_of_week.replace( /(.*),/, '$1, ' + tribe_events_pro_recurrence_strings.date.collection_joiner );
 			}
-		}
+		} else if ( 'monthly' === type ) {
+			var same_day = $rule.find( '[data-field="month-same-day"] option:selected' ).val();
+			var month_number = $rule.find( '[data-field="custom-month-number"] option:selected' ).val();
+			var month_day = $rule.find( '[data-field="custom-month-day"] option:selected' ).val();
 
-		if ( 'monthly' === custom_type ) {
-			month_number = $rule.find( '[data-field="custom-month-number"] option:selected' ).val();
-			month_day = $rule.find( '[data-field="custom-month-day"] option:selected' ).val();
-		}
+			if ( 'yes' === same_day || ! isNaN( month_number ) ) {
+				month_number = day_number;
+				key += '-numeric';
+			} else {
+				day_number = month_number;
 
-		if ( 'yearly' === custom_type ) {
-			month_number = $rule.find( '[data-field="custom-year-month-number"] option:selected' ).val();
-			month_day = $rule.find( '[data-field="custom-year-month-day"] option:selected' ).val();
+				month_day_description = tribe_events_pro_recurrence_strings.date[ month_number.toLowerCase() + '_x' ];
+				month_day_description = month_day_description.replace( '%1$s', tribe_events_pro_recurrence_strings.date.weekdays[ parseInt( month_day, 10 ) - 1 ] );
+			}
+		} else if ( 'yearly' === type ) {
+			var month_number = $rule.find( '[data-field="custom-year-month-number"]' ).val();
+			var month_day = $rule.find( '[data-field="custom-year-month-day"]' ).val();
 
-			$rule.find( '[data-field="custom-year-month"]:checked' ).each( function() {
-				months.push( tribe_events_pro_recurrence_strings.date.months[ parseInt( $( this ).val(), 10 ) - 1 ] );
+			var months = [];
+
+			$.each( $rule.find( '[data-field="custom-year-month"]' ).select2( 'val' ), function( i, month ) {
+				months.push( tribe_events_pro_recurrence_strings.date.months[ parseInt( month, 10 ) - 1 ] );
 			} );
 
+			// build a string of month names
 			if ( 0 === months.length ) {
-				months = tribe_events_pro_recurrence_strings.date.month_placeholder;
+				month_names = tribe_events_pro_recurrence_strings.date.month_placeholder;
 			} else if ( 2 === months.length ) {
-				months = months.join( ' ' + tribe_events_pro_recurrence_strings.date.collection_joiner + ' ' );
+				month_names = months.join( ' ' + tribe_events_pro_recurrence_strings.date.collection_joiner + ' ' );
 			} else {
-				months = months.join( ', ' );
-				months = months.replace( /(.*),/, '$1, ' + tribe_events_pro_recurrence_strings.date.collection_joiner );
+				month_names = months.join( ', ' );
+				month_names = month_names.replace( /(.*),/, '$1, ' + tribe_events_pro_recurrence_strings.date.collection_joiner );
 			}
-		}
 
-		var key = type;
+			var same_day = $rule.find( '[data-field="year-same-day"] option:selected' ).val();
 
-		if ( 'custom' === type ) {
-			key += '-' + custom_type + '-' + end_type + '-' + ( same_time ? 'same' : 'diff' ) + '-time';
-
-			if ( 'monthly' === custom_type && ! isNaN( month_number ) ) {
+			if ( '0' === same_day ) {
+				month_number = day_number;
 				key += '-numeric';
 			}
 
-			if ( 'yearly' === custom_type && ! year_filtered ) {
-				key += '-unfiltered';
-			}
-		} else {
-			key = 'simple-' + key;
-			key += '-' + end_type;
-		}
-
-		if (
-			'weekly' === custom_type
-			&& 0 === weekdays.length
-		) {
-			key = 'every-week-on';
-		} else if (
-			'monthly' === custom_type
-			&& ! month_number
-			&& ! month_day
-		) {
-			key = 'every-month-on';
-		} else if (
-			'yearly' === custom_type
-			&& ! month_number
-			&& ! month_day
-		) {
-			key = 'every-year-on';
-		}
-
-		var text = tribe_events_pro_recurrence_strings.recurrence[ key ];
-
-		// if a month_number and month_day is defined, build the month_day_description
-		if ( month_number && month_day ) {
 			// if the month number IS a number, then set the 'day' to blank so it doesn't display
-			if ( isNaN( month_number ) || ( 'yearly' === custom_type && year_filtered ) ) {
-				if ( 'yearly' === custom_type ) {
-					switch ( month_number ) {
-						case '1': month_number = 'first'; break;
-						case '2': month_number = 'second'; break;
-						case '3': month_number = 'third'; break;
-						case '4': month_number = 'fourth'; break;
-						case '5': month_number = 'fifth'; break;
-						case '-1': month_number = 'last'; break;
-					}
-				}
-
+			if ( isNaN( parseInt( month_number, 10 ) ) ) {
 				month_day_description = tribe_events_pro_recurrence_strings.date[ month_number.toLowerCase() + '_x' ];
 
 				if ( ! isNaN( month_day ) && month_day > 0 ) {
@@ -610,186 +796,81 @@ tribe_events_pro_admin.recurrence = {
 				} else {
 					month_day_description = month_day_description.replace( '%1$s', tribe_events_pro_recurrence_strings.date.day_placeholder );
 				}
-			} else if ( 'yearly' === custom_type && ! year_filtered ) {
-				month_day_description = start_moment.format( 'D' );
 			} else {
-				month_day_description = month_number;
+				month_day_description = tribe_events_pro_recurrence_strings.date.day_of_month.replace( '%1$s', parseInt( month_number, 10 ) );
 			}
-		} else {
-			month_day_description = tribe_events_pro_recurrence_strings.date.day_placeholder;
+		} else if ( 'date' === type ) {
+			var single_date = $rule.find( 'input.tribe-datepicker' ).val();
+
+			// If the date for this rule has not yet been set, default to the event's start date
+			if ( ! single_date ) {
+				single_date = start_date;
+			}
+
+			var single_moment = moment( single_date, date_format );
 		}
 
-		switch ( key ) {
-			case 'simple-date-on':
-				text = text.replace( '%1$s', end );
-				break;
-			case 'simple-every-day-on':
-			case 'simple-every-week-on':
-			case 'simple-every-month-on':
-			case 'simple-every-year-on':
-				text = text.replace( '%1$s', end );
-				break;
-			case 'every-day-on':
-			case 'every-week-on':
-			case 'every-month-on':
-			case 'every-year-on':
-			case 'every-day-never':
-			case 'every-week-never':
-			case 'every-month-never':
-			case 'every-year-never':
-				text = text.replace( '%1$s', num_days );
-				text = text.replace( '%2$s', num_hours );
-				text = text.replace( '%3$s', end );
-				break;
-			case 'every-day-after':
-			case 'every-week-after':
-			case 'every-month-after':
-			case 'every-year-after':
-				text = text.replace( '%1$s', num_days );
-				text = text.replace( '%2$s', num_hours );
-				text = text.replace( '%3$s', end_count );
-				break;
-			case 'custom-daily-on-same-time':
-			case 'custom-daily-never-same-time':
-				text = text.replace( '%1$s', interval );
-				text = text.replace( '%2$s', num_days );
-				text = text.replace( '%3$s', num_hours );
-				text = text.replace( '%4$s', end );
-				break;
-			case 'custom-daily-after-same-time':
-				text = text.replace( '%1$s', interval );
-				text = text.replace( '%2$s', num_days );
-				text = text.replace( '%3$s', num_hours );
-				text = text.replace( '%4$s', end_count );
-				break;
-			case 'custom-daily-on-diff-time':
-			case 'custom-daily-never-diff-time':
-				text = text.replace( '%1$s', interval );
-				text = text.replace( '%2$s', new_start_time );
-				text = text.replace( '%3$s', new_num_days );
-				text = text.replace( '%4$s', new_num_hours );
-				text = text.replace( '%5$s', end );
-				break;
-			case 'custom-daily-after-diff-time':
-				text = text.replace( '%1$s', interval );
-				text = text.replace( '%2$s', new_start_time );
-				text = text.replace( '%3$s', new_num_days );
-				text = text.replace( '%4$s', new_num_hours );
-				text = text.replace( '%5$s', end_count );
-				break;
-			case 'custom-weekly-on-same-time':
-			case 'custom-weekly-never-same-time':
-				text = text.replace( '%1$s', interval );
-				text = text.replace( '%2$s', weekdays );
-				text = text.replace( '%3$s', num_days );
-				text = text.replace( '%4$s', num_hours );
-				text = text.replace( '%5$s', end );
-				break;
-			case 'custom-weekly-after-same-time':
-				text = text.replace( '%1$s', interval );
-				text = text.replace( '%2$s', weekdays );
-				text = text.replace( '%3$s', num_days );
-				text = text.replace( '%4$s', num_hours );
-				text = text.replace( '%5$s', end_count );
-				break;
-			case 'custom-weekly-on-diff-time':
-			case 'custom-weekly-never-diff-time':
-				text = text.replace( '%1$s', interval );
-				text = text.replace( '%2$s', weekdays );
-				text = text.replace( '%3$s', new_start_time );
-				text = text.replace( '%4$s', new_num_days );
-				text = text.replace( '%5$s', new_num_hours );
-				text = text.replace( '%6$s', end );
-				break;
-			case 'custom-weekly-after-diff-time':
-				text = text.replace( '%1$s', interval );
-				text = text.replace( '%2$s', weekdays );
-				text = text.replace( '%3$s', new_start_time );
-				text = text.replace( '%4$s', new_num_days );
-				text = text.replace( '%5$s', new_num_hours );
-				text = text.replace( '%6$s', end_count );
-				break;
-			case 'custom-monthly-on-same-time-numeric':
-			case 'custom-monthly-never-same-time-numeric':
-			case 'custom-monthly-on-same-time':
-			case 'custom-monthly-never-same-time':
-				text = text.replace( '%1$s', interval );
-				text = text.replace( '%2$s', month_day_description );
-				text = text.replace( '%3$s', num_days );
-				text = text.replace( '%4$s', num_hours );
-				text = text.replace( '%5$s', end );
-				break;
-			case 'custom-monthly-after-same-time-numeric':
-			case 'custom-monthly-after-same-time':
-				text = text.replace( '%1$s', interval );
-				text = text.replace( '%2$s', month_day_description );
-				text = text.replace( '%3$s', num_days );
-				text = text.replace( '%4$s', num_hours );
-				text = text.replace( '%5$s', end_count );
-				break;
-			case 'custom-monthly-on-diff-time-numeric':
-			case 'custom-monthly-never-diff-time-numeric':
-			case 'custom-monthly-on-diff-time':
-			case 'custom-monthly-never-diff-time':
-				text = text.replace( '%1$s', interval );
-				text = text.replace( '%2$s', month_day_description );
-				text = text.replace( '%3$s', new_start_time );
-				text = text.replace( '%4$s', new_num_days );
-				text = text.replace( '%5$s', new_num_hours );
-				text = text.replace( '%6$s', end );
-				break;
-			case 'custom-monthly-after-diff-time-numeric':
-			case 'custom-monthly-after-diff-time':
-				text = text.replace( '%1$s', interval );
-				text = text.replace( '%2$s', month_day_description );
-				text = text.replace( '%3$s', new_start_time );
-				text = text.replace( '%4$s', new_num_days );
-				text = text.replace( '%5$s', new_num_hours );
-				text = text.replace( '%6$s', end_count );
-				break;
-			case 'custom-yearly-on-same-time-unfiltered':
-			case 'custom-yearly-never-same-time-unfiltered':
-			case 'custom-yearly-on-same-time':
-			case 'custom-yearly-never-same-time':
-				text = text.replace( '%1$s', interval );
-				text = text.replace( '%2$s', months );
-				text = text.replace( '%3$s', month_day_description );
-				text = text.replace( '%4$s', num_days );
-				text = text.replace( '%5$s', num_hours );
-				text = text.replace( '%6$s', end );
-				break;
-			case 'custom-yearly-after-same-time-unfiltered':
-			case 'custom-yearly-after-same-time':
-				text = text.replace( '%1$s', interval );
-				text = text.replace( '%2$s', months );
-				text = text.replace( '%3$s', month_day_description );
-				text = text.replace( '%4$s', num_days );
-				text = text.replace( '%5$s', num_hours );
-				text = text.replace( '%6$s', end_count );
-				break;
-			case 'custom-yearly-on-diff-time-unfiltered':
-			case 'custom-yearly-never-diff-time-unfiltered':
-			case 'custom-yearly-on-diff-time':
-			case 'custom-yearly-never-diff-time':
-				text = text.replace( '%1$s', interval );
-				text = text.replace( '%2$s', months );
-				text = text.replace( '%3$s', month_day_description );
-				text = text.replace( '%4$s', new_start_time );
-				text = text.replace( '%5$s', new_num_days );
-				text = text.replace( '%6$s', new_num_hours );
-				text = text.replace( '%7$s', end );
-				break;
-			case 'custom-yearly-after-diff-time-unfiltered':
-			case 'custom-yearly-after-diff-time':
-				text = text.replace( '%1$s', interval );
-				text = text.replace( '%2$s', months );
-				text = text.replace( '%3$s', month_day_description );
-				text = text.replace( '%4$s', new_start_time );
-				text = text.replace( '%5$s', new_num_days );
-				text = text.replace( '%6$s', new_num_hours );
-				text = text.replace( '%7$s', end_count );
-				break;
+		// For single date rules, 'after' or 'never' will not be required
+		if ( 'date' === type ) {
+			key += '-on';
+		} else if ( 'after' === end_type ) {
+			key += '-after';
+		} else if ( 'never' === end_type ) {
+			key += '-never';
+		} else {
+			key += '-on';
 		}
+
+		// If an allday event is not taking place at the same time as the initial event indicate this
+		if ( allday && ! same_time ) {
+			key += '-at';
+		}
+
+		// "*-at" descriptions aren't defined or required in all cases, so fallback to the closest
+		// alternative when necessary (ie, if 'date-on-at' isn't available, use 'date-on' instead)
+		if (
+			'undefined' === typeof tribe_events_pro_recurrence_strings.recurrence[ key ]
+			&& key.endsWith( '-at' )
+		) {
+			key = key.replace( /-at$/, '' );
+		}
+
+		var text = tribe_events_pro_recurrence_strings.recurrence[ key ];
+
+		if ( 'undefined' === typeof text ) {
+			$rule.find( '.tribe-event-recurrence-description' ).html( '' );
+			return;
+		}
+
+		var end = $rule.find( '[data-field="end"]' ).val();
+		if ( ! end ) {
+			end = $rule.find( '[data-field="end"]' ).attr( 'placeholder' );
+		}
+
+		var series_end_moment = moment( end, date_format );
+		var display_format = this.convert_date_format_php_to_moment( tribe_dynamic_help_text.date_with_year );
+
+		text = text.replace( '[count]', end_count );
+		text = text.replace( '[day_number]', day_number );
+		text = text.replace( '[days_of_week]', days_of_week );
+		text = text.replace( '[month_day_description]', month_day_description );
+		text = text.replace( '[month_names]', month_names );
+		text = text.replace( '[month_number]', month_number );
+		text = text.replace( '[interval]', interval );
+		text = text.replace( '[series_end_date]', series_end_moment.format( display_format ) );
+		text = text.replace( '[start_date]', start_moment.format( display_format ) );
+		text = text.replace( '[start_time]', instance_start_time );
+		text = text.replace( '[single_date]', single_moment.format( display_format ) );
+
+		// English-only simplification
+		text = text.replace( '1 day(s)', 'day' );
+		text = text.replace( '1 week(s)', 'week' );
+		text = text.replace( '1 month(s)', 'month' );
+		text = text.replace( '1 year(s)', 'year' );
+		text = text.replace( 'day(s)', 'days' );
+		text = text.replace( 'week(s)', 'weeks' );
+		text = text.replace( 'month(s)', 'months' );
+		text = text.replace( 'year(s)', 'years' );
 
 		$rule.find( '.tribe-event-recurrence-description' ).html( text );
 	};
@@ -809,14 +890,9 @@ tribe_events_pro_admin.recurrence = {
 	 */
 	my.event.recurrence_type_changed = function() {
 		var $el = $( this );
-		var $rule = $el.closest( '.tribe-event-recurrence' );
-		$rule.addClass( 'tribe-open' );
+		var $rule = $el.closest( '.tribe-event-recurrence, .tribe-event-exclusion' );
 
 		var val = $el.find( 'option:selected' ).val();
-
-		if ( 'Custom' === val ) {
-			$rule.find( '[data-field="custom-type"]' ).change();
-		}
 
 		var $count_text = $rule.find( '.occurence-count-text' );
 		var end_count = parseInt( $rule.find( '.recurrence_end_count' ).val(), 10 );
@@ -830,7 +906,18 @@ tribe_events_pro_admin.recurrence = {
 		$rule.find( '[data-field="occurrence-count-text"]' ).val( $count_text.text() );
 
 		my.set_recurrence_data_attributes( $rule );
+		my.maybe_relocate_end_date( $rule );
 		my.check_for_useful_rule();
+
+		my.setup_intervals( $rule );
+		my.setup_yearly_select( $rule );
+		my.setup_weekly_select( $rule );
+
+		my.init_dropdowns();
+
+		$( '.tribe-dependent:not(.tribe-dependency)' ).dependency();
+
+		my.toggle_rule( $rule, 'open' );
 	};
 
 	/**
@@ -844,26 +931,11 @@ tribe_events_pro_admin.recurrence = {
 	};
 
 	/**
-	 * Handles when a recurrence custom type changes
-	 */
-	my.event.recurrence_custom_type_changed = function() {
-		var $el = $( this );
-		var $rule = $el.closest( '.tribe-event-recurrence' );
-
-		if ( $rule.is( '.tribe-event-recurrence-exclusion' ) ) {
-			$rule.addClass( 'tribe-open' );
-		}
-
-		my.adjust_rule_helper_text( $rule );
-		my.set_recurrence_data_attributes( $rule );
-	};
-
-	/**
 	 * When a recurrence row changes, make sure the recurrence changed row is displayed
 	 */
 	my.event.recurrence_changed = function() {
 		var $el = $( this );
-		var $rule = $el.closest( '.tribe-event-recurrence' );
+		var $rule = $el.closest( '.tribe-event-recurrence, .tribe-event-exclusion' );
 		$rule.attr( 'data-recurrence-changed', 'yes' );
 		my.toggle_rule( $rule, 'open' );
 	};
@@ -908,10 +980,6 @@ tribe_events_pro_admin.recurrence = {
 	my.event.datepicker_end_date_changed = function() {
 		$( this ).removeClass( 'placeholder' );
 
-		/**
-		 * DEPRECATED: recurrenceEndChanged has been deprecated in 4.0. Use recurrence-end-changed.tribe instead
-		 */
-		$( this ).trigger( 'recurrenceEndChanged' );
 		$( this ).trigger( 'recurrence-end-changed.tribe' );
 	};
 
@@ -924,27 +992,24 @@ tribe_events_pro_admin.recurrence = {
 	};
 
 	/**
-	 * handles when the "Same Time" checkbox is toggled
+	 * handles when the "Same Time" select box is toggled
 	 */
 	my.event.same_time_changed = function() {
-		if ( 'undefined' !== typeof my.updating_same_time_checked && true === my.updating_same_time_checked ) {
-			return;
-		}
-
 		var $el = $( this );
-		var $rule = $el.closest( '.tribe-event-recurrence' );
-
-		my.updating_same_time_checked = true;
-
-		if ( $el.filter( ':checked' ).length ) {
-			$rule.find( '.tribe-custom-same-time input' ).prop( 'checked', true );
-		} else {
-			$rule.find( '.tribe-custom-same-time input' ).prop( 'checked', false );
-		}
-
-		my.updating_same_time_checked = false;
+		var $rule = $el.closest( '.tribe-event-recurrence, .tribe-event-exclusion' );
 
 		my.set_recurrence_data_attributes( $rule );
+	};
+
+	/**
+	 * Handles when Week Days changed
+	 */
+	my.event.weekdays_changed = function() {
+		var $el = $( this );
+		var $rule = $el.closest( '.tribe-event-recurrence, .tribe-event-exclusion' );
+
+		my.set_recurrence_data_attributes( $rule );
+		my.update_rule_recurrence_text( $rule );
 	};
 
 	/**
@@ -953,7 +1018,112 @@ tribe_events_pro_admin.recurrence = {
 	my.event.toggle_rule = function() {
 		var $el = $( this );
 
-		my.toggle_rule( $el.closest( '.tribe-event-recurrence' ) );
+		my.toggle_rule( $el.closest( '.tribe-event-recurrence, .tribe-event-exclusion' ) );
+	};
+
+	my.event.delete_rule = function ( event ) {
+		event.preventDefault();
+
+		var $this = $( this ),
+			$rule = $this.closest( '.tribe-event-recurrence, .tribe-event-exclusion' ),
+			delete_text = tribe_events_pro_recurrence_strings.recurrence['delete-confirm'],
+			cancel_text = tribe_events_pro_recurrence_strings.recurrence['delete-cancel'],
+			buttons = {
+				'delete': {
+					text: delete_text,
+					click: function () {
+						$( this ).dialog( 'close' );
+						$rule.fadeOut( 500, function () {
+							$rule.remove();
+							tribe_events_pro_admin.recurrence.update_recurrence_text();
+						} );
+					}
+				},
+				'cancel': {
+					text: cancel_text,
+					click: function () {
+						my.event.close_delete_confirmation_dialog( $( this ) );
+					}
+				}
+			},
+			$dialog = $( '#tribe-row-delete-dialog' );
+
+		if ( $rule.is( '.tribe-event-recurrence' ) ) {
+			$dialog.addClass( 'rule-dialog' ).removeClass( 'exclusion-dialog' );
+		} else {
+			$dialog.addClass( 'exclusion-dialog' ).removeClass( 'rule-dialog' );
+		}
+
+		// if there's a dialog that is already open, close it before opening a new one
+		if ( $( '.delete-dialog-open' ).length ) {
+			my.event.close_delete_confirmation_dialog( $dialog );
+		}
+
+		$dialog.dialog( {
+			dialogClass: 'tribe-row-delete-dialog',
+			closeOnEscape: true,
+			resizable: false,
+			height: $rule[0].offsetHeight,
+			width: $rule[0].offsetWidth,
+			buttons: buttons,
+			position: { my: 'center', at: 'center', of: $rule },
+			open: function () {
+				var $dialog = $( '.tribe-row-delete-dialog' );
+				var $buttons = $dialog.find( '.ui-dialog-buttonset button' );
+				var $content = $dialog.find( '.ui-dialog-content' );
+
+				$rule.fadeTo( 100, 0.1 );
+
+				// make sure the content area is sized appropriately so we don't take up too much space
+				$content.css( {
+					'height': 'auto',
+					'min-height': '1.5rem'
+				} );
+
+				// set our own button classes to replace the default ones
+				$( $buttons[0] ).removeClass().addClass( 'button button-red' );
+				$( $buttons[1] ).removeClass().addClass( 'button button-secondary' );
+
+				// track the a delete dialog has been opened
+				$rule.addClass( 'delete-dialog-open' );
+
+				// make sure the dialogs close when clicked off of the dialog or if the window resizes
+				$( 'body' ).on( 'click', my.event.close_dialogs );
+				$( window ).on( 'resize', my.event.close_dialogs );
+			},
+			close: function() {
+				// remove our tracking class
+				$rule.removeClass( 'delete-dialog-open' );
+
+				// fade the rule back to 100% opacity
+				$rule.fadeTo( 100, 1 );
+
+				// remove the click/resize events that cause dialogs to close
+				$( 'body' ).off( 'click', my.event.close_dialogs );
+				$( window ).off( 'resize', my.event.close_dialogs );
+			}
+		} );
+	};
+
+	my.event.close_delete_confirmation_dialog = function ( $dialog ) {
+		if ( $dialog && $dialog.dialog( 'isOpen' ) ) {
+			$dialog.dialog( 'close' );
+		}
+	};
+
+	my.event.close_dialogs = function ( ev ) {
+		var $dialog = $( '#tribe-row-delete-dialog' );
+		if (
+			$dialog.length
+			&& $dialog.dialog( 'isOpen' )
+			&& ! $( ev.target ).is( '.ui-dialog, a' )
+			&& ! $( ev.target ).closest( '.ui-dialog' ).length
+		) {
+			ev.preventDefault();
+			ev.stopPropagation();
+
+			my.event.close_delete_confirmation_dialog( $dialog );
+		}
 	};
 
 	$( function() {

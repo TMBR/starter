@@ -56,6 +56,8 @@ class Tribe__Events__Pro__Single_Event_Meta {
 	 * @return string The custom description.
 	 */
 	public static function custom_recurrence_description( $meta_id ) {
+		_deprecated_function( __METHOD__, '4.3' );
+
 		global $_tribe_meta_factory;
 		$post_id                = get_the_ID();
 		$recurrence_meta        = Tribe__Events__Pro__Recurrence__Meta::getRecurrenceMeta( $post_id );
@@ -79,6 +81,8 @@ class Tribe__Events__Pro__Single_Event_Meta {
 	 * @return string The modified/linked venue name.
 	 */
 	public static function venue_name( $html, $meta_id ) {
+		_deprecated_function( __METHOD__, '4.3' );
+
 		global $_tribe_meta_factory;
 		$post_id = get_the_ID();
 		$name    = tribe_get_venue( $post_id );
@@ -102,6 +106,8 @@ class Tribe__Events__Pro__Single_Event_Meta {
 	 * @return string The modified/linked organizer name.
 	 */
 	public static function organizer_name( $html, $meta_id ) {
+		_deprecated_function( __METHOD__, '4.3' );
+
 		global $_tribe_meta_factory;
 		$post_id = get_the_ID();
 		$name    = tribe_get_organizer_link( $post_id, true );
@@ -123,7 +129,8 @@ class Tribe__Events__Pro__Single_Event_Meta {
 	 * @return string The custom meta.
 	 */
 	public static function custom_meta( $meta_id ) {
-		global $_tribe_meta_factory;
+		_deprecated_function( __METHOD__, '4.3' );
+
 		$fields      = tribe_get_custom_fields( get_the_ID() );
 		$custom_meta = '';
 		foreach ( $fields as $label => $value ) {
@@ -136,50 +143,3 @@ class Tribe__Events__Pro__Single_Event_Meta {
 		return apply_filters( 'tribe_event_pro_meta_custom_meta', $custom_meta );
 	}
 }
-
-/**
- * Register Meta Group: Event Custom Meta
- *
- * @todo remove in 3.7
- */
-tribe_register_meta_group( 'tribe_event_group_custom_meta', array(
-	'label'   => __( 'Other', 'tribe-events-calendar-pro' ),
-	'classes' => array(
-		'before'       => array( 'tribe-events-meta-group tribe-events-meta-group-other' ),
-		'label_before' => array( 'tribe-events-single-section-title' )
-	)
-) );
-
-/**
- * Register Meta: Event Custom Meta
- *
- * @todo  remove in 3.7
- * @group tribe_event_custom_meta
- */
-tribe_register_meta( 'tribe_event_custom_meta', array(
-	'label'           => '',
-	'priority'        => 60,
-	'filter_callback' => array( 'Tribe__Events__Pro__Single_Event_Meta', 'custom_meta' ),
-	'group'           => 'tribe_event_group_custom_meta',
-) );
-
-/**
- * Register Meta: Event Recurrence Description
- *
- * @todo  remove in 3.7
- * @group tribe_event_custom_meta
- */
-tribe_register_meta( 'tribe_event_custom_recurrence_description', array(
-	'label'           => __( 'Recurrence Pattern:', 'tribe-events-calendar-pro' ),
-	'priority'        => 15,
-	'wrap'            => array(
-		'before'       => '',
-		'after'        => '',
-		'label_before' => '<dt>',
-		'label_after'  => '</dt>',
-		'meta_before'  => '<dd class="%s">',
-		'meta_after'   => '</dd>',
-	),
-	'filter_callback' => array( 'Tribe__Events__Pro__Single_Event_Meta', 'custom_recurrence_description' ),
-	'group'           => 'tribe_event_details',
-) );

@@ -318,6 +318,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 					'eventDisplay' => 'month',
 					'eventDate'    => $_POST['eventDate'],
 					'post_status'  => $post_status,
+					'featured'     => tribe( 'tec.featured_events' )->featured_events_requested(),
 				);
 			}
 
@@ -584,6 +585,10 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 
 					$event_start = strtotime( tribe_get_start_date( $event->ID, true, Tribe__Date_Utils::DBDATETIMEFORMAT ) );
 					$event_end   = strtotime( tribe_get_end_date( $event->ID, true, Tribe__Date_Utils::DBDATETIMEFORMAT ) );
+					$order = get_post_field( 'menu_order', $event->ID );
+
+					// Builds the Index to allow a better ordering of events
+					$order_index = $order . ':' . $event_start . ':' . $event->ID;
 
 					$start = date( 'Y-m-d', $event_start );
 					$end = date( 'Y-m-d', $event_end );
@@ -648,7 +653,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 								$this->event_ids_by_day[ $new_start ] = array();
 							}
 
-							$this->event_ids_by_day[ $new_start ][] = $event->ID;
+							$this->event_ids_by_day[ $new_start ][ $order_index ] = $event->ID;
 
 							$new_start = date( 'Y-m-d', strtotime( '+1 day', strtotime( $new_start ) ) );
 						}
@@ -658,14 +663,14 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 							$this->event_ids_by_day[ $start ] = array();
 						}
 
-						$this->event_ids_by_day[ $start ][] = $event->ID;
+						$this->event_ids_by_day[ $start ][ $order_index ] = $event->ID;
 					}
 				}
 
 				// Now that we've built our event_ids_by_day, let's array_unique and sort
 				foreach ( $this->event_ids_by_day as &$day ) {
 					$day = array_unique( $day );
-					sort( $day );
+					ksort( $day );
 				}
 			}
 
@@ -712,11 +717,9 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 					'update_post_meta_cache' => false,
 					'no_found_rows'          => false,
 					'do_not_inject_date'     => true,
-					'meta_key'               => '_EventStartDate',
-					'orderby'                => array(
-						'menu_order' => 'ASC',
-						'meta_value' => 'ASC',
-					),
+
+					// Don't replace `orderby` without taking in cosideration `menu_order`
+					'orderby'                => 'post__in',
 				), $this->args
 			);
 
@@ -1032,8 +1035,9 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 
 			$post = $day['events']->post;
 
-			// Get our wrapper classes (for event categories, organizer, venue, and defaults)
-			$classes         = array();
+			// @todo review whether the erasure of any existing classes is generally desirable
+			$classes = array();
+
 			$tribe_cat_slugs = tribe_get_event_cat_slugs( $post->ID );
 			foreach ( $tribe_cat_slugs as $tribe_cat_slug ) {
 				$classes[] = 'tribe-events-category-' . $tribe_cat_slug;
@@ -1048,6 +1052,11 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 
 			if ( $day['events']->current_post + 1 == $day['events']->post_count ) {
 				$classes[] = 'tribe-events-last';
+			}
+
+			// Mark 'featured' events
+			if ( tribe( 'tec.featured_events' )->is_featured( $post->ID ) ) {
+				$classes[] = 'tribe-event-featured';
 			}
 
 			return $classes;

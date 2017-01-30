@@ -67,29 +67,34 @@ class Tribe__Events__Pro__Recurrence {
 	 */
 	public function getDates() {
 		$this->last_request_constrained = false;
+
 		if ( $this->series_rules && ! is_wp_error( $this->series_rules ) ) {
 			$dates    = array();
 			$cur_date = $this->start_date;
 
 			$i = 0;
 			while ( $cur_date = $this->getNextDate( $cur_date ) ) {
-				$i ++;
+				$i++;
 
 				if ( $cur_date > $this->maxDate ) {
 					$this->last_request_constrained = $cur_date;
 					break; // no more dates will be in range. stop here
 				}
+
 				if ( $cur_date < $this->minDate ) {
 					continue; // move forward until we find a date within range
 				}
+
 				if ( $this->afterSeries( $this->by_occurrence_count ? $i : $cur_date ) ) {
 					break; // end of the series
 				}
 
-				$dates[] = array(
+				$dates[] = $date = array(
 					'timestamp' => $this->adjust_start_time( $cur_date ),
 					'duration'  => $this->duration,
 				);
+
+				$cur_date = $date['timestamp'];
 			}
 
 			return $dates;
@@ -117,11 +122,13 @@ class Tribe__Events__Pro__Recurrence {
 	 */
 	private function getNextDate( $current_date ) {
 		$next_date = $this->series_rules->getNextDate( $current_date );
+
 		if ( intval( $next_date ) < $current_date ) { // bit overflow
 			return false;
 		}
+
 		// Makes sure to assign the proper hours to the date.
-		$next_date     = mktime( date( 'H', $this->start_date ), date( 'i', $this->start_date ), date( 's', $this->start_date ), date( 'n', $next_date ), date( 'j', $next_date ), date( 'Y', $next_date ) );
+		$next_date = mktime( date( 'H', $this->start_date ), date( 'i', $this->start_date ), date( 's', $this->start_date ), date( 'n', $next_date ), date( 'j', $next_date ), date( 'Y', $next_date ) );
 
 		return $next_date;
 	}

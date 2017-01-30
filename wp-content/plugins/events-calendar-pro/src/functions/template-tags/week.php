@@ -216,8 +216,10 @@ if ( class_exists( 'Tribe__Events__Pro__Main' ) ) {
 	 */
 	function tribe_events_week_next_link( $text = '' ) {
 		try {
-			$date = date( Tribe__Date_Utils::DBDATEFORMAT, strtotime( tribe_get_first_week_day() . ' +1 week' ) );
-			if ( $date >= tribe_events_latest_date( Tribe__Date_Utils::DBDATEFORMAT ) ) {
+			$start_of_next_week = date( Tribe__Date_Utils::DBDATEFORMAT, strtotime( tribe_get_first_week_day() . ' +1 week' ) );
+			$last_known_event = tribe_events_latest_date( Tribe__Date_Utils::DBDATEFORMAT );
+
+			if ( $last_known_event < $start_of_next_week ) {
 				return '';
 			}
 

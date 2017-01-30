@@ -37,7 +37,7 @@ class Tribe__Events__Pro__Recurrence__Events_Saver {
 	/**
 	 * Do the actual work of saving a recurring series of events
 	 *
-	 * @return void
+	 * @return bool
 	 */
 	public function save_events() {
 		$existing_instances = Tribe__Events__Pro__Recurrence__Children_Events::instance()->get_ids( $this->event_id );
@@ -75,6 +75,7 @@ class Tribe__Events__Pro__Recurrence__Events_Saver {
 
 			$recurrence->setMinDate( $earliest_date );
 			$recurrence->setMaxDate( $latest_date );
+
 			$exclusions = array_merge( $exclusions, $recurrence->getDates() );
 		}
 
@@ -84,9 +85,9 @@ class Tribe__Events__Pro__Recurrence__Events_Saver {
 
 		if ( $possible_next_pending ) {
 			update_post_meta(
-				$this->event_id, '_EventNextPendingRecurrence', date(
-				Tribe__Events__Pro__Date_Series_Rules__Rules_Interface::DATE_FORMAT, min( $possible_next_pending )
-			)
+				$this->event_id,
+				'_EventNextPendingRecurrence',
+				date( Tribe__Events__Pro__Date_Series_Rules__Rules_Interface::DATE_FORMAT, min( $possible_next_pending ) )
 			);
 		}
 
@@ -96,13 +97,14 @@ class Tribe__Events__Pro__Recurrence__Events_Saver {
 			$duration   = $end_date - $start_date;
 
 			$existing_date_duration = array(
-				'timestamp' => $start_date, 'duration' => $duration,
+				'timestamp' => $start_date,
+				'duration' => $duration,
 			);
 
 			$found              = array_search( $existing_date_duration, $to_create );
 			$should_be_excluded = in_array( $existing_date_duration, $exclusions );
 
-			if ( $found === false || false !== $should_be_excluded ) {
+			if ( false === $found || false !== $should_be_excluded ) {
 				$to_delete[ $instance ] = $existing_date_duration;
 			} else {
 				$to_update[ $instance ] = $to_create[ $found ];
@@ -116,6 +118,8 @@ class Tribe__Events__Pro__Recurrence__Events_Saver {
 
 		// ...but don't wait around, process a small initial batch right away
 		Tribe__Events__Pro__Main::instance()->queue_processor->process_batch( $this->event_id );
+
+		return true;
 	}
 
 	/**

@@ -6,7 +6,7 @@ var tribe_events_pro_admin = {
 	my.init = function() {
 		this.init_settings();
 		// Admin Google Maps Preview
-		// @todo - check if this is still used anywhere, i don't think it is. 
+		// @todo - check if this is still used anywhere, i don't think it is.
 		// this file is only enqueued on admin pages, these divs are not in the admin
 		$( '#event_venue input, #event_venue select' ).change( function() {
 

@@ -537,8 +537,8 @@ function LoadFieldSettings(){
     jQuery("#field_default_value_textarea").val(field.defaultValue == undefined ? "" : field.defaultValue);
     jQuery("#field_description").val(field.description == undefined ? "" : field.description);
     jQuery("#field_css_class").val(field.cssClass == undefined ? "" : field.cssClass);
-    jQuery("#field_range_min").val(field.rangeMin);
-    jQuery("#field_range_max").val(field.rangeMax);
+    jQuery("#field_range_min").val( field.rangeMin == undefined || field.rangeMin == false ? "" : field.rangeMin);
+    jQuery("#field_range_max").val(field.rangeMax == undefined  || field.rangeMax == false? "" : field.rangeMax);
     jQuery("#field_name_format").val(field.nameFormat);
     jQuery('#field_force_ssl').prop('checked', field.forceSSL ? true : false);
     jQuery('#credit_card_style').val(field.creditCardStyle ? field.creditCardStyle : "style1");
@@ -573,11 +573,8 @@ function LoadFieldSettings(){
         jQuery('#field_description_placement_container').show();
     }
 
-    if(field.adminOnly){
-        jQuery("#field_visibility_admin").prop("checked", true);
-    } else {
-        jQuery("#field_visibility_everyone").prop("checked", true);
-    }
+    // field.adminOnly is the old property which stored the visibility setting; only reference if field.visibility is not set
+    SetFieldVisibility( field.visibility, true );
 
     if(typeof field.placeholder == 'undefined'){
         field.placeholder = '';
@@ -1797,7 +1794,7 @@ function StartDeleteField(element){
 function HasConditionalLogicDependencyLegwork(fieldId, value) {
 
     // check form button conditional logic
-    if( ObjectHasConditionalLogicDependency(form.button, fieldId, value) )
+    if(form.button && ObjectHasConditionalLogicDependency(form.button, fieldId, value) )
         return true;
 
     // check confirmations conditional logic
@@ -3278,26 +3275,34 @@ function SetFieldSubLabelPlacement(subLabelPlacement){
     RefreshSelectedFieldPreview();
 }
 
-function SetFieldAdminOnly( isAdminOnly ) {
+function SetFieldVisibility( visibility, handleInputs, isInit ) {
 
-    var setProp = true;
-
-    if( isAdminOnly && HasConditionalLogicDependency( field.id ) ) {
+    if (!isInit && visibility == 'administrative' && HasConditionalLogicDependency(field.id)) {
         if( ! confirm( gf_vars.conditionalLogicDependencyAdminOnly ) ) {
-            setProp = false;
+            return false;
         }
     }
 
-    if( setProp ) {
-        SetFieldProperty( 'adminOnly', isAdminOnly );
-        if( isAdminOnly ) {
-            jQuery( '.field_selected' ).addClass( 'field_admin_only' );
-        } else {
-            jQuery( '.field_selected' ).removeClass( 'field_admin_only' );
+    var isWhitelisted = false;
+    for( var i = 0; i < gf_vars.visibilityOptions.length; i++ ) {
+        if( gf_vars.visibilityOptions[i].value == visibility ) {
+            isWhitelisted = true;
+            break;
         }
     }
 
-    return setProp;
+    if( ! isWhitelisted ) {
+        visibility = 'visible';
+    }
+
+    SetFieldProperty( 'visibility', visibility );
+
+    if( handleInputs ) {
+        var $inputs = jQuery( 'input[name="field_visibility"]' );
+        $inputs.prop( 'checked', false );
+        $inputs.filter( '[value="' + visibility + '"]' ).prop( 'checked', true );
+    }
+
 }
 
 function SetFieldDefaultValue(defaultValue){
@@ -3646,7 +3651,7 @@ jQuery.fn.gfSlide = function(direction) {
  */
 gform.addFilter( 'gform_is_conditional_logic_field', function( isConditionalLogicField, field ) {
 
-    if( field.adminOnly ) {
+    if( field.visibility == 'administrative' ) {
         isConditionalLogicField = false;
     } else if( field.id == GetSelectedField().id ) {
         isConditionalLogicField = false;

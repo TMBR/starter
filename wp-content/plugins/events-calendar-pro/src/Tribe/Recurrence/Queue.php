@@ -22,7 +22,7 @@ class Tribe__Events__Pro__Recurrence__Queue {
 	protected $to_delete  = array();
 	protected $to_exclude = array();
 	protected $job_total  = 0;
-
+	protected $process;
 
 	/**
 	 * @param  int $event_id
@@ -30,6 +30,7 @@ class Tribe__Events__Pro__Recurrence__Queue {
 	 */
 	public function __construct( $event_id ) {
 		if ( $this->get_event( $event_id ) ) {
+			$this->process = uniqid( spl_object_hash( $this ) );
 			$this->load_queue();
 		}
 	}
@@ -201,14 +202,21 @@ class Tribe__Events__Pro__Recurrence__Queue {
 	 * execution hangs half way through the processing of a batch.
 	 */
 	public function set_in_progress_flag() {
-		set_transient( self::IN_PROGRESS . $this->event->ID, true, HOUR_IN_SECONDS );
+		set_transient( self::IN_PROGRESS . $this->event->ID, $this->process, HOUR_IN_SECONDS );
 	}
 
 	/**
-	 * Clears the in progress flag.
+	 * Clears the in progress flag, but only if it is owned by this process.
+	 *
+	 * @return bool
 	 */
 	public function clear_in_progress_flag() {
-		delete_transient( self::IN_PROGRESS . $this->event->ID );
+		if ( $this->have_ownership_of_job() ) {
+			delete_transient( self::IN_PROGRESS . $this->event->ID );
+			return true;
+		}
+
+		return false;
 	}
 
 	/**
@@ -217,7 +225,15 @@ class Tribe__Events__Pro__Recurrence__Queue {
 	 * @return bool
 	 */
 	public function is_in_progress() {
-		return (bool) get_transient( self::IN_PROGRESS );
+		return (bool) get_transient( self::IN_PROGRESS . $this->event->ID );
+	}
+
+	/**
+	 * Indicates if the queue for the current event is actively being processed
+	 * and that ownership sits with the current request/process.
+	 */
+	public function have_ownership_of_job() {
+		return $this->process === get_transient( self::IN_PROGRESS . $this->event->ID );
 	}
 
 	/**

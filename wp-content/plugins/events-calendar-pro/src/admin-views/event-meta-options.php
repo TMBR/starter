@@ -44,7 +44,12 @@
 				<input type="text" name="custom-field[<?php echo esc_attr( $index ); ?>]" data-persisted='<?php echo $count != count( $field ) ? 'yes' : 'no' ?>' data-name-template='custom-field' data-count='<?php echo esc_attr( $count ) ?>' value="<?php echo isset( $field['label'] ) ? esc_attr( stripslashes( $field['label'] ) ) : ''; ?>" />
 			</td>
 			<td>
-				<select name="custom-field-type[<?php echo esc_attr( $index ); ?>]" data-name-template='custom-field-type' data-count='<?php echo esc_attr( $count ); ?>'>
+				<select
+					class="tribe-dropdown tribe-custom-field-type"
+					name="custom-field-type[<?php echo esc_attr( $index ); ?>]"
+					data-name-template='custom-field-type'
+					data-count='<?php echo esc_attr( $count ); ?>'
+				>
 					<option value="text" <?php selected( isset( $field['type'] ) && $field['type'] == 'text' ) ?>><?php esc_html_e( 'Text', 'tribe-events-calendar-pro' ) ?></option>
 					<option value="textarea" <?php selected( isset( $field['type'] ) && $field['type'] == 'textarea' ) ?>><?php esc_html_e( 'Text Area', 'tribe-events-calendar-pro' ) ?></option>
 					<option value="url" <?php selected( isset( $field['type'] ) && $field['type'] == 'url' ) ?>><?php esc_html_e( 'URL', 'tribe-events-calendar-pro' ) ?></option>
@@ -123,20 +128,32 @@
 				}
 			});
 
-			$('#additional-field-table').delegate('.add-another-field', 'click', function () {
-				var lastRow = tbl_body.find('tr:last'), newRow = lastRow.clone();
+			$( '#additional-field-table' ).delegate( '.add-another-field', 'click', function () {
+				var lastRow = tbl_body.find( 'tr:last' ),
+					newRow = lastRow.clone();
 
-				lastRow.find('td:last').html(lastRow.prev().find('td:last').html());
-				newRow.find('input, select, textarea').each(function () {
-					var input = $(this), number = parseInt(input.data('count')) + 1;
-					input.attr('name', input.data('name-template') + '[]');
-					input.val('');
-					input.attr('data-count', number);
-				});
+				lastRow.find( 'td:last' ).html( lastRow.prev().find( 'td:last' ).html() );
 
-				tbl_body.append(newRow);
+				newRow.find( 'input, select, textarea' ).each( function () {
+					var $input = $( this ),
+						number = parseInt( $input.data( 'count' ), 10 ) + 1;
+
+					$input
+						.attr( 'name', $input.data( 'name-template' ) + '[]' )
+						.val( '' )
+						.attr( 'data-count', number );
+				} );
+
+				newRow.find( '.tribe-custom-field-type' ).val( 'text' );
+
+				newRow
+					.find( '.tribe-dropdown' ).show()
+					.filter( '.select2-container' ).remove()
+					.end().tribe_dropdowns();
+
+				tbl_body.append( newRow );
 				refresh_add_remove_links()
-			});
+			} );
 
 			$('#additional-field-table').delegate('select', 'change', function () {
 				var fieldType = $(this).find("option:selected").val();

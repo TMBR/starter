@@ -10,7 +10,8 @@ $events_label_singular = tribe_get_event_label_singular();
 	<tbody>
 	<tr>
 		<td colspan="2" class="tribe_sectionheader">
-			<h4><?php esc_html_e( sprintf( __( 'Additional %s Fields', 'tribe-events-calendar-pro' ), $events_label_singular ) ); ?></h4></td>
+			<h4><?php esc_html_e( sprintf( __( 'Additional %s Fields', 'tribe-events-calendar-pro' ), $events_label_singular ) ); ?></h4>
+		</td>
 	</tr>
 	<?php foreach ( $customFields as $customField ): ?>
 		<?php $val = get_post_meta( get_the_ID(), $customField['name'], true ) ?>
@@ -39,7 +40,7 @@ $events_label_singular = tribe_get_event_label_singular();
 							</label></div>
 					<?php endforeach ?>
 				<?php elseif ( 'dropdown' === $customField['type'] ): ?>
-					<select name="<?php echo esc_attr( $customField['name'] ) ?>">
+					<select name="<?php echo esc_attr( $customField['name'] ) ?>" class="tribe-dropdown">
 						<option value="" <?php selected( trim( $val ), '' ) ?>><?php esc_html_e( 'None', 'tribe-events-calendar-pro' ); ?></option>
 						<?php $options = explode( "\r\n", $customField['values'] ) ?>
 						<?php foreach ( $options as $option ): ?>

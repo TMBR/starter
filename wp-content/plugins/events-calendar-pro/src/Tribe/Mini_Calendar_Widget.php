@@ -9,18 +9,6 @@ class Tribe__Events__Pro__Mini_Calendar_Widget extends WP_Widget {
 		);
 
 		parent::__construct( 'tribe-mini-calendar', __( 'Events Calendar', 'tribe-events-calendar-pro' ), $widget_ops );
-
-		add_action( 'admin_enqueue_scripts', array( $this, 'load_scripts' ) );
-	}
-
-	public function load_scripts( $hook ) {
-
-		if ( $hook != 'widgets.php' ) {
-			return;
-		}
-
-		Tribe__Events__Template_Factory::asset_package( 'select2' );
-		wp_enqueue_script( 'calendar-widget-admin', tribe_events_pro_resource_url( 'calendar-widget-admin.js' ), array(), apply_filters( 'tribe_events_pro_js_version', Tribe__Events__Pro__Main::VERSION ) );
 	}
 
 	public function widget( $args, $instance ) {
@@ -50,6 +38,7 @@ class Tribe__Events__Pro__Mini_Calendar_Widget extends WP_Widget {
 		do_action( 'tribe_events_mini_cal_after_the_title' );
 
 		$instance['tax_query'] = $tax_query;
+		$instance['id_base'] = $this->id_base;
 
 		Tribe__Events__Pro__Mini_Calendar::instance()->do_calendar( $instance );
 
@@ -69,6 +58,12 @@ class Tribe__Events__Pro__Mini_Calendar_Widget extends WP_Widget {
 		$instance['count']   = intval( strip_tags( $new_instance['count'] ) );
 		$instance['operand'] = strip_tags( $new_instance['operand'] );
 		$instance['filters'] = maybe_unserialize( $new_instance['filters'] );
+
+		if ( isset( $new_instance['jsonld_enable'] ) && $new_instance['jsonld_enable'] == true ) {
+			$instance['jsonld_enable'] = 1;
+		} else {
+			$instance['jsonld_enable'] = 0;
+		}
 
 		return $instance;
 	}

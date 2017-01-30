@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	</p>
 	<p>
 		<label for="<?php echo esc_attr( $this->get_field_id( 'count' ) ); ?>"><?php esc_html_e( 'Venue:', 'tribe-events-calendar-pro' ); ?></label>
-		<select class="chosen venue-dropdown" id="<?php echo esc_attr( $this->get_field_id( 'venue_ID' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'venue_ID' ) ); ?>" value="<?php echo esc_attr( $instance['venue_ID'] ); ?>">
+		<select class="venue-dropdown" id="<?php echo esc_attr( $this->get_field_id( 'venue_ID' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'venue_ID' ) ); ?>" value="<?php echo esc_attr( $instance['venue_ID'] ); ?>">
 			<?php
 			foreach ( $venues as $venue ) {
 				?>
@@ -33,7 +33,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</select>
 	</p>
 	<p>
-		<label for="<?php echo esc_attr( $this->get_field_id( 'hide_if_empty' ) ); ?>"><?php esc_html_e( 'Hide this widget if there are no upcoming events:', 'tribe-events-calendar-pro' ); ?></label>
 		<input class="checkbox" type="checkbox" value="1" <?php checked( $instance['hide_if_empty'], true ); ?> id="<?php echo esc_attr( $this->get_field_id( 'hide_if_empty' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'hide_if_empty' ) ); ?>" />
+		<label for="<?php echo esc_attr( $this->get_field_id( 'hide_if_empty' ) ); ?>"><?php esc_html_e( 'Hide this widget if there are no upcoming events:', 'tribe-events-calendar-pro' ); ?></label>
+	</p>
+	<p>
+		<?php $jsonld_enable = ( isset( $instance['jsonld_enable'] ) && $instance['jsonld_enable'] ) || false === $this->updated; ?>
+		<input class="checkbox" type="checkbox" value="1" <?php checked( $jsonld_enable, '1' ); ?>
+		       id="<?php echo esc_attr( $this->get_field_id( 'jsonld_enable' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'jsonld_enable' ) ); ?>"/>
+		<label for="<?php echo esc_attr( $this->get_field_id( 'jsonld_enable' ) ); ?>"><?php esc_html_e( 'Generate JSON-LD data', 'the-events-calendar-pro' ); ?></label>
 	</p>
 </div>
+

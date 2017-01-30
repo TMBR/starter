@@ -55,16 +55,22 @@ class Tribe__Events__Pro__Recurrence__Exclusions {
 		$date_default_timezone = date_default_timezone_get();
 
 		$timezone_identifier = $this->timezone_string;
-		$timezone_slip       = 0;
 
 		$matches = array();
 		preg_match( '/^UTC(\\+|-)+(\\d+)+(\\.(\\d+)*)*/', $this->timezone_string, $matches );
 		if ( $matches ) {
-			$timezone_identifier = 'UTC';
-			$signum              = $matches[1];
-			$hrs                 = intval( $matches[2] ) * 3600;
-			$minutes             = floatval( empty( $matches[3] ) ? 0 : $matches[3] ) * 3600;
-			$timezone_slip       = intval( $signum . ( $hrs + $minutes ) );
+			$signum             = $matches[1];
+			$hrs_in_seconds     = intval( $matches[2] ) * 3600;
+			$minutes_in_seconds = floatval( empty( $matches[3] ) ? 0 : $matches[3] ) * 60;
+
+			$seconds = $hrs_in_seconds + $minutes_in_seconds;
+			$seconds = $signum == '+' ? $seconds : - $seconds;
+			// Get timezone name from seconds
+			$timezone_identifier = timezone_name_from_abbr( '', $seconds, 1 );
+			// Workaround for bug #44780
+			if ( $timezone_identifier === false ) {
+				$timezone_identifier = timezone_name_from_abbr( '', $seconds, 0 );
+			}
 		}
 
 		date_default_timezone_set( $timezone_identifier );
@@ -75,7 +81,7 @@ class Tribe__Events__Pro__Recurrence__Exclusions {
 		$almost_one_day = 86399;
 
 		foreach ( $exclusion_dates as $exclusion ) {
-			$start                  = strtotime( 'midnight', $exclusion['timestamp'] ) + $timezone_slip;
+			$start                  = strtotime( 'midnight', $exclusion['timestamp'] );
 			$exclusion_timestamps[] = array(
 				'start' => $start,
 				'end'   => $start + $almost_one_day,

@@ -51,7 +51,7 @@ $defaultsTab = array(
 			'html' => '<h3>' . __( 'Organizer', 'tribe-events-calendar-pro' ) . '</h3>',
 		),
 		'eventsDefaultOrganizerID'          => array(
-			'type'            => 'dropdown_chosen',
+			'type'            => 'dropdown',
 			'label'           => __( 'Default organizer', 'tribe-events-calendar-pro' ),
 			'default'         => false,
 			'validation_type' => 'options',
@@ -68,7 +68,7 @@ $defaultsTab = array(
 			'html' => '<h3>' . __( 'Venue', 'tribe-events-calendar-pro' ) . '</h3>',
 		),
 		'eventsDefaultVenueID'              => array(
-			'type'            => 'dropdown_chosen',
+			'type'            => 'dropdown',
 			'label'           => __( 'Default venue', 'tribe-events-calendar-pro' ),
 			'default'         => false,
 			'validation_type' => 'options',
@@ -115,7 +115,7 @@ $defaultsTab = array(
 			'display_callback' => 'tribe_display_saved_city',
 		),
 		'eventsDefaultState'                => array(
-			'type'            => 'dropdown_chosen',
+			'type'            => 'dropdown',
 			'label'           => __( 'Default state', 'tribe-events-calendar-pro' ),
 			'default'         => false,
 			'class'           => 'venue-default-info',
@@ -154,7 +154,7 @@ $defaultsTab = array(
 			'display_callback' => 'tribe_display_saved_zip',
 		),
 		'defaultCountry'                    => array(
-			'type'            => 'dropdown_chosen',
+			'type'            => 'dropdown',
 			'label'           => __( 'Default country', 'tribe-events-calendar-pro' ),
 			'default'         => false,
 			'class'           => 'venue-default-info',

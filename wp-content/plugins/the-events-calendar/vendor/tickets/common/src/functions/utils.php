@@ -38,23 +38,28 @@ if ( ! function_exists( 'tribe_register_plugin' ) ) {
 	 * @return bool Indicates if plugin should continue initialization
 	 */
 	function tribe_register_plugin( $file_path, $main_class, $version, $classes_req = array() ) {
-		$tribe_plugins = Tribe__Dependency::instance();
+		$tribe_dependency = Tribe__Dependency::instance();
+		$should_plugin_run = true;
 
-		if ( $tribe_plugins->has_requisite_plugins( $classes_req ) ) {
-			$tribe_plugins->add_active_plugin( $main_class, $version, $file_path );
+		// Checks to see if the plugins are active
+		if ( ! empty( $classes_req ) && ! $tribe_dependency->has_requisite_plugins( $classes_req ) ) {
+			$should_plugin_run = false;
 
-			return true;
-		} elseif ( is_admin() ) {
 			$tribe_plugins = new Tribe__Plugins();
-			$admin_notice  = new Tribe__Plugin_Download_Notice( $file_path );
+			$admin_notice  = new Tribe__Admin__Notice__Plugin_Download( $file_path );
 
 			foreach ( $classes_req as $class => $version ) {
-				$plugin = $tribe_plugins->get_plugin_by_class( $class );
-				$admin_notice->add_required_plugin( $plugin['short_name'], $plugin['thickbox_url'] );
+				$plugin    = $tribe_plugins->get_plugin_by_class( $class );
+				$is_active = $tribe_dependency->is_plugin_version( $class, $version );
+				$admin_notice->add_required_plugin( $plugin['short_name'], $plugin['thickbox_url'], $is_active );
 			}
 		}
 
-		return false;
+		if ( $should_plugin_run ) {
+			$tribe_dependency->add_active_plugin( $main_class, $version, $file_path );
+		}
+
+		return $should_plugin_run;
 	}
 }
 
@@ -112,10 +117,91 @@ if ( ! function_exists( 'tribe_exit' ) ) {
 
 		// Die and exit are language constructs that cannot be used as callbacks on all PHP runtimes
 		if ( 'die' === $handler || 'exit' === $handler ) {
-			exit;
+			exit ( $status );
 		}
 
 		return call_user_func( $handler, $status );
 	}
 }
 
+if ( ! function_exists( 'tribe_get_request_var' ) ) {
+	/**
+	 * Tests to see if the requested variable is set either as a post field or as a URL
+	 * param and returns the value if so.
+	 *
+	 * Post data takes priority over fields passed in the URL query. If the field is not
+	 * set then $default (null unless a different value is specified) will be returned.
+	 *
+	 * The variable being tested for can be an array if you wish to find a nested value.
+	 *
+	 * @see Tribe__Utils__Array::get()
+	 *
+	 * @param string|array $var
+	 * @param mixed        $default
+	 *
+	 * @return mixed
+	 */
+	function tribe_get_request_var( $var, $default = null ) {
+		$post_var = Tribe__Utils__Array::get( $_POST, $var );
+
+		if ( null !== $post_var ) {
+			return $post_var;
+		}
+
+		$query_var = Tribe__Utils__Array::get( $_GET, $var );
+
+		if ( null !== $query_var ) {
+			return $query_var;
+		}
+
+		return $default;
+	}
+}
+
+if ( ! function_exists( 'tribe_is_truthy' ) ) {
+	/**
+	 * Determines if the provided value should be regarded as 'true'.
+	 *
+	 * @param mixed $var
+	 *
+	 * @return bool
+	 */
+	function tribe_is_truthy( $var ) {
+		if ( is_bool( $var ) ) {
+			return $var;
+		}
+
+		/**
+		 * Provides an opportunity to modify strings that will be
+		 * deemed to evaluate to true.
+		 *
+		 * @param array $truthy_strings
+		 */
+		$truthy_strings = (array) apply_filters( 'tribe_is_truthy_strings', array(
+			'1',
+			'enable',
+			'enabled',
+			'on',
+			'y',
+			'yes',
+			'true',
+		) );
+		// Makes sure we are dealing with lowercase for testing
+		if ( is_string( $var ) ) {
+			$var = strtolower( $var );
+		}
+
+		// If $var is a string, it is only true if it is contained in the above array
+		if ( in_array( $var, $truthy_strings, true ) ) {
+			return true;
+		}
+
+		// All other strings will be treated as false
+		if ( is_string( $var ) ) {
+			return false;
+		}
+
+		// For other types (ints, floats etc) cast to bool
+		return (bool) $var;
+	}
+}

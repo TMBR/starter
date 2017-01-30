@@ -16,6 +16,7 @@
  *
  * @package TribeEventsCalendarPro
  *
+ * @version 4.3
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -23,7 +24,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 $organizer_id = get_the_ID();
-
 ?>
 
 <?php while ( have_posts() ) : the_post(); ?>
@@ -42,7 +42,7 @@ $organizer_id = get_the_ID();
 
 				<!-- Organizer Meta -->
 				<?php do_action( 'tribe_events_single_organizer_before_the_meta' ); ?>
-				<?php echo tribe_get_meta_group( 'tribe_event_organizer' ) ?>
+				<?php echo tribe_get_organizer_details(); ?>
 				<?php do_action( 'tribe_events_single_organizer_after_the_meta' ) ?>
 
 				<!-- Organizer Featured Image -->

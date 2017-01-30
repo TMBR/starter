@@ -40,6 +40,10 @@ class Tribe__Events__Pro__Recurrence__Permalinks {
 				$post_link = str_replace( "%$post->post_type%", $slug, $permastruct );
 			}
 			$post_link = trailingslashit( $post_link ) . $date;
+			$sequence_number = get_post_meta( $post->ID, '_EventSequence', true );
+			if ( !empty($sequence_number) && (is_numeric($sequence_number) && intval($sequence_number) > 1) ) {
+				$post_link = trailingslashit($post_link) . $sequence_number;
+			}
 			$post_link = str_replace( array( home_url( '/' ), site_url( '/' ) ), '', $post_link );
 			$post_link = home_url( user_trailingslashit( $post_link ) );
 		}
@@ -92,6 +96,61 @@ class Tribe__Events__Pro__Recurrence__Permalinks {
 		$permastruct = $wp_rewrite->get_extra_permastruct( $post->post_type );
 
 		return $permastruct;
+	}
+
+	/**
+	 * Filters the sample permalink to show a link to the first instance of recurring events.
+	 *
+	 * This is to match the real link pointing to a recurring events series first instance.
+	 *
+	 * @param string  $permalink Sample permalink.
+	 * @param int     $post_id   Post ID.
+	 *
+	 * @return string The permalink to the first recurring event instance if the the event
+	 *                is a recurring one, the original permalink otherwise.
+	 */
+	public function filter_sample_permalink( $permalink, $post_id ) {
+		if ( ! empty( $post_id ) && tribe_is_recurring_event( $post_id ) ) {
+			// fetch the real post permalink, recurring event filters down the road will
+			// append the date to it
+			$permalink = get_post_permalink( $post_id );
+		}
+
+		return $permalink;
+	}
+
+	/**
+	 * Filters the sample permalink html to show a link to the first instance of recurring events.
+	 * This filter runs on private recurring events to fix a broken link that was being created in get_sample_permalink_html()
+	 *
+	 * This is to match the real link pointing to a recurring events series first instance.
+	 *
+	 * @param string $permalink_html Sample permalink html.
+	 * @param int    $post_id        Post ID.
+	 *
+	 * @return string The label and permalink html to the first recurring event instance if the the event
+	 *                is a recurring one, the original permalink otherwise.
+	 */
+	public function filter_sample_permalink_html( $permalink_html, $post_id ) {
+
+		if ( ! empty( $post_id ) && 'private' == get_post_status( $post_id ) && tribe_is_recurring_event( $post_id ) ) {
+
+			//Break up the html to remove the broken link from the label
+			$permalink_html = explode( '</strong>', $permalink_html, 2 );
+
+			//set html as label
+			$permalink_html = isset( $permalink_html[0] ) ? $permalink_html[0] : '';
+
+			// fetch the real post permalink, recurring event filters down the road will
+			// append the date to it
+			$url = get_post_permalink( $post_id );
+
+			//rebuild the link
+			$permalink_html = $permalink_html . sprintf( ' <a id="sample-permalink" href="%1s">%2s</a>', $url, $url );
+
+		}
+
+		return $permalink_html;
 	}
 }
 

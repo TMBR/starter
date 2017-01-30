@@ -4,8 +4,8 @@ Contributors: ModernTribe, barry.hughes, bordoni, borkweb, brianjessee, brook-tr
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget, pro
 Donate link: http://m.tri.be/29
 Requires at least: 3.9
-Tested up to: 4.5.2
-Stable tag: 4.2
+Tested up to: 4.7
+Stable tag: 4.4.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -202,6 +202,103 @@ Our Premium Plugins:
 * <a href="http://m.tri.be/fa" target="_blank">The Events Calendar: Filter Bar</a>
 
 == Changelog ==
+
+= [4.4.1] 2017-01-26 =
+
+* Tweak - Improve recurrence User Experience, easier interface for types of Rule [71501]
+* Fix - Single Event recurrency on the same day as the original Event will be created properly [68496]
+* Fix - Prevent legacy recurrent events to trigger Notices on front-end
+
+= [4.4] 2017-01-09 =
+
+* Feature - Added the [tribe_event_inline] shortcode to allow rendering of single event data anywhere shortcodes are allowed! [44803]
+* Feature - Add support for featured events [65898]
+* Feature - Allow deleting recurrences and exclusions [67110]
+* Feature - Make it possible to adjust map pins via the theme customizer [65889]
+* Tweak - Improvements to event-related aspects of the theme customizer [67485]
+* Tweak - Consolidated and simplified the UI when creating recurring events [67110, 66713-66716, 67122, 67123, 67143]
+* Tweak - Improved ordering of information in the advanced events list widget [36589]
+* Tweak - Cleanup of the plugin CSS to help make customization easier [33842]
+* Tweak - Added support for featured events to the [tribe_events] shortcode (using featured="on" type syntax) [65901]
+
+= [4.3.4] 2016-12-20 =
+
+* Fix - Taxonomy selections not saving for widgets by checking for a variable and setting a default [68450]
+* Tweak - Updated the template override instructions in a number of templates [68229]
+
+= [4.3.3] 2016-11-16 =
+
+* Fix - Fresh install now have fully functional Week, Photo and Map permalinks [67696]
+* Fix - Category Filter on [tribe_events] shortcode is fully functional [68010]
+* Fix - Widgets Selector for Term Filtering is working again for new Widgets [68541]
+* Fix - Resolve Private Recurring Events Sample Permalink and ALL Page Visibility (thanks @brian for reporting this one in the forums) [68778]
+* Fix - Enable ampersand character in mobile week view titles (thanks @kate for this report) [45409]
+
+= [4.3.2] 2016-11-02 =
+
+* Fix - Prevent notices on wp-login.php page from Customizer Code
+* Fix - Now Tooltip are showing on Week view for Shortcode (thanks to @jacob for this report)[68094]
+* Fix - Make the "Find out more" string in the week mobile view translatable (thanks @saloni for highlighting this in our forums) [67322]
+* Fix - Changes to ensure valid HTML is output from the single venue page (Thanks @Reinhard!)[68440]
+
+= [4.3.1.1] 2016-10-21 =
+
+* Fix - Resolved a Fatal using function return value in write context (5.2 compatibility) [68387]
+
+= [4.3.1] 2016-10-20 =
+
+* Fix - Pagination links on Week view are updating correctly [67977]
+* Tweak - Only load This Week Widget Resources when the widget or shortcode is on a page (props to @stratejusinc) [63921]
+* Tweak - Added AJAX on Select2 for Widgets, improving performance. [66130]
+* Tweak - Added plugin file path constant.
+* Tweak - Registered plugin as active with Tribe Common. [66657]
+* Fix - Allow pagination and control over the posts per page on the single venue view (thanks to @R for reporting this one) [62857]
+* Tweak - Open recurrence exclusion rules by default on reload of admin[64289]
+
+= [4.3] 2016-10-13 =
+
+* Feature - Added the [tribe_events] shortcode to allow for the rendering of event views anywhere shortcodes are allowed! [44800]
+* Feature - Introduces support for enhanced logging [36047]
+* Tweak - Added the "All Events" link on top of all recurring events view
+* Tweak - Made the redirect URL used when a recurring event cannot be found filterable (props: @logoscreative) [64106]
+* Deprecated - Deprecated various disused functions that were built around the Meta Factory [39905]
+* Deprecated - `Tribe__Events__Pro__Templates__Single_Organizer::setup_upcoming_events()` has been deprecated
+
+= [4.2.6] 2016-09-15 =
+
+* Fix - When a queue of recurring events is being processed, ensure the queue status can be detected from other requests (Thanks to our community user  @integrity for getting this issue in front of us in the support forums.)
+
+= [4.2.5] 2016-08-17 =
+
+* Fix - Fixed inconsistent template filtering logic for single event template [62525]
+* Tweak - Restored preview for published events [64874]
+
+= [4.2.4] 2016-08-17 =
+
+Fix - PHP notice when importing events from iCal importer [64747]
+
+= [4.2.3] 2016-07-20 =
+
+* Fix - Change myremove to jQuery Grep to improve compatibility with Black Studio TinyMCE Widget (Thank you @digisavvy for reporting this in the support Forums)
+* Fix - Add check for past events in the mini calendar and event list widget date icon box so it shows the correct information (Initialy reported by @yuryvasilchenko in the support forums. Thanks!)
+
+= [4.2.2.1] 2016-07-11 =
+
+* Fix - Issue that could lead to the generation of infinite recurring events (props to hydeaway and many others)
+
+= [4.2.2] 2016-07-06 =
+
+* Fix - Broken oembedding of content
+* Fix - Recurring event instances happening on the same day are now assigned different post names and guids
+* Tweak - Avoid loading customizer preview scripts when not previewing site in Theme Customizer
+
+= [4.2.1] 2016-06-22 =
+
+* Fix - Fix issue where width of content area in photo view was inheriting styles making it too narrow
+* Fix - Allow '0' to be set as the value of additional fields
+* Fix - Graciously handle malformed recurrence event meta information
+* Tweak - Added helper text near Distance filter to add clarity for Filter Bar users
+* Fix - Fixed an issue where 'All Day' label was displaying on Wednesday rather than the time column
 
 = [4.2] 2016-06-08 =
 

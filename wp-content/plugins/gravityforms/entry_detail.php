@@ -27,8 +27,15 @@ class GFEntryDetail {
 	 */
 	private static $_total_count = 0;
 
+	/**
+	 * Prepare meta boxes and screen options.
+	 */
 	public static function add_meta_boxes() {
-		// Prepare meta boxes and screen options.
+
+		$entry = self::get_current_entry();
+		if ( is_wp_error( $entry ) ) {
+			return;
+		}
 
 		$meta_boxes = array(
 			'submitdiv'     => array(
@@ -36,12 +43,15 @@ class GFEntryDetail {
 				'callback' => array( 'GFEntryDetail', 'meta_box_entry_info' ),
 				'context'  => 'side',
 			),
-			'notifications' => array(
+		);
+
+		if ( GFCommon::current_user_can_any( 'gravityforms_edit_entry_notes' ) ) {
+			$meta_boxes['notifications'] = array(
 				'title'    => esc_html__( 'Notifications', 'gravityforms' ),
 				'callback' => array( 'GFEntryDetail', 'meta_box_notifications' ),
 				'context'  => 'side',
-			),
-		);
+			);
+		}
 
 		if ( GFCommon::current_user_can_any( 'gravityforms_view_entry_notes' ) ) {
 			$meta_boxes['notes'] = array(
@@ -51,9 +61,6 @@ class GFEntryDetail {
 			);
 		}
 
-		$entry = self::get_current_entry();
-		$form  = self::get_current_form();
-
 		if ( ! empty( $entry['payment_status'] ) ) {
 			$meta_boxes['payment'] = array(
 				'title'    => $entry['transaction_type'] == 2 ? esc_html__( 'Subscription Details', 'gravityforms' ) : esc_html__( 'Payment Details', 'gravityforms' ),
@@ -62,14 +69,16 @@ class GFEntryDetail {
 			);
 		}
 
+		$form = self::get_current_form();
+
 		/**
 		 * Allow custom meta boxes to be added to the entry detail page.
 		 *
 		 * @since 2.0-beta-3
 		 *
 		 * @param array $meta_boxes The properties for the meta boxes.
-		 * @param array $entry The entry currently being viewed/edited.
-		 * @param array $form The form object used to process the current entry.
+		 * @param array $entry      The entry currently being viewed/edited.
+		 * @param array $form       The form object used to process the current entry.
 		 */
 		$meta_boxes = apply_filters( 'gform_entry_detail_meta_boxes', $meta_boxes, $entry, $form );
 
@@ -164,10 +173,10 @@ class GFEntryDetail {
 		/**
 		 * Allow the entry list search criteria to be overridden.
 		 *
-		 * @since  1.9.14.30
+		 * @since 1.9.14.30
 		 *
 		 * @param array $search_criteria An array containing the search criteria.
-		 * @param int $form_id The ID of the current form.
+		 * @param int   $form_id         The ID of the current form.
 		 */
 		$search_criteria = gf_apply_filters( array( 'gform_search_criteria_entry_list', $form_id ), $search_criteria, $form_id );
 
@@ -992,12 +1001,12 @@ class GFEntryDetail {
 											<div class="product_name"><?php echo esc_html( $product['name'] ); ?></div>
 											<ul class="product_options">
 												<?php
-												$price = GFCommon::to_number( $product['price'] );
+												$price = GFCommon::to_number( $product['price'], $lead['currency'] );
 												if ( is_array( rgar( $product, 'options' ) ) ) {
 													$count = sizeof( $product['options'] );
 													$index = 1;
 													foreach ( $product['options'] as $option ) {
-														$price += GFCommon::to_number( $option['price'] );
+														$price += GFCommon::to_number( $option['price'], $lead['currency'] );
 														$class = $index == $count ? " class='lastitem'" : '';
 														$index ++;
 														?>
@@ -1174,7 +1183,7 @@ class GFEntryDetail {
 
 	public static function meta_box_notes( $args, $metabox ) {
 		$entry = $args['entry'];
-		$form = $args['form'];
+		$form  = $args['form'];
 		?>
 		<form method="post">
 			<?php wp_nonce_field( 'gforms_update_note', 'gforms_update_note' ) ?>
@@ -1201,9 +1210,9 @@ class GFEntryDetail {
 	}
 
 	public static function meta_box_entry_info( $args, $metabox ) {
-		$form = $args['form'];
+		$form  = $args['form'];
 		$entry = $args['entry'];
-		$mode = $args['mode'];
+		$mode  = $args['mode'];
 		?>
 		<div id="submitcomment" class="submitbox">
 			<div id="minor-publishing" style="padding:10px;">
@@ -1321,7 +1330,7 @@ class GFEntryDetail {
 	}
 
 	public static function meta_box_notifications( $args, $metabox ){
-		$form = $args['form'];
+		$form    = $args['form'];
 		$form_id = $form['id'];
 
 		if ( ! GFCommon::current_user_can_any( 'gravityforms_edit_entry_notes' ) ) {

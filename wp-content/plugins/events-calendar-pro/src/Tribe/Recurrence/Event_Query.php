@@ -61,13 +61,16 @@ class Tribe__Events__Pro__Recurrence__Event_Query {
 		if ( empty( $this->parent_event ) ) {
 			$this->setup_for_404();
 		} else {
+			//Query Private Events if Logged In
+			$status = current_user_can( 'read_private_tribe_events' ) ? array( 'publish', 'private' ) : 'publish';
+
 			$this->query->set( 'post_parent', $this->parent_event->ID );
-			$this->query->set( 'post_status', 'publish' );
+			$this->query->set( 'post_status', $status );
 			$this->query->set( 'posts_per_page', tribe_get_option( 'postsPerPage', 10 ) );
+			$this->query->set( 'tribe_remove_date_filters', true );
 
 			// Configure what this page actually is
 			$this->query->is_singular = false;
-
 			$this->query->is_archive = true;
 			$this->query->is_post_type_archive = true;
 
@@ -80,10 +83,14 @@ class Tribe__Events__Pro__Recurrence__Event_Query {
 	 * Obtains the parent event post given the slug currently being queried for.
 	 */
 	protected function get_parent_event() {
+
+		//Query Parent Private Events if Logged In
+		$status = current_user_can( 'read_private_tribe_events' ) ? array( 'publish', 'private' ) : 'publish';
+
 		$posts = get_posts( array(
 			'name'        => $this->slug,
 			'post_type'   => Tribe__Events__Main::POSTTYPE,
-			'post_status' => 'publish',
+			'post_status' => $status,
 			'numberposts' => 1,
 		) );
 
