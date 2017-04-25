@@ -1836,45 +1836,229 @@ var acf;
 		
 		str_sanitize: function( string ) {
 			
-			// vars
-			var string2 = '',
-				replace = {
-				'æ': 'a',
-				'å': 'a',
-				'á': 'a',
-				'ä': 'a',
-				'č': 'c',
-				'ď': 'd',
-				'è': 'e',
-				'é': 'e',
-				'ě': 'e',
-				'ë': 'e',
-				'í': 'i',
-				'ĺ': 'l',
-				'ľ': 'l',
-				'ň': 'n',
-				'ø': 'o',
-				'ó': 'o',
-				'ô': 'o',
-				'ő': 'o',
-				'ö': 'o',
-				'ŕ': 'r',
-				'š': 's',
-				'ť': 't',
-				'ú': 'u',
-				'ů': 'u',
-				'ű': 'u',
-				'ü': 'u',
-				'ý': 'y',
-				'ř': 'r',
-				'ž': 'z',
-				' ': '_',
+			// chars (https://jsperf.com/replace-foreign-characters)
+			var map = {
+	            "À": "A",
+	            "Á": "A",
+	            "Â": "A",
+	            "Ã": "A",
+	            "Ä": "A",
+	            "Å": "A",
+	            "Æ": "AE",
+	            "Ç": "C",
+	            "È": "E",
+	            "É": "E",
+	            "Ê": "E",
+	            "Ë": "E",
+	            "Ì": "I",
+	            "Í": "I",
+	            "Î": "I",
+	            "Ï": "I",
+	            "Ð": "D",
+	            "Ñ": "N",
+	            "Ò": "O",
+	            "Ó": "O",
+	            "Ô": "O",
+	            "Õ": "O",
+	            "Ö": "O",
+	            "Ø": "O",
+	            "Ù": "U",
+	            "Ú": "U",
+	            "Û": "U",
+	            "Ü": "U",
+	            "Ý": "Y",
+	            "ß": "s",
+	            "à": "a",
+	            "á": "a",
+	            "â": "a",
+	            "ã": "a",
+	            "ä": "a",
+	            "å": "a",
+	            "æ": "ae",
+	            "ç": "c",
+	            "è": "e",
+	            "é": "e",
+	            "ê": "e",
+	            "ë": "e",
+	            "ì": "i",
+	            "í": "i",
+	            "î": "i",
+	            "ï": "i",
+	            "ñ": "n",
+	            "ò": "o",
+	            "ó": "o",
+	            "ô": "o",
+	            "õ": "o",
+	            "ö": "o",
+	            "ø": "o",
+	            "ù": "u",
+	            "ú": "u",
+	            "û": "u",
+	            "ü": "u",
+	            "ý": "y",
+	            "ÿ": "y",
+	            "Ā": "A",
+	            "ā": "a",
+	            "Ă": "A",
+	            "ă": "a",
+	            "Ą": "A",
+	            "ą": "a",
+	            "Ć": "C",
+	            "ć": "c",
+	            "Ĉ": "C",
+	            "ĉ": "c",
+	            "Ċ": "C",
+	            "ċ": "c",
+	            "Č": "C",
+	            "č": "c",
+	            "Ď": "D",
+	            "ď": "d",
+	            "Đ": "D",
+	            "đ": "d",
+	            "Ē": "E",
+	            "ē": "e",
+	            "Ĕ": "E",
+	            "ĕ": "e",
+	            "Ė": "E",
+	            "ė": "e",
+	            "Ę": "E",
+	            "ę": "e",
+	            "Ě": "E",
+	            "ě": "e",
+	            "Ĝ": "G",
+	            "ĝ": "g",
+	            "Ğ": "G",
+	            "ğ": "g",
+	            "Ġ": "G",
+	            "ġ": "g",
+	            "Ģ": "G",
+	            "ģ": "g",
+	            "Ĥ": "H",
+	            "ĥ": "h",
+	            "Ħ": "H",
+	            "ħ": "h",
+	            "Ĩ": "I",
+	            "ĩ": "i",
+	            "Ī": "I",
+	            "ī": "i",
+	            "Ĭ": "I",
+	            "ĭ": "i",
+	            "Į": "I",
+	            "į": "i",
+	            "İ": "I",
+	            "ı": "i",
+	            "Ĳ": "IJ",
+	            "ĳ": "ij",
+	            "Ĵ": "J",
+	            "ĵ": "j",
+	            "Ķ": "K",
+	            "ķ": "k",
+	            "Ĺ": "L",
+	            "ĺ": "l",
+	            "Ļ": "L",
+	            "ļ": "l",
+	            "Ľ": "L",
+	            "ľ": "l",
+	            "Ŀ": "L",
+	            "ŀ": "l",
+	            "Ł": "l",
+	            "ł": "l",
+	            "Ń": "N",
+	            "ń": "n",
+	            "Ņ": "N",
+	            "ņ": "n",
+	            "Ň": "N",
+	            "ň": "n",
+	            "ŉ": "n",
+	            "Ō": "O",
+	            "ō": "o",
+	            "Ŏ": "O",
+	            "ŏ": "o",
+	            "Ő": "O",
+	            "ő": "o",
+	            "Œ": "OE",
+	            "œ": "oe",
+	            "Ŕ": "R",
+	            "ŕ": "r",
+	            "Ŗ": "R",
+	            "ŗ": "r",
+	            "Ř": "R",
+	            "ř": "r",
+	            "Ś": "S",
+	            "ś": "s",
+	            "Ŝ": "S",
+	            "ŝ": "s",
+	            "Ş": "S",
+	            "ş": "s",
+	            "Š": "S",
+	            "š": "s",
+	            "Ţ": "T",
+	            "ţ": "t",
+	            "Ť": "T",
+	            "ť": "t",
+	            "Ŧ": "T",
+	            "ŧ": "t",
+	            "Ũ": "U",
+	            "ũ": "u",
+	            "Ū": "U",
+	            "ū": "u",
+	            "Ŭ": "U",
+	            "ŭ": "u",
+	            "Ů": "U",
+	            "ů": "u",
+	            "Ű": "U",
+	            "ű": "u",
+	            "Ų": "U",
+	            "ų": "u",
+	            "Ŵ": "W",
+	            "ŵ": "w",
+	            "Ŷ": "Y",
+	            "ŷ": "y",
+	            "Ÿ": "Y",
+	            "Ź": "Z",
+	            "ź": "z",
+	            "Ż": "Z",
+	            "ż": "z",
+	            "Ž": "Z",
+	            "ž": "z",
+	            "ſ": "s",
+	            "ƒ": "f",
+	            "Ơ": "O",
+	            "ơ": "o",
+	            "Ư": "U",
+	            "ư": "u",
+	            "Ǎ": "A",
+	            "ǎ": "a",
+	            "Ǐ": "I",
+	            "ǐ": "i",
+	            "Ǒ": "O",
+	            "ǒ": "o",
+	            "Ǔ": "U",
+	            "ǔ": "u",
+	            "Ǖ": "U",
+	            "ǖ": "u",
+	            "Ǘ": "U",
+	            "ǘ": "u",
+	            "Ǚ": "U",
+	            "ǚ": "u",
+	            "Ǜ": "U",
+	            "ǜ": "u",
+	            "Ǻ": "A",
+	            "ǻ": "a",
+	            "Ǽ": "AE",
+	            "ǽ": "ae",
+	            "Ǿ": "O",
+	            "ǿ": "o",
+	            
+	            // extra
+	            ' ': '_',
 				'\'': '',
 				'?': '',
 				'/': '',
 				'\\': '',
 				'.': '',
 				',': '',
+				'`': '',
 				'>': '',
 				'<': '',
 				'"': '',
@@ -1885,37 +2069,25 @@ var acf;
 				'}': '',
 				'(': '',
 				')': ''
-			};
+	        };
+			
+		    
+		    // vars
+		    var regexp = /\W/g,
+		        mapping = function (c) { return (typeof map[c] !== 'undefined') ? map[c] : c; };
 			
 			
-			// lowercase
+			// replace
+			string = string.replace(regexp, mapping);
+			
+			
+			// lower case
 			string = string.toLowerCase();
 			
 			
-			// loop through characters
-			for( i = 0; i < string.length; i++ ) {
-				
-				// character
-				var c = string.charAt(i);
-				
-				
-				// override c with replacement
-				if( typeof replace[c] !== 'undefined' ) {
-					
-					c = replace[c];
-						
-				}
-				
-				
-				// append
-				string2 += c;
-					
-			}
-			
-			
 			// return
-			return string2;
-				
+			return string;
+						
 		},
 		
 		
@@ -5417,17 +5589,27 @@ var acf;
 		get_file_info: function( $file_input, $hidden_input ){
 			
 			// vars
-			var attachment = {};
+			var val = $file_input.val(),
+				attachment = {};
+			
+			
+			// bail early if no value
+			if( !val ) {
+				
+				$hidden_input.val('');
+				return;
+				
+			}
 			
 			
 			// url
-			attachment.url = $file_input.val();
+			attachment.url = val;
 			
 			
 			// modern browsers
 			var files = $file_input[0].files;
 			
-			if( files ){
+			if( files.length ){
 				
 				// vars
 				var file = files[0];
@@ -5465,7 +5647,7 @@ var acf;
 				}
 				
 			}
-				
+			
 			
 			// set hidden input value
 			$hidden_input.val( jQuery.param(attachment) );
@@ -5803,6 +5985,10 @@ var acf;
 				self.update( lat, lng ).sync();
 			
 			});
+			
+			
+			// action for 3rd party customization
+			acf.do_action('google_map_init', this.map, this.map.marker, this.$field);
 			
 			
 	        // add to maps
@@ -7640,62 +7826,63 @@ var acf;
 			// extend
 			wp.media.view.AttachmentCompat = AttachmentCompat.extend({
 				
+				add_acf_expand_button: function(){
+					
+					// vars
+					var $el = this.$el.closest('.media-modal');
+					
+					
+					// does button already exist?
+					if( $el.find('.media-frame-router .acf-expand-details').exists() ) return;
+					
+					
+					// create button
+					var $a = $([
+						'<a href="#" class="acf-expand-details">',
+							'<span class="is-closed"><span class="acf-icon -left small grey"></span>' + acf._e('expand_details') +  '</span>',
+							'<span class="is-open"><span class="acf-icon -right small grey"></span>' + acf._e('collapse_details') +  '</span>',
+						'</a>'
+					].join('')); 
+					
+					
+					// add events
+					$a.on('click', function( e ){
+						
+						e.preventDefault();
+						
+						if( $el.hasClass('acf-expanded') ) {
+						
+							$el.removeClass('acf-expanded');
+							
+						} else {
+							
+							$el.addClass('acf-expanded');
+							
+						}
+						
+					});
+					
+					
+					// append
+					$el.find('.media-frame-router').append( $a );
+					
+				},
+				
 				render: function() {
-					
-					// reference
-					var self = this;
-					
 					
 					// validate
 					if( this.ignore_render ) return this;
 					
 					
-					// add button
+					// reference
+					var self = this;
+					
+					
+					// add expand button
 					setTimeout(function(){
 						
-						// vars
-						var $media_model = self.$el.closest('.media-modal');
+						self.add_acf_expand_button();
 						
-						
-						// does button already exist?
-						if( $media_model.find('.media-frame-router .acf-expand-details').exists() ) {
-						
-							return;	
-							
-						}
-						
-						
-						// create button
-						var $a = $([
-							'<a href="#" class="acf-expand-details">',
-								'<span class="is-closed"><span class="acf-icon -left small grey"></span>' + acf._e('expand_details') +  '</span>',
-								'<span class="is-open"><span class="acf-icon -right small grey"></span>' + acf._e('collapse_details') +  '</span>',
-							'</a>'
-						].join('')); 
-						
-						
-						// add events
-						$a.on('click', function( e ){
-							
-							e.preventDefault();
-							
-							if( $media_model.hasClass('acf-expanded') ) {
-							
-								$media_model.removeClass('acf-expanded');
-								
-							} else {
-								
-								$media_model.addClass('acf-expanded');
-								
-							}
-							
-						});
-						
-						
-						// append
-						$media_model.find('.media-frame-router').append( $a );
-							
-					
 					}, 0);
 					
 					
@@ -8889,6 +9076,124 @@ var acf;
 		
 		
 		/*
+		*  set_data
+		*
+		*  description
+		*
+		*  @type	function
+		*  @date	17/4/17
+		*  @since	5.5.10
+		*
+		*  @param	$post_id (int)
+		*  @return	$post_id (int)
+		*/
+		
+		set_data: function( $select, data ){
+			
+			// v3
+			if( this.version == 3 ) {
+				
+				$select = $select.siblings('input');
+				
+			}
+			
+			
+			// set data
+			$select.select2('data', data);
+			
+		},
+		
+		append_data: function( $select, data ){
+			
+			// v3
+			if( this.version == 3 ) {
+				
+				$select = $select.siblings('input');
+				
+			}
+			
+			
+			
+			// vars
+			var current = $select.select2('data') || [];
+			
+			
+			// append
+			current.push( data );
+			
+			
+			// set data
+			$select.select2('data', current);
+			
+		},
+		
+		test1: function(){
+		
+			// vars
+			var $select1 = $('#acf-field_58f402c1bbcfc'),
+				$select2 = $('#acf-field_58f409669fb72');
+			
+			
+			// data
+			var item = {
+				id:		'foo',
+				text:	'bar'
+			};
+			
+			console.log('test set_data to bar');
+			
+			acf.select2.set_data( $select1, item );
+			acf.select2.set_data( $select2, item );
+			
+		},
+		
+		test2: function(){
+		
+			// vars
+			var $select1 = $('#acf-field_58f402c1bbcfc'),
+				$select2 = $('#acf-field_58f409669fb72');
+			
+			
+			// data
+			var item = {
+				id:		'foo',
+				text:	'bar'
+			};
+			
+			console.log('test append_data to bar');
+			
+			acf.select2.set_data( $select1, item );
+			acf.select2.set_data( $select2, item );
+			
+		},
+		
+		test3: function(){
+		
+			// vars
+			var $select1 = $('#acf-field_58f402c1bbcfc'),
+				$select2 = $('#acf-field_58f409669fb72');
+			
+			
+			// data
+			var items = [
+				{
+					id:		'foo1',
+					text:	'bar1'
+				},
+					{
+					id:		'foo2',
+					text:	'bar2'
+				}
+			];
+			
+			console.log('test append_data to [bar1, bar2]');
+			
+			acf.select2.set_data( $select1, items );
+			acf.select2.set_data( $select2, items );
+			
+		},
+		
+		/*
 		*  decode_data
 		*
 		*  This function will take an array of choices and decode the text
@@ -9116,8 +9421,8 @@ var acf;
 			return val;
 			
 		},
-		    
-    
+		
+		
 		/*
 		*  init_v3
 		*
@@ -9807,7 +10112,7 @@ var acf;
 			// get options
 			this.o = this.$el.data();
 			this.o.key = this.$field.data('key');
-			this.o.text = this.$el.text();
+			this.o.text = this.$el.html();
 			
 		},
 		
@@ -10919,6 +11224,13 @@ var acf;
 				case 'select':
 					
 					this.$el.children('input').select2('data', item);
+					
+					
+					// vars
+					//var $select = this.$el.children('select');
+					//acf.select2.set_data($select, item);
+					
+					
 					break;
 				
 				case 'multi_select':
@@ -10934,6 +11246,13 @@ var acf;
 					
 					// update
 					$input.select2('data', value);
+					
+					
+					// vars
+					//var $select = this.$el.children('select');
+					//acf.select2.append_data($select, item);
+					
+					
 					break;
 				
 				case 'checkbox':
