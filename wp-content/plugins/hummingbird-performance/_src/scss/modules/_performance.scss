@@ -1,0 +1,254 @@
+/* ****************************************************************************
+ * MODULES: PERFORMANCE
+ */
+
+@import "../common/mixins";
+@import "~@wpmudev/shared-ui/scss/colors";
+
+.wpmud .wrap-wphb-performance {
+
+    #wphb-error-details {
+        display: none;
+
+        code {
+            background: #fff;
+        }
+    }
+
+    .sui-actions-right .sui-tooltip {
+        margin-right: 10px;
+    }
+
+    .sui-dismissed .sui-circle-score svg circle:last-child {
+        stroke: #AAAAAA;
+    }
+
+    .sui-accordion-item {
+        &.sui-dismissed td:first-child {
+            border-left: 2px solid #AAAAAA;
+        }
+
+        &.sui-error td:first-child {
+            border-left: 2px solid $error;
+        }
+
+        &.sui-warning td:first-child {
+            border-left: 2px solid $warning;
+        }
+
+        &.sui-success td:first-child {
+            border-left: 2px solid $success;
+        }
+    }
+
+    /**
+     * Summary meta box
+     */
+    .box-performance-welcome.sui-summary {
+        background-image: url("#{$image--path}/graphic-hb-minify-summary@2x.png");
+    }
+
+    /**
+     * Performance report table meta box
+     */
+    .performance-report-table {
+        tr:first-child > td {
+            border-top: 1px solid #E6E6E6;
+        }
+
+        p, ol li {
+            font-size: 13px !important;
+            color: #888888;
+            line-height: 22px;
+        }
+
+        ol > p {
+            margin-left: -30px;
+            margin-bottom: 15px;
+        }
+
+        .wphb-performance-report-item-type {
+            color: #888888;
+            font-size: 13px;
+            transition: color .3s;
+            width: 130px;
+
+            &:first-letter {
+                text-transform: capitalize;
+            }
+
+            @include bp(desktop-large) {
+                width: 115px;
+            }
+
+            @include bp(desktop) {
+                width: 105px;
+            }
+
+            @include bp(tablet) {
+                display: none !important;
+            }
+        }
+
+        .sui-box-performance-report-additional-content {
+            // overwrite for .wpdui-btn
+            .wpdui-btn {
+                text-transform: uppercase;
+
+                &:hover {
+                    color: #fff;
+                }
+            }
+
+            a:not(.wpdui-btn),
+            a:not(.wpdui-btn):hover {
+                color: #17A8E3;
+                font-weight: 400;
+                overflow-wrap: break-word;
+                word-wrap: break-word;
+                word-break: break-all;
+                -ms-hyphens: auto;
+                -moz-hyphens: auto;
+                -webkit-hyphens: auto;
+                hyphens: auto;
+            }
+
+            h4:first-child {
+                margin-top: 0;
+            }
+
+            h4, h5 {
+                font-family: 'Roboto', sans-serif;
+                color: #333333;
+                font-size: 13px;
+                text-transform: none;
+                line-height: 23px;
+                margin: 20px 0 20px;
+                text-align: left;
+            }
+
+            &.disable-buttons a.wpdui-btn,
+            &.disable-buttons a.button {
+                display: none;
+            }
+
+            @include bp(phone) {
+                padding: 15px 20px;
+            }
+        }
+
+        @include bp(tablet) {
+            th, td {
+                width: 70% !important;
+            }
+        }
+
+        @include bp(phone) {
+            margin-top: 0;
+        }
+    }
+
+    /**
+     * Performance reports meta box
+     */
+    .recipient {
+        margin-bottom: 10px;
+        padding: 5px 10px;
+
+        &:hover {
+            border-radius: 4px;
+            background-color: #F8F8F8;
+
+            a > i {
+                color: #333333;
+            }
+        }
+
+        img {
+            -webkit-border-radius: 50px;
+            -moz-border-radius: 50px;
+            border-radius: 50px;
+            width: 30px;
+            height: 30px;
+            margin-right: 10px;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .name {
+            color: #333333;
+            font-weight: 500;
+        }
+
+        a > i {
+            color: #888888;
+        }
+    }
+
+    .add-recipient {
+        margin-top: 15px;
+
+        & > * {
+            margin-bottom: 0;
+            border-radius: 0;
+            border: 1px solid #E6E6E6;
+            font-weight: normal;
+        }
+
+        & > button {
+            background-color: #888888 !important;
+            border-radius: 0 4px 4px 0 !important;
+            min-width: 60px;
+        }
+
+        & > input::placeholder {
+            color: #AAAAAA;
+            font-weight: 400;
+        }
+
+        #wphb-first-name {
+            border-radius: 4px 0 0 4px;
+            border-right: 0;
+            background-color: #F8F8F8;
+            margin: 0;
+        }
+
+        #wphb-username-search {
+            background-color: #F8F8F8;
+            margin: 0;
+        }
+
+        @include bp(phone) {
+            & > button,
+            #wphb-first-name {
+                border-radius: 0 !important;
+                margin-bottom: 5px;
+                border: 1px solid #E6E6E6;
+            }
+
+            & > button {
+                margin-top: 10px !important;
+            }
+        }
+    }
+
+    .recipient,
+    .recipient .name,
+    .add-recipient {
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: space-between;
+        align-items: center;
+        align-content: center;
+
+        @include bp(phone) {
+            flex-flow: row wrap;
+        }
+    }
+
+    .recipient .name > span,
+    .recipient .email {
+        font-size: 13px;
+    }
+
+}

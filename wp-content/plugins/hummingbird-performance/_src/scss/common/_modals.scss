@@ -1,0 +1,77 @@
+/* ****************************************************************************
+ * COMMON: MODALS
+ */
+
+#wphb-quick-setup-modal .sui-description {
+    line-height: 22px;
+}
+
+/* CDN modal */
+.wphb-cdn-block {
+    border: 1px solid #E6E6E6;
+    border-radius: 5px;
+    padding: 18px 0;
+}
+
+.wphb-cdn-block > div {
+    display: flex;
+    align-content: center;
+    align-items: center;
+    height: auto;
+    padding: 20px 30px 0;
+}
+
+.wphb-cdn-block > div > label {
+    margin: 2px 0 0 0;
+    color: #666666;
+}
+
+.wphb-cdn-block > p {
+    color: #888888 !important;
+    padding: 0 30px 0 76px;
+}
+
+/* Asset Optimization assets found modal */
+.wpmud .wphb-assets-modal .sui-notice-warning {
+    text-align: left;
+}
+
+/* Asset Optimization switch mode notice */
+.wpmud .wphb-basic-minification-modal .box,
+.wpmud .wphb-advanced-minification-modal .box,
+.wpmud .wphb-database-cleanup-modal .box {
+    width: 400px !important;
+    margin-left: -200px !important;
+    padding: 40px 0 30px !important;
+}
+
+.wpmud .wphb-basic-minification-modal .title,
+.wpmud .wphb-advanced-minification-modal .title,
+.wpmud .wphb-database-cleanup-modal .title {
+    display: none;
+}
+
+.wpmud .wphb-basic-minification-modal h1,
+.wpmud .wphb-advanced-minification-modal h1,
+.wpmud .wphb-database-cleanup-modal h1 {
+    color: #333333;
+    font-size: 22px;
+    font-weight: bold;
+    line-height: 30px;
+    text-transform: none;
+}
+
+.wpmud .wphb-basic-minification-modal p,
+.wpmud .wphb-advanced-minification-modal p,
+.wpmud .wphb-database-cleanup-modal p {
+    color: #666;
+    font-size: 13px;
+    line-height: 22px;
+    margin: 0 30px;
+    text-align: center;
+}
+
+.wpmud .wphb-basic-minification-modal img,
+.wpmud .wphb-advanced-minification-modal img {
+    margin-left: 0;
+}

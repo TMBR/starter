@@ -1,0 +1,283 @@
+/* ****************************************************************************
+ * MAIN APP SCSS FILE
+ */
+
+// Shared ui styles.
+@import "~@wpmudev/shared-ui/scss/shared-ui.scss";
+
+// Common
+@import "common/variables";
+@import "common/mixins";
+@import "common/overwrites";
+@import "common/typography";
+@import "common/buttons";
+@import "common/modals";
+
+// Components
+@import "components/notices";
+@import "components/pills";
+@import "components/border_frame";
+@import "components/settings_form";
+
+// Modules
+@import "modules/dashboard";
+@import "modules/performance";
+@import "modules/caching";
+@import "modules/gzip";
+@import "modules/minification";
+@import "modules/uptime";
+@import "modules/advanced";
+
+
+/* ****************************************************************************
+ * 1. EXTEND/OVERRIDE WPMUDEV DASHBOARD/WP STYLES
+ */
+#wpbody-content {
+    padding-bottom: 25px;
+}
+
+.sui-header .sui-button i {
+    margin-right: 5px;
+}
+
+.wpmud .wrap-wp-hummingbird {
+    .clear {
+        padding: 0;
+    }
+
+    .mline {
+        margin-bottom: 30px;
+    }
+}
+
+.wpmud .select-list-container {
+    min-width: 100px;
+
+    .list-value {
+        color: #333333;
+        font-weight: 500;
+        padding: 6px 8px 6px 15px;
+    }
+}
+
+.wpmud .dev-list-stats > li {
+    &.standalone {
+        margin: 0;
+    }
+
+    &.small > li {
+        .list-label-stats,
+        .list-detail-stats-heading {
+            line-height: 26px;
+        }
+    }
+
+    .list-label-stats,
+    .list-detail-stats-heading {
+        color: #333;
+        font: 500 13px/30px $font;
+    }
+
+    .list-detail-stats-heading {
+        font-weight: 400;
+        font-size: 18px;
+        color: #666;
+
+        &.small {
+            font-size: 26px;
+        }
+    }
+
+    .list-detail-stats-heading-extra-info {
+        color: #BABABA;
+        display: block;
+        font: 500 12px/16px $font;
+        margin-top: 5px;
+    }
+
+    .list-label-stats-date {
+        margin-right: 30px;
+    }
+}
+
+.wpmud input[type="checkbox"] {
+    border-radius: 4px;
+    border: 1px solid #E6E6E6;
+    background-color: #F8F8F8;
+}
+
+.wpmud [tooltip]:after {
+    font: 500 12px/18px $font;
+    padding: 8px 12px;
+    background: #333333;
+    min-width: 50px;
+    max-width: 250px;
+    transition: all 0.2s ease;
+    text-transform: none;
+}
+
+.wpmud .radio-group input[type="radio"] + label > [tooltip] {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 9;
+}
+
+/* Labels */
+.wpmud .wrap-wp-hummingbird .wphb-label {
+    color: #fff;
+    display: block;
+    font: 500 15px/20px $font;
+    text-shadow: none;
+    white-space: nowrap;
+}
+
+.wpmud .wrap-wp-hummingbird .wphb-label-notice-inline {
+    display: inline-block;
+    font-size: 13px;
+    color: #888888;
+    margin: 0 15px;
+}
+
+/* ****************************************************************************
+ * 2. COMMON/GENERAL STYLES
+ */
+.wpmud .wphb-image,
+.wpmud .wphb-image-icon-content {
+    display: block;
+    height: auto;
+    max-width: 100%;
+}
+
+.wpmud .wphb-image-center,
+.wpmud .wphb-image-icon-content-center {
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.wpmud .wphb-image-icon-content-top {
+    margin-bottom: 30px;
+}
+
+/* Lists */
+.wpmud .wphb-listing {
+    margin: 0;
+
+    &.bold li {
+        font-weight: 500;
+    }
+
+    &.wphb-listing-ordered {
+        padding-left: 20px;
+    }
+
+    li {
+        font-family: $font;
+        font-size: 15px;
+        font-weight: 400;
+        line-height: 21px;
+        margin-top: 10px;
+        margin-bottom: 0;
+
+        &:first-child {
+            margin-top: 0;
+        }
+
+        :before {
+            color: #17A8E3;
+            top: 0;
+        }
+
+        strong {
+            font-weight: 500;
+        }
+
+        p {
+            font-size: 13px;
+            line-height: 22px;
+            margin-top: 5px;
+        }
+    }
+}
+
+/* ****************************************************************************
+ * 3. COMPONENTS/MODULES
+ */
+/* Progress bar */
+@keyframes spinner {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg)
+    }
+
+    50% {
+        -webkit-transform: rotate(180deg);
+        transform: rotate(180deg)
+    }
+
+    100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg)
+    }
+}
+
+/* Asset Optimization - changed file */
+@keyframes pop{
+    50%  {
+        transform: scale(1.2);
+    }
+}
+
+/* Filename Extensions Icons */
+.wphb-filename-extension {
+    border-radius: 4px;
+    display: block;
+    float: left;
+    font-family: $font;
+    font-size: 9px;
+    color: #fff;
+    text-transform: uppercase;
+    text-align: center;
+    line-height: 43px;
+    height: 30px;
+    margin: 0 10px 0 0;
+    width: 30px;
+
+    &.wphb-filename-extension-html {
+        background-color: #F56418;
+    }
+
+    &.wphb-filename-extension-other {
+        background-color: #AAAAAA;
+    }
+
+    &.wphb-filename-extension-css {
+        background-color: #25A8DE;
+    }
+
+    &.wphb-filename-extension-media {
+        background-color: #55DDB8;
+    }
+
+    &.wphb-filename-extension-images {
+        background-color: #BDF2F7;
+        color: #333333;
+    }
+
+    &.wphb-filename-extension-javascript,
+    &.wphb-filename-extension-js {
+        background-color: #F7E100;
+        color: #333333;
+    }
+}
+
+.sui-list-label {
+    .wphb-filename-extension {
+        margin: -5px 10px -5px 0px;
+    }
+    .wphb-filename-extension-label {
+        line-height: 22px;
+    }
+}

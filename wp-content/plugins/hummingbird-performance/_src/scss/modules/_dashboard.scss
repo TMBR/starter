@@ -1,0 +1,285 @@
+/* ****************************************************************************
+ * MODULES: DASHBOARD
+ */
+
+/* Images */
+.wpmud div[class^="box-dashboard-"] .sui-box-title:before {
+    font-family: $font--icons;
+    color: #333333;
+    float: left;
+    font-size: 20px;
+    margin-right: 10px;
+    line-height: 30px;
+}
+
+/* Meta boxes on the left */
+.wpmud div[class^="box-dashboard-performance"] .sui-box-title {
+    @include icon(before, 'hummingbird');
+}
+.wpmud div[class^="box-dashboard-caching-page"] .sui-box-title {
+    @include icon(before, 'page');
+}
+.wpmud div[class^="box-dashboard-browser"] .sui-box-title {
+    @include icon(before, 'refresh2');
+}
+.wpmud div[class^="box-dashboard-cloudflare"] .sui-box-title {
+    @include icon(before, 'cloudflare');
+}
+.wpmud div[class^="box-dashboard-caching-gravatar"] .sui-box-title {
+    @include icon(before, 'profile-male');
+}
+.wpmud div[class^="box-dashboard-smush"] .sui-box-title {
+    @include icon(before, 'smush');
+}
+
+/* Meta boxes on the right */
+.wpmud div[class^="box-dashboard-gzip"] .sui-box-title {
+    @include icon(before, 'zip');
+}
+.wpmud div[class^="box-dashboard-minification"] .sui-box-title {
+    @include icon(before, 'arrows-in');
+}
+.wpmud div[class^="box-dashboard-advanced-tools"] .sui-box-title {
+    @include icon(before, 'wand-magic');
+}
+.wpmud div[class^="box-dashboard-uptime"] .sui-box-title {
+    @include icon(before, 'uptime');
+}
+.wpmud div[class^="box-dashboard-reports"] .sui-box-title {
+    @include icon(before, 'graph-bar');
+}
+
+.wpmud div[class^="box-dashboard-"] .sui-box-footer .sui-button i {
+    margin-right: 5px;
+}
+
+/* Dashboard background images */
+.wpmud .box-dashboard-welcome.sui-summary {
+    @include background-2x( "#{$image--path}/hb-graphic-dash-top", 'png', 192px, 172px, 30px 100% );
+
+    .sui-button-green {
+        border-radius: 20px;
+    }
+}
+
+/* Dashboard tables */
+.wpmud .box-dashboard-performance-module {
+    .sui-accordion {
+        &:after {
+            margin-bottom: 0;
+        }
+
+        &.sui-table {
+            th {
+                @media (max-width: 783px) {
+                    padding: 0 15px 0 20px;
+                }
+            }
+        }
+
+        th {
+            color: #333333;
+            font-size: 13px;
+            font-weight: bold;
+            line-height: 30px;
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+
+        .sui-accordion-item {
+            &:hover {
+                cursor: default;
+                background-color: transparent;
+            }
+
+            .sui-button {
+                @media (max-width: 783px) {
+                    margin-right: 20px;
+                }
+            }
+        }
+
+        td.sui-accordion-item-title {
+            font-size: 13px;
+            color: #333333;
+            font-weight: 500;
+            line-height: 16px;
+
+            i {
+                font-size: 16px;
+            }
+        }
+    }
+}
+
+.wpmud .wphb-border-frame .wphb-caching-summary-item-type,
+.wpmud .wphb-border-frame .wphb-gzip-summary-item-type {
+    display: flex;
+    align-items: center;
+    align-content: center;
+}
+
+/* Status text on dashboard meta boxes */
+.wpmud .sui-box .status-text {
+    color: #888888;
+    font-size: 13px;
+    line-height: 22px;
+    margin-top: 5px;
+}
+
+/* Dashboard Asset Optimization */
+.wpmud .box-dashboard-minification-network-module .wphb-dash-ao-upsell {
+    background-color: rgba(242,242,242,0.5);
+    margin: 0 -30px;
+    padding: 20px 30px;
+
+    .sui-button-green {
+        border-radius: 20px;
+        float: right;
+    }
+}
+
+.wpmud .box-dashboard-minification-module .wphb-pills {
+    font-weight: bold;
+}
+
+/* Dashboard Reports */
+.wpmud .wrap-wp-hummingbird .report-status {
+    background-color: #F8F8F8;
+    height: 140px;
+    width: 100%;
+    position: relative;
+    -webkit-border-radius: 7px;
+    -moz-border-radius: 7px;
+    border-radius: 7px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+        background-color: #f2f2f2;
+        cursor: pointer;
+    }
+
+    &.with-corner {
+        &:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            border: 30px solid #D1F1EA;
+            border-top-right-radius: 7px;
+            border-bottom-color: transparent;
+            border-left-color: transparent;
+        }
+
+        &.grey {
+            &:before {
+                border-right-color: #E6E6E6;
+                border-top-color: #E6E6E6;
+            }
+
+            .corner i {
+                color: #888888;
+                font-size: 16px;
+                margin-right: 4px;
+            }
+        }
+    }
+
+    i:before {
+        color: #666666;
+        font-size: 24px;
+    }
+
+    strong {
+        font-family: $font--alt;
+        color: #666666;
+        font-weight: bold;
+        margin-top: 10px;
+        font-size: 13px;
+        line-height: 20px;
+    }
+
+    .corner {
+        position: absolute;
+        top: 0;
+        right: 0;
+        color: #1ABC9C;
+        font-weight: bold;
+        font-family: $font--alt;
+        padding-right: 6px;
+        padding-top: 10px;
+        text-transform: uppercase;
+        font-size: 13px;
+    }
+}
+
+/* Up-sell meta boxes in the footer */
+.wpmud .wphb-cross-smush,
+.wpmud .wphb-cross-defender,
+.wpmud .wphb-cross-crawl {
+    min-height: 150px;
+    border-radius: 5px 5px 0 0;
+    background-size: cover;
+
+    & > span {
+        width: 56px;
+        height: 56px;
+        display: block;
+        border: 3px solid #fff;
+        border-radius: 50%;
+        position: relative;
+        top: 80px;
+        left: 15px;
+        box-shadow: 0 1px 10px 0 rgba(0,0,0,0.25);
+    }
+}
+
+.wpmud .wphb-cross-smush {
+    background: url("#{$image--path}/plugins-smush.jpg") center;
+
+    & > span {
+        @include background-2x( "#{$image--path}/plugins-smush-icon", 'png', 50px, 50px, center center, no-repeat );
+    }
+}
+
+.wpmud .wphb-cross-defender {
+    background: url("#{$image--path}/plugins-defender.jpg") center;
+
+    & > span {
+        @include background-2x( "#{$image--path}/plugins-defender-icon", 'png', 50px, 50px, center center, no-repeat );
+    }
+}
+
+.wpmud .wphb-cross-crawl {
+    background: url("#{$image--path}/plugins-crawl.jpg") center;
+
+    & > span {
+        @include background-2x( "#{$image--path}/plugins-crawl-icon", 'png', 50px, 50px, center center, no-repeat );
+    }
+}
+
+@include bp(phone) {
+    .wpmud .box-dashboard-minification-module .wphb-pills {
+        display: block;
+    }
+
+    .wpmud .box-dashboard-performance-module .sui-accordion .sui-button-ghost {
+        padding: 5px 6px 7px !important;
+    }
+
+    .wpmud .box-dashboard-smush .buttons {
+        margin-top: 15px;
+    }
+
+    .wpmud .sui-box .status-text {
+        line-height: 15px;
+        margin-top: 0;
+        padding-left: 10px;
+        word-wrap: break-word;
+        max-width: 175px;
+    }
+}
